@@ -259,25 +259,25 @@ const data: PrivilagesData[] = [
 				name: 'General Settings',
 				url: '/app/settings/gentralsetting',
 				icon: ''
-			  },
-			 
-			  {
+			},
+
+			{
 				name: 'SMTP',
 				url: '/app/settings/smtpsetting',
 				icon: ''
-			  },
-			
-			  {
+			},
+
+			{
 				name: 'SEO',
 				url: '/app/settings/seosetting',
 				icon: ''
-			  },
-			
-			  {
+			},
+
+			{
 				name: 'Shipping',
 				url: '/app/settings/shipping',
 				icon: ''
-			  },
+			},
 		],
 		status: {
 			view: false,
@@ -387,7 +387,7 @@ const data: PrivilagesData[] = [
 		status: {
 			edit: false,
 			view: false,
-			add:false
+			add: false
 		}
 	},
 	// payment gateway
@@ -436,17 +436,17 @@ const data: PrivilagesData[] = [
 				name: 'Page List',
 				url: '/app/pages/list',
 				icon: ''
-			  },
-			  {
+			},
+			{
 				name: 'FAQ Management',
 				url: '/app/faq-management',
 				icon: ''
-			  },
+			},
 		],
 		status: {
 			edit: false,
 			delete: false,
-			add:true
+			add: true
 		}
 	},
 	// banner list
@@ -464,57 +464,70 @@ const data: PrivilagesData[] = [
 		}
 	},
 	{
+
+		alias: "Reports",
+		name: 'Reports',
+		url: '/app/reports',
+		icon: 'fa fa-bar-chart',
+		status: {
+			edit: false,
+			view: false,
+			delete: false,
+			add: false
+		}
+	},
+	{
 		alias: "Banner",
 		name: 'Banner Types',
 		url: '/app/banners/banner-types-list',
 		icon: 'assets/image/banner.png',
 		children: [
-		  {
-			name: 'Banner-type-lists',
-			url: '/app/banners/banner-types-list',
-			icon: ''
-		  },
-		  {
-			name: 'Header-1',
-			url: '/app/banners/header-1',
-			icon: ''
-		  },
-		  {
-			name: 'Header-2',
-			url: '/app/banners/header-2',
-			icon: ''
-		  },
-		  {
-			name: 'Banner batchs',
-			url: '/app/banners/batchs',
-			icon: ''
-		  },
-	
-		  {
-			name: 'Post-Header-1',
-			url: '/app/banners/post-header-1',
-			icon: ''
-		  },
-		  {
-			name: 'Post-Header-2',
-			url: '/app/banners/post-header-2',
-			icon: ''
-		  },
-		  {
-			name: 'Post-Category-3',
-			url: '/app/banners/post-category-3',
-			icon: ''
-		  },
-		  {
-			name: 'Post-Category-6',
-			url: '/app/banners/post-category-6',
-			icon: ''
-		  },
-		  {
-			name: 'Pre-Footer',
-			url: '/app/banners/pre-footer',
-			icon: ''
-		  },
+			{
+				name: 'Banner-type-lists',
+				url: '/app/banners/banner-types-list',
+				icon: ''
+			},
+			{
+				name: 'Header-1',
+				url: '/app/banners/header-1',
+				icon: ''
+			},
+			{
+				name: 'Header-2',
+				url: '/app/banners/header-2',
+				icon: ''
+			},
+			{
+				name: 'Banner batchs',
+				url: '/app/banners/batchs',
+				icon: ''
+			},
+
+			{
+				name: 'Post-Header-1',
+				url: '/app/banners/post-header-1',
+				icon: ''
+			},
+			{
+				name: 'Post-Header-2',
+				url: '/app/banners/post-header-2',
+				icon: ''
+			},
+			{
+				name: 'Post-Category-3',
+				url: '/app/banners/post-category-3',
+				icon: ''
+			},
+			{
+				name: 'Post-Category-6',
+				url: '/app/banners/post-category-6',
+				icon: ''
+			},
+			{
+				name: 'Pre-Footer',
+				url: '/app/banners/pre-footer',
+				icon: ''
+			},
 		],
 		status: {
 			edit: false,

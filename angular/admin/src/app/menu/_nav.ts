@@ -103,7 +103,7 @@ export const navItems: INavData[] = [
   //       icon: '',
   //       id: 'list'
 
-        
+
   //     },
   //     {
   //       name: 'Add Attributes',
@@ -122,7 +122,7 @@ export const navItems: INavData[] = [
         name: 'Vendors List',
         url: '/app/tags/list',
         icon: '',
-        id:'list'
+        id: 'list'
       },
       {
         name: 'Add Vendors',
@@ -142,7 +142,7 @@ export const navItems: INavData[] = [
         name: 'Drivers List',
         url: '/app/deals/list',
         icon: '',
-        id:'list'
+        id: 'list'
       },
       {
         name: 'Add Drivers',
@@ -151,6 +151,26 @@ export const navItems: INavData[] = [
         id: "add"
       },
     ]
+  },
+  {
+    id: "reports",
+    name: 'Reports',
+    url: '/app/report/reported-list',
+    icon: 'assets/image/category.png',
+    // children: [
+    //   {
+    //     name: 'Drivers List',
+    //     url: '/app/deals/list',
+    //     icon: '',
+    //     id: 'list'
+    //   },
+    //   {
+    //     name: 'Add Drivers',
+    //     url: '/app/deals/add',
+    //     icon: '',
+    //     id: "add"
+    //   },
+    // ]
   },
   // {
   //   id: "combo",
@@ -365,7 +385,7 @@ export const navItems: INavData[] = [
       //   url: '/app/settings/postheaderlist',
       //   icon: '',
       // },
-      
+
       // {
       //   name: 'Widgets',
       //   url: '/app/settings/widgets',
@@ -539,38 +559,38 @@ export const navItems: INavData[] = [
     name: 'Feet',
     url: '/app/testimonial',
     icon: 'assets/image/offer.png',
-    children : [
+    children: [
       {
         name: 'Add Feet',
         url: '/app/testimonial/add',
         icon: '',
-        id:'add'
+        id: 'add'
       },
       {
         name: 'Feet List',
         url: '/app/testimonial/list',
         icon: '',
-        id:'list'
+        id: 'list'
       },
     ]
   },
-   {
+  {
     id: "Invoice",
     name: 'Invoice',
     url: '/app/invoice',
     icon: 'assets/image/offer.png',
-    children : [
+    children: [
       {
         name: 'Add Invoice',
         url: '/app/invoice/add',
         icon: '',
-        id:'add'
+        id: 'add'
       },
       {
         name: 'Invoice List',
         url: '/app/invoice/list',
         icon: '',
-        id:'list'
+        id: 'list'
       },
     ]
   }
@@ -610,7 +630,7 @@ export const navItems: INavData[] = [
   //   name: 'Banner Types',
   //   url: '/app/banners/banner-types-list',
   //   icon: 'assets/image/banner.png',
-    
+
   //   children: [
   //     {
   //       name: 'Banner-type-lists',

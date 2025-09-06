@@ -1,0 +1,71 @@
+/* Container */
+.report-container {
+    background: #f9fbff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Tabs */
+.custom-tabs .nav-link {
+    color: #003366;
+    font-weight: 500;
+    border-radius: 5px 5px 0 0;
+}
+
+.custom-tabs .nav-link.active {
+    background: #003366;
+    color: #fff;
+}
+
+/* Filters */
+.filter-bar select,
+.filter-bar input {
+    font-size: 13px;
+}
+
+.form-control-sm,
+.form-select-sm {
+    padding: 2px 6px;
+}
+
+/* Table */
+.custom-table thead {
+    background: #003366 !important;
+    color: #fff;
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background: #e9f1ff;
+}
+
+.custom-table tbody tr:hover {
+    background: #d0e2ff;
+    transition: 0.3s;
+}
+
+table tr th {
+    background-color: #000000 !important;
+    padding: 10px 14px;
+}
+
+/* PDF Button */
+.btn-primary {
+    background-color: #003366;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0055aa;
+}
+
+
+
+
+
+.filter-bar select,
+.filter-bar input,
+.form-control-sm,
+.form-select-sm {
+    font-size: 13px;
+    padding: 3px 6px;
+}
