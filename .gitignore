@@ -1,0 +1,10 @@
+angular/admin/node_modules
+angular/admin/package-lock.json
+angular/web_site/node_modules
+angular/web_site/package-lock.json
+package-lock.json
+node_modules
+uploads
+dist
+db
+uploads_old
