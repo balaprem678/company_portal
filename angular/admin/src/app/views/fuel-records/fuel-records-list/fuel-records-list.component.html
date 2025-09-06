@@ -1,0 +1,85 @@
+<div class="container mt-5 report-container">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center my-3">
+    <h5 class="mb-0">Fuel Records Report</h5>
+
+    <div class="d-flex gap-2 align-items-center">
+      <input
+        type="text"
+        class="form-control form-control-sm"
+        placeholder="🚐 Vehicle No."
+        [(ngModel)]="searchVehicle"
+      />
+      <input
+        type="text"
+        class="form-control form-control-sm"
+        placeholder="👨 Driver"
+        [(ngModel)]="searchDriver"
+      />
+      <input
+        type="text"
+        class="form-control form-control-sm"
+        placeholder="📑 Contract ID"
+        [(ngModel)]="searchContract"
+      />
+      <input
+        type="date"
+        class="form-control form-control-sm"
+        [(ngModel)]="startDate"
+      />
+      <input
+        type="date"
+        class="form-control form-control-sm"
+        [(ngModel)]="endDate"
+      />
+      <select class="form-select form-select-sm" [(ngModel)]="sortBy">
+        <option value="">Sort ⬍</option>
+        <option value="dateAsc">Date ↑</option>
+        <option value="dateDesc">Date ↓</option>
+        <option value="vehicle">Vehicle</option>
+        <option value="driver">Driver</option>
+        <option value="mileageAsc">Mileage ↑</option>
+        <option value="mileageDesc">Mileage ↓</option>
+      </select>
+
+      <!-- Download PDF -->
+      <button class="btn btn-sm btn-primary" (click)="downloadPDF()">
+        <i class="bi bi-file-earmark-arrow-down"></i> PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div #fuelTable>
+    <table class="table table-bordered table-striped custom-table">
+      <thead>
+        <tr>
+          <th>Vehicle No.</th>
+          <th>Driver Name</th>
+          <th>Contract ID</th>
+          <th>Start Odometer</th>
+          <th>End Odometer</th>
+          <th>Previous Date</th>
+          <th>Amount Paid</th>
+          <th>Issued By</th>
+          <th>Fuel Consumed (L)</th>
+          <th>Mileage (KM/L)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of filteredRecords">
+          <td>{{ row.vehicleNo }}</td>
+          <td>{{ row.driverName }}</td>
+          <td>{{ row.contractId }}</td>
+          <td>{{ row.startOdometer }}</td>
+          <td>{{ row.endOdometer }}</td>
+          <td>{{ row.prevDate }}</td>
+          <td>{{ row.amountPaid | currency : "INR" : "symbol" : "1.0-0" }}</td>
+          <td>{{ row.issuedBy }}</td>
+          <td>{{ row.fuelConsumed }}</td>
+          <td>{{ calcMileage(row) | number : "1.1-2" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -146,9 +146,11 @@
             <td>{{ row.contractId }}</td>
             <td>{{ row.invoiceNo }}</td>
             <td>{{ row.dueDate }}</td>
-            <td>{{ row.amountPaid | currency }}</td>
+            <td>
+              {{ row.amountPaid | currency : "INR" : "symbol" : "1.0-0" }}
+            </td>
             <td>{{ row.status }}</td>
-            <td>{{ row.balance | currency }}</td>
+            <td>{{ row.balance | currency : "INR" : "symbol" : "1.0-0" }}</td>
             <td>{{ row.remarks }}</td>
           </tr>
         </tbody>
@@ -176,9 +178,11 @@
             <td>{{ row.contractId }}</td>
             <td>{{ row.invoiceNo }}</td>
             <td>{{ row.dueDate }}</td>
-            <td>{{ row.amountPaid | currency }}</td>
+            <td>
+              {{ row.amountPaid | currency : "INR" : "symbol" : "1.0-0" }}
+            </td>
             <td>{{ row.status }}</td>
-            <td>{{ row.balance | currency }}</td>
+            <td>{{ row.balance | currency : "INR" : "symbol" : "1.0-0" }}</td>
             <td>{{ row.remarks }}</td>
           </tr>
         </tbody>

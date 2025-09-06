@@ -467,8 +467,47 @@ const data: PrivilagesData[] = [
 
 		alias: "Reports",
 		name: 'Reports',
-		url: '/app/reports',
+		url: '/app/report',
 		icon: 'fa fa-bar-chart',
+		status: {
+			edit: false,
+			view: false,
+			delete: false,
+			add: false
+		}
+	},
+	{
+
+		alias: "Fuel Records",
+		name: 'Fuel Records',
+		url: '/app/fuel-records/fuel-records-list',
+		icon: 'fa fa-car',
+		status: {
+			edit: false,
+			view: false,
+			delete: false,
+			add: false
+		}
+	},
+	{
+
+		alias: "Maintenance",
+		name: 'Maintenance',
+		url: '/app/maintenance/maintenance-list',
+		icon: 'fa fa-car',
+		status: {
+			edit: false,
+			view: false,
+			delete: false,
+			add: false
+		}
+	},
+	{
+
+		alias: "Performance Analysis",
+		name: 'Performance Analysis',
+		url: '/app/performance-analysis/peroformance-analysis-list',
+		icon: 'fa fa-car',
 		status: {
 			edit: false,
 			view: false,

@@ -290,7 +290,7 @@ export class ViewsComponent implements OnInit, AfterViewInit {
         if (settings.time_slot == 'disable') {
           this.navItems.forEach((value) => {
             console.log(value, 'this isvalue');
-            var checkmodule = ["Administrators","Vendors","Drivers","Combo Offers", "Banners", "Customers", "Categories", "Products", "Coupon Management", "Coupons", "Email Template", "Orders", 'Walkthrough Images', "Reviews & Ratings", "Settings", "Site Earnings", "Payment Gateway", "Units/Metrics", "Page List", "language", "Layout Control", "Reports", "Shipping","Banner Types","Offer Management","Feet","Invoice"];
+            var checkmodule = ["Administrators", "Vendors", "Drivers", "Combo Offers", "Banners", "Customers", "Categories", "Products", "Coupon Management", "Coupons", "Email Template", "Orders", 'Walkthrough Images', "Reviews & Ratings", "Settings", "Site Earnings", "Payment Gateway", "Units/Metrics", "Page List", "language", "Layout Control", "Reports", "Fuel Records", "Maintenance", "Performance Analysis", "Shipping", "Banner Types", "Offer Management", "Feet", "Invoice"];
             if (value.name && checkmodule.includes(value.name)) {
               menu.push(value);
             }
@@ -299,7 +299,7 @@ export class ViewsComponent implements OnInit, AfterViewInit {
         } else {
           this.navItems.forEach((value) => {
             console.log(value, 'this isvalue');
-            var checkmodule = ["Administrators","Vendors","Drivers","Combo Offers", "Banners", "Customers", "Categories", "Products", "Coupon Management", "Coupons", "Email Template", "Orders", 'Walkthrough Images', "Reviews & Ratings", "Settings", "Site Earnings", "Payment Gateway", "Units/Metrics", "Page List", "language", "Time Slots", "Layout Control", "Reports", "Shipping","Banner Types","Offer Management","Feet","Invoice"];
+            var checkmodule = ["Administrators", "Vendors", "Drivers", "Combo Offers", "Banners", "Customers", "Categories", "Products", "Coupon Management", "Coupons", "Email Template", "Orders", 'Walkthrough Images', "Reviews & Ratings", "Settings", "Site Earnings", "Payment Gateway", "Units/Metrics", "Page List", "language", "Time Slots", "Layout Control", "Reports", "Fuel Records", "Maintenance", "Performance Analysis", "Shipping", "Banner Types", "Offer Management", "Feet", "Invoice"];
             if (value.name && checkmodule.includes(value.name)) {
               menu.push(value);
             }
@@ -310,8 +310,8 @@ export class ViewsComponent implements OnInit, AfterViewInit {
       });
 
     var currentUser = this.authService.currentUserValue;
-    console.log(currentUser,'currentUsercurrentUsercurrentUsercurrentUser');
-    
+    console.log(currentUser, 'currentUsercurrentUsercurrentUsercurrentUser');
+
     if (this.authService.currentUserValue.doc.role == "subadmin") {
       this.apiService.CommonApi(Apiconfig.currentuser.method, Apiconfig.currentuser.url, { currentUserData: this.authService.currentUserValue.doc.username }).subscribe(
         (result) => {
@@ -330,29 +330,29 @@ export class ViewsComponent implements OnInit, AfterViewInit {
               let index = result.doc.privileges.findIndex(x => x.alias == value.id);
               if (index != -1) {
                 if (
-                  currentUser.privileges[index].status.view || 
-                  currentUser.privileges[index].status.add || 
-                  currentUser.privileges[index].status.edit || 
-                  currentUser.privileges[index].status.delete || 
-                  currentUser.privileges[index].status.export || 
+                  currentUser.privileges[index].status.view ||
+                  currentUser.privileges[index].status.add ||
+                  currentUser.privileges[index].status.edit ||
+                  currentUser.privileges[index].status.delete ||
+                  currentUser.privileges[index].status.export ||
                   currentUser.privileges[index].status.bulk
                 ) {
-                  const checkmodule = ["Administrators","Vendors","Drivers","Combo Offers", "Banners", "Customers", "Categories", "Products", "Coupon Management", "Coupons", "Email Template", "Orders", 'Walkthrough Images', "Reviews & Ratings", "Settings", "Site Earnings", "Payment Gateway", "Units/Metrics", "Page List", "language", "Time Slots", "Layout Control", "Reports", "Shipping","Banner Types","Offer Management","Feet"];
-                
+                  const checkmodule = ["Administrators", "Vendors", "Drivers", "Combo Offers", "Banners", "Customers", "Categories", "Products", "Coupon Management", "Coupons", "Email Template", "Orders", 'Walkthrough Images', "Reviews & Ratings", "Settings", "Site Earnings", "Payment Gateway", "Units/Metrics", "Page List", "language", "Time Slots", "Layout Control", "Reports", "Shipping", "Banner Types", "Offer Management", "Feet"];
+
                   console.log(value.children, 'value.children');
                   console.log(value.id, 'value.id');
                   console.log(value, 'value');
-                
+
                   // Check if user lacks 'add' or 'report' privileges
                   if (!currentUser.privileges[index].status.add) {
                     if (value.children) {
                       // If 'add' is disabled, filter 'add' children
                       // if (!currentUser.privileges[index].status.add) {
-                        // if (checkmodule.includes(value.id)) {
-                          value.children = value.children.filter(x => x.id !== 'add');
-                        // }
+                      // if (checkmodule.includes(value.id)) {
+                      value.children = value.children.filter(x => x.id !== 'add');
                       // }
-                      
+                      // }
+
                       // If 'report' is disabled, filter 'report' children
                       // if (!currentUser.privileges[index].status.report) {
                       //   // if (checkmodule.includes(value.id)) {
@@ -360,15 +360,15 @@ export class ViewsComponent implements OnInit, AfterViewInit {
                       //   // }
                       // }
                     }
-                  } 
-                  else  if (!currentUser.privileges[index].status.edit && !currentUser.privileges[index].status.view && !currentUser.privileges[index].status.delete && !currentUser.privileges[index].status.export && !currentUser.privileges[index].status.bulk) {
+                  }
+                  else if (!currentUser.privileges[index].status.edit && !currentUser.privileges[index].status.view && !currentUser.privileges[index].status.delete && !currentUser.privileges[index].status.export && !currentUser.privileges[index].status.bulk) {
                     if (value.children) {
                       // If 'add' is disabled, filter 'add' children
-                        // if (checkmodule.includes(value.id)) {
-                          value.children = value.children.filter(x => x.id !== 'list');
-                        // }
-                      
-                      
+                      // if (checkmodule.includes(value.id)) {
+                      value.children = value.children.filter(x => x.id !== 'list');
+                      // }
+
+
                     }
                   }
 
@@ -378,16 +378,16 @@ export class ViewsComponent implements OnInit, AfterViewInit {
                   //     value.children=value.children.filter(x=>x.name!=="Sub Category List")
                   //   }
                   // }
-                
+
                   // Always push the value after conditions are processed
                   menu.push(value);
                 }
-                
+
               }
               // let index = result.doc.privileges.findIndex(x => x.alias == value.id);
-            
-                
-              
+
+
+
             });
             this.navItems = menu;
           }

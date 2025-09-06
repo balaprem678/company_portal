@@ -1,0 +1,38 @@
+.report-container {
+    background: #f9fbff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Table */
+.custom-table thead {
+    background: #003366;
+    color: #fff;
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background: #e9f1ff;
+}
+
+.custom-table tbody tr:hover {
+    background: #d0e2ff;
+    transition: 0.3s;
+}
+
+/* Button */
+.btn-primary {
+    background-color: #003366;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0055aa;
+}
+
+
+
+
+table tr th {
+    background-color: #000000 !important;
+    padding: 10px 14px;
+}
