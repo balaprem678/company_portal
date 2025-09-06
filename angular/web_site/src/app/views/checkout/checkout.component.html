@@ -1,0 +1,709 @@
+<!-- <section class="order-received pt_110">
+    <div class="container">
+
+        <img width="100%" src="{{apiUrl + shipping_banner}}" alt="">
+    </div>
+</section> -->
+
+
+<section class="checkout-sections pt_110">
+    <ul class="nav nav-tabs" id="check-out" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab"
+                aria-controls="true" [ngClass]="{ 'active': informationPage }" (click)="payment(1)">
+                <span></span>Information
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="ship-tab" data-bs-toggle="tab" data-bs-target="#ship" type="button" role="tab"
+                aria-controls="{shippingPage}" [ngClass]="{ 'active': shippingPage }" (click)="payment(2)">
+                <span></span>Shipping
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pay-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button"
+                role="tab" aria-controls="payment" [ngClass]="{ 'active': paymentPage }" (click)="payment(3)">
+                <span></span>Payment
+            </button>
+        </li>
+    </ul>
+</section>
+
+
+
+<section class="checkout-info">
+    <div class="info-cart">
+        <div class="info-cart-left">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" [ngClass]="{ 'show active': informationPage }" id="info" role="tabpanel"
+                    aria-labelledby="info-tab">
+                    <form #addressForm="ngForm" (ngSubmit)="onFormSubmit(addressForm)">
+                        <div class="info-form mb-3">
+                            <h2>Information</h2>
+                            <input
+                              type="email"
+                              id="email"
+                              name="email"
+                              ngModel
+                              #email="ngModel"
+                              [(ngModel)]="emails"
+                              placeholder="Email address"
+                              pattern="^[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                              required
+                              (input)="checkVerifyEmail()"
+                              maxlength="40"
+                            />
+                            <!-- Regular validation errors -->
+                            <div *ngIf="submitted && !email.valid">
+                              <div *ngIf="email.errors?.['required']" class="invalid-feedback d-block">
+                                Email is required
+                              </div>
+                              <div *ngIf="email.errors?.['maxlength']" class="invalid-feedback d-block">
+                                Maximum limit 40 characters
+                              </div>
+                              <div *ngIf="email.errors?.['pattern']" class="invalid-feedback d-block">
+                                Invalid email
+                              </div>
+                            </div>
+                        
+                            <!-- Custom error for email already exists -->
+                            <div *ngIf="emailExistsError" class="invalid-feedback d-block">
+                              Email already exists
+                            </div>
+                          </div>
+                        <!-- <>                         ----------------------------------------------------------------- -->
+
+                        <div class="billing-address right">
+                            <h3 *ngIf="!guestLogin">Shipping address&nbsp;&nbsp;<span
+                                    (click)="newAddress(); shipform = !shipform;shipformNew = true">
+                                    <img src="/assets/pillai_images/plus.png" alt="">
+                                </span></h3>
+
+                            <div class="shipping_address_child"
+                                *ngIf="!guestLogin && shippingAddress && shippingAddress.addressList.length > 0; else noAddresses">
+                                <div *ngFor="let address of shippingAddress.addressList">
+                                    <div class="bill-ad">
+
+                                        <div class="address_edit_delete">
+                                            <div class="input_label">
+                                                <input type="radio" [value]="address._id" name="defaultAddress"
+                                                    [(ngModel)]="selectedAddressId" [checked]="address.isDefault == 2"
+                                                    (change)="setDefaultAddress(address._id)">
+                                                <!-- <label style="color: aquamarine;">Home</label><br /> -->
+                                                <div class="address_show">
+                                                    <label style="color: #0a472e;">{{address.choose_location ?
+                                                        (address.choose_location | uppercase) : 'HOME' |
+                                                        uppercase}}</label>
+                                                    <p> {{ address.username }},
+                                                        {{ address.line1 }},
+                                                        {{ address.city }} {{ address.zipcode }},
+                                                        {{ address.state }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="edit_delete">
+
+                                                <a (click)=" editAddress(address._id); shipform = !shipform; shipformNew = false"
+                                                    class="edit-button"><i
+                                                        class="fa-regular fa-pen-to-square"></i>&nbsp;Edit</a>
+                                                <button class="btn btn-danger delete-button"
+                                                    (click)="deleteAddress(address._id)">Delete</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-template #noAddresses>
+                                <div class="bill-ad">
+                                    <p *ngIf="!guestLogin">You have not set up any addresses yet.</p>
+                                    <button *ngIf="!guestLogin" class="btn btn-primary add-new-button" (click)="shipform = !shipform">Add
+                                        New Address&nbsp;<i class="fa-solid fa-circle-plus"></i></button>
+                                </div>
+                            </ng-template>
+                        </div>
+                        <div class="shipping-add">
+                            <h3>Shipping address</h3>
+
+
+
+                            <div class="two-f-group">
+                                <div class="s-form-group mb-3">
+                                    <input type="text" placeholder="First name" name="first_name" ngModel
+                                        [(ngModel)]="firstname" #first_name="ngModel" id="first_name" required
+                                        maxlength="25" minlength="1" pattern="^[a-zA-Z ]+$" />
+                                    <div *ngIf="submitted && !first_name.valid">
+                                        <div *ngIf="first_name.errors?.['required']" class="invalid-feedback d-block">
+                                            First name is required
+                                        </div>
+                                        <div *ngIf="first_name.errors?.['pattern']" class="invalid-feedback d-block">
+                                            Please enter alphabetic characters only.
+                                        </div>
+                                        <div *ngIf="first_name.errors?.['maxlength']">Maximum limit 20
+                                            characters</div>
+                                        <div *ngIf="first_name.errors?.['minlength']">Minimum limit 1
+                                            character</div>
+                                        <div class="invalid-feedback" *ngIf="first_name.errors?.['pattern']">
+                                            Enter valid first name</div>
+
+                                    </div>
+                                </div>
+                                <div class="s-form-group mb-3">
+                                    <input type="text" placeholder="Last name" name="last_name" ngModel
+                                        [(ngModel)]="lastname" #last_name="ngModel" id="last_name" required
+                                        maxlength="25" minlength="1" pattern="^[a-zA-Z ]+$" />
+                                    <div *ngIf="submitted && !last_name.valid">
+                                        <div *ngIf="last_name.errors?.['required']" class="invalid-feedback d-block">
+                                            Last name is required
+                                        </div>
+                                        <div *ngIf="last_name.errors?.['pattern']" class="invalid-feedback d-block">
+                                            Please enter alphabetic characters only.
+                                        </div>
+                                        <div *ngIf="last_name.errors?.['maxlength']">Maximum limit 20
+                                            characters</div>
+                                        <div *ngIf="last_name.errors?.['minlength']">Minimum limit 1
+                                            character</div>
+                                        <div class="invalid-feedback" *ngIf="last_name.errors?.['pattern']">
+                                            Enter valid last name</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="s-form-group mb-3">
+                                <input type="text" placeholder="Address Line 1" name="address" ngModel
+                                    #address="ngModel" id="address" [(ngModel)]="addresses" required maxlength="80"
+                                    minlength="5" />
+                                <div *ngIf="submitted && !address.valid">
+                                    <div *ngIf="address.errors?.['required']" class="invalid-feedback d-block">
+                                        address is required
+                                    </div>
+                                    <div *ngIf="address.errors?.['maxlength']" class="invalid-feedback d-block">Maximum
+                                        limit 80
+                                        characters</div>
+                                    <div *ngIf="address.errors?.['minlength']" class="invalid-feedback d-block">Minimum
+                                        limit 5
+                                        character</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ship-address-group">
+                            <div class="two-f-group">
+                                <div class="s-form-group mb-3">
+                                    <!-- <label>Country / Resign</label> -->
+                                    <input type="text" placeholder="Country" name="country" ngModel
+                                        [(ngModel)]="countries" #country="ngModel" id="country" required maxlength="30"
+                                        minlength="1" pattern="^[a-zA-Z ]+$" />
+                                    <div *ngIf="submitted && !country.valid">
+                                        <div *ngIf="country.errors?.['required']" class="invalid-feedback d-block">
+                                            Country is required
+                                        </div>
+                                        <div *ngIf="country.errors?.['maxlength']">Maximum limit 20
+                                            characters</div>
+                                        <div *ngIf="country.errors?.['minlength']">Minimum limit 1
+                                            character</div>
+                                        <div *ngIf="country.errors?.['pattern']" class="invalid-feedback d-block">
+                                            Please enter alphabetic characters only.
+                                        </div>
+                                        <div class="invalid-feedback" *ngIf="country.errors?.['pattern']">
+                                            Enter valid Country</div>
+                                    </div>
+
+
+                                </div>
+                                <div class="s-form-group mb-3">
+                                    <input type="text" placeholder="PIN Code" name="pincode" ngModel
+                                        [(ngModel)]="pincodes" #pincode="ngModel" id="pincode" required maxlength="10"
+                                        minlength="4"  (blur)="fetchPincodeDetails()" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                        onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" />
+                                    <div *ngIf="submitted && !pincode.valid">
+                                        <div *ngIf="pincode.errors?.['required']" class="invalid-feedback d-block">
+                                            Pincode is required
+                                        </div>
+                                        <div *ngIf="pincode.errors?.['maxlength']" class="invalid-feedback d-block">
+                                            Maximum limit 10
+                                            characters</div>
+                                        <div *ngIf="pincode.errors?.['minlength']" class="invalid-feedback d-block">
+                                            Minimum limit 4
+                                            characters</div>
+                                    </div>
+                                </div>
+                                <div class="s-form-group mb-3">
+                                    <input type="text" placeholder="State" name="state" ngModel [(ngModel)]="states"
+                                        #state="ngModel" id="state" required maxlength="25" pattern="^[a-zA-Z ]+$"
+                                        minlength="2" />
+                                    <div *ngIf="submitted && !state.valid">
+                                        <div *ngIf="state.errors?.['required']" class="invalid-feedback d-block">
+                                            State is required
+                                        </div>
+                                        <div *ngIf="state.errors?.['maxlength']" class="invalid-feedback d-block">
+                                            Maximum limit 25
+                                            characters</div>
+                                        <div *ngIf="state.errors?.['pattern']" class="invalid-feedback d-block">
+                                            Please enter alphabetic characters only.
+                                        </div>
+                                        <div *ngIf="state.errors?.['minlength']" class="invalid-feedback d-block">
+                                            Minimum limit 2
+                                            character</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="s-form-group mb-3">
+                                <input type="text" placeholder="Town / City" name="city" ngModel [(ngModel)]="cities"
+                                    #city="ngModel" id="city" pattern="^[a-zA-Z ]+$" required maxlength="80" />
+                                <div *ngIf="submitted && !city.valid">
+                                    <div *ngIf="city.errors?.['required']" class="invalid-feedback d-block">
+                                        City is required
+                                    </div>
+                                    <div *ngIf="city.errors?.['pattern']" class="invalid-feedback d-block">
+                                        Please enter alphabetic characters only.
+                                    </div>
+                                    <div *ngIf="city.errors?.['maxlength']" class="invalid-feedback d-block">Maximum
+                                        limit 80
+                                        characters</div>
+                                    <div *ngIf="city.errors?.['minlength']" class="invalid-feedback d-block">Minimum
+                                        limit 5
+                                        character</div>
+                                </div>
+                            </div>
+                            <div class="s-form-group mb-3">
+                                <input type="number" placeholder="Phone" name="phone_number" ngModel
+                                    #phone_number="ngModel" id="phone_number" required [(ngModel)]="phone_numberss"
+                                    (input)="limitInputLength($event)" maxlength="15" minlength="7" />
+                                <div *ngIf="submitted && !phone_number.valid">
+                                    <div *ngIf="phone_number.errors?.['required']" class="invalid-feedback d-block">
+                                        Phone number is required
+                                    </div>
+                                    <div *ngIf="phone_number.errors?.['maxlength']" class="invalid-feedback d-block">
+                                        Maximum limit 15
+                                        characters</div>
+                                    <div *ngIf="phone_number.errors?.['minlength']" class="invalid-feedback d-block">
+                                        Minimum limit 7
+                                        characters</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ship-method">
+                            <h3>BILLING ADDRESS</h3>
+                            <p class="ship-text">Select the address that matches your card or payment method.</p>
+                            <div class="trans-button bill-add-sec">
+                                <div class="ship-meth">
+                                    <input type="radio" name="bill" [(ngModel)]="useSameAddress" [value]="true" />
+                                    <span></span>
+                                    <p>Same as shipping address</p>
+                                </div>
+                                <div class="ship-meth">
+                                    <input type="radio" name="bill" [(ngModel)]="useSameAddress" [value]="false" />
+                                    <span></span>
+                                    <p>Use a different billing address</p>
+                                    <div class="ship-drop" style="margin-bottom: -13px !important;">
+                                        <form #billingForm="ngForm" (ngSubmit)="onFormbillSubmit(billingForm)">
+                                            <div class="two-bill-group">
+
+                                                <div class="bill-group">
+
+                                                    <input type="text" placeholder="First Name" name="first_name"
+                                                        ngModel #first_name="ngModel" id="first_name" required
+                                                        maxlength="15" minlength="3" pattern="^[a-zA-Z ]+$" />
+                                                    <div *ngIf="billsubmitted ">
+                                                        <div *ngIf="BillForm.controls['first_name'].errors?.['required']"
+                                                            class="invalid-feedback d-block">
+                                                            First Name is required
+                                                        </div>
+                                                        <div *ngIf="BillForm.controls['first_name'].errors?.['pattern']"
+                                                            class="invalid-feedback d-block">
+                                                            Please enter alphabetic characters only.
+                                                        </div>
+                                                        <div *ngIf="BillForm.controls['first_name'].errors?.['maxlength']"
+                                                            class="invalid-feedback d-block">Maximum limit 15
+                                                            characters</div>
+                                                        <div *ngIf="BillForm.controls['first_name'].errors?.['minlength']"
+                                                            class="invalid-feedback d-block">Minimum limit 3
+                                                            characters</div>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="bill-group">
+
+                                                    <input type="text" placeholder="Last name" name="last_name" ngModel
+                                                        #last_name="ngModel" id="last_name" required maxlength="10"
+                                                        minlength="1" pattern="^[a-zA-Z ]+$" />
+                                                    <div *ngIf="billsubmitted ">
+                                                        <div *ngIf="BillForm.controls['last_name'].errors?.['required']"
+                                                            class="invalid-feedback d-block">
+                                                            Last Name is required
+                                                        </div>
+                                                        <div *ngIf="BillForm.controls['last_name'].errors?.['pattern']"
+                                                            class="invalid-feedback d-block">
+                                                            Please enter alphabetic characters only.
+                                                        </div>
+                                                        <div *ngIf="BillForm.controls['last_name'].errors?.['maxlength']"
+                                                            class="invalid-feedback d-block">Maximum limit 10
+                                                            characters</div>
+                                                        <div *ngIf="BillForm.controls['last_name'].errors?.['minlength']"
+                                                            class="invalid-feedback d-block">Minimum limit 1
+                                                            characters</div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bill-group">
+
+                                                <input type="text" placeholder="Address" name="address" ngModel
+                                                    #address="ngModel" id="address" required maxlength="80"
+                                                    minlength="5" />
+                                                <div *ngIf="billsubmitted ">
+                                                    <div *ngIf="BillForm.controls['address'].errors?.['required']"
+                                                        class="invalid-feedback d-block">
+                                                        Address is required
+                                                    </div>
+                                                    <div *ngIf="BillForm.controls['address'].errors?.['maxlength']"
+                                                        class="invalid-feedback d-block">Maximum limit 80
+                                                        characters</div>
+                                                    <div *ngIf="BillForm.controls['address'].errors?.['minlength']"
+                                                        class="invalid-feedback d-block">Minimum limit 5
+                                                        character</div>
+                                                </div>
+                                            </div>
+                                            <div class="three-bill-group">
+                                                <div class="bill-group select-box">
+
+                                                    <input type="text" placeholder="Country" name="country" ngModel
+                                                        #country="ngModel" id="country" required maxlength="30"
+                                                        minlength="1" pattern="^[a-zA-Z ]+$" />
+                                                    <div *ngIf="billsubmitted ">
+                                                        <div *ngIf="BillForm.controls['country'].errors?.['required']"
+                                                            class="invalid-feedback d-block">
+                                                            Country is required
+                                                        </div>
+                                                        <div *ngIf="BillForm.controls['country'].errors?.['maxlength']">
+                                                            Maximum limit 20
+                                                            characters</div>
+                                                        <div *ngIf="BillForm.controls['country'].errors?.['pattern']"
+                                                            class="invalid-feedback d-block">
+                                                            Please enter alphabetic characters only.
+                                                        </div>
+                                                        <div *ngIf="BillForm.controls['country'].errors?.['minlength']">
+                                                            Minimum limit 1
+                                                            character</div>
+                                                        <div class="invalid-feedback"
+                                                            *ngIf="BillForm.controls['country'].errors?.['pattern']">
+                                                            Enter valid Country</div>
+                                                    </div>
+                                                </div>
+                                                <div class="bill-group">
+
+
+                                                    <input type="text" placeholder="Pin Code" name="pincode" ngModel
+                                                        #pincode="ngModel" id="pincode" required maxlength="10"
+                                                        minlength="4"
+                                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                                        onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" />
+                                                    <div *ngIf="billsubmitted">
+                                                        <div *ngIf="BillForm.controls['pincode'].errors?.['required']"
+                                                            class="invalid-feedback d-block">
+                                                            Pincode is required
+                                                        </div>
+                                                        <div *ngIf="BillForm.controls['pincode'].errors?.['maxlength']"
+                                                            class="invalid-feedback d-block">Maximum limit 10
+                                                            characters</div>
+                                                        <div *ngIf="BillForm.controls['pincode'].errors?.['minlength']"
+                                                            class="invalid-feedback d-block">Minimum limit 4
+                                                            characters</div>
+                                                    </div>
+                                                </div>
+                                                <div class="bill-group">
+
+
+                                                    <input type="text" placeholder="State" name="state" ngModel
+                                                        #state="ngModel" id="state" required maxlength="25"
+                                                        minlength="2" pattern="^[a-zA-Z ]+$" />
+                                                    <div *ngIf="billsubmitted ">
+                                                        <div *ngIf="BillForm.controls['state'].errors?.['required']"
+                                                            class="invalid-feedback d-block">
+                                                            State is required
+                                                        </div>
+                                                        <div *ngIf="BillForm.controls['state'].errors?.['pattern']"
+                                                            class="invalid-feedback d-block">
+                                                            Please enter alphabetic characters only.
+                                                        </div>
+                                                        <div *ngIf="BillForm.controls['state'].errors?.['maxlength']"
+                                                            class="invalid-feedback d-block">Maximum limit 25
+                                                            characters</div>
+                                                        <div *ngIf="BillForm.controls['state'].errors?.['minlength']"
+                                                            class="invalid-feedback d-block">Minimum limit 2
+                                                            character</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bill-group">
+
+                                                <input type="text" placeholder="City" name="city" ngModel
+                                                    #city="ngModel" id="city" required maxlength="50"
+                                                    pattern="^[a-zA-Z ]+$" />
+                                                <div *ngIf="billsubmitted ">
+                                                    <div *ngIf="BillForm.controls['city'].errors?.['required']"
+                                                        class="invalid-feedback d-block">
+                                                        City is required
+                                                    </div>
+                                                    <div *ngIf="BillForm.controls['city'].errors?.['pattern']"
+                                                        class="invalid-feedback d-block">
+                                                        Please enter alphabetic characters only.
+                                                    </div>
+                                                    <div *ngIf="BillForm.controls['city'].errors?.['maxlength']"
+                                                        class="invalid-feedback d-block">Maximum limit 50
+                                                        characters</div>
+                                                    <div *ngIf="BillForm.controls['city'].errors?.['minlength']"
+                                                        class="invalid-feedback d-block">Minimum limit 5
+                                                        character</div>
+                                                </div>
+                                            </div>
+                                            <div class="bill-group">
+
+                                                <input type="text" placeholder="Phone Number" name="phone_number"
+                                                    ngModel #phone_number="ngModel" id="phone_number" required
+                                                    maxlength="15" minlength="7" pattern="[0-9]*" />
+                                                <div *ngIf="billsubmitted ">
+                                                    <div *ngIf="BillForm.controls['phone_number'].errors?.['required']"
+                                                        class="invalid-feedback d-block">
+                                                        Phone number is required
+                                                    </div>
+                                                    <div *ngIf="BillForm.controls['phone_number'].errors?.['maxlength']"
+                                                        class="invalid-feedback d-block">Maximum limit 15
+                                                        characters</div>
+                                                    <div *ngIf="BillForm.controls['phone_number'].errors?.['minlength']"
+                                                        class="invalid-feedback d-block">Minimum limit 7
+                                                        characters</div>
+
+                                                    <div *ngIf="BillForm.controls['phone_number'].errors?.['pattern']"
+                                                        class="invalid-feedback d-block">
+                                                        Please enter a valid phone number (numeric digits only).
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="back-ship">
+
+                            <button class="b-shop" [routerLink]="['/']"><i class="fa fa-angle-double-left"
+                                    aria-hidden="true"></i> Back to
+                                Shop</button>
+                            <button class="c-ship" *ngIf="informationPage" type="submit"
+                                (click)="onFormbillSubmit(billingForm)">Continue to Shipping</button>
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="tab-pane fade" [ngClass]="{ 'show active': shippingPage }" id="ship" role="tabpanel"
+                    aria-labelledby="ship-tab">
+                    <ul class="ship-details">
+                        <li><span>Contact</span>
+                            <p>{{shippingAddress && shippingAddress.email}}</p> <a
+                                (click)="loadInformationPage()">Change</a>
+                        </li>
+                        <li><span>Phone no.</span>
+                            <p>{{shippingAddress && shippingAddress.phone && shippingAddress.phone.number != (undefined
+                                || null || '') ? shippingAddress.phone.number : ''}}</p> <a
+                                (click)="loadInformationPage()">Change</a>
+                        </li>
+                        <li><span>Ship to</span>
+                            <p>{{shippingAddress && shippingAddress.username}}, {{shippingAddress &&
+                                shippingAddress.line1}}, {{shippingAddress && shippingAddress.city}} {{shippingAddress
+                                && shippingAddress.zipcode}}, {{shippingAddress && shippingAddress.state}}</p>
+                            <a (click)="loadInformationPage()">Change</a>
+                        </li>
+                    </ul>
+                    <div class="ship-method">
+                        <h3>SHIPPING METHOD</h3>
+                        <div class="ship-meth">
+                            <span></span>
+                            <!-- <p>Standard Shipping</p><i>₹0</i> -->
+                            <p>Standard Shipping</p>
+                        </div>
+                    </div>
+                    <div class="back-ship">
+                        <button class="b-shop" (click)="loadInformationPage()"><i class="fa fa-angle-double-left"
+                                aria-hidden="true"></i> Return to
+                            information</button>
+                        <button class="c-ship" (click)="payment(3)">Continue to payment</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" [ngClass]="{ 'show active': paymentPage }" id="payment" role="tabpanel"
+                    aria-labelledby="pay-tab">
+                    <ul class="ship-details">
+                        <li><span>Ship to</span>
+                            <p>
+                                {{shippingAddress && shippingAddress.username}}, {{shippingAddress &&
+                                shippingAddress.line1}}, {{shippingAddress && shippingAddress.city}} {{shippingAddress
+                                && shippingAddress.zipcode}}, {{shippingAddress && shippingAddress.state}}</p>
+                            <a (click)="loadInformationPage()">Change</a>
+                        </li>
+                        <li><span>Method</span>
+                            <p>Standard Shipping</p> <a (click)="loadShippingPage()">Change</a>
+                        </li>
+                        <li><span>Contact</span>
+                            <p>{{shippingAddress && shippingAddress.email}}</p> <a
+                                (click)="loadInformationPage()">Change</a>
+                        </li>
+                        <li><span>Phone no.</span>
+                            <p>{{shippingAddress && shippingAddress.phone && shippingAddress.phone.number != (undefined
+                                || null || '') ? shippingAddress.phone.number : ''}}</p> <a
+                                (click)="loadInformationPage()">Change</a>
+                        </li>
+                    </ul>
+                    <div class="ship-method">
+                        <h3>PAYMENT</h3>
+                        <p class="ship-text">All transactions are secure and encrypted.</p>
+                        <div class="trans-button">
+                            <div class="ship-meth" *ngFor="let item of paymentmethods">
+                                <input type="radio" [(ngModel)]="selectedOption" value="{{item.gateway_name}}"
+                                    (change)="onOptionChange()" />
+                                <span></span>
+                                <p class="payment_method_card_cash">{{item.settings.name}}</p>
+                                <i class="raz-img"><img src="{{apiUrl}}{{item.settings.logo}}" alt="cashfree"
+                                        width="100px" /></i>
+                                <div class="ship-drop">
+                                    <p>{{item.settings.description}}</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="b-para">
+                        <p>Your personal data will be used to process your order, support your experience throughout
+                            this website, and other purposes are described in our <a
+                                [routerLink]="['/page/privacy-policy']">privacy policy</a>.
+
+                        </p>
+                    </div>
+                    <div class="back-ship">
+                        <button class="b-shop" (click)="loadShippingPage()"><i class="fa fa-angle-double-left"
+                                aria-hidden="true"></i> Return to
+                            shipping</button>
+                        <button class="c-ship"
+                            *ngIf="selectedOption && selectedOption != ('' || undefined || null) && selectedOption === 'cashOnDelivery' && cartDetails.pay_total >0"
+                            (click)="placeOrderCODPayment()">Place Order</button>
+
+                        <button class="c-ship"
+                            *ngIf="selectedOption && selectedOption != ('' || undefined || null) && selectedOption === 'Cashfree'||selectedOption === 'Razorpay' ||selectedOption === 'Stripe' && cartDetails.pay_total >0"
+                            (click)="payoutCheck(cartDetails.pay_total  )">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info-cart-right"
+            *ngIf="cartDetails && cartDetails.cart_details && cartDetails.cart_details.length > 0">
+            <h4>MY CART</h4>
+            <div class="info-cart-box" *ngFor="let item of cartDetails.cart_details; let i = index">
+                <span
+                    (click)="productDetails(item.slug,item.id,item.rcat_id,item.scat_id, item.cart_id, item.size)"><img
+                        src="{{apiUrl + item.image}}" alt="" /></span>
+                <div class="info-cart-name">
+                    <p (click)="productDetails(item.slug,item.id,item.rcat_id,item.scat_id, item.cart_id, item.size)">{{
+                        formatNameWithVariants(item.name, item.variations) }}</p>
+                    <label>
+                        <button *ngIf="item.quantity==1" (click)="removeFoodFromCart(item)">-</button>
+                        <button *ngIf="item.quantity>1" (click)="changeCart(item, 'decreement')">-</button>
+                        <b>{{item.quantity}}</b>
+                        <button (click)="changeCart(item, 'increement')">+</button>
+                    </label>
+
+
+
+                </div>
+                <div class="info-cart-price ">
+                    <span class="total-price">
+                        ₹{{item.total | number:'1.2-2'}}
+                    </span>
+                    <span class="saved-text">
+                        ( Saved: ₹ {{ (item.mtotal - (item.price * item.quantity)) | number:'1.2-2' }} )
+
+                    </span>
+                </div>
+            </div>
+
+            <div class="have-a-code">
+                <p class="you_save_cs" style="color: rgba(71, 111, 0, 1);">
+                    You total saving on this order {{ currency_symbol ? currency_symbol : "₹" }}{{totalMtotal | number:'1.2-2'}}
+                </p>
+                <div class="df">
+
+                    <!-- If no coupon applied, show the input and Apply button -->
+                    <input type="text" class="form-control" id="couponCode" placeholder="Enter Promo Code"
+                        #couponCodeRef [value]="appiledCouponCode.coupon_code ? appiledCouponCode.coupon_code : ''" />
+
+                    <button type="button" (click)="toggleCoupon(couponCodeRef.value)"
+                        [ngClass]="{'coupon-applied': appiledCouponCode.coupon_code}">
+                        {{ appiledCouponCode.coupon_code ? 'Applied' : 'Apply' }}
+                    </button>
+                </div>
+            </div>
+            <!-- <div class="have-a-code"
+                *ngIf="appiledCouponCode.coupon_code !== null || appiledCouponCode.coupon_price !== 0">
+                <p>Coupon {{appiledCouponCode.coupon_code}} Applied </p>
+                <a (click)="removeCoupon(appiledCouponCode.coupon_code)">Remove Coupon</a>
+            </div> -->
+            <div class="info-totals">
+
+                <span>Subtotal <p>₹{{cartDetails.sub_total | number:'1.2-2'}}</p></span>
+                <span *ngIf="shippingCharge > 0">Shipping Charge <p>₹{{shippingCharge | number:'1.2-2'}}</p></span>
+                <span *ngIf="appiledCouponCode.coupon_price > 0">Coupon Discount <p>- ₹{{appiledCouponCode.coupon_price
+                        | number:'1.2-2'}}</p></span>
+                <span>Tax <p>₹{{totalTax.toFixed(2) ? totalTax.toFixed(2) : 0}}</p></span>
+                <div style="display: flex; justify-content: space-between; align-items: center;"
+                    *ngIf="shippingCharge == 0">
+                    <span>Shipping Charge</span>
+                    <span>
+                        <span style="text-decoration: line-through; margin-bottom: 0;">₹75</span>
+                        <span
+                            style="color: darkgreen; font-weight: bold; margin-left: 5px; margin-bottom: 0;">FREE</span>
+                    </span>
+                </div>
+                <span *ngIf="selectedOption === 'cashOnDelivery'">COD Charge <p>₹{{codCharge}}</p></span>
+
+                <!-- <div style="display: flex; justify-content: space-between; align-items: center;"
+                    *ngIf="shippingCharge == 0">
+                    <span>Shipping Charge</span>
+                    <span>
+                        <span style="text-decoration: line-through; margin-bottom: 0;">₹75</span>
+                        <span
+                            style="color: darkgreen; font-weight: bold; margin-left: 5px; margin-bottom: 0;">FREE</span>
+                    </span>
+                </div> -->
+
+                <hr style="width:100%;border-color: #858585;" />
+
+                <p class="info-t-price">
+                    Total <span>₹{{((cartDetails.sub_total -(appiledCouponCode.coupon_price || 0)) + (totalTax || 0) +
+                        shippingCharge + ( selectedOption === 'cashOnDelivery'?codCharge:0 )) | number:'1.2-2'}}</span>
+                </p>
+
+                <span>Total Weight <p>{{totalWeight | number:'1.2-2'}} kg</p></span>
+
+
+
+                <!-- <button class="c-ship mt-4"  (click)="payment(3)">Continue to payment</button> -->
+            </div>
+        </div>
+        <div class="ssl-enc">
+            <img src="../../../assets/image/pillais/payment_method.png" alt="" />
+            <p>SSL encrypted 100% Safe And Secure Purchases.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<app-deals [listName]="'amazing_products'"></app-deals>
+<hr style="width:100%;border-color: #858585;" />

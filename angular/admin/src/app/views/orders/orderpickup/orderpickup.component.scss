@@ -1,0 +1,46 @@
+.input-group {
+  width: 20%;
+}
+
+::ng-deep .order-on_going_order_page {
+  position: relative;
+
+  table {
+    thead {
+      tr {
+        th {
+          border: none;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td:nth-child(1),
+        td:nth-child(2),
+        td:nth-child(3),
+        td:nth-child(4),
+        td:nth-child(7) {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .order-on_going_order_page .search-input-tag {
+  right: 228px;
+  position: absolute;
+}
+
+::ng-deep .order-on_going_order_page .product_list_filter {
+  right: 118px !important;
+}
+::ng-deep .order-on_going_order_page .export-lists:focus {
+  box-shadow: none !important;
+}
+::ng-deep .order-on_going_order_page .export-lists {
+  position: absolute;
+  right: 0;
+  top: 68px;
+  z-index: 1;
+}

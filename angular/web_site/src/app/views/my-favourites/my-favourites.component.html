@@ -1,0 +1,135 @@
+<div class="my-wishlist pt_110">
+    <div class="container">
+        <div class="bread-crumb">
+            <a href="">Home</a>
+            <p> <i class="fa fa-angle-right" aria-hidden="true"></i> </p>
+            <a>Favourites</a>
+        </div>
+        <div class="wishlist-part" *ngIf="favoritList.length > 0">
+            <div class="wishlist-head d-flex flex-wrap justify-content-between align-items-center my-3">
+                <div class="wishlist-selectall d-flex flex-wrap justify-content-start align-items-center">
+                    <!-- <h1>{{deleteWishlist.length|json}}</h1> -->
+                    <input type="checkbox" (click)="selectAllWish($event)"
+                        [checked]="favitemlength === deleteWishlist.length" name="selectall" id="selectall">
+                    <span class="checkmark"></span>
+                    <label for="selectall">Select All</label>
+                </div>
+                <div class="remove_all" *ngIf="favoritList.length > 0 && favoritList.length === deleteWishlist.length">
+                    <button (click)="removeAllWish()">Remove All</button>
+                </div>
+                <!-- <div class="wishlist-removeall">
+                    <button *ngIf="removeAll" type="button" class="btn shop-btn" (click)="removeAllWish()">Remove
+                        All</button>
+                </div> -->
+            </div>
+            <div class="my-wishlist-left">
+                <div class="my-wishlist-box" *ngFor="let item of favoritList">
+                    <div class="select_delete">
+                        <div class="wishlist-box">
+                            <input type="checkbox" [checked]="deleteWishlist.indexOf(item['_id'])!= -1? true : false"
+                                (click)="selectSignle(item._id,$event)" />
+                            <span class="checkmark"></span>
+                        </div>
+                        <div class="wishlist-remove">
+                            <button (click)="singleDelete(item._id)"><i class="fa-regular fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                    <!-- <p>{{item.product.price_details[0]| json}}</p> -->
+                    <span _ngcontent-ng-c3201912573="" class="off_percentage">({{((
+                        item.product.price_details[0]?.mprice - item.product.price_details[0]?.sprice) /
+                        item.product.price_details[0]?.mprice * 100) | number : '1.0-0' }}% Off)</span>
+                    <div class="wishlist-dec">
+                        <span style="cursor:pointer"
+                            (click)="productDetails(item.product.slug,item.product._id, item.product.rcategory, item.product.scategory)">
+
+                            <picture *ngIf="item.product?.avatar">
+                                <source *ngIf="item.product.avatar?.webpImg"
+                                    [srcset]="env_url + item.product.avatar?.webpImg" type="image/webp">
+                                <img [src]="env_url +item.product.avatar?.fallback || env_url + item.product.avatar"
+                                    onerror="this.src='assets/image/no_img.png'" alt="Product Image">
+
+                            </picture>
+                            <!-- <img src="{{item.product.avatar}}" /> -->
+                        </span>
+                        <span class="wishlist-cnt">
+                            <h6
+                                (click)="productDetails(item.product.slug,item.product._id, item.product.rcategory, item.product.scategory)">
+                                {{item.product.name}} </h6>
+                            <div class="price-sec ">
+                                <!-- <p *ngIf="item.product.offer_status==0">₹{{item.product.sale_price | number:'1.2-2' }} 
+                                </p> -->
+                                <!-- <p *ngIf="item.product.offer_status==0">₹{{item.product.price_details[0].sprice |
+                                    number:'1.2-2' }}
+                                </p> -->
+
+
+                                <p class="price 1" *ngIf="item.product.offer_status == 0">
+                                    <span *ngIf="item.product.base_price > item.product.sale_price">
+                                        ₹{{ item.selectedPriceDetail?.mprice | number }}
+                                    </span>&nbsp;
+                                    <span>
+                                        ₹{{ item.selectedPriceDetail?.sprice | number }}
+                                    </span>
+                                </p>
+
+
+
+                                <!-- <p
+                                    *ngIf="item.product.offer_status == 0 && item.product.base_price > item.product.sale_price">
+                                    <i>₹ {{item.product.base_price}}</i>
+                                </p> -->
+                                <!-- <p *ngIf="item.product.offer_status==1">₹ {{item.product.offer_sale | number:'1.2-2'}}</p> -->
+                                <!-- <p
+                                    *ngIf="item.product.offer_status == 1 && item.product.offer_base > item.product.offer_sale">
+                                    <i>₹{{item.product.offer_base | number:'1.2-2'}}</i>
+                                </p> -->
+                                <!-- <p>₹ {{item.product.sale_price}} <i>₹ {{item.product.base_price}}</i></p> -->
+
+
+                                <!-- <p class="price-offer d-flex" *ngIf="item.product.offer_status == 1">
+                                    <span>{{item.product.offer_amount | number:'1.2-2'}}</span> % Off
+                                </p> -->
+
+                            </div>
+                            <ul class="kg_gram_l">
+                                <li *ngFor="let price of item.product.price_details">
+                                    <input type="radio" name="p-q-{{ item.product._id }}" [value]="price"
+                                        [(ngModel)]="item.selectedPriceDetail"
+                                        (ngModelChange)="onPriceDetailChange(item, price)">
+                                    <p>{{ price.attributes[0].chaild_name }}</p>
+                                </li>
+                            </ul>
+
+
+                        </span>
+                        <!-- <label for=""
+                            *ngIf="item.product.size_status == 2 && item.product.no_size == 0"><span></span><span
+                                class="outof-stock"><i></i> Out Of Stock</span></label>
+                        <label for=""
+                            *ngIf="item.product.size_status == 1 && item.product.quantity == 0"><span></span><span
+                                class="outof-stock"><i></i> Out Of Stock</span></label> -->
+                    </div>
+                    <div class="add-cart-but" *ngIf="item.product.size_status == 1">
+                        <button *ngIf="!isProductInCart(item.product.id, item.variations?.[0]?.[0]?.chaild_id)"
+                                (click)="preAddCart(item.product, item.selectedPriceDetail, 'add')">
+                          <img src="../../../assets/image/pillais/cart.png" alt="" />
+                        </button>
+                        <button *ngIf="isProductInCart(item.product.id, item.variations?.[0]?.[0]?.chaild_id)" [routerLink]="['/cart']">
+                          <img src="../../../assets/image/pillais/cart.png" alt="" />
+                        </button>
+                      </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="wishlist-part" *ngIf="showfavourite && favoritList.length == 0">
+            <div class="no-order d-flex flex-wrap justify-content-center">
+                <span>
+                    <img src="assets/image/no-product.png" alt="" width="100%" height="100%">
+                </span>
+                <p class="empty-p mt-2"><span>Your Favorite is empty</span></p>
+            </div>
+        </div>
+    </div>
+</div>

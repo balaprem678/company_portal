@@ -1,0 +1,161 @@
+a {
+  color: #80891b;
+  text-decoration: none;
+
+  &:hover {
+    color: #222;
+  }
+}
+
+::ng-deep .shipping_policy_page {
+  .customer_request {
+    h2 {
+      color: #222222;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1em;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+  }
+}
+
+.terms_conditions {
+  margin-top: 40px;
+
+  .policy_inner_sec {
+    background-color: #f7edf8;
+    padding: 40px;
+    width: 900px;
+    margin: auto;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+
+    h2 {
+      color: #222222;
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1.7em;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h4 {
+      font-weight: 900;
+      font-size: 16px;
+      color: #222;
+    }
+
+    li,
+    .address,
+    p {
+      color: #222222;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 2em;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  ::ng-deep .our_story {
+    .healthy_eating_our_story {
+
+      .our_story_rht,
+      .healthy_eating {
+        padding: 20px !important;
+      }
+
+      width: 100% !important;
+
+      .row {
+        width: 100% !important;
+
+        .content,
+        img {
+          width: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  ::ng-deep .our_story {
+    h2 {
+      font-size: 28px !important;
+    }
+  }
+
+  ::ng-deep .our_story_rht {
+    margin-top: 10px !important;
+  }
+
+  ::ng-deep .how_we_wok,
+  ::ng-deep .who_we_are {
+    flex-direction: column-reverse;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  ::ng-deep .shipping_policy_page {
+    width: 100% !important;
+
+    .customer_request {
+      padding: 18px !important;
+
+      h2 {
+        margin-bottom: 30px !important;
+      }
+
+      p {
+        font-size: 14px !important;
+      }
+    }
+
+    .fslto {
+      padding: 0 !important;
+
+      .fssf {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+
+        .free_shipping {
+          padding: 0;
+        }
+
+        h4 {
+          font-size: 14px !important;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .terms_conditions {
+    .policy_inner_sec {
+      width: 100% !important;
+      padding: 10px !important;
+
+      h2 {
+        font-size: 26px !important;
+        margin-bottom: 20px !important;
+      }
+    }
+  }
+
+  ::ng-deep .policypage {
+    p {
+      font-size: 14px !important;
+      // word-break: break-all !important;
+    }
+  }
+}
+
+// ::ng-deep .our_story {
+//   .container {
+//     max-width: 1300px !important;
+//   }
+// }

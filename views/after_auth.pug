@@ -1,0 +1,30 @@
+html(lang='en')
+  head
+    title Single Page Application Authentication - Auth Success
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+  body
+    script(type='text/javascript').
+      if (window.opener) {
+      window.opener.focus();
+      var data={};
+      if('#{user_name}') {   data.user_name = JSON.stringify('#{user_name}');  }
+      if('#{user_id}') {  data.user_id =  JSON.stringify('#{user_id}'); }
+      if('#{user_type}') {   data.user_type = JSON.stringify('#{user_type}');  }
+      if('#{country_code}') {  data.country_code = JSON.stringify('#{country_code}');  }
+      if('#{phone_number}'){ data.phone_number = JSON.stringify('#{phone_number}');  }
+      if('#{email}') {  data.email =  JSON.stringify('#{email}');  }
+      if('#{last_name}') {  data.last_name =  JSON.stringify('#{last_name}');  }
+      if('#{social_login}') {  data.social_login =  JSON.stringify('#{social_login}');  }
+      if('#{social_id}') {  data.social_id =  JSON.stringify('#{social_id}');  }
+      if('#{unique_code}') {  data.unique_code =  JSON.stringify('#{unique_code}');  }
+      if('#{user_image}') {  data.user_image =  JSON.stringify('#{user_image}');  }
+      if('#{new_login}') {  data.new_login =  JSON.stringify('#{new_login}');  }
+      if('#{status}') {  data.status =  JSON.stringify('#{status}');  }
+      if (window.opener.app &&
+      window.opener.app.authState) {console.log(data)
+      window.opener.app.authState(data);
+      }
+      }
+      
+      window.close();

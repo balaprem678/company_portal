@@ -1,0 +1,166 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="tabls-heading">
+                        <h3>{{pageTitle | titlecase}}</h3>
+                    </div>
+                </div>
+                <form #templeteForm="ngForm" (ngSubmit)="onFormSubmit(templeteForm)" autocomplete="off">
+                    <div class="card-body">
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-4">
+                                <label for="notificationtype">Notification Type <span class="mandatory">*</span>
+                                </label>
+                                <select ngModel #notificationtype="ngModel" id="notificationtype"
+                                    name="notificationtype" class="form-control mb-10" required
+                                    (change)="notificationtypeChange()">
+                                    <option value="">Please select</option>
+                                    <option value='email'>Email</option>
+                                    <option value='message'>Push Notification</option>
+                                </select>
+                                <div *ngIf="templeteForm.submitted && !notificationtype.valid">
+                                    <div class="invalid-feedback" *ngIf="notificationtype.errors.required">
+                                        Notification Type is required.
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4"
+                                *ngIf="templeteForm.controls['notificationtype'] && templeteForm.controls['notificationtype'].value == 'email'">
+                                <label for=" name">Template Title <span class="mandatory">*</span></label>
+                                <input type="text" name="name" class="form-control" id="name" required ngModel
+                                    #name="ngModel">
+                                <div *ngIf="templeteForm.submitted && !name.valid">
+                                    <div class="invalid-feedback" *ngIf="name.errors.required">
+                                        Template Title is required.
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4"
+                                *ngIf="templeteForm.controls['notificationtype'] && templeteForm.controls['notificationtype'].value == 'email'">
+                                <label for="emailsubject">Email Subject <span class="mandatory">*</span></label>
+                                <input type="text" name="subject" class="form-control" id="subject" required ngModel
+                                    #subject="ngModel">
+                                <div *ngIf="templeteForm.submitted && !subject.valid">
+                                    <div class="invalid-feedback" *ngIf="subject.errors.required">
+                                        Template Subject is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4"
+                                *ngIf="templeteForm.controls['notificationtype'] && templeteForm.controls['notificationtype'].value == 'email'">
+                                <label for="sendername">Sender Name <span class="mandatory">*</span></label>
+                                <input type="text" name="sender_name" class="form-control" id="sendername" required
+                                    ngModel #sender_name="ngModel">
+                                <div *ngIf="templeteForm.submitted && !sender_name.valid">
+                                    <div class="invalid-feedback" *ngIf="sender_name.errors.required">
+                                        Sender Name is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4"
+                                *ngIf="templeteForm.controls['notificationtype'] && templeteForm.controls['notificationtype'].value == 'email'">
+                                <label for="senderemail">Sender Email Address <span class="mandatory">*</span></label>
+                                <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                    name="sender_email" class="form-control" id="sender_email" required ngModel
+                                    #sender_email="ngModel">
+                                <div *ngIf="templeteForm.submitted && !sender_email.valid">
+                                    <div class="invalid-feedback" *ngIf="sender_email.errors.required">
+                                        Sender Email Address is required.
+                                    </div>
+                                </div>
+                                <div
+                                    *ngIf="templeteForm.submitted && templeteForm.controls.sender_email.errors && templeteForm.controls.sender_email.errors.pattern">
+                                    <div class="invalid-feedback">
+                                        Enter valid email address.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12"
+                                *ngIf="templeteForm.controls['notificationtype'] && templeteForm.controls['notificationtype'].value == 'email'">
+                                <label for="emailcontent">Email Content <span class="mandatory">*</span></label>
+                                <editor [disabled]="viewpage" apiKey="wqel19pklihbenult7fuqsssltcd8vup4cl0n33y6m3hzghx"
+                                    id="emailcontent" ngModel name="content" required #content="ngModel" [init]="{
+                                        height: 300,
+                                        menubar: false,
+                                        plugins: [
+                                          'advlist autolink lists link image charmap print preview anchor',
+                                          'searchreplace visualblocks code fullscreen',
+                                          'insertdatetime media table paste code wordcount'
+                                        ],
+                                        toolbar:
+                                          'undo redo | formatselect | bold italic backcolor | \
+                                          alignleft aligncenter alignright alignjustify | \
+                                          bullist numlist outdent indent | removeformat | code'
+                                      }">
+                                </editor>
+                                <div *ngIf="templeteForm.submitted && !content.valid">
+                                    <div class="invalid-feedback" *ngIf="content.errors.required">
+                                        Email Content is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4"
+                                *ngIf="templeteForm.controls['notificationtype'] && templeteForm.controls['notificationtype'].value == 'message'">
+                                <label for="messagetitle">Message Title <span class="mandatory">*</span></label>
+                                <input type="text" name="name" class="form-control" id="messagetitle" required ngModel
+                                    #messagetitle="ngModel">
+                                <div *ngIf="templeteForm.submitted && !messagetitle.valid">
+                                    <div class="invalid-feedback" *ngIf="messagetitle.errors.required">
+                                        Message Title is required.
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4"
+                                *ngIf="templeteForm.controls['notificationtype'] && templeteForm.controls['notificationtype'].value == 'message'">
+                                <label for="messagesubject">Message Subject <span class="mandatory">*</span></label>
+                                <input type="text" name="subject" class="form-control" id="subject" required ngModel
+                                    #subject="ngModel">
+                                <div *ngIf="templeteForm.submitted && !subject.valid">
+                                    <div class="invalid-feedback" *ngIf="subject.errors.required">
+                                        Message Subject is required.
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12"
+                                *ngIf="templeteForm.controls['notificationtype'] && templeteForm.controls['notificationtype'].value == 'message'">
+                                <label for="messagecontent">Message Content <span class="mandatory">*</span></label>
+                                <textarea id="messagecontent" class="form-control" rows="7"
+                                    placeholder="Type your message" name="content" required ngModel
+                                    #content="ngModel"></textarea>
+                                <div *ngIf="templeteForm.submitted && !content.valid">
+                                    <div class="invalid-feedback" *ngIf="content.errors.required">
+                                        Message Content is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" *ngIf="!viewpage" class="btn btn-sm btn-success" [disabled]="submitebtn">
+                            Submit
+                        </button>
+                        <button type="button" *ngIf="!viewpage" routerLink="/app/notification/templete"
+                            class="btn btn-sm btn-danger">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

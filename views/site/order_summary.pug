@@ -1,0 +1,102 @@
+doctype html
+html
+    head
+        meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        title Order Summary
+        link(rel='stylesheet', href= siteurl + 'app/site/public/css/ordersummary.css', type='text/css', media='all')
+    body
+        section(class="ordersummary-outterwrap")
+            div.logo-wrap
+               img.logo(src=siteurl+logo,alt='logo')
+            div.order-main-details 
+                p Thanks for choosing !{site_title}, !{userDetails.username}! Here are your order details: 
+                div.order-main-details-inner
+                    div.order-main-details-inner-left
+                        div.order-status
+                            h4 Order No : <span class="highlight">#!{orderDetails.order_id}</span>
+                            h4 Order placed at : <span class="highlight">!{orderDetails.createDate}</span>
+                            if (typeof orderDetails.order_history !='undefined' && typeof orderDetails.order_history.food_delivered != 'undefined')
+                                h4 Order delivered at : <span class="highlight">!{orderDetails.order_history.food_delivered}</span>
+                            h4 Order Status : <span class="highlight">!{orderDetails.order_status}</span>                            
+                        //- div.order-from-details
+                        //-     h4 Ordered from :
+                        //-     h4.restaurant-name !{orderDetails.restaurantDetails.restaurantname}
+                        //-     h4.restaurant-address !{orderDetails.restaurantDetails.address.fulladres}
+                    div.order-main-details-inner-right
+                        div.delivery-to-details
+                            h4 Delivery To :
+                            h4.customer-name !{userDetails.username}
+                            h4.customer-address !{orderDetails.delivery_address.street},!{orderDetails.delivery_address.fulladres}
+            div.order-item-details
+                table
+                    tr
+                        th.item-name-head Item Name
+                        //- th.item-name-head Units
+                        th.item-quantity-head Quantity
+                        th.item-price-head Price
+                    each val,index in orderDetails.foods
+                        tr
+                            td.item-name !{orderDetails.foods[index].name} 
+                            //- td.item-name !{orderDetails.foods[index].net_quantity}!{orderDetails.foods[index].units} 
+                            td.item-quantity !{orderDetails.foods[index].quantity}
+                            td.item-price
+                                span
+                                    if (orderDetails.foods[index].offer_price > 0)
+                                        <span class="price-amount offer-price">!{currency_symbol} !{orderDetails.foods[index].total}</span>
+                                    <span class="price-amount">!{currency_symbol} !{orderDetails.foods[index].sub_total}</span>
+								
+            div.order-price-details    
+                h4 <span>Item Total :</span>  <span class="price-amount">!{currency_symbol} !{orderDetails.item_total}</span>    
+                if orderDetails.billings.amount.offer_discount > 0
+                    h4 <span>Offers Discount :</span>  <span class="price-amount">!{currency_symbol} !{orderDetails.billings.amount.offer_discount}</span>
+                if orderDetails.coupon_code && orderDetails.coupon_code != null && orderDetails.coupon_code != ''
+                    h4 <span>Coupon Discount :</span>  <span class="price-amount">!{currency_symbol} !{orderDetails.billings.amount.coupon_discount}</span>
+             
+                h4 <span>Delivery Charges :</span>  <span class="price-amount">Free</span>
+                if orderDetails.billings.amount.package_charge > 0
+                    h4 <span>Package Charges :</span>  <span class="price-amount">!{currency_symbol} !{orderDetails.billings.amount.package_charge}</span>
+                if orderDetails.billings.amount.surge_fee > 0
+                    h4 <span>Surge Fare :</span>  <span class="price-amount">!{currency_symbol} !{orderDetails.billings.amount.surge_fee}</span>
+                if orderDetails.billings.amount.night_fee > 0
+                    h4 <span>Night Fare :</span>  <span class="price-amount">!{currency_symbol} !{orderDetails.billings.amount.night_fee}</span>
+                if orderDetails.billings.amount.service_tax > 0
+                    h4 <span>Service Tax :</span>  <span class="price-amount">!{currency_symbol} !{orderDetails.billings.amount.service_tax}</span>
+                div.grand-total
+                    h4 <span >Grand Total</span>  <span class="price-amount">!{currency_symbol} !{orderDetails.billings.amount.grand_total}</span>    
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+        style. 
+             .app-content-box {
+                  text-align: left;
+                  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+           }
+             .blue-btn, .grn-btn {
+                    background-color: #1da3bf;
+                    border: 1px solid #1da3bf;
+                    border-radius: 3px;
+                    color: white;
+                    float: right;
+                    font-family: proximanovaregular;
+                    padding: 11px 30px;
+                    text-transform: capitalize;
+                    width:100%;
+                    font-size:18px;
+                    margin-top: 10px;
+           }
+             .blue-btn:hover, .grn-btn:hover {
+              background-color: #00954a;
+              color: #fff;
+              text-decoration: none;
+           }
+            

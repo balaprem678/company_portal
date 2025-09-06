@@ -1,0 +1,11 @@
+<div class="payment_gatway-payment_gateway_list">
+    <div class="container">
+        <app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit"
+            [tablename]="'Payment Gateway'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName"
+            [viewUrl]="viewUrl" [editUrl]="editUrl" [deleteApis]="deleteApis" (onDeleteChange)="onDeleteChange($event)"
+            [bulk_action]="bulk_action" (onitemsPerPageChange)="onitemsPerPageChange($event)"
+            [card_details]="card_details" (onPageChange)="onPageChange($event)"
+            (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)">
+        </app-common-table>
+    </div>
+</div>

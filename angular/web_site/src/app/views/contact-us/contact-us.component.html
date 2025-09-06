@@ -1,0 +1,89 @@
+<div class="contact_us_page mt-5 pt_110">
+     <div class="container">
+          <div class="row">
+               <div class="col-lg-5 col-md-6 col-sm-12">
+                    <h2>Contact Us</h2>
+                    <hr>
+                    <div class="where_house_support row">
+                         <div class="col-lg-6 col-md-12 col-sm-12">
+                              <h5>Warehouse/Store</h5>
+                              <!-- <p>No 3/29, Ragava Nagar, 2nd <br> Street, Madipakkam, Chennai <br> 600091.</p> -->
+                              <p>{{settings?.site_address}}</p>
+                         </div>
+                         <div class="col-lg-6 col-md-12 col-sm-12">
+                              <h5>Support Hours</h5>
+                              <p>Monday – Saturday: <br>
+                                   9.00 AM to 6.00 PM</p>
+                         </div>
+                    </div>
+                    <hr>
+                    <div class="contact_info_report row">
+                         <div class="col-lg-6 col-md-6 col-sm-12">
+                              <h5>Contact Info</h5>
+                              <a [href]="'tel:' + (settings && settings.phone)"><i class="fa-solid fa-phone"></i>&nbsp;{{settings && settings.phone}}</a><br>
+                              <a [href]="'mailto:' + settings.email_address"><i
+                                        class="fa-solid fa-envelope-open-text"></i>&nbsp;{{settings && settings.email_address}}</a>
+                         </div>
+                         <div class="col-lg-6 col-md-6 col-sm-12">
+                              <h5>Report</h5>
+                              <a [href]="'mailto:' + settings.report_email"><i
+                                        class="fa-solid fa-circle-exclamation"></i>&nbsp;{{settings && settings.report_email}}</a>
+                         </div>
+                    </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="wlthfy">
+                         <form action="" #addressForm="ngForm" (ngSubmit)="onFormSubmit(addressForm)">
+                              <h2>We Love to Hear From You</h2>
+                              <div class="name">
+                                   <label for="">Name&nbsp;<span class="asterisk">*</span></label><br>
+                                   <!-- <input type="text" placeholder="Name"> -->
+                                   <input type="text"  placeholder="Name" name="name" ngModel
+                                   #name="ngModel" id="name" 
+                                   required maxlength="40" minlength="1" pattern="^[a-zA-Z ]+$" />
+                                   <div *ngIf="submitted && !name.valid">
+                                       <div *ngIf="name.errors?.['required']"
+                                           class="invalid-feedback d-block">
+                                           Name is required
+                                       </div>
+                                       <div *ngIf="name.errors?.['maxlength']">Maximum limit 20
+                                           characters</div>
+                                       <div *ngIf="name.errors?.['minlength']">Minimum limit 1
+                                           character</div>
+                                       <div class="invalid-feedback" *ngIf="name.errors?.['pattern']">
+                                           Enter valid name</div>
+                                   </div>
+                              </div>
+                              <div class="email">
+                                   <label for="">Email&nbsp;<span class="asterisk">*</span></label><br>
+                                   <input type="text" placeholder="Email" type="email" id="email" name="email" ngModel #email="ngModel"  pattern="^[a-z0-9.]+@[a-z0-9.-]+\.[a-z]{2,3}$" required maxlength="40">
+                                   <div *ngIf="submitted && !email.valid">
+                                        <div *ngIf="email.errors?.['required']"
+                                            class="invalid-feedback d-block">
+                                            Email is required
+                                        </div>
+                                        <div *ngIf="email.errors?.['maxlength']" class="invalid-feedback d-block">Maximum limit 40
+                                            characters</div>
+                                        <div *ngIf="email.errors?.['minlength']" class="invalid-feedback d-block">Minimum limit  7
+                                            characters</div>
+                                            <div *ngIf="email.errors?.['pattern']" class="invalid-feedback d-block">Invalid email</div>
+                                    </div>
+
+                              </div>
+                              <div class="message">
+                                   <label for="">Message&nbsp;<span class="asterisk">*</span></label><br>
+                                   <textarea  placeholder="Message" id="message" name="message" #message="ngModel"
+                                   ngModel required></textarea>
+                                   <div *ngIf="submitted && !message.valid">
+                                        <div *ngIf="message.errors?.['required']" class="invalid-feedback d-block">
+                                            Message is required
+                                        </div>
+                                    </div>
+                              </div>
+                              <button type="submit">Send</button>
+                         </form>
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-comment"></i> SMS Setting
+                </div>
+                <form #smsSettingForm="ngForm" (ngSubmit)="onFormSubmit(smsSettingForm)" autocomplete="off">
+                    <div class="card-body">
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="apikey">API Key <span class="mandatory">*</span></label>
+                                    <input type="text" name="apikey" id="apikey" class="form-control" ngModel
+                                        name="apikey" #apikey="ngModel" required
+                                        [ngClass]="{ 'is-invalid': smsSettingForm.submitted && apikey.errors }"
+                                        [ngClass]="{ 'is-valid': !apikey.errors && apikey.valid}">
+                                    <div *ngIf="smsSettingForm.submitted && !apikey.valid">
+                                        <div class="invalid-feedback" *ngIf="apikey.errors.required">API Key is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="sender">Sender <span class="mandatory">*</span></label>
+                                    <input type="text" name="sender" id="sender" class="form-control" ngModel
+                                        name="sender" #sender="ngModel" required
+                                        [ngClass]="{ 'is-invalid': smsSettingForm.submitted && sender.errors }"
+                                        [ngClass]="{ 'is-valid': !sender.errors && sender.valid}">
+                                    <div *ngIf="smsSettingForm.submitted && !sender.valid">
+                                        <div class="invalid-feedback" *ngIf="sender.errors.required">Sender is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="mode">Mode <span class="mandatory">*</span></label>
+                                    <select name="mode" id="mode" class="form-control" ngModel name="mode"
+                                        #mode="ngModel" required
+                                        [ngClass]="{ 'is-invalid': smsSettingForm.submitted && mode.errors }"
+                                        [ngClass]="{ 'is-valid': !mode.errors && mode.valid}">
+                                        <option value="">--Select--</option>
+                                        <option value="development">Development</option>
+                                        <option value="production">Production</option>
+                                    </select>
+                                    <div *ngIf="smsSettingForm.submitted && !mode.valid">
+                                        <div class="invalid-feedback" *ngIf="mode.errors.required">Mode is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-success" [disabled]="submitebtn">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

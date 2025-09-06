@@ -1,0 +1,178 @@
+<div class="modal fade" role="dialog" aria-hidden="true" style="opacity: 99999;display: block;">
+    <div class="dash-loader">
+        <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+<!-- <section class="videosame-section">
+    <div class="container">
+        <div class="fullvideo-parts">
+            <div class="col-md-12">
+                <div class="debate-logo"><img src="assets/image/logo.png"></div>
+            </div>
+            <div class="col-md-9">
+                <div class="leftpart-sec">
+                    <div class="topcont-video">
+                        <iframe *ngIf="RootDebateDetails && RootDebateDetails.debate_video_link" width="100%"
+                            height="450" [src]="RootDebateDetails.debate_video_link" title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                        <img *ngIf="!RootDebateDetails || !RootDebateDetails.debate_video_link" width="100%"
+                            [src]="coverCroppedImage">
+                    </div>
+                    <h3> {{(RootDebateDetails && RootDebateDetails.topic) ? RootDebateDetails.topic : ''}} -
+                        {{(RootDebateDetails && RootDebateDetails.category_name) ? RootDebateDetails.category_name :
+                        ''}}</h3>
+                    <div class="leftmovers" *ngIf="RootDebateDetails && RootDebateDetails.hastagData">
+                        <h4>{{RootDebateDetails.hastagData}}</h4>
+                    </div>
+                    <div class="rightmovers">
+                        <span class="chat-infos">
+                            <button type="button" class="btn options-btns">
+                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                            </button>
+                            <span class="com-counts"> {{(RootDebateDetails && RootDebateDetails.likeCount) ?
+                                RootDebateDetails.likeCount : 0}} </span>
+                        </span>
+                        <span class="chat-infos">
+                            <button type="button" class="btn options-btns">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </button>
+                            <span class="com-counts"> {{(RootDebateDetails && RootDebateDetails.viewCount) ?
+                                RootDebateDetails.viewCount : 0}} </span>
+                        </span>
+                        <span class="chat-infos">
+                            <button type="button" class="btn options-btns">
+                                <i class="fa fa-comment" aria-hidden="true"></i>
+                            </button>
+                            <span class="com-counts"> {{(RootDebateDetails && RootDebateDetails.CommandCount) ?
+                                RootDebateDetails.CommandCount : 0}} </span>
+                        </span>
+                    </div>
+                    <h6> {{(RootDebateDetails && RootDebateDetails.description) ? RootDebateDetails.description : ''}}
+                    </h6>
+
+                    <ul class="userlists" *ngIf="RootDebateDetails && RootDebateDetails.postCommand">
+                        <li *ngFor="let item of RootDebateDetails.postCommand; let i=index">
+                            <div class="leftstr-parts">
+                                <img [src]="imageurl+item.user_avatar" onError="this.src='assets/image/user.jpg'"
+                                    alt="users" />
+                            </div>
+                            <div class="rightstr-parts">
+                                <div class="command-specific">
+                                    <h5> {{(item.user_name !='' && item.user_name !=' ') ? (item.user_name | titlecase)
+                                        :
+                                        'Unknown'}} <span> {{item.date}}
+                                        </span></h5>
+                                    <h6> {{item.command}} </h6>
+                                </div>
+                                <h4 *ngIf="item.replies > 0" (click)="repliesFunction(item,i)"> Reply <span>
+                                        {{item.replies}} </span></h4>
+                                <ul class="userlists reply-imports" *ngIf="item.replies > 0">
+                                    <li *ngFor="let reply of item.replyList; let x=index">
+                                        <div class="leftstr-parts">
+                                            <img [src]="imageurl+reply.user_avatar"
+                                                onError="this.src='assets/image/user.jpg'" alt="users" />
+                                        </div>
+                                        <div class="rightstr-parts">
+                                            <div class="command-specific">
+                                                <h5> {{(reply.user_name !='' && reply.user_name !=' ') ?
+                                                    (reply.user_name | titlecase) : 'Unknown'}}
+                                                    <span>
+                                                        {{reply.date}} </span>
+                                                </h5>
+                                                <h6> {{reply.command}} </h6>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <h6 class="see-mores" *ngIf="commendLength == 0">
+                        <span (click)="showmore()"> See More <i class="fa fa-caret-down" aria-hidden="true"></i> </span>
+                    </h6>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="rightpart-sec">
+                    <ul class="info-arrages" *ngIf="RootDebateDetails && RootDebateDetails.debateRequestList">
+                        <li *ngFor="let item of RootDebateDetails.debateRequestList; let i=index">
+                            <div class="level-left">
+                                <img class="main-users" [src]="imageurl+item.user_avatar"
+                                    onError="this.src='assets/image/user.jpg'" alt="users" />
+                                <span class="coms-ranges">
+                                    <img *ngIf="item.request_type == 1" src="assets/image/green-prof.svg" alt="users">
+                                    <img *ngIf="item.request_type == 2" src="assets/image/red-prof.svg" alt="users">
+                                    <img *ngIf="item.request_type == 3" src="assets/image/orange-prof.svg" alt="users">
+                                </span>
+                            </div>
+                            <div class="level-right">
+                                <h4> <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{item.user_name | titlecase}} </h4>
+                                <h5> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    Chennai , Tamil nadu</h5>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<!-- <div class="container">
+    <section class="debate-video-main">
+        <div class="debate-logo"><img src="assets/image/logo.png"></div>
+        <div class="debate-video-section">
+            <div class="debate-video">
+                <video width="100%" height="310" controls
+                    *ngIf="RootDebateDetails && RootDebateDetails.debate_video_link">
+                    <source [src]="RootDebateDetails.debate_video_link" type="video/mp4">
+                </video>
+                <img *ngIf="!RootDebateDetails || !RootDebateDetails.debate_video_link" width="100%" height="310"  [src]="coverCroppedImage">
+                
+            </div>
+            <div class="debate-video-list">
+                <ul>
+                    <li>
+                        <label>Debate Title:</label>
+                        <span>{{RootDebateDetails ? (RootDebateDetails.topic ? RootDebateDetails.topic : '') :
+                            ''}}</span>
+                    </li>
+                    <li>
+                        <label>Category:</label>
+                        <span>{{RootDebateDetails ? (RootDebateDetails.category_name ? RootDebateDetails.category_name :
+                            '') :
+                            ''}}</span>
+                    </li>
+                    <li>
+                        <label>Description:</label>
+                        <span>{{RootDebateDetails ? (RootDebateDetails.description ? RootDebateDetails.description : '')
+                            :
+                            ''}}</span>
+                    </li>
+                   
+                    <li>
+                        <label>Duration:</label>
+                        <span>{{RootDebateDetails ? (RootDebateDetails.duration ? RootDebateDetails.duration : '') :
+                            ''}} Mins</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div> -->

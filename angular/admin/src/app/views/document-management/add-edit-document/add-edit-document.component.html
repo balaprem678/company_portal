@@ -1,0 +1,176 @@
+<div class="pagecontent doc_page" *ngIf="!viewpage">
+    <!-- row -->
+    <div class="row">
+        <!-- col -->
+        <div class="col-md-12">
+            <!-- tile -->
+            <section class="tile">
+                <!-- tile header -->
+                <form class="Category-settings" #docFieldForm="ngForm" enctype="multipart/form-data" name="docFieldForm"
+                    (ngSubmit)="onSubmit(docFieldForm)" novalidate>
+                    <fieldset ng-disabled="myBooleanValue">
+                        <div class="row">
+                            <div class="form-group col-sm-6"
+                                ng-class="{ 'has-error' : docFieldForm.doc_for.$invalid && !docFieldForm.doc_for.$pristine, 'has-success' : docFieldForm.doc_for.$valid && !docFieldForm.doc_for.$pristine}">
+                                <label for="doc_for" class="control-label">Document For<span
+                                        class="color_red">*</span></label>
+                                <select type="text" name="doc_for" id="doc_for" class="form-control" ngModel
+                                    #doc_for="ngModel" required>
+                                    <option value="" disabled selected>Select</option>
+                                    <option value="driver">Driver</option>
+                                    <option value="restaurant">Restaurant</option>
+                                </select>
+                                <p class="help-block">
+                                    <span class="invalid-feedback"
+                                        *ngIf="docFieldForm.submitted && docFieldForm.controls.doc_for.errors && docFieldForm.controls.doc_for.errors.required">Document
+                                        For is required.</span>
+                                </p>
+                            </div>
+                            <div class="form-group col-sm-6"
+                                ng-class="{ 'has-error' : docFieldForm.doc_name.$invalid && !docFieldForm.doc_name.$pristine, 'has-success' : docFieldForm.doc_name.$valid && !docFieldForm.doc_name.$pristine}">
+                                <label for="doc_name" class="control-label">Document Name<span
+                                        class="color_red">*</span></label>
+                                <input type="text" name="doc_name" id="doc_name" class="form-control" ngModel
+                                    placeholder="Enter document name" #doc_name="ngModel" required>
+                                <p class="help-block">
+                                    <span class="invalid-feedback"
+                                        *ngIf="docFieldForm.submitted && docFieldForm.controls.doc_name.errors && docFieldForm.controls.doc_name.errors.required">Document
+                                        name is required.</span>
+                                </p>
+                            </div>
+                            <div class="form-group col-sm-6 required_fieldds"
+                                ng-class="{ 'has-error' : docFieldForm.has_require.$invalid && !docFieldForm.has_require.$pristine}">
+                                <label for="has_require" class="control-label">Is Required<span
+                                        class="color_red">*</span> </label>
+                                <input type="radio" name="has_require" value="1" (click)="hasRequire(1)"
+                                    [checked]="editDetails ? 1 == editDetails.has_require : false" required>Yes
+                                <input type="radio" name="has_require" value="0" (click)="hasRequire(0)"
+                                    [checked]="editDetails ? 0 == editDetails.has_require : false" required>No
+                                <p class="help-block">
+                                    <span class="invalid-feedback"
+                                        *ngIf="docFieldForm.submitted && has_require != 1 && has_require != 0 ">Select
+                                        document is mandatory or not</span>
+                                </p>
+                            </div>
+
+                            <div class="form-group col-sm-6 required_fieldds"
+                                ng-class="{ 'has-error' : docFieldForm.has_expire.$invalid && !docFieldForm.has_expire.$pristine}">
+                                <label for="has_expire" class="control-label">Expiry Date Needed <span
+                                        class="color_red">*</span></label>
+                                <input type="radio" name="has_expire" (click)="hasExpire(1)"
+                                    [checked]=" editDetails ? 1 == editDetails.has_expire : false" value="1"
+                                    required>Yes
+                                <input type="radio" name="has_expire" (click)="hasExpire(0)"
+                                    [checked]=" editDetails ? 0 == editDetails.has_expire : false" value="0" required>No
+                                <p class="help-block">
+                                    <span class="invalid-feedback"
+                                        *ngIf="docFieldForm.submitted && has_expire != 1 && has_expire != 0 ">Select
+                                        expiry date field is required or not</span>
+                                </p>
+                            </div>
+
+                            <div class="form-group col-sm-6"
+                                ng-class="{ 'has-error' : docFieldForm.status.$invalid && !docFieldForm.status.$pristine, 'has-success' : docFieldForm.status.$valid && !docFieldForm.status.$pristine}">
+                                <label for="status" class="control-label">Status<span class="color_red">*</span></label>
+                                <select type="text" name="status" id="status" class="form-control" ngModel
+                                    #status="ngModel" convert-to-number required>
+                                    <option value="" disabled selected>Select</option>
+                                    <option value="1">Active</option>
+                                    <option value="2">In-Active</option>
+                                </select>
+                                <p class="help-block">
+                                    <span class="invalid-feedback"
+                                        *ngIf="docFieldForm.submitted && docFieldForm.controls.status.errors && docFieldForm.controls.status.errors.required">Status
+                                        is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                            <button class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10"
+                                ng-click="DCTRL.submitdocData(docFieldForm.$valid,DCTRL.editUserData)">Submit
+                                <i class="fa fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+            </section>
+            <!-- /tile -->
+        </div>
+        <!-- /col -->
+    </div>
+    <!-- /row -->
+</div>
+<div class="pagecontent doc_page" *ngIf="viewpage && editDetails">
+    <!-- row -->
+    <div class="row">
+        <!-- col -->
+        <div class="col-md-12">
+            <!-- tile -->
+            <section class="tile">
+                <!-- tile header -->
+                <form class="Category-settings" submit-validate enctype="multipart/form-data" name="docFieldForm"
+                    novalidate>
+                    <fieldset ng-disabled="myBooleanValue">
+                        <div class="row">
+                            <div class="form-group col-sm-4"
+                                ng-class="{ 'has-error' : docFieldForm.doc_for.$invalid && !docFieldForm.doc_for.$pristine, 'has-success' : docFieldForm.doc_for.$valid && !docFieldForm.doc_for.$pristine}">
+                                <label for="doc_for" class="control-label">Document For</label>
+
+                            </div>
+                            <div class="form-group col-sm-4"
+                                ng-class="{ 'has-error' : docFieldForm.doc_for.$invalid && !docFieldForm.doc_for.$pristine, 'has-success' : docFieldForm.doc_for.$valid && !docFieldForm.doc_for.$pristine}">
+                                <label>{{editDetails.doc_for}}</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-4"
+                                ng-class="{ 'has-error' : docFieldForm.doc_name.$invalid && !docFieldForm.doc_name.$pristine, 'has-success' : docFieldForm.doc_name.$valid && !docFieldForm.doc_name.$pristine}">
+                                <label for="doc_name" class="control-label">Document Name</label>
+
+                            </div>
+                            <div class="form-group col-sm-4"
+                                ng-class="{ 'has-error' : docFieldForm.doc_name.$invalid && !docFieldForm.doc_name.$pristine, 'has-success' : docFieldForm.doc_name.$valid && !docFieldForm.doc_name.$pristine}">
+                                <label>{{editDetails.doc_name}}</label> </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4"
+                                ng-class="{ 'has-error' : docFieldForm.has_require.$invalid && !docFieldForm.has_require.$pristine}">
+                                <label for="has_require" class="control-label">Is Required </label>
+
+                            </div>
+                            <div class="form-group col-sm-4"
+                                ng-class="{ 'has-error' : docFieldForm.has_require.$invalid && !docFieldForm.has_require.$pristine}">
+                                <label>{{editDetails.has_require ==1? "Yes" : "No" }}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4"
+                                ng-class="{ 'has-error' : docFieldForm.has_expire.$invalid && !docFieldForm.has_expire.$pristine}">
+                                <label for="has_expire" class="control-label">Expiry Date Needed </label>
+
+                            </div>
+                            <div class="form-group col-sm-4"
+                                ng-class="{ 'has-error' : docFieldForm.has_expire.$invalid && !docFieldForm.has_expire.$pristine}">
+                                <label>{{editDetails.has_expire ==1? "Yes" : "No" }}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4"
+                                ng-class="{ 'has-error' : docFieldForm.status.$invalid && !docFieldForm.status.$pristine, 'has-success' : docFieldForm.status.$valid && !docFieldForm.status.$pristine}">
+                                <label for="status" class="control-label">Status</label>
+                            </div>
+                            <div class="form-group col-sm-4"
+                                ng-class="{ 'has-error' : docFieldForm.status.$invalid && !docFieldForm.status.$pristine, 'has-success' : docFieldForm.status.$valid && !docFieldForm.status.$pristine}">
+                                <label>{{editDetails.status==1? "Active" : "In Active"}}</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </section>
+            <!-- /tile -->
+        </div>
+        <!-- /col -->
+    </div>
+    <!-- /row -->
+</div>

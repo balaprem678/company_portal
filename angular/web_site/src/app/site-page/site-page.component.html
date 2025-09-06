@@ -1,0 +1,29 @@
+<!-- <div class="privacy-part">
+    <div class="container">      
+        <h3>{{heading}}</h3> 
+        <div class="policypage" [innerHtml]="pageDescription | safeHtml"></div>        
+    </div>
+</div> -->
+<div class="terms_conditions pt_110" *ngIf="slug != 'shipping-policy' && slug != 'our-story'">
+    <div class="container">
+        <div class="policy_inner_sec">
+            <h2>{{heading}}</h2>
+            <div class="policypage" [innerHtml]="pageDescription | safeHtml"></div>
+        </div>
+    </div>
+</div>
+<div class="shipping_policy_page pt_110" *ngIf="slug == 'shipping-policy'">
+    <div class="container">
+        <div class="customer_request mt-4">
+            <h2>{{heading}}</h2>
+            <div class="policypage" [innerHtml]="pageDescription | safeHtml"></div>
+        </div>
+    </div>
+</div>
+<div class="our_story pt_110" *ngIf="slug == 'our-story'">
+    <div class="container">
+        <div class="healthy_eating_our_story">
+            <div class="policypage" [innerHtml]="pageDescription | safeHtml"></div>
+        </div>
+    </div>
+</div>

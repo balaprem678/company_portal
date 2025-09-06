@@ -1,0 +1,136 @@
+<section class="related-product" [ngStyle]="{'background-color': color && color != (undefined || null || '') ? color : tags[0]?.color ? tags[0]?.color : 'transparent'}">
+    <div class="container inner-padding mt-3 py-4">
+        <div class="premium-qty-head">
+            <h3 *ngIf="listName === 'amazing_products' && productDealList?.length > 0">Amazing Products</h3>
+            <h3 *ngIf="listName === 'people_selected_products' && productDealList?.length > 0">People also bought this
+                together</h3>
+            <h3 *ngIf="listName === 'recommended_products' && productDealList?.length > 0">Recommended Products</h3>
+        </div>
+        <div class="product-list">
+            <div class="product-list-right">
+                <div class="product-part" *ngFor="let item of productDealList">
+                    <div class="p-list-cnt">
+                        <a [href]="productDetails(item.slug, item._id, item.rcategory, item.scategory)"
+                            class="p-img-part">
+                            <div class="products-sliders">
+                                <ngx-slick-carousel class="carousel" #slickModal="slick-carousel"
+                                    [config]="productsslider" (init)="slickInit($event)"
+                                    (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                                    (beforeChange)="beforeChange($event)">
+                                    <div ngxSlickItem>
+                                        <picture *ngIf="item.avatar"
+                                            (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                                            <source *ngIf="item.avatar?.webpImg"
+                                                [srcset]="environment.apiUrl + item.avatar?.webpImg" type="image/webp">
+                                            <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                                                onerror="this.src='assets/image/no_img.png'" alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                                        </picture>
+
+
+                                        <!-- <img [src]="environment.apiUrl + item.avatar" alt=""> -->
+                                    </div>
+                                </ngx-slick-carousel>
+                                <!-- <span class="off_percentage"
+                                *ngIf="item && item.selectedPriceDetail && item.selectedPriceDetail.mprice != (undefined || null || '') &&  item.selectedPriceDetail.mprice">({{
+                                (( item?.selectedPriceDetail?.mprice - item?.selectedPriceDetail?.sprice) /
+                                item?.selectedPriceDetail?.mprice * 100) | number : '1.0-0' }}% Off)</span> -->
+                            </div>
+                        </a>
+                        <div class="p-product-cnt">
+                            <div class="p-product-hide">
+                                <a class="p-img-part" [href]="productDetails(item.slug, item._id, item.rcategory, item.scategory)">
+                                    <h2>{{item.name}}</h2>
+                                </a>
+                                    <p class="price" *ngIf="item.offer_status == 0">
+                                        <span *ngIf="item.base_price > item.sale_price">
+                                            ₹ {{item.price_details[0].mprice | number}}
+                                        </span>&nbsp;
+                                        <span>
+                                            ₹ {{item.price_details[0].sprice | number}}
+                                        </span>
+                                    </p>
+                                <ul>
+                                    <li *ngFor="let price of item.price_details">
+                                        <input type="radio" name="p-q-{{item._id}}" [value]="price"
+                                            [(ngModel)]="item.selectedPriceDetail"
+                                            (ngModelChange)="onPriceDetailChanges(item, $event)">
+                                        <p>{{price.attributes[0].chaild_name}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="v-add qty-sec">
+                                <div class="v-add qty-sec cart_add_to_cart mt-4">
+                                    <a class="p-add-cart" *ngIf="cartLength <= 0 " (click)="preAddCart(item, 'add')">
+                                        <img src="../../../assets/image/pillais/cart.png" alt="" />
+                                    </a>
+                                    <!-- {{unmatchedObjects | json}} -->
+
+
+                                    <div *ngFor="let i of item.price_details">
+                                        <div *ngFor="let rem of unmatchedObjects">
+                                            <div *ngIf="item._id === rem._id 
+                                                && i?.attributes[0].chaild_id == rem.price_details?.attributes[0].chaild_id 
+                                                && i?.attributes[0].chaild_id == item.selectedPriceDetail?.attributes[0].chaild_id 
+                                                && rem.showAddToCartButton 
+                                                && cartLength > 0">
+                                                <a class="p-add-cart"
+                                                    (click)="preAddCartBtn(item, 'add', rem._id, rem.price_details?.attributes[0].chaild_id)">
+                                                    <img src="../../../assets/image/pillais/cart.png" alt="" />
+
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngFor="let items of cartDetails.cart_details; let i = index">
+                                        <div class="p-dec-qty"
+                                            *ngIf="item._id === cartDetails.cart_details[i].id 
+                                                && item.selectedPriceDetail?.attributes.length > 0 
+                                                && items.variations.length > 0 
+                                                && items.variations[0].length > 0 
+                                                && item.selectedPriceDetail?.attributes[0].chaild_id === items.variations[0][0].chaild_id">
+                                            <div class="p-qty-form minus_plus_section">
+                                                <button class="minus_input_plus" *ngIf="items.quantity == 1"
+                                                    (click)="removeFoodFromCart(items)">-</button>
+                                                <button class="minus_input_plus" *ngIf="items.quantity > 1"
+                                                    (click)="changeCart(items, 'decreement')">-</button>
+                                                <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity"
+                                                    readonly />
+                                                <button class="minus_input_plus"
+                                                    (click)="changeCart(items, 'increement')">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <span class="off_percentage" *ngIf="item.selectedPriceDetail">({{
+                        ((item.selectedPriceDetail.mprice -
+                        item.selectedPriceDetail.sprice) / item.selectedPriceDetail.mprice *
+                        100) | number : '1.0-0' }}% off!)</span> -->
+
+                        <span class="off_percentage" *ngIf="
+                    item && 
+                    item.selectedPriceDetail &&
+                    item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.mprice > 0 &&
+                    (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+                  ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+
+                
+                  <p class="like" (click)="addFavourite(item._id,item.selectedPriceDetail.attributes[0].chaild_id)">                        <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+                        <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br>

@@ -1,0 +1,107 @@
+.offer-list-page {
+  padding-top: 20px;
+}
+span.offer-banner img {
+  width: 100%;
+  border-radius: 10px;
+}
+.offer-cont {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  clear: both;
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
+}
+.offer-list-parts h1 {
+  font-size: 26px;
+  font-weight: 800;
+  width: 100%;
+  margin-bottom: 17px;
+}
+.offer-list-parts .product-part {
+  width: auto;
+  box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.08);
+}
+.offer-cont .p-product-hide p {
+  padding: 2px 8px;
+  font-weight: 800;
+}
+.offer-list-parts {
+  margin-top: 4em;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  button {
+    background-color: #0a472e; /* Custom green color */
+    color: white;
+    border: 2px solid #0a472e;
+    padding: 12px 24px;
+    margin: 0 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      background-color: #ffffff; /* White background on hover */
+      color: #0a472e; /* Green text on hover */
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+      border-color: #0a472e;
+    }
+
+    &:hover::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        45deg,
+        rgba(10, 71, 46, 0.2),
+        rgba(255, 255, 255, 0.3)
+      );
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    &:hover::before {
+      opacity: 1;
+    }
+
+    &:disabled {
+      background-color: #cccccc;
+      color: #666666;
+      border-color: #cccccc;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
+
+  span {
+    font-size: 18px;
+    color: #0a472e;
+    font-weight: bold;
+  }
+}
+
+.no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+
+  p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+}

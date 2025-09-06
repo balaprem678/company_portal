@@ -1,0 +1,107 @@
+.my-account-page h2 {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1em;
+  color: #222222;
+  font-family: "Signika", Sans-serif;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.my-account-page {
+  margin-top: 12em;
+}
+
+.my-acc-left,
+.my-acc-right {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.my-acc-left {
+  flex-direction: row;
+  flex-shrink: 1;
+}
+
+.my-acc-box {
+  text-align: center;
+  .mo_ma_pm_mp_l {
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    height: 160px;
+  }
+}
+.my-acc-box button {
+  border: none;
+  background: none;
+}
+
+.my-acc-box a,
+.my-acc-box button {
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 800;
+  color: #004830;
+  cursor: pointer;
+
+  img {
+    display: block;
+    width: 70px;
+    margin: 0 auto 8px auto;
+    filter: invert(22%) sepia(24%) saturate(1799%) hue-rotate(114deg)
+      brightness(92%) contrast(103%);
+  }
+}
+
+.my-acc-right .my-acc-box:nth-child(2),
+.my-acc-right .my-acc-box:nth-child(3) {
+  width: 46.9%;
+}
+
+@media screen and (max-width: 991px) {
+  .my-acc-left,
+  .my-acc-right,
+  .my-acc-right .my-acc-box:nth-child(2),
+  .my-acc-right .my-acc-box:nth-child(3) {
+    width: 100%;
+  }
+
+  .my-account-page {
+    .row {
+      justify-content: center;
+    }
+  }
+}
+@media screen and (max-width: px) {
+  .my-acc-box[_ngcontent-ng-c4001859222] a[_ngcontent-ng-c4001859222],
+  .my-acc-box[_ngcontent-ng-c4001859222] button[_ngcontent-ng-c4001859222] {
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 800;
+    color: #004830;
+    cursor: pointer;
+    height: 160px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .my-acc-right .my-acc-box:nth-child(2),
+  .my-acc-right .my-acc-box:nth-child(3) {
+    width: 47%;
+  }
+
+  .my-acc-box {
+    width: 47%;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+  .my-acc-right .my-acc-box:nth-child(2),
+  .my-acc-right .my-acc-box:nth-child(3) {
+    width: 46%;
+  }
+}

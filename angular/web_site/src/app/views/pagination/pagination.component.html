@@ -1,0 +1,16 @@
+<div class="pagination-sec">
+    <span class="page-number">Page {{currentPage}} of {{totalPages}}</span>
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [ngClass]="{ 'disabled': currentPage === 1 }">
+            <a class="page-link"  (click)="setPage(currentPage - 1)">Previous</a>
+          </li>
+          <li class="page-item" *ngFor="let page of getVisiblePageNumbers()" [ngClass]="{ 'active': currentPage === page }">
+            <a class="page-link"  (click)="setPage(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" [ngClass]="{ 'disabled': currentPage === totalPages }">
+            <a class="page-link"  (click)="setPage(currentPage + 1)">Next</a>
+          </li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,148 @@
+profile-Og {
+  width: 22%;
+  height: 150px;
+  border: 5px solid #ddd;
+}
+.input_choose_file {
+  position: relative;
+  padding: 0;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 110px;
+  height: 33px;
+}
+
+.seo_content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+}
+
+.og_image {
+  position: relative;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  min-height: 343px;
+  max-height: 407px;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  background-color: #ffffff;
+  background: #fff;
+  padding: 30px;
+}
+.og_image label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--bs-gray-800);
+  font-size: 21.1px;
+}
+
+.og_image input {
+  border: none;
+  background-color: transparent;
+  width: 30px;
+  position: absolute;
+  right: 20px;
+  top: 75px;
+  padding: 0;
+  color: transparent;
+}
+
+.og_image input::-webkit-file-upload-button:focus-visible {
+  outline: none;
+}
+
+.og_image input::-webkit-file-upload-button {
+  width: 28px;
+  height: 28px;
+  border-radius: 15px;
+  border: none;
+  background: #fff;
+  background-image: url("../../../../assets/image/pencil.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 0 3px 0 #ccc;
+  color: #fff0;
+  z-index: 1;
+  position: relative;
+}
+
+.img_center_call {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 150px;
+  margin: 15px auto;
+  box-shadow: 0 0 80px 0 #dddddd;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.img_center_call img {
+  box-shadow: 0 0 4px 0 #f1f1f1;
+}
+
+p.image_size_filter {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 34px;
+  color: #99a1b7;
+}
+
+.preview {
+  position: absolute;
+  top: 122px;
+  left: 30px;
+  width: 289px;
+  height: 148px;
+}
+.preview img {
+  width: 100%;
+  //   height: 100%;
+}
+.card_footer_btn {
+  margin-left: auto;
+  margin-right: 12px;
+  margin-top: 30px;
+  margin-bottom: 80px;
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+}
+
+.card_footer_btn button {
+  background-color: #1b84ff;
+  height: 47px;
+  width: 151px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.card_footer_btn button:hover {
+  background-color: #056ee9;
+}
+
+label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--bs-gray-800);
+  font-size: 15px;
+}

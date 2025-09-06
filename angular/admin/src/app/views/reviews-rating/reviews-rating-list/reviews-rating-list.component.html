@@ -1,0 +1,14 @@
+<div class="reviews_and_rating">
+    <div class="container">
+        <app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit"
+            [tablename]="'Ratings & Reviews'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName"
+            [viewUrl]="viewUrl" [restoreApis]="restoreApis" [editUrl]="editUrl" [deleteApis]="deleteApis"
+            (onDeleteChange)="onDeleteChange($event)" [bulk_action]="bulk_action"
+            (onitemsPerPageChange)="onitemsPerPageChange($event)" [card_details]="card_details"
+            (onPageChange)="onPageChange($event)" [permanentdelete]="permanentdelete"
+            (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)"
+            [filter_action_list]="filter_action_list" [filter_action]="filter_action"
+            (onFilterAction)="onFilterAction($event)">
+        </app-common-table>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="limit"
+            [tablename]="'Combo List'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName"
+            [editUrl]="editUrl" [viewUrl]="viewUrl" (onDeleteChange)="onDeleteChange($event)"
+            (onitemsPerPageChange)="onitemsPerPageChange($event)" (onPageChange)="onPageChange($event)"
+            [bulk_action]="bulk_action" [deleteApis]="deleteApis" (onheaderCardChange)="onheaderCardChange($event)"
+            (onSearchChange)="onSearchChange($event)" [filter_action]="filter_action"
+            [filter_action_list]="filter_action_list" (onFilterAction)="onFilterAction($event)">
+        </app-common-table>

@@ -1,0 +1,119 @@
+<div class="banner-add_web_banner margin_top">
+    <div class="container">
+        <h4 class="full_page_title">
+            <strong>Add Banner </strong>
+        </h4>
+        <form #offermanagement="ngForm" (ngSubmit)="submitForm(offermanagement)">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="banner_images">
+                        <label for="rcategory">Offer Image <span class="color_red">*</span></label>
+                        <div class="form-group">
+                            <input class="form-control" type="file" accept="image/*" (change)="onSelectedFile($event)"
+                                name="image" id="image" [required]="!preview">
+                        </div>
+                        <div class="img_center_call">
+                            <img src="assets/image/no_images.png" alt="no_images">
+                        </div>
+                        <div class="preview" *ngIf="preview">
+                            <img class="ng-scope" [src]="preview">
+                        </div>
+                        <p class="image_size_filter">Set the offer thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1316x172</span> pixels.
+                        </p>
+                    </div>
+
+
+
+                    <div class="status mt-4">
+                        <label>Select Status<span class="color_red">*</span></label>
+                        <ng-select class="custom-ng-select" [items]="statusOptions" bindLabel="name" bindValue="id"
+                            placeholder="Select Status" [(ngModel)]="selectedStatus"
+                            (ngModelChange)="onStatusChange($event)" name="selectedStatus" id="selectedStatus"
+                            [ngModelOptions]="{standalone: true}">
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="banner_name">
+                        <label for="rcategory">Offer Name<span class="color_red">*</span></label>
+                        <input type="text" class="form-control" placeholder="Enter Offer Name" id="offer_name"
+                            name="offer_name" ngModel #offer_name="ngModel" required maxlength="50">
+                        <div style="color:red" *ngIf="submitted && !offer_name.valid">
+                            <div style="color:red" *ngIf="offer_name.errors?.['required']">Offer name is required!
+                            </div>
+                            <!-- <div style="color:red" *ngIf="offer_name.errors?.['pattern']">
+                                Only alphabetic characters and numbers are allowed!
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <!-- <div class="banner_site_url mt-4">
+                        <label for="banner_url">Offer URL <span class="color_red">*</span></label>
+                        <input type="text" class="form-control" placeholder="Enter Offer URL" id="offer_url"
+                            name="offer_url" ngModel #offer_url="ngModel" required maxlength="130"
+                            pattern="^(http|https):\/\/[^.\s]+(?:\.[^.\s]+){1,2}(\/.*)?$" />
+                        <div *ngIf="submitted && offer_url.invalid" style="color: red">
+                            <div *ngIf="offer_url.errors?.required">Offer URL is required!</div>
+                            <div *ngIf="offer_url.errors?.pattern">
+                                Invalid offer url!
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-6 mt-4">
+                        <div class="select_gender">
+                            <label for="gender">Select Category <span class="mandatory">*</span></label>
+                            <ng-select class="form-control custom-ng-select" [items]="categoryOptions"
+                                bindLabel="rcatname" bindValue="_id"
+                                [(ngModel)]="offermanagement.value.category" name="category"
+                                id="category" #category="ngModel" [placeholder]="'Select Category'"
+                                [style.border-radius.px]="dropdownBorderRadius1" required bindvalue="id"
+                                (change)="getProducts($event)">
+                            </ng-select>
+
+                            <div *ngIf="offermanagement.submitted && !category.valid">
+                                <div class="invalid-feedback" *ngIf="category.errors.required">Category
+                                    is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <!-- Product Selector -->
+
+                        <div class="col-md-6 mt-4">
+                            <div class="select_product">
+                                <label for="products">Select Product <span class="mandatory">*</span></label>
+                                <ng-select class="form-control custom-ng-select" [items]="productOptions"
+                                    bindLabel="name" bindValue="_id"
+                                    [(ngModel)]="offermanagement.value.products" name="products" id="products"
+                                    #product="ngModel"
+                                    (change)="onProductChange($event)" [placeholder]="'Select Product'"
+                                    [ngClass]="{ 'is-invalid': offermanagement.submitted && product.errors, 'is-valid': !product.errors && product.valid }"
+                                    [style.border-radius.px]="dropdownBorderRadius1" required
+                                    >
+                                </ng-select>
+
+                                <div *ngIf="offermanagement.submitted && !product.valid">
+                                    <div class="invalid-feedback" *ngIf="product.errors.required">Product is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="col-lg-12 card_footer_btn_single">
+                    <button type="submit" *ngIf="!id" class="btn">Submit</button>
+                    <button type="submit" *ngIf="id" class="btn">Save Changes</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>

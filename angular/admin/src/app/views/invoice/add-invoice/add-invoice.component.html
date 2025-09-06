@@ -1,0 +1,92 @@
+<div class="banner-add_web_banner margin_top">
+  <div class="container">
+    <h4 class="full_page_title"><strong>Add Invoice</strong></h4>
+    <form #invoiceForm="ngForm" (ngSubmit)="submitForm(invoiceForm)">
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col-lg-6">
+
+          <div class="form-group">
+            <label for="invoiceNo">Invoice No <span class="color_red">*</span></label>
+            <input type="text" class="form-control" id="invoiceNo" name="invoiceNo" ngModel required maxlength="20">
+            <div style="color:red" *ngIf="submitted && invoiceForm.controls.invoiceNo?.invalid">
+              <div *ngIf="invoiceForm.controls.invoiceNo?.errors?.required">Invoice No is required!</div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="quantity">Quantity <span class="color_red">*</span></label>
+            <input type="number" class="form-control" id="quantity" name="quantity" ngModel required min="1">
+            <div style="color:red" *ngIf="submitted && invoiceForm.controls.quantity?.invalid">
+              <div *ngIf="invoiceForm.controls.quantity?.errors?.required">Quantity is required!</div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="date">Date <span class="color_red">*</span></label>
+            <input type="date" class="form-control" id="date" name="date" ngModel [value]="today" required>
+            <div style="color:red" *ngIf="submitted && invoiceForm.controls.date?.invalid">
+              <div *ngIf="invoiceForm.controls.date?.errors?.required">Date is required!</div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="dueDate">Due Date <span class="color_red">*</span></label>
+            <input type="date" class="form-control" id="dueDate" name="dueDate" ngModel required>
+            <div style="color:red" *ngIf="submitted && invoiceForm.controls.dueDate?.invalid">
+              <div *ngIf="invoiceForm.controls.dueDate?.errors?.required">Due Date is required!</div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="unitPrice">Unit Price <span class="color_red">*</span></label>
+            <input type="number" class="form-control" id="unitPrice" name="unitPrice" ngModel required min="0.01" step="0.01">
+            <div style="color:red" *ngIf="submitted && invoiceForm.controls.unitPrice?.invalid">
+              <div *ngIf="invoiceForm.controls.unitPrice?.errors?.required">Unit Price is required!</div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Right Column -->
+        <div class="col-lg-6">
+
+          <div class="form-group">
+            <label for="clientName">Client Name <span class="color_red">*</span></label>
+            <select class="form-control" id="clientName" name="clientName" ngModel required>
+              <option value="" disabled selected>Select Client</option>
+              <option *ngFor="let client of clientOptions" [value]="client">{{client}}</option>
+            </select>
+            <div style="color:red" *ngIf="submitted && invoiceForm.controls.clientName?.invalid">
+              <div *ngIf="invoiceForm.controls.clientName?.errors?.required">Client Name is required!</div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label>Payment Details</label>
+            <div class="row">
+              <div class="col-sm-6 mb-2">
+                <input type="text" class="form-control" placeholder="BANK NAME" name="bankName" ngModel required>
+              </div>
+              <div class="col-sm-6 mb-2">
+                <input type="text" class="form-control" placeholder="ACCOUNT NO" name="accountNo" ngModel required>
+              </div>
+            </div>
+            <div style="color:red" *ngIf="submitted && (invoiceForm.controls.bankName?.invalid || invoiceForm.controls.accountNo?.invalid)">
+              <div *ngIf="invoiceForm.controls.bankName?.errors?.required">Bank Name is required!</div>
+              <div *ngIf="invoiceForm.controls.accountNo?.errors?.required">Account No is required!</div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="invoiceDesc">Invoice Item Description</label>
+            <textarea class="form-control" id="invoiceDesc" name="invoiceDesc" ngModel rows="4" maxlength="250"></textarea>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-12 card_footer_btn_single mt-4 text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,476 @@
+<div class="user-add_user margin_top">
+    <div class="container">
+        <div class="animated fadeIn" *ngIf="!viewpage">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- <div class="email-status" *ngIf="emailVerifyTag == 1">
+                <p><i class="fa fa-check" aria-hidden="true"></i> Email Verified </p>
+            </div>
+            <div class="email-unstatus" *ngIf="emailVerifyTag == 0">
+                <p><i class="fa fa-times" aria-hidden="true"></i> Email Unverified </p>
+            </div> -->
+
+                    <div class="full_page_title">
+                        <strong>{{pageTitle | titlecase}}</strong>
+                    </div>
+                    <form #userAddEditForm="ngForm" (ngSubmit)="onFormSubmit(userAddEditForm)" autocomplete="off">
+                        <!--Edit and add page-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="first_name">
+                                            <label for="first_name"> First Name <span class="mandatory">*</span>
+                                            </label>
+                                            <input type="text" id="first_name" ngModel name="first_name"
+                                                #first_name="ngModel" required placeholder="Enter First Name"
+                                                class="form-control" minlength="3" maxlength="30"
+                                                pattern="^[a-zA-Z]([\w -]*[a-zA-Z])*$"
+                                                [ngClass]="{ 'is-valid': !first_name.errors && first_name.valid}">
+                                            <div *ngIf="userAddEditForm.submitted && !first_name.valid">
+                                                <div class="invalid-feedback" *ngIf="first_name.errors.required">First
+                                                    Name
+                                                    is
+                                                    required.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="first_name.errors?.minlength">First
+                                                    Name
+                                                    must be at least 3 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="first_name.errors?.maxlength">First
+                                                    Name
+                                                    can be max 20 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="first_name.errors?.pattern">Please
+                                                    enter
+                                                    valid First Name.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="lastname">
+                                            <label for="last_name">Last Name <span class="mandatory">*</span> </label>
+                                            <input type="text" id="last_name" ngModel name="last_name"
+                                                #last_name="ngModel" required placeholder="Enter Last Name"
+                                                class="form-control" minlength="1" maxlength="20"
+                                                pattern="^[a-zA-Z]([\w -]*[a-zA-Z])*$"
+                                                [ngClass]="{ 'is-invalid': userAddEditForm.submitted && last_name.errors }"
+                                                [ngClass]="{ 'is-valid': !last_name.errors && last_name.valid}">
+                                            <div *ngIf="userAddEditForm.submitted && !last_name.valid">
+                                                <div class="invalid-feedback" *ngIf="last_name.errors.required">Last
+                                                    Name is
+                                                    required.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="last_name.errors?.minlength">Last
+                                                    Name
+                                                    must be at least 1 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="last_name.errors?.maxlength">Last
+                                                    Name
+                                                    can be max 20 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="last_name.errors?.pattern">Please
+                                                    enter
+                                                    valid Last Name.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="email">
+                                            <label for="email">E-Mail <span class="mandatory">*</span></label>
+                                            <input type="email" id="email" ngModel name="email" #email="ngModel"
+                                                class="form-control" placeholder="Enter E-Mail"  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required>
+                                            <div *ngIf="userAddEditForm.submitted && !email.valid">
+                                            <div class="invalid-feedback" *ngIf="email.errors.required">Email is
+                                                required.
+                                            </div>
+                                            <div class="invalid-feedback" *ngIf="email.errors.email">Please enter valid
+                                                Email
+                                            </div>
+                                            <div class="invalid-feedback"
+                                                *ngIf="!email.errors.email && email.errors.pattern">
+                                                Please enter valid Email</div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mt-4">
+                                        <div class="mobile_number">
+                                            <label for="phone">Mobile Number&nbsp; <span class="mandatory">*</span>
+                                                <!-- <span *ngIf="!userDetails" class="mandatory">*</span> -->
+                                            </label>
+                                            <br>
+                                            <ngx-intl-tel-input
+                                                cssClass="form-control {{(userAddEditForm.submitted && phone.errors) ? 'is-invalid' : ''}} {{(!phone.errors && phone.valid  && !checkpassword) ? 'is-valid' : ''}}"
+                                                id="phone" [preferredCountries]="preferredCountries"
+                                                [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+                                                [searchCountryFlag]="true"
+                                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                                [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO"
+                                                [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                                                #phone="ngModel" [numberFormat]="PhoneNumberFormat.National"
+                                                (keyup)="phoneNumberChange($event)" name="phone"
+                                                required="{{userDetails ? false : true}}" ngModel>
+                                            </ngx-intl-tel-input>
+                                            <div *ngIf="userAddEditForm.submitted && !phone.valid">
+                                                <div class="invalid-feedback"
+                                                    *ngIf="phone.errors && phone.errors.required">
+                                                    Mobile Number is required.
+                                                </div>
+                                            </div>
+                                            <div
+                                                *ngIf="userAddEditForm.submitted && userAddEditForm.controls.phone.errors && userAddEditForm.controls.phone.errors">
+                                                <div class="invalid-feedback"
+                                                    *ngIf="userAddEditForm.submitted && userAddEditForm.controls.phone.errors && userAddEditForm.controls.phone.errors.validatePhoneNumber">
+                                                    Enter valid mobile number.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mt-4">
+                                        <div class="status">
+                                            <label for="status">Status <span class="mandatory">*</span></label>
+                                            <!-- <select name="status" id="status" class="form-control" ngModel name="status"
+                                            #status="ngModel" required
+                                            [ngClass]="{ 'is-invalid': userAddEditForm.submitted && status.errors }"
+                                            [ngClass]="{ 'is-valid': !status.errors && status.valid}">
+                                            <option value="">--Select--</option>
+                                            <option value="1">Active</option>
+                                            <option value="2">Inactive</option>
+                                        </select> -->
+
+                                            <ng-select class="form-control custom-ng-select" [items]="statusOptions"
+                                                bindLabel="label" bindValue="value"
+                                                [(ngModel)]="userAddEditForm.value.status" name="status" id="status"
+                                                #status="ngModel" [style.border-radius.px]="dropdownBorderRadius1"
+                                                [ngClass]="{ 'is-invalid': userAddEditForm.submitted && status.errors, 'is-valid': !status.errors && status.valid }"
+                                                required>
+                                            </ng-select>
+                                            <div *ngIf="userAddEditForm.submitted && !status.valid">
+                                                <div class="invalid-feedback" *ngIf="status.errors.required">Status is
+                                                    required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-md-6 mt-4">
+                                        <div class="select_gender">
+                                            <label for="gender">Select Gender <span class="mandatory">*</span></label>
+                                            <ng-select class="form-control custom-ng-select" [items]="genderOptions"
+                                                bindLabel="label" bindValue="value"
+                                                [(ngModel)]="userAddEditForm.value.gender" name="gender" id="gender"
+                                                #gender="ngModel"
+                                                [ngClass]="{ 'is-invalid': userAddEditForm.submitted && gender.errors, 'is-valid': !gender.errors && gender.valid }"
+                                                [style.border-radius.px]="dropdownBorderRadius1" required>
+                                            </ng-select>
+
+                                            <div *ngIf="userAddEditForm.submitted && !gender.valid">
+                                                <div class="invalid-feedback" *ngIf="gender.errors.required">Gender is
+                                                    required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-4">
+                                <div class="form-group grouping-strains lab-midle row">
+                                    <div class="profile_images">
+                                        <label for="Profile">Profile Image</label>
+                                        <div class="profile-uploaders ">
+                                            <div class="inline_cat_image">
+                                                <div *ngIf="usercroppedImage!='assets/image/user.jpg' " class="r-image">
+                                                </div>
+                                                <div class="pencil input_pencil" (click)="fileoploadclick()">
+                                                    <input class="file-upload" type="file" accept="image/*"
+                                                        (change)="fileChangeEvent($event);imageCropPopout(imagecrop)" />
+                                                </div>
+                                                <div class="preview">
+                                                    <img [src]="croppedImage" />
+                                                </div>
+                                                <div class="img_center_call">
+                                                    <img src="assets/image/no_images.png" alt="no_images">
+                                                </div>
+                                            </div>
+                                            <p class="image_size_filter">Set the product thumbnail image <b>145X145</b>
+                                                pixel. Only
+                                                *.png, *.jpg and *.jpeg image files are
+                                                accepted</p>
+
+                                        </div>
+                                    </div>
+                                    <ng-template #imagecrop>
+                                        <div class="image_crop"
+                                            *ngIf="userimageChangedEvent && userimageChangedEvent!=''">
+                                            <image-cropper [imageChangedEvent]="userimageChangedEvent"
+                                                class="cropper-image" [maintainAspectRatio]="true" [aspectRatio]="1/1"
+                                                roundCropper=true format="png" output="base64"
+                                                (imageCropped)="imageCropped($event)">
+                                            </image-cropper>
+                                            <button (click)="closeProductCrop()">Save Changes</button>
+                                        </div>
+
+                                    </ng-template>
+
+
+
+
+
+                                </div>
+                            </div> -->
+
+                            <!-- <div>
+                                <ng-template #imagecrop>
+                                    <div class="default_crop_image">
+                                        <image-cropper [imageChangedEvent]="imageChangedEvent"
+                                            [maintainAspectRatio]="true" [aspectRatio]="6 / 6" format="png"
+                                            (imageCropped)="imageCropped($event)" output="base64"
+                                            (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
+                                            (loadImageFailed)="loadImageFailed()"></image-cropper>
+                                        <button (click)="closeProductCrop()">Save Changes</button>
+                                    </div>
+                                </ng-template>
+                            </div> -->
+
+                            <div class="card_footer_btn">
+
+                                <button type="button" routerLink="/app/users/list" class="btn btn-sm ">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="btn btn-sm " [disabled]="submitebtn">
+                                    Submit
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                        <div class="card-body row">
+                            <div class="form-group  grouping-strains row">
+
+                                <!-- <div class="col-md-12">
+                                    <div class="group-control">
+                                        <label for="address">Address <span>(Optional)</span></label>
+                                        <input type="text" id="address" ngModel name="address" #address="ngModel" class="form-control" placeholder="Enter Address" autocorrect="off" autocapitalize="off" spellcheck="off" #search (keydown.enter)="$event.preventDefault()">
+                                        <div *ngIf="userAddEditForm.submitted && !address.valid">
+                                            <div class="invalid-feedback" *ngIf="address.errors.required">Address is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <!--profile image div-->
+                        <div class="col-md-4">
+
+                            <!-- <div class="group-control"> -->
+                            <!-- <label for="exp_user_subscription">Next Billing Date <span>(Optional)</span></label> -->
+                            <!-- <input type="text" id="exp_user_subscription" ngModel name="exp_user_subscription" #exp_user_subscription="ngModel" class="form-control" placeholder="Next Billing Date" bsDatepicker [minDate]="minDate" [bsConfig]="{ isAnimated: true,dateInputFormat: 'DD-MMM-YYYY',containerClass:'theme-orange',showWeekNumbers: false}" -->
+                            <!-- [ngClass]="{ 'is-valid': !exp_user_subscription.errors && exp_user_subscription.valid}"> -->
+                            <!-- <div *ngIf="userAddEditForm.submitted && !exp_user_subscription.valid"> -->
+                            <!-- <div class="invalid-feedback" *ngIf="exp_user_subscription.errors.required">Next Billing Date is required. -->
+                            <!-- </div> -->
+                            <!-- <div class="invalid-feedback" *ngIf="exp_user_subscription.errors.exp_user_subscription">Please enter valid Next Billing Date -->
+                            <!-- </div> -->
+                            <!-- </div> -->
+                            <!-- </div> -->
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--View page-->
+
+<div class="customer_list-view_user">
+    <div class="container">
+        <div class="animated fadeIn" *ngIf="viewpage">
+            <div class="full_page_title"><strong>{{pageTitle | titlecase}}</strong></div>
+            <div class="tabset-div tabbing-function">
+                <tabset type="pills">
+                    <tab heading="Customer Details" customClass="customtabClass">
+                        <div class="card-body covers-spaces " *ngIf="RootUserDetails && RootUserDetails.userDetails">
+
+
+                            <div class="col-md-7 user_details_sec ">
+                                <div class="spaces-wisths">
+                                    <div class="dash-details">
+                                        <span class="heading-pros">First Name <span class="qus-alg"> : </span>
+                                        </span>
+                                        <span>{{RootUserDetails.userDetails.first_name ?
+                                            RootUserDetails.userDetails.first_name
+                                            :'-'}}</span>
+                                    </div>
+                                    <div class="dash-details">
+                                        <span class="heading-pros">Last Name <span class="qus-alg"> : </span>
+                                        </span>
+                                        <span>{{RootUserDetails.userDetails.last_name ?
+                                            RootUserDetails.userDetails.last_name
+                                            :'-'}}</span>
+                                    </div>
+
+                                    <div class="dash-details">
+                                        <span class="heading-pros">E-Mail <span class="qus-alg"> : </span>
+                                        </span>
+                                        <span>{{RootUserDetails.userDetails.email ?
+                                            RootUserDetails.userDetails.email
+                                            :'-'}}</span>
+                                    </div>
+                                    <div class="dash-details">
+                                        <span class="heading-pros">Mobile Number <span class="qus-alg"> :
+                                            </span>
+                                        </span>
+                                        <span>{{RootUserDetails.userDetails.phone ?
+                                            (RootUserDetails.userDetails.phone.code
+                                            ? RootUserDetails.userDetails.phone.code : '')
+                                            :''}}
+                                            {{RootUserDetails.userDetails.phone ?
+                                            (RootUserDetails.userDetails.phone.number
+                                            ? RootUserDetails.userDetails.phone.number : '-')
+                                            :'-'}}</span>
+                                    </div>
+                                    <!-- <div class="dash-details">
+                                                    <span class="heading-pros">intrested <span class="qus-alg"> : </span>
+                                                    </span>
+                                                    <span>{{RootUserDetails.userDetails.intrested ?
+                                                        RootUserDetails.userDetails.intrested
+                                                        :'-'}}</span>
+                                                </div>
+                                                <div class="dash-details">
+                                                    <span class="heading-pros">language <span class="qus-alg"> : </span>
+                                                    </span>
+                                                    <span>{{RootUserDetails.userDetails.languages ?
+                                                        RootUserDetails.userDetails.languages
+                                                        :'-'}}</span>
+                                                </div> -->
+                                    <!-- <div class="dash-details">
+                                                    <span class="heading-pros">address <span class="qus-alg"> : </span></span>
+        
+                                                    <span *ngIf="RootUserDetails.userDetails.address">{{RootUserDetails.userDetails.address.fulladres
+                                                        ?
+                                                        RootUserDetails.userDetails.address.fulladres
+                                                        :"-"}}</span>
+                                                    <span *ngIf="!RootUserDetails.userDetails.address">{{"-"}}</span>
+        
+                                                </div> -->
+                                    <!-- <div class="dash-details">
+                                        <span class="heading-pros">Gender <span class="qus-alg"> : </span>
+                                        </span>
+                                        <span *ngIf="RootUserDetails.userDetails.gender == 'male'"
+                                            class='badge badge-success badge-pill mb-1'>Male</span>
+                                        <span *ngIf="RootUserDetails.userDetails.gender == 'female'"
+                                            class='badge badge-success badge-pill mb-1'>Female</span>
+                                    </div> -->
+                                    <div class="dash-details">
+                                        <span class="heading-pros">Status <span class="qus-alg"> : </span>
+                                        </span>
+                                        <span *ngIf="RootUserDetails.userDetails.status == 1"
+                                            class='badge active_inactive badge-pill mb-1'>Active</span>
+                                        <span *ngIf="RootUserDetails.userDetails.status != 1"
+                                            class='badge active_inactive badge-pill mb-1'>InActive</span>
+                                    </div>
+                                    <!-- <div class="dash-details">
+                                                    <span class="heading-pros">About <span class="qus-alg"> : </span>
+                                                    </span>
+                                                    <span>{{RootUserDetails.userDetails.about ?
+                                                        RootUserDetails.userDetails.about
+                                                        :'-'}}</span>
+                                                </div> -->
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4 user_profile_sec">
+                                <div class="avs-details">
+                                    <h6>Customer Profile</h6>
+                                    <img [src]="usercroppedImage">
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-md-12">
+                                            <div class="cover-imgs">
+                                                <span>Cover Image:</span>
+                                                <img [src]="coverCroppedImage">
+                                            </div>
+                                        </div> -->
+                        </div>
+                    </tab>
+                    <!-- <tab customClass="customtabClass">
+                                    <ng-template tabHeading>
+                                        Followers <span class="badge"> {{(RootUserDetails && RootUserDetails.followerCount) ?
+                                            RootUserDetails.followerCount : 0}}</span>
+                                    </ng-template>
+                                    <ul class="follow-list" *ngIf="RootUserDetails && RootUserDetails.followerDetails">
+                                        <li *ngFor="let item of RootUserDetails.followerDetails">
+                                            <div class="folspac-lists">
+                                                <i><img src="{{imageurl+item.from_avatar}}"
+                                                        onError="this.src='assets/image/user.jpg'"></i>
+                                                <p>
+                                                    <span>{{item.from_name | titlecase}}</span>
+                                                    <small>{{item.from_username | titlecase}}</small>
+                                                    <!-- <small>{{ item.createdAt | date:"dd MMM yyyy,  hh:mm a" }}</small> -->
+                    <!-- </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul class="follow-list" *ngIf="RootUserDetails && RootUserDetails.followerDetails && RootUserDetails.followerDetails.length == 0">
+                                        <p class="no-record">No Record found</p>
+                                    </ul>
+                                </tab> -->
+                    <!-- <tab customClass="customtabClass">
+                                    <ng-template tabHeading>
+                                        Following <span class="badge"> {{(RootUserDetails && RootUserDetails.followingCount) ?
+                                            RootUserDetails.followingCount : 0}}</span>
+                                    </ng-template>
+        
+                                    <ul class="follow-list" *ngIf="RootUserDetails && RootUserDetails.followingDetails">
+                                        <li *ngFor="let item of RootUserDetails.followingDetails">
+                                            <div class="folspac-lists">
+                                                <i><img src="{{imageurl+item.to_avatar}}"
+                                                        onError="this.src='assets/image/user.jpg'"></i>
+                                                <p>
+                                                    <span>{{item.to_name | titlecase}}</span>
+                                                    <small>{{item.to_username | titlecase}}</small>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul class="follow-list" *ngIf="RootUserDetails && RootUserDetails.followingDetails && RootUserDetails.followingDetails.length == 0">
+                                        <p class="no-record">No Record found</p>
+                                    </ul>
+                                </tab> -->
+                    <!-- <tab customClass="customtabClass">
+                                    <ng-template tabHeading>
+                                        Blocked User <span class="badge"> {{(RootUserDetails && RootUserDetails.blockCount) ?
+                                            RootUserDetails.blockCount : 0}} </span>
+                                    </ng-template>
+                                    <ul class="follow-list" *ngIf="RootUserDetails && RootUserDetails.blockDetails">
+                                        <li *ngFor="let item of RootUserDetails.blockDetails">
+                                            <div class="folspac-lists">
+                                                <i><img src="{{imageurl+item.to_avatar}}"
+                                                        onError="this.src='assets/image/user.jpg'"></i>
+                                                <p>
+                                                    <span>{{item.to_username | titlecase}} Blocked</span>
+                                                    <small>{{ item.createdAt | date:"hh:mm a" }}</small>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul class="follow-list" *ngIf="RootUserDetails && RootUserDetails.blockDetails && RootUserDetails.blockDetails.length == 0">
+                                        <p class="no-record">No Record found</p>
+                                    </ul>
+                                </tab> -->
+                </tabset>
+            </div>
+            <!-- <div class="card-footer">
+                        <button type="button" routerLink="/app/users/list" class="btn back-btns">
+                            Back
+                        </button>
+                    </div> -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-sm-3">
+        <label for="time" class="control-label">Address</label>
+        <input name="taskerarea" #search class="form-control" required type="text" [(ngModel)]="address"
+            places-auto-complete size=80 types="['address']">
+    </div>
+    <div class="col-sm-3">
+        <label for="time" class="control-label">Filter By Radius (KM) *</label>
+        <input type='number' name="radius" [(ngModel)]="radius" class='form-control'>
+    </div>
+    <div class="col-sm-3">
+        <label for="category" class="control-label">Filter By Status</label>
+        <select type="text" name="category" id="category" [(ngModel)]="onoff" class="form-control">
+            <option value="">All</option>
+            <option value="1">Online</option>
+            <option value="0">Offline</option>
+        </select>
+    </div>
+    <div class="col-sm-3">
+        <label for="category" class="control-label">Filter By Type</label>
+        <select type="text" name="category" [(ngModel)]="type" id="category" class="form-control">
+            <option value="">All</option> -->
+            <!--   <option value="users">Users</option> -->
+            <!-- <option value="restaurant">Outlet</option> -->
+            <option value="driver">Driver</option>
+        </select>
+    </div>
+</div>
+<div style="margin-top: 10px;" class="row">
+    <div class="col-sm-3">
+        <button class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10" (click)="onSubmit()"
+            style="float: left;">Submit<i class="fa fa-arrow-right"></i></button>
+    </div>
+</div>
+<div style="margin-top: 20px;" class="lit-title">
+    <span>
+        <span>Total :{{totalCount}} </span>
+        <!--  <span>Users : {{usersCount}}</span> -->
+        <!-- <span>Outlet : {{restaurantCount}}</span> -->
+        <span>Driver :{{driverCount}}</span>
+    </span>
+    <span class="hlp-ic">
+        <!-- <span class="usr-ic">
+        <i class="fa fa-circle" aria-hidden="true"></i>
+        <span>User</span>
+</span> -->
+        <!-- <span class="tskr-ic">
+            <i class="fa fa-circle" aria-hidden="true"></i>
+            <span>Outlet</span>
+        </span> -->
+        <span class="driver-ic" style="margin-left: 900px;">
+            <i class="fa fa-circle" aria-hidden="true" style="color: #9731F0;"></i>
+            <span>Driver</span>
+        </span>
+    </span>
+</div>
+<!-- <agm-map style="height: 300px;width: 100%;" id="Gmap" [latitude]="lat" [longitude]="lng" [zoom]="18">
+    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)=markerClick(iw) [latitude]="m.latitude"
+        [longitude]="m.longitude" [label]="" [zoom]="zoom" [iconAnchorX]="10" [iconAnchorY]="10" [iconHeight]="20"
+        [iconWidth]="20" [iconUrl]="
+  {
+    url: m.avatar ? imgUrl+m.avatar : 'assets/image/user.jpg',
+    scaledSize: {
+        width: 40,
+        height: 60
+    }
+}">
+
+        <agm-info-window #iw>
+            <div class="row">
+                <div class="col-sm-4">
+                    <figure style="width: 100px;height: auto;float: left;">
+                        <img style="width: 100%; height: 100%;" [src]="imgUrl+m.avatar"
+                            onerror="this.src='assets/image/user.jpg'">
+                    </figure>
+                    <button class="muted tskr-pop" (click)="viewProfile(m.role,m._id)"> View
+                        Profile </button>
+                 
+                </div>
+                <div class="col-sm-8">
+                    <ul class="factloop">
+                        <h3 class="ng-binding" style=" text-transform: capitalize;color: #00964b;">
+                            ({{m.username}}-{{m.role | titlecase}})</h3>
+                        <li style="color: #f60;">
+                            <p class="ng-binding" style="color:#ffc107;font-size:15px;"><i
+                                    class="fa fa-map-marker "></i> {{m.address}}.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </agm-info-window>
+
+    </agm-marker>
+</agm-map> -->
+
+<div class="tile-header dvd dvd-btm">
+    <h1 class="custom-font"><strong>Order </strong><strong>Tracking</strong></h1>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <input name="order_id" [(ngModel)]="SearchOrderId" class="form-control" type="text" ng-required="true"
+            placeholder="Enter Order Id" />
+        <span style="color:red"
+            *ngIf="submitted && !SearchOrderId"
+            class="error_span pos-bottom-left">Please enter order id</span>
+        <!-- <span style="color:red" ng-if="liveTrackingForm.order_id.$invalid"
+            ng-messages="liveTrackingForm.order_id.$error"
+            *ngIf="submitted && SearchOrderId"
+            class="error_span pos-bottom-left">Order Id must have maximum 20 characters</span> -->
+    </div>
+    <div class="col-sm-4">
+        <button type="submit" class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10" (click)="orderId()">Submit<i
+                class="fa fa-arrow-right"></i></button>
+    </div>
+</div>
+<!-- <agm-map style="height: 300px;width: 100%;margin-top: 50px;" [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+    (mapReady)="onMapReady($event)">
+    <agm-direction [origin]="origin" [destination]="destination" ></agm-direction>
+</agm-map> -->

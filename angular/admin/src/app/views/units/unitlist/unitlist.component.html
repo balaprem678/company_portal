@@ -1,0 +1,14 @@
+<div class="product-varitions_list">
+    <div class="container">
+        <app-common-table [settings]="settings" [source]="source" [count]="totalItems" [itemsPerPage]="limit"
+            [tablename]="'Attribute list'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName"
+            [editUrl]="editUrl" (onDeleteChange)="onDeleteChange($event)"
+            (onitemsPerPageChange)="onitemsPerPageChange($event)" [restoreApis]="restoreApis"
+            [card_details]="card_details" [deleteApis]="deleteApis" [activeBulkAction]="activeBulkAction"
+            (onPageChange)="onPageChange($event)" [bulk_action]="bulk_action"
+            (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)"
+            (onInactivechange)="onInactivechange($event)" [user_list_filter_action]="user_list_filter_action"
+            [inactiveApis]="inactiveApis" [db]="db">
+        </app-common-table>
+    </div>
+</div>

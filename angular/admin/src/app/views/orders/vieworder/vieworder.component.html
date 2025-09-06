@@ -1,0 +1,1091 @@
+<section class="editor_tasks">
+    <div class="pagecontent order-details-box-main" *ngIf="data">
+        <div class="add-nav">
+            <div class="nav-heading order-title-text">
+                <button class="btn btn-info btn-rounded order-packed-btn" *ngIf="data[0].status == 1"
+                    style="margin-right: 10px; float: right;" (click)="packedOrder(data[0].order_id)"><i
+                        class="fa fa-shopping-cart"></i> <span>Order Packed</span></button>
+
+                <button class="btn btn-info btn-rounded order-packed-btn" style="margin-right: 10px; float: right;"
+                    (click)="printDocument(data[0].order_id)"><i class="fa fa-print"></i> <span>Print</span></button>
+            </div>
+        </div>
+    </div>
+    <!-- <p>ORDER ID :{{data[0].order_id}}</p> -->
+    <!-- <tabset>
+        <tab heading="Details">
+            <div class="col-md-6" *ngIf="data">
+                <ul class="m-0">
+                    <li *ngIf="data != 'null'"><strong> Status: </strong>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 0">
+                            Delete
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 1">
+                            Order Received
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 15">
+                            Order Scheduled
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 3">
+                            Order Packed
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 6">
+                            Order Shipped
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 4">
+                            Driver Rejected
+                        </div>
+                        <div style="display: inline-block;" style="display: inline-block;" *ngIf="data[0].status == 5">
+                            Driver Accepted
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 6">
+                            Driver Pickedup
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 7">
+                            Order Delivered
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 8">
+                            Payment Completed
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 9">
+                            Order Canceled - User
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 10">
+                            Order Canceled - Admin
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 18">
+                            Order Refunded
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 16">
+                            Return Requested
+                        </div>
+                        <div style="display: inline-block;" *ngIf="data[0].status == 17">
+                            Order Collected
+                        </div>
+                        <div class="mx-2" style="display: inline-block;" *ngIf="data[0].status == 9">
+                            <span style="font-weight: bold;">Reason: </span> {{data[0].cancelReason}}
+                        </div>
+
+
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content1">
+                <section class="grouping tile tile-simple">
+                    <div class="tile-body">
+                        <div class="wrap-reset">
+                            <div class="row">
+                                <div class="user-tasker col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group col-md-12 legend user-detail" *ngIf="user">
+                                                <div class="user-head">
+                                                    <h4 style="color: whitesmoke;"><i class="fa fa-users mer"></i> Users
+                                                        Details</h4>
+                                                </div>
+                                                <div class="ex3">
+                                                    <div class="col-xs-12 col-sm-12" style="background-color:white;">
+                                                        <ul>
+                                                            <li style="list-style-type:none" *ngIf="user!='null'">
+                                                                <strong>UserName: </strong>{{user.username}}
+                                                            </li>
+                                                            <li style="list-style-type:none" *ngIf="user!='null'">
+                                                                <strong> Email :</strong>{{user.email}}
+                                                            </li>
+                                                            <li style="list-style-type:none" *ngIf="user!='null'">
+                                                                <strong> Phone :</strong>{{user.phone.code}}
+                                                                {{user.phone.number}}
+                                                            </li>
+
+                                                            <li style="list-style-type:none" *ngIf="user!='null'">
+                                                                <strong> Address
+                                                                    :</strong>{{data[0].delivery_address.fulladres}},
+                                                                {{data[0].delivery_address.city}},
+                                                                {{data[0].delivery_address.zipcode}}
+                                                            </li>
+
+                                                            <li style="list-style-type:none"
+                                                                *ngIf="user!='null' && user.sample_email ">
+                                                                <strong> Order Confirmation Email
+                                                                    :</strong>{{user.sample_email}}
+                                                            </li>
+                                                            <li style="list-style-type:none"
+                                                                *ngIf="user!='null' && !user.sample_email ">
+                                                                <strong> Order Confirmation Email
+                                                                    :</strong>{{user.email}}
+                                                            </li>
+
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group col-md-12 legend tasker-detail" *ngIf="data">
+                                                <div class="user-head">
+                                                    <h4 style="color: whitesmoke;"><i class="fa fa-users"></i> Invoice
+                                                        Details</h4>
+                                                </div>
+                                                <div class="ex3">
+                                                    <div class="col-xs-12 col-sm-12" style="background-color:white;">
+                                                        <ul>
+                                                            <li style="list-style-type:none" *ngIf="data !='null'">
+                                                                <strong> Order Id :</strong> {{data[0].order_id}}
+                                                            </li>
+                                                            <li style="list-style-type:none" *ngIf="data !='null'">
+                                                                <strong> Order Date :</strong> {{data[0].createdAt |
+                                                                date : 'MMM d, yyyy hh:mm a'}}
+                                                            </li>
+                                                            <li style="list-style-type:none"
+                                                                *ngIf="data !='null' && data[0].status == 3 && data[0].order_history">
+                                                                <strong> Packed :</strong>
+                                                                {{data[0].order_history.packed | date : 'MMM d, yyyy
+                                                                hh:mm a'}}
+                                                            </li>
+                                                            <li style="list-style-type:none"
+                                                                *ngIf="data !='null' && data[0].status == 6 && data[0].order_history">
+                                                                <strong> Shipped :</strong>
+                                                                {{data[0].order_history.shipped | date : 'MMM d, yyyy
+                                                                hh:mm a'}}
+                                                            </li>
+                                                            <li style="list-style-type:none"
+                                                                *ngIf="data !='null' && data[0].status == 7 && data[0].order_history">
+                                                                <strong> Delivered :</strong>
+                                                                {{data[0].order_history.delivered | date : 'MMM d, yyyy
+                                                                hh:mm a'}}
+                                                            </li>
+                                                            <li style="list-style-type:none" *ngIf="data !='null'">
+                                                                <strong> Payment By :</strong> {{transactions[0].type}}
+                                                            </li>
+                                                            <li style="list-style-type:none" *ngIf="data !='null'">
+                                                                <strong> Ordered Items :</strong>
+                                                                {{data[0].foods.length}}
+                                                            </li>
+                                                            <li style="list-style-type:none" *ngIf="data !='null'">
+                                                                <strong> Total :</strong>
+                                                                {{data[0].billings.amount.total}}
+                                                            </li>
+                                                            <li style="list-style-type:none"
+                                                                *ngIf="data !='null' && data[0].cart_details && data[0].cart_details.coupon_code">
+                                                                <strong> Coupon Code :</strong>
+                                                                {{data[0].cart_details.coupon_code}}
+                                                            </li>
+                                                            <li style="list-style-type:none"
+                                                                *ngIf="data !='null' && data[0].cart_details && data[0].cart_details.coupon_discount != 0">
+                                                                <strong> Coupon Discount :</strong>
+                                                                {{data[0].cart_details.coupon_discount}}
+                                                                <span
+                                                                    *ngIf="data !='null' && data[0].cart_details && data[0].cart_details.discount_type == 'Percentage'">%</span>
+                                                            </li>
+                                                            <li style="list-style-type:none"
+                                                                *ngIf="data !='null' && data[0].billings && data[0].billings.amount.food_offer_price != 0">
+                                                                <strong> Sales Price :</strong>
+                                                                {{data[0].billings.amount.food_offer_price}}
+
+
+
+                                                            </li>
+                                                            <li style="list-style-type:none" *ngIf="data !='null'">
+                                                                <strong> Delivery Charge :</strong> Free
+                                                            </li>
+                                                            <li style="list-style-type:none" *ngIf="data !='null'"><strong> Service Tax :</strong> {{data[0].billings.amount.service_tax}}
+                                                            </li>
+                                                            <li style="list-style-type:none" *ngIf="data !='null'">
+                                                                <strong> Grand Total :</strong>
+                                                                {{data[0].billings.amount.grand_total.toFixed(2) }}
+                                                            </li>
+                                                            <li style="list-style-type:none"><strong>Scheduled Date
+                                                                    :</strong> {{data[0].schedule_date}}
+                                                            </li>
+                                                            <li *ngIf="scheduleTimeLable" style="list-style-type:none">
+                                                                <strong>Scheduled Time
+                                                                    :</strong> {{data[0].schedule_time_slot}}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group col-md-12 legend driver-detail" *ngIf="food">
+                                                <div class="row">
+                                                    <i class="fa fa-users"></i>
+                                                    <h4 style="color: whitesmoke;"> Product Details</h4>
+                                                </div>
+                                                <div class="ex3" *ngFor="let item of food">
+                                                    <div class="col-xs-12 col-sm-12" style="background-color:white;">
+                                                        <ul>
+                                                            <li style="list-style-type:none"><strong>Product Name :</strong>{{item.name}}
+                                                            </li>
+                                                            <li style="list-style-type:none"><strong>Price :</strong>{{item.price}}
+                                                            </li>
+                                                            <li style="list-style-type:none"><strong>Quantity :</strong>{{item.quantity}}
+                                                            </li>
+                                                            <li style="list-style-type:none"><strong>Offer Discount :</strong>{{item.offer_price}}
+                                                            </li>
+                                                            <li style="list-style-type:none"><strong>Size :</strong>{{item.size}}
+                                                            </li>
+                                                            <li style="list-style-type:none"><strong>Image :</strong>&nbsp; <img src="{{apiUrl+item.image}}" alt="" width="60px" height="60px">
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </tab>
+        <tab heading="Items">
+            <div class="tab-content1">
+                <section class="grouping tile tile-simple">
+                    <div class="tile-body">
+                        <div class="wrap-reset">
+                            <div class="order-tasker col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12 legend tasker-detail" *ngIf="data">
+                                        <div class="user-head">
+                                            <h4 style="color: whitesmoke;"><i class="fa fa-users"></i> Orders Details
+                                            </h4>
+                                        </div>
+                                        <div class="ex3">
+                                            <div class="col-xs-12 col-sm-12" style="background-color:white;">
+                                                <ul class="item-ex">
+                                                    <div *ngFor="let item of food" class="item-list">
+                                                        <li style="list-style-type:none">
+                                                            <strong> {{item.name}} </strong>
+                                                            <p *ngIf="item.mprice">
+                                                                Price: <strong>{{item.mprice}}</strong>
+                                                            </p>
+                                                            <p *ngIf="item.price">
+                                                                Price: <strong>{{item.price}}</strong>
+                                                            </p>
+                                                            <p *ngIf="item.offer_price != 0">
+                                                                Sale Price: <strong>{{item.offer_price}}</strong>
+                                                            </p>
+                                                            <p>
+                                                                Quantity: <strong>{{item.quantity}}</strong>
+                                                            </p>
+                                                            <ng-container
+                                                                *ngIf="item.variations &&  item.variations.length >0">
+                                                                <p>
+                                                                    variant: <strong>{{item.variations}}</strong>
+                                                                </p>
+                                                            </ng-container>
+
+                                                        </li>
+                                                    </div>
+                                                    <h6><strong>Billing :</strong> </h6>
+                                                    <li style="list-style-type:none"><strong>Total :</strong>
+                                                        {{data[0].billings.amount.total}}
+                                                    </li>
+                                                    <li style="list-style-type:none"><strong>Delivery Charge :</strong>
+                                                        Free
+                                                    </li>
+                                                    <li style="list-style-type:none"><strong>Offer Discount :</strong> {{data[0].billings.amount.offer_discount}}
+                                                    </li>
+                                                    <li style="list-style-type:none"><strong>coupon discount :</strong> {{data[0].billings.amount.coupon_discount}}
+                                                    </li>
+                                                    <li style="list-style-type:none"><strong>Grand Total :</strong>
+                                                        {{data[0].billings.amount.grand_total.toFixed(2)}}
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </tab>
+    </tabset> -->
+</section>
+
+<!-- <section>
+    <div class="product-detail">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- <div class="card-footer">
+    <button type="button" (click)="backClicked()" class="btn back-btns">
+        Back
+    </button>
+</div> -->
+
+
+
+
+<!-- 
+<ul>
+    <div *ngFor="let item of food">
+        <li style="list-style-type:none">
+            {{item.name}}-{{item.net_quantity}} {{item.units}} x {{item.quantity}} : {{item.price}}
+        </li>
+    </div>
+    Billing
+    <li style="list-style-type:none">
+        <p> Delivery Charge :{{data[0].billings.amount.delivery_amount}}
+        </p>
+    </li>
+    <li style="list-style-type:none">
+        <p> Service Tax :{{data[0].billings.amount.service_tax}}
+        </p>
+    </li>
+    <li style="list-style-type:none">
+        <p> coupon_discount :{{data[0].billings.amount.coupon_discount}}
+        </p>
+    </li>
+    <li style="list-style-type:none">
+        <p> Grand Total :{{data[0].billings.amount.grand_total}}
+        </p>
+    </li> -->
+
+
+
+
+
+
+
+<!-- <section class="col-md-12 tile time-simple">
+                                    <div class="tile-body">
+                                        <div class="row">
+                                            <div class="grouping tile tile-simple">
+                                                <div class="user-tasker col-md-12">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group col-md-12 legend user-detail">
+                                                            <div class="row">
+                                                                <i class="fa fa-users"></i>
+                                                                <h4 style="color: whitesmoke;"> Invoice Details</h4>
+                                                            </div>
+                                                            <div class="ex3">
+                                                                <div class="col-xs-12 col-sm-12" style="background-color:white;">
+                                                                    <ul>
+                                                                        <li style="list-style-type:none">
+                                                                            <p *ngIf="user!='null'">UserName :{{user.username}}</p>
+                                                                        </li>
+                                                                        <li style="list-style-type:none">
+                                                                            <p *ngIf="user!='null'">Email :{{user.email}}</p>
+                                                                            <li style="list-style-type:none">
+                                                                                 <p>Phone</p><strong class="text-greensea" *ngIf="userPhone">{{userPhone.code}} {{userPhone.number}}</strong></li> -->
+<!-- <p *ngIf="user!=''null''">Phone :{{user.phone.code}} {{user.phone.number}}
+                                                                                </p>
+                                                                                <li style="list-style-type:none"> -->
+<!-- <p>Address</p><strong class="text-greensea" *ngIf="userAddress">{{userAddress.line1}}</strong></li> -->
+<!-- <p *ngIf="data !='null'">Address :{{data[0].delivery_address.fulladres}}
+                                                                                    </p>
+                                                                                </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+<!-- <div class="col-md-6">
+
+                                                    <div class="form-group col-md-12 legend tasker-detail">
+                                                        <div class="row">
+                                                            <i class="fa fa-users"></i>
+                                                            <h4 style="color: whitesmoke;"> Invoice Details</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ex3">
+                                                        <div class="col-xs-12 col-sm-12" style="background-color:white;" *ngIf="data && data[0]">
+                                                            <ul>
+                                                                <ul>
+                                                                    <li style="list-style-type:none">
+                                                                        <p *ngIf="data !='null'">Order Id :{{data[0].order_id}}
+                                                                        </p>
+                                                                    </li>
+                                                                    <li style="list-style-type:none">
+                                                                        <p *ngIf="data !='null'">Order Date :{{data[0].schedule_date}}
+                                                                        </p>
+                                                                        <li style="list-style-type:none">
+
+                                                                            <p *ngIf="data !='null'"> Delivery Slot :{{data[0].schedule_date}} {{data[0].schedule_time_slot}}
+                                                                            </p>
+                                                                            <li style="list-style-type:none">
+                                                                                <p *ngIf="transactions !='null'"> Payment By :{{this.transactions[0].type}}
+                                                                                </p>
+                                                                            </li>
+                                                                            <li style="list-style-type:none">
+                                                                                <p *ngIf="data !='null'"> Ordered Items :{{data[0].foods.length}}
+                                                                                </p>
+                                                                            </li>
+                                                                            <li style="list-style-type:none">
+                                                                                <p *ngIf="data !='null'">
+                                                                                    Total:{{data[0].billings.amount.total}}</p>
+                                                                            </li>
+                                                                            <li style="list-style-type:none">
+                                                                                <p *ngIf="data !='null'"> coupon_discount :{{data[0].billings.amount.coupon_discount}}
+                                                                                </p>
+                                                                            </li>
+                                                                            <li style="list-style-type:none">
+                                                                                <p *ngIf="!data"> Delivery Charge :{{data[0].billings.amount.delivery_amount}}
+                                                                                </p>
+                                                                            </li>
+                                                                            <li style="list-style-type:none">
+                                                                                <p *ngIf="data !='null'"> Service Tax :{{data[0].billings.amount.service_tax}}
+                                                                                </p>
+                                                                            </li>
+                                                                            <li style="list-style-type:none">
+                                                                                <p *ngIf="data !='null'"> Grand Total :{{data[0].billings.amount.grand_total}}
+                                                                                </p>
+                                                                            </li>
+                                                                </ul>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+<!-- <div class="col-md-6" *ngIf="driver">
+
+        <div class="form-group col-md-12 legend driver-detail">
+            <div class="row">
+                <i class="fa fa-users"></i>
+                <h4 style="color: whitesmoke;"> Driver Details</h4>
+            </div>
+            <div class="ex3">
+                <div class="col-xs-12 col-sm-12" style="background-color:white;">
+                    <ul>
+                        <li style="list-style-type:none">
+                            <p *ngIf="driver !='null'">DriverName :{{driver.username}}
+                            </p>
+                            <p *ngIf="driver !='null'">E-Mail :{{driver.email}}
+                            </p>
+                            <p *ngIf="driver !='null'">Phone No :{{driver.phone.code}}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+    </div>
+    </tab>
+    <tab heading="Items">
+        <div class="form-group col-md-12 legend tasker-detail" style="width:500px;">
+            <div class="row">
+                <i class="fa fa-users"></i>
+                <h4 style="color: whitesmoke;"> Orders Details</h4>
+            </div>
+        </div>
+        <div class="ex3" *ngIf="data && data[0]">
+            <ul>
+                <div *ngFor="let item of food">
+                    <li style="list-style-type:none">
+                        {{item.name}}-{{item.net_quantity}} {{item.units}} x {{item.quantity}} : {{item.price}}
+                    </li>
+                </div>
+                Billing
+                <li style="list-style-type:none">
+                    <p> Delivery Charge :{{data[0].billings.amount.delivery_amount}}
+                    </p>
+                </li>
+                <li style="list-style-type:none">
+                    <p> Service Tax :{{data[0].billings.amount.service_tax}}
+                    </p>
+                </li>
+                <li style="list-style-type:none">
+                    <p> coupon_discount :{{data[0].billings.amount.coupon_discount}}
+                    </p>
+                </li>
+                <li style="list-style-type:none">
+                    <p> Grand Total :{{data[0].billings.amount.grand_total}}
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </tab>
+    </tabset>
+    </section> -->
+
+
+<div class="order_details mt-4" *ngIf="data && data[0]">
+    <h2>ORDER DETAILS</h2>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="order_details_table">
+                <div class="order_invoice">
+                    <span>Order {{data[0].order_id}}</span>
+                    <button (click)="downloadPage()" *ngIf="data[0].status == 7">invoice</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Details</th>
+                            <th>Item Price</th>
+                            <th>Quantity</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of data[0].foods">
+                            <td>
+                                <div class="product_details">
+                                    <img src="{{apiUrl}}{{list.image}}" alt="">
+                                    <div class="">
+                                        <h3 class="product_name">{{list.name}}</h3>
+                                        <p class="size" *ngFor="let variant of list.variations[0]">Size :
+                                            {{variant.chaild_name}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {{curreny_symbol}} {{list.price | number:'1.2-2'}}
+                            </td>
+                            <td>
+                                {{list.quantity}}
+                            </td>
+
+                            <td>
+                                {{curreny_symbol}} {{list.price * list.quantity}}
+                            </td>
+                        </tr>
+                        <tr class="order_details_total_amt">
+                            <td></td>
+                            <td></td>
+                            <!-- <td>Shipping Charge:</td>
+                            <td>{{data[0].cart_details.doc?.coupon_code||data[0].cart_details.coupon_code||''}}</td> -->
+                            <td>Tax:</td>
+                            <td> {{curreny_symbol}} {{data[0].billings.amount?.service_tax || 0 | number:'1.2-2'
+                                }}</td>
+                        </tr>
+                        <tr class="order_details_total_amt">
+                            <td></td>
+                            <td></td>
+                            <!-- <td>Shipping Charge:</td>
+                            <td>{{data[0].cart_details.doc?.coupon_code||data[0].cart_details.coupon_code||''}}</td> -->
+                            <td>Shipping Charge:</td>
+                            <td> {{curreny_symbol}} {{data[0].billings.amount?.shippingCharge || 0 | number:'1.2-2'
+                                }}</td>
+                        </tr>
+                        <tr class="order_details_total_amt" *ngIf="data[0].billings.amount?.cod_charge > 0">
+                            <td></td>
+                            <td></td>
+                            <!-- <td>Shipping Charge:</td>
+                            <td>{{data[0].cart_details.doc?.coupon_code||data[0].cart_details.coupon_code||''}}</td> -->
+                            <td>COD Charge:</td>
+                            <td> {{curreny_symbol}} {{data[0].billings.amount?.cod_charge || 0 | number:'1.2-2'
+                                }}</td>
+                        </tr>
+                        <tr class="order_details_total_amt" *ngIf="data[0].billings.amount?.coupon_discount > 0">
+                            <td>Coupon code:</td>
+                            <td>{{data[0].cart_details.doc?.coupon_code||data[0].cart_details.coupon_code||''}}</td>
+                            <td>Coupon:</td>
+                            <td>- {{curreny_symbol}} {{data[0].billings.amount?.coupon_discount || 0 | number:'1.2-2'
+                                }}</td>
+                        </tr>
+                        <!-- <tr class="order_details_total_amt">
+                            <td></td>
+                            <td></td>
+                            <td>Tax:</td>
+                            <td> {{curreny_symbol}} {{(calculatePositiveValue()  | number:'1.2-2') || 0 }}</td>
+                        </tr> -->
+                        <tr class="order_details_total_amt">
+                            <td></td>
+                            <td></td>
+                            <td>Total Amount:</td>
+                            <td>{{curreny_symbol}} {{data[0].billings.amount.grand_total | number:'1.2-2'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="order_status mt-4">
+                <div class="order_sts_head">
+                    <h2>Order Status </h2>
+                    <div *ngIf="data[0].status!= 9 && data[0].status!= 7 && data[0].status!= 19 ">
+                        <select id="dropdown" [(ngModel)]="selectedOption" (change)="onChange()">
+                            <option value="" disabled>Select an option</option>
+                            <option value="on_going" disabled>On going</option>
+                            <option value="delivered" disabled>Delivered</option>
+                            <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+                        </select>
+                    </div>
+
+                    <button (click)="getOrderStatus(data[0].order_id)"><i class="fa fa-refresh"
+                            aria-hidden="true"></i></button>
+                </div>
+                <!-- <accordion [isAnimated]="true" class="order_sts_accordian">
+                    <div class="accordion_item_1" *ngIf="data[0].order_history.order_time">
+                        <span class="profile_timeline" *ngIf="data[0].order_history.packed"></span>
+                        <div [ngClass]="{active:data[0].order_history.order_time}" class="order_sts_icon ">
+                            <img src="assets/image/order_sts_icon_1.png" alt="">
+                        </div>
+                        <accordion-group
+                            [heading]="'Order Placed - ' + (data[0].order_history.order_time | date:'dd/MM/yyyy')">
+                            <div>
+
+                                <p *ngIf="data[0].order_history.order_time">An order has been placed.</p>
+                                <p>{{ data[0].order_history.order_time | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                            </div>
+                        </accordion-group>
+                    </div>
+                    <div class="accordion_item_1" *ngIf="data[0].order_history.packed">
+                        <span class="profile_timeline" *ngIf="data[0].order_history.shipped"></span>
+                        <div [ngClass]="{active:data[0].order_history.packed}" class="order_sts_icon ">
+                            <img src="assets/image/order_sts_icon_2.png" alt="">
+                        </div>
+
+                        <accordion-group
+                            [heading]="data[0].order_history.packed ? ('Packed - ' + (data[0].order_history.packed | date:'dd/MM/yyyy')) : 'Packed'">
+                            <div>
+                                <p *ngIf="data[0].order_history.packed">Your Item has been picked up by courier partner
+                                </p>
+                                <p *ngIf="data[0].order_history.packed">Your Item has been picked up by courier partner
+                                </p>
+                                <p>{{ data[0].order_history.packed | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                            </div>
+                        </accordion-group>
+                    </div>
+                    <div class="accordion_item_1" *ngIf="data[0].order_history.shipped">
+                        <span class="profile_timeline" *ngIf="data[0].order_history.delivered"></span>
+                        <div [ngClass]="{active:data[0].order_history.shipped }" class="order_sts_icon">
+                            <img src="assets/image/order_sts_icon_3.png" alt="">
+                        </div>
+
+                        <accordion-group
+                            [heading]="data[0].order_history.shipped? ('Shipping - ' + (data[0].order_history.shipped | date:'dd/MM/yyyy')):'Shipping'">
+                            <div>
+                                <p *ngIf="data[0].order_history.shipped">Your item has been shipped.</p>
+                                <p>{{ data[0].order_history.shipped | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                            </div>
+                        </accordion-group>
+                    </div>
+                    <div class="accordion_item_1" *ngIf="data[0].order_history.delivered">
+                        <div [ngClass]="{active:data[0].order_history.delivered}" class="order_sts_icon">
+                            <img src="assets/image/order_sts_icon_5.png" alt="">
+                        </div>
+                        <accordion-group
+                            [heading]="data[0].order_history.delivered? ('Delivered - ' + (data[0].order_history.delivered | date:'dd/MM/yyyy')):'Delivered'">
+                            <div>
+                                <p *ngIf="data[0].order_history.delivered">Your Item has been delivered.</p>
+                                <p>{{ data[0].order_history.delivered | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                            </div>
+                        </accordion-group>
+                    </div>
+                </accordion> -->
+
+                <div class="order_sts_accordian" *ngIf="data[0].shiprocket_data?.awb_code">
+                    <p>Tracking Id :<a target="_blank"
+                            [href]="'https://shiprocket.co/tracking/' + data[0].shiprocket_data?.awb_code">
+                            {{ data[0].shiprocket_data?.awb_code }}
+                        </a></p>
+                </div>
+                <accordion [isAnimated]="true" class="order_sts_accordian" [closeOthers]="false">
+                    <div class="accordion_item_1" *ngIf="data[0].order_history.order_time">
+                        <span class="profile_timeline" *ngIf="data[0].order_history.packed"></span>
+                        <div [ngClass]="{active:data[0].order_history.order_time}" class="order_sts_icon ">
+                            <img src="assets/image/order_sts_icon_1.png" alt="">
+                        </div>
+                        <accordion-group [isOpen]="true"
+                            [heading]="'Order Placed - ' + (data[0].order_history.order_time | date:'dd/MM/yyyy')">
+                            <div>
+                                <p *ngIf="data[0].order_history.order_time">An order has been placed.</p>
+                                <p>{{ data[0].order_history.order_time | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                            </div>
+                        </accordion-group>
+                    </div>
+
+                    <div class="accordion_item_1" *ngIf="data[0].order_history.packed">
+                        <span class="profile_timeline" *ngIf="data[0].order_history.shipped"></span>
+                        <div [ngClass]="{active:data[0].order_history.packed}" class="order_sts_icon ">
+                            <img src="assets/image/order_sts_icon_2.png" alt="">
+                        </div>
+                        <accordion-group [isOpen]="true"
+                            [heading]="data[0].order_history.packed ? ('Packed - ' + (data[0].order_history.packed | date:'dd/MM/yyyy')) : 'Packed'">
+                            <div>
+                                <p *ngIf="data[0].order_history.packed">Your Item has been picked up by courier partner
+                                </p>
+                                <p>{{ data[0].order_history.packed | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                            </div>
+                        </accordion-group>
+                    </div>
+
+                    <!-- <div class="accordion_item_1" *ngIf="data[0].order_history.shipped">
+                      <span class="profile_timeline" *ngIf="data[0].order_history.delivered"></span>
+                      <div [ngClass]="{active:data[0].order_history.shipped}" class="order_sts_icon">
+                        <img src="assets/image/order_sts_icon_3.png" alt="">
+                      </div>
+                      <accordion-group [isOpen]="true" [heading]="data[0].order_history.shipped? ('Shipping - ' + (data[0].order_history.shipped | date:'dd/MM/yyyy')):'Shipping'">
+                        <div>
+                          <p *ngIf="data[0].order_history.shipped">Your item has been shipped.</p>
+                          <p>{{ data[0].order_history.shipped | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                        </div>
+                      </accordion-group>
+                    </div> -->
+
+                    <div class="accordion_item_1" *ngIf="data[0].shiprocket_data?.scan">
+                        <span class="profile_timeline" *ngIf="data[0].shiprocket_data"></span>
+                        <div [ngClass]="{active:data[0].shiprocket_data}" class="order_sts_icon">
+                            <img src="assets/image/order_sts_icon_3.png" alt="">
+                        </div>
+                        <accordion-group [isOpen]="true"
+                            [heading]="data[0].order_history.shipped ? ('Shipping - ' + (data[0].order_history.shipped | date:'dd/MM/yyyy')) : 'Shipping'">
+                            <!-- <div>
+                                <p *ngIf="data[0].order_history.shipped">Your item has been shipped.</p>
+                                <p>{{ data[0].order_history.shipped | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                            </div> -->
+                            <!-- Loop through Shiprocket scans -->
+                            <div *ngFor="let scan of data[0].shiprocket_data?.scans.slice().reverse()">
+                                <accordion-group [isOpen]="true"
+                                    [heading]="scan?.activity + ' - ' + (scan.date | date:'dd/MM/yyyy - hh:mm a')">
+                                    <div>
+                                        <p>Activity: {{ scan.activity }}</p>
+                                        <p>Location: {{ scan.location }}</p>
+                                        <p>Date: {{ scan.date | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                                    </div>
+                                </accordion-group>
+                            </div>
+                        </accordion-group>
+
+
+                    </div>
+                    <div class="accordion_item_1" *ngIf="data[0]?.shiprocket_timeline?.length">
+                        <div [ngClass]="{active: data[0]?.shiprocket_data?.status}" class="order_sts_icon">
+                            <!-- Icon or visual indicator -->
+                        </div>
+                        <accordion-group [isOpen]="true" [heading]="'Order Status Timeline'">
+                            <div *ngFor="let timeline of data[0]?.shiprocket_timeline">
+                                <p>
+                                    <strong>Status:</strong> {{ timeline.shiprocket_status }}
+                                </p>
+                                <p>
+                                    <strong>Time:</strong> {{ timeline.timestamp | date: 'dd/MM/yyyy - hh:mm a' }}
+                                </p>
+                                <hr />
+                            </div>
+                        </accordion-group>
+                    </div>
+
+
+                    <div class="accordion_item_1" *ngIf="data[0].order_history.delivered">
+                        <div [ngClass]="{active:data[0].order_history.delivered}" class="order_sts_icon">
+                            <img src="assets/image/order_sts_icon_5.png" alt="">
+                        </div>
+                        <accordion-group [isOpen]="true"
+                            [heading]="data[0].order_history.delivered? ('Delivered - ' + (data[0].order_history.delivered | date:'dd/MM/yyyy')):'Delivered'">
+                            <div>
+                                <p *ngIf="data[0].order_history.delivered">Your Item has been delivered.</p>
+                                <p>{{ data[0].order_history.delivered | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                            </div>
+                        </accordion-group>
+                    </div>
+                </accordion>
+
+                <!-- <div class="order_packed_sts">
+
+                    <div class="">
+                        <h3><span></span> -
+                            <span>{{data[0].order_history.order_time | date:'dd/MM/yyyy' }}</span>
+                        </h3>
+                        <p>An order has been placed.</p>
+                        <p>{{data[0].order_history.order_time | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                    </div>
+                    <div class="">
+                        <h3><span><img src="assets/image/order_sts_icon_1.png" alt=""></span>Packed -
+                            <span>{{data[0].order_history.packed | date:'dd/MM/yyyy' }}</span>
+                        </h3>
+                        <p>Your Item has been picked up by courier partner</p>
+                        <p>{{data[0].order_history.packed | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                    </div>
+                    <div class="">
+                        <h3><span><img src="assets/image/order_sts_icon_1.png" alt=""></span>Shipping -
+                            <span>{{data[0].order_history.shipped | date:'dd/MM/yyyy' }}</span>
+                        </h3>
+                        <p>Your item has been shipped.</p>
+                        <p>{{data[0].order_history.shipped | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                    </div>
+                    <div class="">
+                        <h3><span><img src="assets/image/order_sts_icon_1.png" alt=""></span>Delivered -
+                            <span>{{data[0].order_history.delivered | date:'dd/MM/yyyy' }}</span>
+                        </h3>
+                        <p>Your Item has been picked up by courier partner</p>
+                        <p>{{data[0].order_history.delivered | date:'dd/MM/yyyy - hh:mm a' }}</p>
+                    </div>
+
+                </div> -->
+
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="customer_details">
+
+                <h2>Customer Details
+                </h2>
+                <div class="customer_details_sub_head">
+
+                    <div class="details">
+                        <!-- <div class="user_profile">
+                            <img src="{{apiUrl}}{{data[0].user[0]?.avatar}}" onError="this.src='assets/image/user.jpg'" alt="">
+                        </div> -->
+                        <div class="name_category">
+                            <!-- <p>{{data | json}}</p> -->
+                            <!-- <p>Customer</p> -->
+                            <p *ngIf="((data[0] && data[0].user[0] && data[0].user[0].first_name))"><span>User
+                                    Name</span> : {{data[0] && data[0].user[0] &&
+                                data[0].user[0].first_name?data[0].user[0].first_name:data[0].delivery_address.first_name}}
+                                {{data[0]
+                                && data[0].user[0] &&
+                                data[0].user[0].last_name?data[0].user[0].last_name:data[0].delivery_address.last_name}}
+                            </p>
+                            <p *ngIf="!(data[0] && data[0].user[0] && data[0].user[0].first_name)"><span>User
+                                    Name</span> : {{data[0] && data[0].user[0] &&
+                                data[0].user[0].username?data[0].user[0].username:data[0].delivery_address.first_name}}
+                                {{data[0]
+                                && data[0].user[0] &&
+                                data[0].user[0].last_name?data[0].user[0].last_name:data[0].delivery_address.last_name}}
+                            </p>
+
+                            <p><span>Email</span> :
+                                {{data[0].user[0]?.email?data[0].user[0]?.email:data[0].delivery_address.email || ''}}
+                            </p>
+                            <p><span>Phone Number</span>
+                                :{{data[0].user[0]?.phone.code?data[0].user[0]?.phone.code:data[0].delivery_address.code}}
+                                {{data[0].user[0]?.phone.number?data[0].user[0]?.phone.number:data[0].delivery_address.phone}}
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="billing_address mt-4">
+
+                <h2><img src="assets/image/location.png" alt="">&nbsp;&nbsp;Shipping Address
+                </h2>
+                <div class="details">
+                    <div>
+                        <p>{{data[0].delivery_address.first_name}} {{data[0].delivery_address.last_name}}</p>
+                        <p>{{data[0].delivery_address.line1}}</p>
+                        <p>{{data[0].delivery_address.city}} </p>
+                        <p>{{data[0].delivery_address.state}}</p>
+                        <p>{{data[0].delivery_address.country}} - {{data[0].delivery_address.zipcode}}</p>
+                        <p>{{data[0].delivery_address.phone}}</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="shipping_address mt-4">
+                <h2><img src="assets/image/location.png" alt="">&nbsp;&nbsp;Billing Address
+                </h2>
+                <div class="details">
+                    <div *ngIf="!(data[0] && data[0].billing_address)">
+                        <p>{{data[0].delivery_address.first_name}} {{data[0].delivery_address.last_name}}</p>
+                        <p>{{data[0].delivery_address.line1}}</p>
+                        <p>{{data[0].delivery_address.city}} </p>
+                        <p>{{data[0].delivery_address.state}}</p>
+                        <p>{{data[0].delivery_address.country}} - {{data[0].delivery_address.pincode}}</p>
+                        <p>{{data[0].delivery_address.phone}}</p>
+
+                        <!-- <p>Currently Unavailable..</p> -->
+                        <!-- <p>{{data[0].delivery_address.name}}</p> -->
+                        <!-- <p>{{data[0].delivery_address.phone}}</p>
+                        <p>{{data[0].delivery_address.fulladres}}</p>
+                        <p>{{data[0].delivery_address.city}} - {{data[0].delivery_address.zipcode}}</p>
+                        <p>{{data[0].delivery_address.type}}</p> -->
+                    </div>
+                    <div *ngIf="(data[0] && data[0].billing_address)">
+                        <p>{{data[0].billing_address.first_name}} {{data[0].billing_address.last_name}}</p>
+                        <p>{{data[0].billing_address.line1}}</p>
+                        <p>{{data[0].billing_address.city}} </p>
+                        <p>{{data[0].billing_address.state}} </p>
+                        <p>{{data[0].billing_address.country}} - {{data[0].billing_address.pincode}}</p>
+                        <p>{{data[0] && data[0].billing_address && data[0].billing_address.phone_number ?
+                            data[0].billing_address.phone_number : data[0].billing_address.phone.number}}</p>
+
+                        <!-- <p>Currently Unavailable..</p> -->
+                        <!-- <p>{{data[0].delivery_address.name}}</p> -->
+                        <!-- <p>{{data[0].delivery_address.phone}}</p>
+                        <p>{{data[0].delivery_address.fulladres}}</p>
+                        <p>{{data[0].delivery_address.city}} - {{data[0].delivery_address.zipcode}}</p>
+                        <p>{{data[0].delivery_address.type}}</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="payment_details mt-4">
+
+                <h2><img src="assets/image/credit-card.png" alt="">&nbsp;&nbsp;Payment Details
+                </h2>
+                <div class="details">
+                    <div>
+                        <p *ngIf="data[0].transactions[0].type != 'COD'"><span>Transactions</span>
+                            :#{{(data[0].stripechargeid ? data[0].stripechargeid : data[0].razorpaypayment_id ?
+                            data[0].razorpaypayment_id : "Not Applicable") }}</p>
+                        <!-- <p><span>Transactions</span> :#{{(data[0].stripechargeid ? data[0].stripechargeid : data[0].razorpaypayment_id ? data[0].razorpaypayment_id : "Not Applicable") | uppercase }}</p> -->
+                        <p><span>Payment Method</span> : {{data[0].transactions[0].type}}</p>
+                        <!-- <p *ngIf="data[0].transactions[0].type != 'COD'"><span>Card Holder Name</span> : {{data[0].delivery_address.name }} </p> -->
+                        <!-- <p><span>Mode</span> : {{data[0].transactions[0].mode}}</p> -->
+                        <!-- <p><span>Total Amount</span> : {{curreny_symbol}} {{data[0].transactions[0].amount ? data[0].transactions[0].amount : 0}}</p> -->
+                        <p><span>Total Amount</span> : {{curreny_symbol}} {{data[0].billings.amount.grand_total ?
+                            data[0].billings.amount.grand_total : 0}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-4">
+            <div class="logistics_details">
+                
+                <h2>Billing Address
+                </h2>
+                <div class="details">
+                    <div>
+                        <h3>{{data[0].user[0].first_name}} {{data[0].user[0].last_name}}</h3>
+                        <p>Email : {{data[0].user[0].email}}</p>
+                        <p>Phone : {{data[0].user[0].phone.code}} {{data[0].user[0].phone.number}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div> -->
+    </div>
+
+
+</div>
+
+<ng-template #confirmModal>
+    <div class="container">
+        <div class="modal-content cases-model">
+            <h5>Order Id: Test OrderId</h5>
+            <div >
+                <label for="height">Enter Length of the Pack (cm):</label>
+                <input type="number" id="length" [(ngModel)]="length" class="form-control" required
+                    placeholder="Enter length in cm" min="0" (input)="validateLength($event)" />
+                <span *ngIf="lengthError" class="text-danger">Length is required and must be greater than zero</span>
+
+                <label for="height">Enter Breadth of the Pack (cm):</label>
+                <input type="number" id="breadth" [(ngModel)]="breadth" class="form-control" required
+                    placeholder="Enter breadth in cm" min="0" (input)="validateBreadth($event)" />
+                <span *ngIf="breadthError" class="text-danger">Breadth is required and must be greater than zero</span>
+
+
+
+                <label for="height">Enter Height of the Pack (cm):</label>
+                <input type="number" id="height" [(ngModel)]="height" class="form-control" required
+                    placeholder="Enter height in cm" min="0" (input)="validateHeight($event)" />
+                <span *ngIf="heightError" class="text-danger">Height is required and must be greater than zero</span>
+
+
+
+
+
+
+            </div>
+
+
+            <div class="yes_no mt-5 ">
+                <button type="button" class="btn " (click)="confirmModal.hide()">
+                    No
+                </button>
+                <button type="button" class="btn " (click)="onModelChange()">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<div  class="modal fade order_status_modal" id="exampleModalCenter" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content cases-model">
+            <h5>Order Id: Test OrderId</h5>
+            <div >
+                <label for="height">Enter Length of the Pack (cm):</label>
+                <input type="number" id="length" [(ngModel)]="length" class="form-control" required
+                    placeholder="Enter length in cm" min="0" (input)="validateLength($event)" />
+                <span *ngIf="lengthError" class="text-danger">Length is required and must be greater than zero</span>
+
+                <label for="height">Enter Breadth of the Pack (cm):</label>
+                <input type="number" id="breadth" [(ngModel)]="breadth" class="form-control" required
+                    placeholder="Enter breadth in cm" min="0" (input)="validateBreadth($event)" />
+                <span *ngIf="breadthError" class="text-danger">Breadth is required and must be greater than zero</span>
+
+
+
+                <label for="height">Enter Height of the Pack (cm):</label>
+                <input type="number" id="height" [(ngModel)]="height" class="form-control" required
+                    placeholder="Enter height in cm" min="0" (input)="validateHeight($event)" />
+                <span *ngIf="heightError" class="text-danger">Height is required and must be greater than zero</span>
+
+
+
+
+
+
+            </div>
+
+
+            <div class="yes_no mt-5 ">
+                <button type="button" class="btn " (click)="confirmModal.hide()">
+                    No
+                </button>
+                <button type="button" class="btn " (click)="onModelChange()">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

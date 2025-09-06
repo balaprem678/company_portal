@@ -1,0 +1,11 @@
+<div class="category_sub_cat_list">
+    <div class="container">
+        <app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="limit"
+            [tablename]="'Sub Category List'" [deleteApis]="deleteApis" [restoreApis]="restoreApis" [add_btn]="add_btn"
+            [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName" [editUrl]="editUrl"
+            (onDeleteChange)="onDeleteChange($event)" (onitemsPerPageChange)="onitemsPerPageChange($event)"
+            (onPageChange)="onPageChange($event)" [bulk_action]="bulk_action"
+            (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)">
+        </app-common-table>
+    </div>
+</div>

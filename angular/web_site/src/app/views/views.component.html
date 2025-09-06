@@ -1,0 +1,2127 @@
+<div class="homepage_view">
+
+  <section class="banners pt_110">
+    <div class="container-fluid mt-4">
+      <div class="df">
+
+        <div class="left-banner">
+          <div class="b-slider-sec">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
+              (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+              (beforeChange)="beforeChange($event)">
+
+              <div ngxSlickItem *ngFor="let banner of filteredBannersList;trackBy: trackByFn">
+                <!-- {{banner | json}} -->
+
+                <picture *ngIf="banner.image">
+                  <source *ngIf="banner.image.fallbackImage" [srcset]="environment.apiUrl + banner.image.fallbackImage"
+                    type="image/webp">
+                  <img
+                    [src]="environment.apiUrl + (banner && banner.image && banner.image.fallbackImage != (undefined || null || '') ? banner.image.fallbackImage : banner && banner.image) "
+                    onerror="this.src='assets/image/no_img.png'" alt="Trade Mark Image">
+
+                </picture>
+                <!-- <img src="{{environment.apiUrl}}{{(banner && banner.image && banner.image.fallbackImage != (undefined || null || '') ? banner.image.fallbackImage : banner && banner.image)}}" alt="" /> -->
+              </div>
+              <!-- <div ngxSlickItem><img src="../../../assets/image/pillais/b-slider-2.jpg" alt="" /></div>
+      <div ngxSlickItem><img src="../../../assets/image/pillais/b-slider-3.jpg" alt="" /></div> -->
+            </ngx-slick-carousel>
+
+          </div>
+        </div>
+        <div class="right-banner">
+          <div class="s-slider-sec">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfigg"
+              (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+              (beforeChange)="beforeChange($event)">
+              <div ngxSlickItem *ngFor="let banner of filteredHeader2List">
+                <picture *ngIf="banner.image">
+                  <source *ngIf="banner.image.fallbackImage" [srcset]="environment.apiUrl + banner.image.fallbackImage"
+                    type="image/webp">
+                  <img
+                    [src]="environment.apiUrl + (banner && banner.image && banner.image.fallbackImage != (undefined || null || '') ? banner.image.fallbackImage : banner && banner.image) "
+                    onerror="this.src='assets/image/no_img.png'" alt="Trade Mark Image">
+
+                </picture>
+                <!-- <img src="{{environment.apiUrl}}{{banner.image}}"
+            alt="" /> -->
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </div>
+      </div>
+
+      <section class="value-packs p-0 pb-4" *ngFor="let batchs of filteredBatchsList">
+        <div class="padding-container">
+          <!-- <p>{{batchs.image_1}}</p> -->
+          <div class="value-packs-slider">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="valupacks"
+              (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+              (beforeChange)="beforeChange($event)">
+              <div ngxSlickItem class="v-slider">
+                <img (click)="ourStory(batchs.batchname_1)" src="{{environment.apiUrl}}{{batchs.image_1}}" width="406px"
+                  height="331px" alt="" />
+                <!-- <img src="../../assets/image/pillais/certificate_1.png" alt="" /> -->
+              </div>
+              <div ngxSlickItem class="v-slider">
+                <img (click)="ourStory(batchs.batchname_2)" src="{{environment.apiUrl}}{{batchs.image_2}}" width="406px"
+                  height="331px" alt="" />
+              </div>
+              <div ngxSlickItem class="v-slider">
+                <img (click)="ourStory(batchs.batchname_3)" src="{{environment.apiUrl}}{{batchs.image_3}}" width="406px"
+                  height="331px" alt="" />
+              </div>
+              <div ngxSlickItem class="v-slider">
+                <img (click)="ourStory(batchs.batchname_4)" src="{{environment.apiUrl}}{{batchs.image_4}}" width="406px"
+                  height="331px" alt="" />
+              </div>
+
+            </ngx-slick-carousel>
+          </div>
+        </div>
+      </section>
+
+      <div class="ad-banner-sec" *ngFor="let banner of filteredpostheader2List">
+        <!-- <p>{{banner | json}}</p> -->
+        <picture *ngIf="banner?.image">
+          <source *ngIf="banner.image.webpImage" [srcset]="environment.apiUrl + banner.image.webpImage"
+            type="image/webp">
+          <img
+            [src]="environment.apiUrl +  (banner && banner.image && banner.image.fallbackImage != (undefined || null || '') ? banner.image.fallbackImage : banner && banner.image) "
+            onerror="this.src='assets/image/no_img.png'" alt="Trade Mark Image">
+
+        </picture>
+
+
+
+
+        <!-- <img src="{{environment.apiUrl}}{{banner.image.fallbackImage}}" alt=""  /> -->
+
+      </div>
+    </div>
+  </section>
+
+
+  <section class="shop-category pb-5">
+    <div class="container padding-container">
+      <h3>Shop By Category</h3>
+      <div class="shop-category-list">
+
+        <a href="" *ngFor="let item of featured_categories_" routerLink="/category/{{item.slug}}"><img
+            src="{{apiUrl + item.img}}" class="" onerror="this.src='assets/image/no_img.png'" width="181px"
+            height="181px" alt="" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- <div class="flavour-fusions homemade_1 banner_included bg_color_include "
+    *ngIf="tagObjects['tag1'] && tagObjects['tag1'].tagName"> -->
+  <div class="flavour-fusions homemade_1" [ngClass]="{
+      'bg_color_include': !tagObjects['tag1']?.iconimg
+    }" [ngStyle]="{
+      'background-color': tagObjects['tag1']?.iconimg ? 'none' : (tagObjects['tag1']?.color || '#d6eaf8')
+    }" *ngIf="tagObjects['tag1'] && tagObjects['tag1'].tagName">
+
+    <div class="padding-container">
+      <div class="premium-qty-head">
+        <h3 style="color: #000000;">🌟 {{tagObjects['tag1'].tagName}}</h3>
+        <a [href]="tagObjects['tag1'].tagUrl">See All <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+      </div>
+
+      <section *ngIf="tagObjects['tag1']" [ngClass]="{
+                'banner_included': tagObjects['tag1']?.iconimg
+              }" [ngStyle]="{
+                'background-image': tagObjects['tag1']?.iconimg ? 'url(' + environment.apiUrl + getFormattedImagePath(tagObjects['tag1'].iconimg) + ')' : 'none',
+                'background-size': tagObjects['tag1']?.iconimg ? 'cover' : 'auto',
+                'background-repeat': tagObjects['tag1']?.iconimg ? 'no-repeat' : 'repeat'
+              }">
+
+        <div class="product-list-right ">
+          <div class="product-part" *ngFor="let item of tagObjects['tag1'].products">
+            <div class="p-list-cnt">
+              <a (click)="productDetails(item.slug,item._id,item.rcategory,item.scategory)" class="p-img-part">
+                <div class="products-sliders">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="productsslider"
+                    (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem>
+                      <picture *ngIf="item.avatar"
+                        (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                        <source *ngIf="item.avatar?.webpImg" [srcset]="environment.apiUrl + item.avatar?.webpImg"
+                          type="image/webp">
+                        <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                          onerror="this.src='assets/image/no_img.png'"
+                          alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                      </picture>
+                    </div>
+
+                  </ngx-slick-carousel>
+
+
+                  <span class="off_percentage" *ngIf="
+                          item && 
+                          item.selectedPriceDetail &&
+                          item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                          item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                          item.selectedPriceDetail.mprice > 0 &&
+                          (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0 ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-0'
+                    }}% Off)
+                  </span>
+
+                </div>
+              </a>
+              <div class="p-product-cnt">
+                <div class="p-product-hide">
+                  <a class="p-img-part" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                    <h2>{{item.name}}</h2>
+
+                    <p class="price 1" *ngIf="item.offer_status == 0">
+                      <span class="" *ngIf="item.base_price > item.sale_price">
+                        ₹ {{item && item.selectedPriceDetail && item.selectedPriceDetail.mprice | number}}
+                      </span>&nbsp;
+                      <span>
+                        ₹ {{item && item.selectedPriceDetail && item.selectedPriceDetail.sprice | number}}
+                      </span>
+                    </p>
+                  </a>
+                  <ul>
+                    <li *ngFor="let price of item.price_details">
+                      <input type="radio" name="p-q-{{item._id}}" [value]="price" [(ngModel)]="item.selectedPriceDetail"
+                        (ngModelChange)="onPriceDetailChange(item,$event)">
+                      <p>{{ price.attributes[0].chaild_name }}</p>
+                    </li>
+                  </ul>
+
+                </div>
+                <div class="v-add qty-sec">
+
+                  <div class="v-add qty-sec cart_add_to_cart mt-4">
+
+                    <a class="p-add-cart" *ngIf="cartLength <= 0" (click)="preAddCart(item, 'add')">
+                      <img src="../../../assets/image/pillais/cart.png" alt="" />
+                    </a>
+
+
+                    <div *ngFor="let i of item.price_details;trackBy: trackByFn">
+                      <div *ngFor="let rem of unmatchedObjects1">
+
+                        <div *ngIf=" item._id===rem._id 
+                          && i?.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+                         && i?.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+                           && rem.showAddToCartButton 
+                          && cartLength > 0">
+
+                          <a class="p-add-cart"
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngFor="let items of cartDetails && cartDetails.cart_details; let i=index">
+                      <div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+                          && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+                           ">
+                        <div class="p-qty-form minus_plus_section">
+                          <button class="minus_input_plus" *ngIf="items.quantity==1"
+                            (click)="removeFoodFromCart(items)">-</button>
+                          <button class="minus_input_plus" *ngIf="items.quantity>1"
+                            (click)="changeCart(items, 'decreement')">-</button>
+                          <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity" readonly />
+                          <button class="minus_input_plus" (click)="changeCart(items, 'increement')">+</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <p class="like" (click)="addFavourite(item._id,item.selectedPriceDetail.attributes[0].chaild_id)">
+              <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+              <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+            </p>
+
+
+          </div>
+        </div>
+
+        <div class="stage_logo" *ngIf="tagObjects['tag1'].batchimg && tagObjects['tag1'].batchimg != ''">
+          <a [routerLink]="['/page/our-story']"><img [src]="environment.apiUrl+tagObjects['tag1'].batchimg" alt=""></a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+  <div class="flavour-fusions homemade_2" [ngClass]="{
+    'bg_color_include': !tagObjects['tag2']?.iconimg
+  }" [ngStyle]="{
+    'background-color': tagObjects['tag2']?.iconimg ? 'none' : (tagObjects['tag2']?.color || '#d6eaf8')
+  }" *ngIf="tagObjects['tag2'] && tagObjects['tag2'].tagName">
+    <div class="padding-container">
+      <div class="premium-qty-head">
+        <h3 style="color: #0A482F;">🌟 {{tagObjects['tag2'].tagName}}</h3>
+        <a [href]="tagObjects['tag2'].tagUrl">See All <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+      </div>
+      <section [ngClass]="{
+        'banner_included': tagObjects['tag2']?.iconimg
+      }" [ngStyle]="{
+        'background-image': tagObjects['tag2']?.iconimg ? 'url(' + environment.apiUrl + getFormattedImagePath(tagObjects['tag2'].iconimg) + ')' : 'none',
+        'background-size': tagObjects['tag2']?.iconimg ? 'cover' : 'auto',
+        'background-repeat': tagObjects['tag2']?.iconimg ? 'no-repeat' : 'repeat'
+      }">
+        <div class="product-list-right">
+          <div class="product-part" *ngFor="let item of tagObjects['tag2'].products">
+            <div class="p-list-cnt">
+              <a (click)="productDetails(item.slug,item._id,item.rcategory,item.scategory)" class="p-img-part">
+                <div class="products-sliders">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="productsslider"
+                    (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem>
+                      <picture *ngIf="item.avatar"
+                        (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                        <source *ngIf="item.avatar?.webpImg" [srcset]="environment.apiUrl + item.avatar?.webpImg"
+                          type="image/webp">
+                        <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                          onerror="this.src='assets/image/no_img.png'"
+                          alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                      </picture>
+                      <!-- <img [src]="environment.apiUrl+item.avatar" alt=""> -->
+                    </div>
+                    <!-- <div ngxSlickItem>
+                    <img [src]="environment.apiUrl+item.avatar" alt="">
+                  </div> -->
+                  </ngx-slick-carousel>
+                  <!-- <span class="off_percentage">20% Off</span> -->
+                  <!-- <span class="off_percentage" *ngIf="item && item.selectedPriceDetail && item.selectedPriceDetail.mprice != (undefined || null || '') &&  item.selectedPriceDetail.mprice">({{ ((item && item.selectedPriceDetail && item.selectedPriceDetail.mprice != (undefined || null || '') &&  item.selectedPriceDetail.mprice - item && item.selectedPriceDetail && item.selectedPriceDetail.sprice != (undefined || null || '') &&  item.selectedPriceDetail.sprice) / item && item.selectedPriceDetail && item.selectedPriceDetail.mprice != (undefined || null || '') && item.selectedPriceDetail.mprice * 100) | number : '1.0-0' }}% Off)</span> -->
+
+                  <!-- <span class="off_percentage"
+                    *ngIf="item && item.selectedPriceDetail && item.selectedPriceDetail.mprice != (undefined || null || '') &&  item.selectedPriceDetail.mprice">({{
+                    (( item?.selectedPriceDetail?.mprice - item?.selectedPriceDetail?.sprice) /
+                    item?.selectedPriceDetail?.mprice * 100) | number : '1.0-0' }}% Off)</span> -->
+                  <span class="off_percentage" *ngIf="
+                    item && 
+                    item.selectedPriceDetail &&
+                    item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.mprice > 0 &&
+                    (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+                  ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+
+                </div>
+              </a>
+              <div class="p-product-cnt">
+                <div class="p-product-hide">
+                  <a class="p-img-part" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                    <h2>{{item.name}}</h2>
+
+                    <p class="price 1" *ngIf="item.offer_status == 0">
+                      <span class="" *ngIf="item.base_price > item.sale_price">
+                        ₹ {{item && item.selectedPriceDetail && item.selectedPriceDetail.mprice | number}}
+                      </span>&nbsp;
+                      <span>
+                        ₹ {{item && item.selectedPriceDetail && item.selectedPriceDetail.sprice | number}}
+                      </span>
+                    </p>
+                  </a>
+                  <ul>
+                    <li *ngFor="let price of item.price_details">
+                      <input type="radio" name="p-q-{{item._id}}" [value]="price" [(ngModel)]="item.selectedPriceDetail"
+                        (ngModelChange)="onPriceDetailChange(item,$event)">
+                      <p>{{ price.attributes[0].chaild_name }}</p>
+                    </li>
+                  </ul>
+
+                </div>
+                <div class="v-add qty-sec">
+
+                  <div class="v-add qty-sec cart_add_to_cart mt-4">
+
+                    <a class="p-add-cart" *ngIf="cartLength <= 0" (click)="preAddCart(item, 'add')">
+                      <img src="../../../assets/image/pillais/cart.png" alt="" />
+                    </a>
+
+
+                    <div *ngFor="let i of item.price_details;trackBy: trackByFn">
+                      <div *ngFor="let rem of unmatchedObjects2">
+
+                        <div *ngIf=" item._id===rem._id 
+                      && i.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+                     && i.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+                       && rem.showAddToCartButton 
+                      && cartLength>0">
+
+                          <a class="p-add-cart"
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngFor="let items of cartDetails && cartDetails.cart_details; let i=index">
+                      <div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+                      && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+                       ">
+                        <div class="p-qty-form minus_plus_section">
+                          <button class="minus_input_plus" *ngIf="items.quantity==1"
+                            (click)="removeFoodFromCart(items)">-</button>
+                          <button class="minus_input_plus" *ngIf="items.quantity>1"
+                            (click)="changeCart(items, 'decreement')">-</button>
+                          <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity" readonly />
+                          <button class="minus_input_plus" (click)="changeCart(items, 'increement')">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <p class="like" (click)="addFavourite(item._id,item.selectedPriceDetail.attributes[0].chaild_id)">
+              <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+              <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+            </p>
+          </div>
+        </div>
+        <div class="stage_logo" *ngIf="tagObjects['tag2'].batchimg && tagObjects['tag2'].batchimg != ''">
+          <a [routerLink]="['/page/our-story']"><img [src]="environment.apiUrl+tagObjects['tag2'].batchimg" alt=""></a>
+        </div>
+      </section>
+    </div>
+   
+  </div>
+
+
+  <section class="w-spice-banner">
+    <div class="container" *ngFor="let spicebanner of filteredpostcategory3List">
+      <picture *ngIf="spicebanner && spicebanner.image">
+        <source *ngIf="spicebanner.image.fallbackImage" [srcset]="environment.apiUrl + spicebanner.image.fallbackImage">
+        <img
+          [src]="environment.apiUrl +  (spicebanner && spicebanner.image && spicebanner.image.fallbackImage != (undefined || null || '') ? spicebanner.image.fallbackImage : spicebanner && spicebanner.image && spicebanner.image.webpImage) "
+          onerror="this.src='assets/image/no_img.png'" alt="Trade Mark Image">
+
+      </picture>
+    </div>
+  </section>
+
+  <div class="flavour-fusions homemade_3 grain_glory" [ngClass]="{
+    'bg_color_include': !tagObjects['tag3']?.iconimg
+  }" [ngStyle]="{
+    'background-color': tagObjects['tag3']?.iconimg ? 'none' : (tagObjects['tag3']?.color || '#d6eaf8')
+  }" *ngIf="tagObjects['tag3'] && tagObjects['tag3'].tagName">
+    <div class="padding-container">
+      <div class="premium-qty-head">
+        <h3 style="color: #000000;">🛒 {{tagObjects['tag3'].tagName}}</h3>
+        <a [href]="tagObjects['tag3'].tagUrl">See All <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+      </div>
+      <section *ngIf="tagObjects['tag3']" [ngClass]="{
+        'banner_included': tagObjects['tag3']?.iconimg
+      }" [ngStyle]="{
+        'background-image': tagObjects['tag3']?.iconimg ? 'url(' + environment.apiUrl + getFormattedImagePath(tagObjects['tag3'].iconimg) + ')' : 'none',
+        'background-size': tagObjects['tag3']?.iconimg ? 'cover' : 'auto',
+        'background-repeat': tagObjects['tag3']?.iconimg ? 'no-repeat' : 'repeat'
+      }">
+        <div class="product-list-right">
+          <div class="product-part" *ngFor="let item of tagObjects['tag3'].products">
+            <div class="p-list-cnt">
+              <a (click)="productDetails(item.slug,item._id,item.rcategory,item.scategory)" class="p-img-part">
+                <div class="products-sliders">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="productsslider"
+                    (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem>
+                      <picture *ngIf="item.avatar"
+                        (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                        <source *ngIf="item.avatar?.webpImg" [srcset]="environment.apiUrl + item.avatar?.webpImg"
+                          type="image/webp">
+                        <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                          onerror="this.src='assets/image/no_img.png'"
+                          alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                      </picture>
+                      <!-- <img [src]="environment.apiUrl+item.avatar" alt=""> -->
+                    </div>
+                    <!-- <div ngxSlickItem>
+                <img [src]="environment.apiUrl+item.avatar" alt="">
+              </div> -->
+                  </ngx-slick-carousel>
+                  <!-- <span class="off_percentage"
+                    *ngIf="item && item.selectedPriceDetail && item.selectedPriceDetail.mprice != (undefined || null || '') &&  item.selectedPriceDetail.mprice">({{
+                    (( item?.selectedPriceDetail?.mprice - item?.selectedPriceDetail?.sprice) /
+                    item?.selectedPriceDetail?.mprice * 100) | number : '1.0-0' }}% Off)</span> -->
+
+                  <span class="off_percentage" *ngIf="
+                    item && 
+                    item.selectedPriceDetail &&
+                    item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.mprice > 0 &&
+                    (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+                  ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+                </div>
+              </a>
+              <div class="p-product-cnt">
+                <div class="p-product-hide">
+                  <a class="p-img-part" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                    <h2>{{item.name}}</h2>
+                    <span class="p-price"><b></b> </span>
+                    <!-- <span class="w-price">₹ {{item.selectedPriceDetail.mprice}}</span> -->
+                    <!-- <span class="w-price">₹ {{item && item.selectedPriceDetail &&
+                    item.selectedPriceDetail.mprice}}</span> -->
+                    <p class="price 1">
+                      <span class="" *ngIf="item.base_price > item.sale_price">
+                        ₹ {{item.selectedPriceDetail.mprice | number}}
+                      </span>&nbsp;
+                      <span>
+                        ₹ {{item.selectedPriceDetail.sprice | number}}
+                      </span>
+                    </p>
+
+                  </a>
+                  <ul>
+                    <li *ngFor="let price of item.price_details">
+                      <input type="radio" name="p-q-{{item._id}}" [value]="price" [(ngModel)]="item.selectedPriceDetail"
+                        (ngModelChange)="onPriceDetailChange(item,$event)">
+                      <p>{{ price.attributes[0].chaild_name }}</p>
+                    </li>
+
+
+                    <!-- <li>
+                    <input type="radio" name="p-q">
+                    <p>200g</p>
+                  </li>
+                  <li>
+                    <input type="radio" name="p-q">
+                    <p>250kg</p>
+                  </li> -->
+                  </ul>
+                  <!-- <ul class="pouch">
+                  <li>
+                    <input type="checkbox" name="pouch" >
+                    <p>Pouch</p>
+                  </li>
+                </ul> -->
+
+                </div>
+                <div class="v-add qty-sec">
+                  <!-- <div class="input-group-a-m">
+                            <button><img src="../../../assets/image/pillais/minus.png" alt="" /></button>
+                              <p>1</p>
+                            <button><img src="../../../assets/image/pillais/plus.png" alt="" /></button>
+                          </div> 
+                <a href="" class="p-view-cart">View Cart</a> 
+                <a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png" alt="" /></a> -->
+                  <!-- <button (click)="preAddCart(item,{})">Add To Cart</button> -->
+
+                  <div class="v-add qty-sec cart_add_to_cart mt-4">
+                    <a class="p-add-cart" *ngIf="cartLength===0 " (click)="preAddCart(item, 'add')">
+                      <img src="../../../assets/image/pillais/cart.png" alt="" />
+                    </a>
+
+                    <!-- <a class="p-add-cart" *ngIf="cartLength==0" (click)="preAddCart(item, 'add')">
+                    <img src="../../../assets/image/pillais/cart.png" alt="" />
+                  </a> -->
+
+                    <div *ngFor="let i of item.price_details;trackBy: trackByFn">
+                      <div *ngFor="let rem of unmatchedObjects3">
+
+                        <div *ngIf=" item._id===rem._id 
+                      && i.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+                     && i.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+                       && rem.showAddToCartButton 
+                      && cartLength!=0">
+
+                          <!-- <p>{{rem._id}} : rem_id</p>
+                      <p>{{item._id}} : item_id</p>
+                      <p>{{ i.attributes[0].chaild_id}} : </p>
+                      <p>{{rem.price_details.attributes[0].chaild_id }}</p>
+                      <p>{{item.selectedPriceDetail.attributes[0].chaild_id}},selected price</p>
+                      <p>{{rem.showAddToCartButton }},show buttton</p> -->
+
+
+
+
+
+                          <!-- <button
+                        (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                        ADD TO CART
+                      </button> -->
+                          <a class="p-add-cart"
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div *ngFor="let items of cartDetails && cartDetails.cart_details; let i=index">
+                      <div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+                      && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+                       ">
+                        <div class="p-qty-form minus_plus_section">
+                          <button class="minus_input_plus" *ngIf="items.quantity==1"
+                            (click)="removeFoodFromCart(items)">-</button>
+                          <button class="minus_input_plus" *ngIf="items.quantity>1"
+                            (click)="changeCart(items, 'decreement')">-</button>
+                          <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity" readonly />
+                          <button class="minus_input_plus" (click)="changeCart(items, 'increement')">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="like" (click)="addFavourite(item._id,item.selectedPriceDetail.attributes[0].chaild_id)">
+              <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+              <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+            </p>
+          </div>
+
+        </div>
+        <div class="stage_logo" *ngIf="tagObjects['tag3'].batchimg && tagObjects['tag3'].batchimg != ''">
+          <a [routerLink]="['/page/our-story']"><img [src]="environment.apiUrl+tagObjects['tag3'].batchimg" alt=""></a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+
+
+  <section class="pillai-farms" *ngIf="filteredpostcategory6List.length > 0">
+    <div class="padding-container">
+      <div class="farms-slider">
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="farmslider"
+          (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+          (beforeChange)="beforeChange($event)">
+          <div ngxSlickItem *ngFor="let farmsslide of filteredpostcategory6List">
+            <img
+              src="{{environment.apiUrl}}{{farmsslide.image.fallbackImage ?? farmsslide.image.fallbackImage || farmsslide.image }}"
+              alt="" />
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+  </section>
+
+  <div class="flavour-fusions homemade_4 grain-glory" *ngIf="tagObjects['tag4']" [ngClass]="{
+    'bg_color_include': !tagObjects['tag4']?.iconimg
+  }" [ngStyle]="{
+    'background-color': tagObjects['tag4']?.iconimg ? 'none' : (tagObjects['tag4']?.color || '#d6eaf8')
+  }">
+    <div class="padding-container">
+      <div class="premium-qty-head">
+        <h3 style="color: #0A482F;">🔥 {{tagObjects['tag4'].tagName}}</h3>
+        <a [href]="tagObjects['tag4'].tagUrl">See All <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+      </div>
+      <section [ngClass]="{
+        'banner_included': tagObjects['tag4']?.iconimg
+      }" [ngStyle]="{
+        'background-image': tagObjects['tag4']?.iconimg ? 'url(' + environment.apiUrl + getFormattedImagePath(tagObjects['tag4'].iconimg) + ')' : 'none',
+        'background-size': tagObjects['tag4']?.iconimg ? 'cover' : 'auto',
+        'background-repeat': tagObjects['tag4']?.iconimg ? 'no-repeat' : 'repeat'
+      }">
+        <div class="product-list-right">
+          <div class="product-part" *ngFor="let item of tagObjects['tag4'].products">
+            <div class="p-list-cnt">
+              <a (click)="productDetails(item.slug,item._id,item.rcategory,item.scategory)" class="p-img-part">
+                <div class="products-sliders">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="productsslider"
+                    (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem>
+                      <picture *ngIf="item.avatar"
+                        (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                        <source *ngIf="item.avatar?.webpImg" [srcset]="environment.apiUrl + item.avatar?.webpImg"
+                          type="image/webp">
+                        <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                          onerror="this.src='assets/image/no_img.png'"
+                          alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                      </picture>
+                      <!-- <img [src]="environment.apiUrl+item.avatar" alt=""> -->
+                    </div>
+                    <!-- <div ngxSlickItem>
+                    <img [src]="environment.apiUrl+item.avatar" alt="">
+                  </div> -->
+                  </ngx-slick-carousel>
+                  <!-- <span class="off_percentage"
+                    *ngIf="item && item.selectedPriceDetail && item.selectedPriceDetail.mprice != (undefined || null || '') &&  item.selectedPriceDetail.mprice">({{
+                    (( item?.selectedPriceDetail?.mprice - item?.selectedPriceDetail?.sprice) /
+                    item?.selectedPriceDetail?.mprice * 100) | number : '1.0-0' }}% Off)</span> -->
+
+                  <span class="off_percentage" *ngIf="
+                    item && 
+                    item.selectedPriceDetail &&
+                    item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.mprice > 0 &&
+                    (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+                  ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+                </div>
+              </a>
+              <div class="p-product-cnt">
+                <div class="p-product-hide">
+                  <a class="p-img-part" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                    <h2>{{item.name}}</h2>
+                    <!-- <span class="p-price"><b></b> </span>
+                  <span class="w-price">₹ {{item.selectedPriceDetail.mprice}}</span> -->
+                    <p class="price 1">
+                      <span class="" *ngIf="item.base_price > item.sale_price">
+                        ₹ {{item.selectedPriceDetail?.mprice | number}}
+                      </span>&nbsp;
+                      <span>
+                        ₹ {{item.selectedPriceDetail?.sprice | number}}
+                      </span>
+                    </p>
+                  </a>
+                  <ul class="product_wt">
+                    <li *ngFor="let price of item.price_details">
+                      <input type="radio" name="p-q-{{item._id}}" [value]="price" [(ngModel)]="item.selectedPriceDetail"
+                        (ngModelChange)="onPriceDetailChange(item,$event)">
+                      <p>{{ price.attributes[0].chaild_name }}</p>
+                    </li>
+
+
+                    <!-- <li>
+                            <input type="radio" name="p-q">
+                            <p>200g</p>
+                          </li>
+                          <li>
+                            <input type="radio" name="p-q">
+                            <p>250kg</p>
+                          </li> -->
+                  </ul>
+                  <!-- <ul class="pouch">
+                          <li>
+                            <input type="checkbox" name="pouch" >
+                            <p>Pouch</p>
+                          </li>
+                        </ul> -->
+
+                </div>
+                <div class="v-add qty-sec">
+                  <!-- <div class="input-group-a-m">
+                                <button><img src="../../../assets/image/pillais/minus.png" alt="" /></button>
+                                  <p>1</p>
+                                <button><img src="../../../assets/image/pillais/plus.png" alt="" /></button>
+                              </div> 
+                    <a href="" class="p-view-cart">View Cart</a> 
+                    <a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png" alt="" /></a> -->
+                  <!-- <button (click)="preAddCart(item,{})">Add To Cart</button> -->
+
+                  <div class="v-add qty-sec cart_add_to_cart mt-4">
+                    <a class="p-add-cart" *ngIf="cartLength===0" (click)="preAddCart(item, 'add')">
+                      <img src="../../../assets/image/pillais/cart.png" alt="" />
+                    </a>
+
+                    <!-- <a class="p-add-cart" *ngIf="cartLength==0" (click)="preAddCart(item, 'add')">
+                        <img src="../../../assets/image/pillais/cart.png" alt="" />
+                      </a> -->
+
+                    <div *ngFor="let i of item.price_details;trackBy: trackByFn">
+                      <div *ngFor="let rem of unmatchedObjects4">
+
+                        <div *ngIf=" item._id===rem._id 
+                          && i.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+                         && i.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+                           && rem.showAddToCartButton 
+                          && cartLength!=0">
+
+                          <!-- <p>{{rem._id}} : rem_id</p>
+                          <p>{{item._id}} : item_id</p>
+                          <p>{{ i.attributes[0].chaild_id}} : </p>
+                          <p>{{rem.price_details.attributes[0].chaild_id }}</p>
+                          <p>{{item.selectedPriceDetail.attributes[0].chaild_id}},selected price</p>
+                          <p>{{rem.showAddToCartButton }},show buttton</p> -->
+
+
+
+
+
+                          <!-- <button
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            ADD TO CART
+                          </button> -->
+                          <a class="p-add-cart"
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div *ngFor="let items of cartDetails && cartDetails.cart_details; let i=index">
+                      <div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+                          && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+                           ">
+                        <div class="p-qty-form minus_plus_section">
+                          <button class="minus_input_plus" *ngIf="items.quantity==1"
+                            (click)="removeFoodFromCart(items)">-</button>
+                          <button class="minus_input_plus" *ngIf="items.quantity>1"
+                            (click)="changeCart(items, 'decreement')">-</button>
+                          <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity" readonly />
+                          <button class="minus_input_plus" (click)="changeCart(items, 'increement')">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+              <!-- <div class="p-pouch">
+                          <ul>
+                          <li>
+                            <input type="radio" name="pouch1">
+                            <p>100g Pouch x 1pc</p>
+                            <span>₹1.74</span>
+                            <label></label>
+                          </li>
+                          <li>
+                            <input type="radio" name="pouch1" checked>
+                            <p>100g Pouch x 1pc</p>
+                            <span>₹1.47</span>
+                            <label></label>
+                          </li>
+                        </ul>
+                        </div> -->
+            </div>
+            <!-- <i class="fa-regular fa-heart"></i>
+          <i class="fa-solid fa-heart"></i> -->
+            <p class="like" (click)="addFavourite(item._id,item.selectedPriceDetail.attributes[0].chaild_id)">
+              <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+              <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+            </p>
+          </div>
+        </div>
+        <div class="stage_logo" *ngIf="tagObjects['tag4'].batchimg && tagObjects['tag4'].batchimg != ''">
+          <a [routerLink]="['/page/our-story']"><img [src]="environment.apiUrl+tagObjects['tag4'].batchimg" alt=""></a>
+        </div>
+      </section>
+
+    </div>
+   
+  </div>
+
+
+  <div class="flavour-fusions homemade_5" *ngIf="tagObjects['tag5']" [ngClass]="{
+    'bg_color_include': !tagObjects['tag5']?.iconimg
+  }" [ngStyle]="{
+    'background-color': tagObjects['tag5']?.iconimg ? 'none' : (tagObjects['tag5']?.color || '#d6eaf8')
+  }">
+    <div class="padding-container ">
+      <div class="premium-qty-head">
+        <h3 style="color: #0A482F;">🛍️ {{tagObjects['tag5'].tagName}}</h3>
+        <a [href]="tagObjects['tag5'].tagUrl">See All <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+      </div>
+      <section [ngClass]="{
+        'banner_included': tagObjects['tag5']?.iconimg
+      }" [ngStyle]="{
+        'background-image': tagObjects['tag5']?.iconimg ? 'url(' + environment.apiUrl + getFormattedImagePath(tagObjects['tag5'].iconimg) + ')' : 'none',
+        'background-size': tagObjects['tag5']?.iconimg ? 'cover' : 'auto',
+        'background-repeat': tagObjects['tag5']?.iconimg ? 'no-repeat' : 'repeat'
+      }">
+        <div class="product-list-right">
+          <div class="product-part" *ngFor="let item of tagObjects['tag5'].products">
+            <div class="p-list-cnt">
+              <a (click)="productDetails(item.slug,item._id,item.rcategory,item.scategory)" class="p-img-part">
+                <div class="products-sliders">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="productsslider"
+                    (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem>
+                      <picture *ngIf="item.avatar"
+                        (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                        <source *ngIf="item.avatar?.webpImg" [srcset]="environment.apiUrl + item.avatar?.webpImg"
+                          type="image/webp">
+                        <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                          onerror="this.src='assets/image/no_img.png'" width="145px" height="145px"
+                          alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                      </picture>
+                      <!-- <img [src]="environment.apiUrl+item.avatar" alt=""> -->
+                    </div>
+                    <!-- <div ngxSlickItem>
+                    <img [src]="environment.apiUrl+item.avatar" alt="">
+                  </div> -->
+                  </ngx-slick-carousel>
+                  <!-- <span class="off_percentage"
+                    *ngIf="item && item.selectedPriceDetail && item.selectedPriceDetail.mprice != (undefined || null || '') &&  item.selectedPriceDetail.mprice">({{
+                    (( item?.selectedPriceDetail?.mprice - item?.selectedPriceDetail?.sprice) /
+                    item?.selectedPriceDetail?.mprice * 100) | number : '1.0-0' }}% Off)</span> -->
+
+                  <span class="off_percentage" *ngIf="
+                    item && 
+                    item.selectedPriceDetail &&
+                    item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.mprice > 0 &&
+                    (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+                  ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+                </div>
+              </a>
+              <div class="p-product-cnt">
+                <div class="p-product-hide">
+                  <a class="p-img-part" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                    <h2>{{item.name}}</h2>
+                    <!-- <span class="p-price"><b></b> </span>
+                  <span class="w-price">₹ {{item.selectedPriceDetail.mprice}}</span> -->
+                    <p class="price 1">
+                      <span class="" *ngIf="item.base_price > item.sale_price">
+                        ₹ {{item?.selectedPriceDetail?.mprice | number}}
+                      </span>&nbsp;
+                      <span>
+                        ₹ {{item?.selectedPriceDetail?.sprice | number}}
+                      </span>
+                    </p>
+                  </a>
+                  <ul class="product_wt">
+                    <li *ngFor="let price of item.price_details">
+                      <input type="radio" name="p-q-{{item._id}}" [value]="price" [(ngModel)]="item.selectedPriceDetail"
+                        (ngModelChange)="onPriceDetailChange(item,$event)">
+                      <p>{{ price.attributes[0].chaild_name }}</p>
+                    </li>
+                  </ul>
+
+                </div>
+                <div class="v-add qty-sec">
+                  <!-- <div class="input-group-a-m">
+                                <button><img src="../../../assets/image/pillais/minus.png" alt="" /></button>
+                                  <p>1</p>
+                                <button><img src="../../../assets/image/pillais/plus.png" alt="" /></button>
+                              </div> 
+                    <a href="" class="p-view-cart">View Cart</a> 
+                    <a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png" alt="" /></a> -->
+                  <!-- <button (click)="preAddCart(item,{})">Add To Cart</button> -->
+
+                  <div class="v-add qty-sec cart_add_to_cart mt-4">
+                    <a class="p-add-cart" *ngIf="cartLength === 0" (click)="preAddCart(item, 'add')">
+                      <img src="../../../assets/image/pillais/cart.png" alt="" />
+                    </a>
+
+                    <!-- <a class="p-add-cart" *ngIf="cartLength==0" (click)="preAddCart(item, 'add')">
+                        <img src="../../../assets/image/pillais/cart.png" alt="" />
+                      </a> -->
+
+                    <div *ngFor="let i of item.price_details ;trackBy: trackByFn">
+                      <div *ngFor="let rem of unmatchedObjects5">
+
+                        <div *ngIf=" item._id===rem._id 
+                          && i.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+                         && i.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+                           && rem.showAddToCartButton 
+                          && cartLength!=0">
+
+                          <a class="p-add-cart"
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div *ngFor="let items of cartDetails && cartDetails.cart_details; let i=index">
+                      <div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+                          && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+                           ">
+                        <div class="p-qty-form minus_plus_section">
+                          <button class="minus_input_plus" *ngIf="items.quantity==1"
+                            (click)="removeFoodFromCart(items)">-</button>
+                          <button class="minus_input_plus" *ngIf="items.quantity>1"
+                            (click)="changeCart(items, 'decreement')">-</button>
+                          <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity" readonly />
+                          <button class="minus_input_plus" (click)="changeCart(items, 'increement')">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+              <!-- <div class="p-pouch">
+                          <ul>
+                          <li>
+                            <input type="radio" name="pouch1">
+                            <p>100g Pouch x 1pc</p>
+                            <span>₹1.74</span>
+                            <label></label>
+                          </li>
+                          <li>
+                            <input type="radio" name="pouch1" checked>
+                            <p>100g Pouch x 1pc</p>
+                            <span>₹1.47</span>
+                            <label></label>
+                          </li>
+                        </ul>
+                        </div> -->
+            </div>
+            <!-- <i class="fa-regular fa-heart"></i>
+          <i class="fa-solid fa-heart"></i> -->
+
+            <p class="like" (click)="addFavourite(item._id,item.selectedPriceDetail.attributes[0].chaild_id)">
+              <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+              <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+            </p>
+          </div>
+        </div>
+        <div class="stage_logo" *ngIf="tagObjects['tag5'].batchimg && tagObjects['tag5'].batchimg != ''">
+          <a [routerLink]="['/page/our-story']"><img [src]="environment.apiUrl+tagObjects['tag5'].batchimg" alt=""></a>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <section class="value-packs">
+    <div class="padding-container">
+      <div class="premium-qty-head">
+        <h3>🏷️ Save More with Value Packs</h3>
+      </div>
+      <div class="value-packs-slider">
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="valupacks"
+          (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+          (beforeChange)="beforeChange($event)">
+          <div ngxSlickItem class="v-slider">
+            <img src="../../../assets/image/pillais/value-pack-slider/Value-Packs-Offer-1.webp" width="406px"
+              height="406px" alt="" />
+          </div>
+          <div ngxSlickItem class="v-slider">
+            <img src="../../../assets/image/pillais/value-pack-slider/Value-Packs-Offer-2.webp" width="406px"
+              height="406px" alt="" />
+          </div>
+          <div ngxSlickItem class="v-slider">
+            <img src="../../../assets/image/pillais/value-pack-slider/Value-Packs-Offer-3.webp" width="406px"
+              height="406px" alt="" />
+          </div>
+          <div ngxSlickItem class="v-slider">
+            <img src="../../../assets/image/pillais/value-pack-slider/Value-Packs-Offer-4.webp" width="406px"
+              height="406px" alt="" />
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+  </section>
+
+
+
+  <div class="flavour-fusions homemade_6" *ngIf="tagObjects['tag6']" [ngClass]="{
+    'bg_color_include': !tagObjects['tag6']?.iconimg
+  }" [ngStyle]="{
+    'background-color': tagObjects['tag6']?.iconimg ? 'none' : (tagObjects['tag6']?.color || '#d6eaf8')
+  }">
+    <div class="padding-container ">
+      <div class="premium-qty-head">
+        <h3 style="color: #0A482F;">😋 {{tagObjects['tag6'].tagName}}</h3>
+        <a [href]="tagObjects['tag6'].tagUrl">See All <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+      </div>
+      <section [ngClass]="{
+        'banner_included': tagObjects['tag6']?.iconimg
+      }" [ngStyle]="{
+        'background-image': tagObjects['tag6']?.iconimg ? 'url(' + environment.apiUrl + getFormattedImagePath(tagObjects['tag6'].iconimg) + ')' : 'none',
+        'background-size': tagObjects['tag6']?.iconimg ? 'cover' : 'auto',
+        'background-repeat': tagObjects['tag6']?.iconimg ? 'no-repeat' : 'repeat'
+      }">
+        <div class="product-list-right">
+          <div class="product-part" *ngFor="let item of tagObjects['tag6'].products">
+            <div class="p-list-cnt">
+              <a (click)="productDetails(item.slug,item._id,item.rcategory,item.scategory)" class="p-img-part">
+                <div class="products-sliders">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="productsslider"
+                    (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem>
+                      <picture *ngIf="item.avatar"
+                        (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                        <source *ngIf="item.avatar?.webpImg" [srcset]="environment.apiUrl + item.avatar?.webpImg"
+                          type="image/webp">
+                        <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                          onerror="this.src='assets/image/no_img.png'"
+                          alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                      </picture>
+                      <!-- <img [src]="environment.apiUrl+item.avatar" alt=""> -->
+                    </div>
+                    <!-- <div ngxSlickItem>
+                <img [src]="environment.apiUrl+item.avatar" alt="">
+              </div> -->
+                  </ngx-slick-carousel>
+                  <!-- <span class="off_percentage"
+                *ngIf="item && item.selectedPriceDetail && item.selectedPriceDetail.mprice != (undefined || null || '') &&  item.selectedPriceDetail.mprice">({{
+                (( item?.selectedPriceDetail?.mprice - item?.selectedPriceDetail?.sprice) /
+                item?.selectedPriceDetail?.mprice * 100) | number : '1.0-0' }}% Off)</span> -->
+
+                  <span class="off_percentage" *ngIf="
+                item && 
+                item.selectedPriceDetail &&
+                item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                item.selectedPriceDetail.mprice > 0 &&
+                (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+              ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+                </div>
+              </a>
+              <div class="p-product-cnt">
+                <div class="p-product-hide">
+                  <a class="p-img-part" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                    <h2>{{item.name}}</h2>
+                    <!-- <span class="p-price"><b></b> </span>
+              <span class="w-price">₹ {{item.selectedPriceDetail.mprice}}</span> -->
+                    <p class="price 1" *ngIf="item.offer_status == 0">
+                      <span class="" *ngIf="item.base_price > item.sale_price">
+                        ₹ {{item?.selectedPriceDetail?.mprice | number}}
+                      </span>&nbsp;
+                      <span>
+                        ₹ {{item?.selectedPriceDetail?.sprice | number}}
+                      </span>
+                    </p>
+                  </a>
+                  <ul class="product_wt">
+                    <li *ngFor="let price of item.price_details">
+                      <input type="radio" name="p-q-{{item._id}}" [value]="price" [(ngModel)]="item.selectedPriceDetail"
+                        (ngModelChange)="onPriceDetailChange(item,$event)">
+                      <p>{{ price.attributes[0].chaild_name }}</p>
+                    </li>
+
+
+                    <!-- <li>
+                        <input type="radio" name="p-q">
+                        <p>200g</p>
+                      </li>
+                      <li>
+                        <input type="radio" name="p-q">
+                        <p>250kg</p>
+                      </li> -->
+                  </ul>
+                  <!-- <ul class="pouch">
+                      <li>
+                        <input type="checkbox" name="pouch" >
+                        <p>Pouch</p>
+                      </li>
+                    </ul> -->
+
+                </div>
+                <div class="v-add qty-sec">
+                  <!-- <div class="input-group-a-m">
+                            <button><img src="../../../assets/image/pillais/minus.png" alt="" /></button>
+                              <p>1</p>
+                            <button><img src="../../../assets/image/pillais/plus.png" alt="" /></button>
+                          </div> 
+                <a href="" class="p-view-cart">View Cart</a> 
+                <a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png" alt="" /></a> -->
+                  <!-- <button (click)="preAddCart(item,{})">Add To Cart</button> -->
+
+                  <div class="v-add qty-sec cart_add_to_cart mt-4">
+                    <a class="p-add-cart" *ngIf="cartLength===0" (click)="preAddCart(item, 'add')">
+                      <img src="../../../assets/image/pillais/cart.png" alt="" />
+                    </a>
+
+                    <!-- <a class="p-add-cart" *ngIf="cartLength==0" (click)="preAddCart(item, 'add')">
+                    <img src="../../../assets/image/pillais/cart.png" alt="" />
+                  </a> -->
+
+                    <div *ngFor="let i of item.price_details;trackBy: trackByFn">
+                      <div *ngFor="let rem of unmatchedObjects6">
+
+                        <div *ngIf=" item._id===rem._id 
+                      && i.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+                     && i.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+                       && rem.showAddToCartButton 
+                      && cartLength!=0">
+
+                          <a class="p-add-cart"
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div *ngFor="let items of cartDetails && cartDetails.cart_details; let i=index">
+                      <div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+                      && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+                       ">
+                        <div class="p-qty-form minus_plus_section">
+                          <button class="minus_input_plus" *ngIf="items.quantity==1"
+                            (click)="removeFoodFromCart(items)">-</button>
+                          <button class="minus_input_plus" *ngIf="items.quantity>1"
+                            (click)="changeCart(items, 'decreement')">-</button>
+                          <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity" readonly />
+                          <button class="minus_input_plus" (click)="changeCart(items, 'increement')">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+              <!-- <div class="p-pouch">
+                      <ul>
+                      <li>
+                        <input type="radio" name="pouch1">
+                        <p>100g Pouch x 1pc</p>
+                        <span>₹1.74</span>
+                        <label></label>
+                      </li>
+                      <li>
+                        <input type="radio" name="pouch1" checked>
+                        <p>100g Pouch x 1pc</p>
+                        <span>₹1.47</span>
+                        <label></label>
+                      </li>
+                    </ul>
+                    </div> -->
+            </div>
+            <!-- <i class="fa-regular fa-heart"></i>
+      <i class="fa-solid fa-heart"></i> -->
+
+            <p class="like" (click)="addFavourite(item._id,(item.selectedPriceDetail.attributes[0].chaild_id))">
+              <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+              <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+            </p>
+          </div>
+        </div>
+        <div class="stage_logo" *ngIf="tagObjects['tag6'].batchimg && tagObjects['tag6'].batchimg != ''">
+          <a [routerLink]="['/page/our-story']"><img [src]="environment.apiUrl+tagObjects['tag6'].batchimg" alt=""></a>
+        </div>
+      </section>
+
+    </div>
+   
+  </div>
+
+
+  <section class="flavour-fusions homemade_7" *ngIf="tagObjects['tag7']" [ngClass]="{
+    'bg_color_include': !tagObjects['tag7']?.iconimg
+  }" [ngStyle]="{
+    'background-color': tagObjects['tag7']?.iconimg ? 'none' : (tagObjects['tag7']?.color || '#d6eaf8')
+  }">
+    <div class="padding-container ">
+      <div class="premium-qty-head">
+        <h3 style="color: #0A482F;">👌 {{tagObjects['tag7'].tagName}}</h3>
+        <a [href]="tagObjects['tag7'].tagUrl">See All <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+      </div>
+      <section [ngClass]="{
+        'banner_included': tagObjects['tag7']?.iconimg
+      }" [ngStyle]="{
+        'background-image': tagObjects['tag7']?.iconimg ? 'url(' + environment.apiUrl + getFormattedImagePath(tagObjects['tag7'].iconimg) + ')' : 'none',
+        'background-size': tagObjects['tag7']?.iconimg ? 'cover' : 'auto',
+        'background-repeat': tagObjects['tag7']?.iconimg ? 'no-repeat' : 'repeat'
+      }">
+        <div class="product-list-right">
+          <div class="product-part" *ngFor="let item of tagObjects['tag7'].products">
+            <div class="p-list-cnt">
+              <a (click)="productDetails(item.slug,item._id,item.rcategory,item.scategory)" class="p-img-part">
+                <div class="products-sliders">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="productsslider"
+                    (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem>
+                      <picture *ngIf="item.avatar"
+                        (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                        <source *ngIf="item.avatar?.webpImg" [srcset]="environment.apiUrl + item.avatar?.webpImg"
+                          type="image/webp">
+                        <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                          onerror="this.src='assets/image/no_img.png'"
+                          alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                      </picture>
+                    </div>
+
+                  </ngx-slick-carousel>
+
+                  <span class="off_percentage" *ngIf="
+                item && 
+                item.selectedPriceDetail &&
+                item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                item.selectedPriceDetail.mprice > 0 &&
+                (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+              ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+                </div>
+              </a>
+              <div class="p-product-cnt">
+                <div class="p-product-hide">
+                  <a class="p-img-part" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                    <h2>{{item.name}}</h2>
+
+                    <p class="price 1" *ngIf="item.offer_status == 0">
+                      <span class="" *ngIf="item.base_price > item.sale_price">
+                        ₹ {{item.selectedPriceDetail.mprice | number}}
+                      </span>&nbsp;
+                      <span>
+                        ₹ {{item.selectedPriceDetail.sprice | number}}
+                      </span>
+                    </p>
+                  </a>
+                  <ul class="product_wt">
+                    <li *ngFor="let price of item.price_details">
+                      <input type="radio" name="p-q-{{item._id}}" [value]="price" [(ngModel)]="item.selectedPriceDetail"
+                        (ngModelChange)="onPriceDetailChange(item,$event)">
+                      <p>{{ price.attributes[0].chaild_name }}</p>
+                    </li>
+
+
+
+                  </ul>
+
+
+                </div>
+                <div class="v-add qty-sec">
+
+                  <div class="v-add qty-sec cart_add_to_cart mt-4">
+                    <a class="p-add-cart" *ngIf="cartLength===0" (click)="preAddCart(item, 'add')">
+                      <img src="../../../assets/image/pillais/cart.png" alt="" />
+                    </a>
+
+
+
+                    <div *ngFor="let i of item.price_details;trackBy: trackByFn">
+                      <div *ngFor="let rem of unmatchedObjects7">
+
+                        <div *ngIf=" item._id===rem._id 
+                      && i.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+                     && i.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+                       && rem.showAddToCartButton 
+                      && cartLength!=0">
+
+                          <a class="p-add-cart"
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div *ngFor="let items of cartDetails && cartDetails.cart_details; let i=index">
+                      <div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+                      && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+                       ">
+                        <div class="p-qty-form minus_plus_section">
+                          <button class="minus_input_plus" *ngIf="items.quantity==1"
+                            (click)="removeFoodFromCart(items)">-</button>
+                          <button class="minus_input_plus" *ngIf="items.quantity>1"
+                            (click)="changeCart(items, 'decreement')">-</button>
+                          <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity" readonly />
+                          <button class="minus_input_plus" (click)="changeCart(items, 'increement')">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+
+            </div>
+
+            <p class="like" (click)="addFavourite(item._id,item.selectedPriceDetail.attributes[0].chaild_id)">
+              <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+              <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    <div class="stage_logo" *ngIf="tagObjects['tag7'].batchimg && tagObjects['tag7'].batchimg != ''">
+      <a [routerLink]="['/page/our-story']"><img [src]="environment.apiUrl+tagObjects['tag7'].batchimg" alt=""></a>
+    </div>
+  </section>
+
+  <div class="flavour-fusions homemade_8" *ngIf="tagObjects['tag8']" [ngClass]="{
+    'bg_color_include': !tagObjects['tag8']?.iconimg
+  }" [ngStyle]="{
+    'background-color': tagObjects['tag8']?.iconimg ? 'none' : (tagObjects['tag8']?.color || '#d6eaf8')
+  }">
+    <div class="padding-container ">
+      <div class="premium-qty-head">
+        <h3 style="color: #0A482F;">👉 {{tagObjects['tag8'].tagName}}</h3>
+        <a [href]="tagObjects['tag8'].tagUrl">See All <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+      </div>
+      <section [ngClass]="{
+        'banner_included': tagObjects['tag8']?.iconimg
+      }" [ngStyle]="{
+        'background-image': tagObjects['tag8']?.iconimg ? 'url(' + environment.apiUrl + getFormattedImagePath(tagObjects['tag8'].iconimg) + ')' : 'none',
+        'background-size': tagObjects['tag8']?.iconimg ? 'cover' : 'auto',
+        'background-repeat': tagObjects['tag8']?.iconimg ? 'no-repeat' : 'repeat'
+      }">
+        <div class="product-list-right">
+          <div class="product-part" *ngFor="let item of tagObjects['tag8'].products">
+            <div class="p-list-cnt">
+              <a (click)="productDetails(item.slug,item._id,item.rcategory,item.scategory)" class="p-img-part">
+                <div class="products-sliders">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="productsslider"
+                    (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem>
+                      <picture *ngIf="item.avatar"
+                        (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                        <source *ngIf="item.avatar?.webpImg" [srcset]="environment.apiUrl + item.avatar?.webpImg"
+                          type="image/webp">
+                        <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                          onerror="this.src='assets/image/no_img.png'"
+                          alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                      </picture>
+                    </div>
+
+                  </ngx-slick-carousel>
+
+
+                  <span class="off_percentage" *ngIf="
+                item && 
+                item.selectedPriceDetail &&
+                item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                item.selectedPriceDetail.mprice > 0 &&
+                (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+              ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+                </div>
+              </a>
+              <div class="p-product-cnt">
+                <div class="p-product-hide">
+                  <a class="p-img-part" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                    <h2>{{item.name}}</h2>
+
+                    <p class="price 1" *ngIf="item.offer_status == 0">
+                      <span class="" *ngIf="item.base_price > item.sale_price">
+                        ₹ {{item.selectedPriceDetail.mprice | number}}
+                      </span>&nbsp;
+                      <span>
+                        ₹ {{item.selectedPriceDetail.sprice | number}}
+                      </span>
+                    </p>
+                  </a>
+                  <ul class="product_wt">
+                    <li *ngFor="let price of item.price_details">
+                      <input type="radio" name="p-q-{{item._id}}" [value]="price" [(ngModel)]="item.selectedPriceDetail"
+                        (ngModelChange)="onPriceDetailChange(item,$event)">
+                      <p>{{ price.attributes[0].chaild_name }}</p>
+                    </li>
+
+
+
+                  </ul>
+
+
+                </div>
+                <div class="v-add qty-sec">
+
+
+                  <div class="v-add qty-sec cart_add_to_cart mt-4">
+                    <a class="p-add-cart" *ngIf="cartLength===0" (click)="preAddCart(item, 'add')">
+                      <img src="../../../assets/image/pillais/cart.png" alt="" />
+                    </a>
+
+
+
+                    <div *ngFor="let i of item.price_details;trackBy: trackByFn">
+                      <div *ngFor="let rem of unmatchedObjects8">
+
+                        <div *ngIf=" item._id===rem._id 
+                      && i.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+                     && i.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+                       && rem.showAddToCartButton 
+                      && cartLength!=0">
+
+                          <a class="p-add-cart"
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div *ngFor="let items of cartDetails && cartDetails.cart_details; let i=index">
+                      <div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+                      && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+                       ">
+                        <div class="p-qty-form minus_plus_section">
+                          <button class="minus_input_plus" *ngIf="items.quantity==1"
+                            (click)="removeFoodFromCart(items)">-</button>
+                          <button class="minus_input_plus" *ngIf="items.quantity>1"
+                            (click)="changeCart(items, 'decreement')">-</button>
+                          <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity" readonly />
+                          <button class="minus_input_plus" (click)="changeCart(items, 'increement')">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+
+            </div>
+            <p class="like" (click)="addFavourite(item._id,(item.selectedPriceDetail.attributes[0].chaild_id))">
+              <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+              <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+            </p>
+          </div>
+        </div>
+        <div class="stage_logo" *ngIf="tagObjects['tag8'].batchimg && tagObjects['tag8'].batchimg != ''">
+          <a [routerLink]="['/page/our-story']"><img [src]="environment.apiUrl+tagObjects['tag8'].batchimg" alt=""></a>
+        </div>
+      </section>
+
+    </div>
+   
+  </div>
+
+
+
+  <!-- Testimonail Section -- Start -->
+  <section class="testimonials" *ngIf="testimoniallist.length > 0">
+    <div class="padding-container">
+      <div class="testimonial_inside">
+
+      <div class="testimonial-header">
+        <h3>Testimonials</h3>
+      </div>
+      <div class="testimonial-slider">
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="testimonalSlider"
+          (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+          (beforeChange)="beforeChange($event)">
+          <div ngxSlickItem *ngFor="let testimonial of testimoniallist">
+            <span class="qut-img"><img src="../../../assets/image/pillais/qut.png" alt=""></span>
+            <p class="testomonial_para">{{testimonial.description}}</p>
+            <div class="test-pro">
+              <span>
+                <img src="{{environment.apiUrl}}{{testimonial.image}}" alt="">
+              </span>
+              <div>
+                <h6>{{testimonial.name}}</h6>
+                <p>{{testimonial.location}}</p>
+                <div class="star-rating">
+                  <ng-container *ngFor="let star of [].constructor(testimonial.rating); let i = index">
+                    <img src="../../../assets/image/pillais/star.png" alt="star">
+                  </ng-container>
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+          <!-- <div ngxSlickItem>
+          <span class="qut-img"><img src="../../../assets/image/pillais/qut.png" alt=""></span>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s</p>
+          <div class="test-pro">
+            <span>
+              <img src="../../../assets/image/pillais/pro-pic.png" alt="">
+            </span>
+            <div>
+              <h6>Martine</h6>
+              <p>Manager, Daimler</p>
+            </div>
+          </div>
+        </div> -->
+          <!-- <div ngxSlickItem>
+          <span class="qut-img"><img src="../../../assets/image/pillais/qut.png" alt=""></span>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s</p>
+          <div class="test-pro">
+            <span>
+              <img src="../../../assets/image/pillais/pro-pic.png" alt="">
+            </span>
+            <div>
+              <h6>Martine</h6>
+              <p>Manager, Daimler</p>
+            </div>
+          </div>
+        </div> -->
+          <!-- <div ngxSlickItem>
+          <span class="qut-img"><img src="../../../assets/image/pillais/qut.png" alt=""></span>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s</p>
+          <div class="test-pro">
+            <span>
+              <img src="../../../assets/image/pillais/pro-pic.png" alt="">
+            </span>
+            <div>
+              <h6>Martine</h6>
+              <p>Manager, Daimler</p>
+            </div>
+          </div>
+        </div> -->
+        </ngx-slick-carousel>
+      </div>
+    </div>
+
+    </div>
+  </section>
+  <!-- Testimonail Section -- End -->
+
+  <section class="flavour-fusions homemade_9" *ngIf="tagObjects['tag9']" [ngClass]="{
+    'bg_color_include': !tagObjects['tag9']?.iconimg
+  }" [ngStyle]="{
+    'background-color': tagObjects['tag9']?.iconimg ? 'none' : (tagObjects['tag9']?.color || '#d6eaf8')
+  }">
+    <div class="padding-container ">
+      <div class="premium-qty-head">
+        <h3 style="color: #0A482F;">🍚 {{tagObjects['tag9'].tagName}}</h3>
+        <a [href]="tagObjects['tag9'].tagUrl">See All <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+      </div>
+      <section [ngClass]="{
+        'banner_included': tagObjects['tag9']?.iconimg
+      }" [ngStyle]="{
+        'background-image': tagObjects['tag9']?.iconimg ? 'url(' + environment.apiUrl + getFormattedImagePath(tagObjects['tag9'].iconimg) + ')' : 'none',
+        'background-size': tagObjects['tag9']?.iconimg ? 'cover' : 'auto',
+        'background-repeat': tagObjects['tag9']?.iconimg ? 'no-repeat' : 'repeat'
+      }">
+        <div class="product-list-right">
+          <div class="product-part" *ngFor="let item of tagObjects['tag9'].products">
+            <div class="p-list-cnt">
+              <a (click)="productDetails(item.slug,item._id,item.rcategory,item.scategory)" class="p-img-part">
+                <div class="products-sliders">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="productsslider"
+                    (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem>
+                      <picture *ngIf="item.avatar"
+                        (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                        <source *ngIf="item.avatar?.webpImg" [srcset]="environment.apiUrl + item.avatar?.webpImg"
+                          type="image/webp">
+                        <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                          onerror="this.src='assets/image/no_img.png'"
+                          alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                      </picture>
+                    </div>
+
+                  </ngx-slick-carousel>
+
+
+                  <span class="off_percentage" *ngIf="
+                  item && 
+                  item.selectedPriceDetail &&
+                  item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                  item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                  item.selectedPriceDetail.mprice > 0 &&
+                  (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+                ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+                </div>
+              </a>
+              <div class="p-product-cnt">
+                <div class="p-product-hide">
+                  <a class="p-img-part" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                    <h2>{{item.name}}</h2>
+                    <p class="price 1" *ngIf="item.offer_status == 0">
+                      <span class="" *ngIf="item.base_price > item.sale_price">
+                        ₹ {{item.selectedPriceDetail.mprice | number}}
+                      </span>&nbsp;
+                      <span>
+                        ₹ {{item.selectedPriceDetail.sprice | number}}
+                      </span>
+                    </p>
+                  </a>
+                  <ul class="product_wt">
+                    <li *ngFor="let price of item.price_details">
+                      <input type="radio" name="p-q-{{item._id}}" [value]="price" [(ngModel)]="item.selectedPriceDetail"
+                        (ngModelChange)="onPriceDetailChange(item,$event)">
+                      <p>{{ price.attributes[0].chaild_name }}</p>
+                    </li>
+
+
+
+                  </ul>
+
+
+                </div>
+                <div class="v-add qty-sec">
+
+
+                  <div class="v-add qty-sec cart_add_to_cart mt-4">
+                    <a class="p-add-cart" *ngIf="cartLength===0" (click)="preAddCart(item, 'add')">
+                      <img src="../../../assets/image/pillais/cart.png" alt="" />
+                    </a>
+
+
+                    <div *ngFor="let i of item.price_details;trackBy: trackByFn">
+                      <div *ngFor="let rem of unmatchedObjects9">
+
+                        <div *ngIf=" item._id===rem._id 
+                        && i.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+                       && i.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+                         && rem.showAddToCartButton 
+                        && cartLength!=0">
+
+                          <a class="p-add-cart"
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div *ngFor="let items of cartDetails && cartDetails.cart_details; let i=index">
+                      <div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+                        && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+                         ">
+                        <div class="p-qty-form minus_plus_section">
+                          <button class="minus_input_plus" *ngIf="items.quantity==1"
+                            (click)="removeFoodFromCart(items)">-</button>
+                          <button class="minus_input_plus" *ngIf="items.quantity>1"
+                            (click)="changeCart(items, 'decreement')">-</button>
+                          <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity" readonly />
+                          <button class="minus_input_plus" (click)="changeCart(items, 'increement')">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+
+            </div>
+            <p class="like" (click)="addFavourite(item._id,(item.selectedPriceDetail.attributes[0].chaild_id))">
+              <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+              <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+            </p>
+          </div>
+        </div>
+        <div class="stage_logo" *ngIf="tagObjects['tag9'].batchimg && tagObjects['tag9'].batchimg != ''">
+          <a [routerLink]="['/page/our-story']"><img [src]="environment.apiUrl+tagObjects['tag9'].batchimg" alt=""></a>
+        </div>
+      </section>
+
+    </div>
+ 
+  </section>
+
+
+  <section class="flavour-fusions homemade_10" *ngIf="tagObjects['tag10']" [ngClass]="{
+    'bg_color_include': !tagObjects['tag10']?.iconimg
+  }" [ngStyle]="{
+    'background-color': tagObjects['tag10']?.iconimg ? 'none' : (tagObjects['tag10']?.color || '#d6eaf8')
+  }">
+    <div class="padding-container ">
+      <div class="premium-qty-head">
+        <h3 style="color: #0A482F;">🛒 {{tagObjects['tag10'].tagName}}</h3>
+        <a [href]="tagObjects['tag10'].tagUrl">See All <i class="fa fa-chevron-right" aria-hidden="true"></i> </a>
+      </div>
+      <section [ngClass]="{
+        'banner_included': tagObjects['tag10']?.iconimg
+      }" [ngStyle]="{
+        'background-image': tagObjects['tag10']?.iconimg ? 'url(' + environment.apiUrl + getFormattedImagePath(tagObjects['tag10'].iconimg) + ')' : 'none',
+        'background-size': tagObjects['tag10']?.iconimg ? 'cover' : 'auto',
+        'background-repeat': tagObjects['tag10']?.iconimg ? 'no-repeat' : 'repeat'
+      }">
+        <div class="product-list-right">
+          <div class="product-part" *ngFor="let item of tagObjects['tag10'].products">
+            <div class="p-list-cnt">
+              <a (click)="productDetails(item.slug,item._id,item.rcategory,item.scategory)" class="p-img-part">
+                <div class="products-sliders">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="productsslider"
+                    (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                    (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem>
+                      <picture *ngIf="item.avatar"
+                        (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                        <source *ngIf="item.avatar?.webpImg" [srcset]="environment.apiUrl + item.avatar?.webpImg"
+                          type="image/webp">
+                        <img [src]="environment.apiUrl + (item.avatar?.fallback || item.avatar) "
+                          onerror="this.src='assets/image/no_img.png'"
+                          alt="{{item && item.image_alt != (undefined || null || '') ? item.image_alt : ''}}">
+
+                      </picture>
+                    </div>
+
+                  </ngx-slick-carousel>
+
+
+
+                  <span class="off_percentage" *ngIf="
+                  item && 
+                  item.selectedPriceDetail &&
+                  item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                  item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                  item.selectedPriceDetail.mprice > 0 &&
+                  (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+                ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+                </div>
+              </a>
+              <div class="p-product-cnt">
+                <div class="p-product-hide">
+                  <a class="p-img-part" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                    <h2>{{item.name}}</h2>
+
+                    <p class="price 1" *ngIf="item.offer_status == 0">
+                      <span class="" *ngIf="item.base_price > item.sale_price">
+                        ₹ {{item.selectedPriceDetail.mprice | number}}
+                      </span>&nbsp;
+                      <span>
+                        ₹ {{item.selectedPriceDetail.sprice | number}}
+                      </span>
+                    </p>
+                  </a>
+                  <ul class="product_wt">
+                    <li *ngFor="let price of item.price_details">
+                      <input type="radio" name="p-q-{{item._id}}" [value]="price" [(ngModel)]="item.selectedPriceDetail"
+                        (ngModelChange)="onPriceDetailChange(item,$event)">
+                      <p>{{ price.attributes[0].chaild_name }}</p>
+                    </li>
+
+
+
+                  </ul>
+
+
+                </div>
+                <div class="v-add qty-sec">
+
+
+                  <div class="v-add qty-sec cart_add_to_cart mt-4">
+                    <a class="p-add-cart" *ngIf="cartLength===0" (click)="preAddCart(item, 'add')">
+                      <img src="../../../assets/image/pillais/cart.png" alt="" />
+                    </a>
+
+
+                    <div *ngFor="let i of item.price_details;trackBy: trackByFn">
+                      <div *ngFor="let rem of unmatchedObjects10">
+
+                        <div *ngIf=" item._id===rem._id 
+                        && i.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+                       && i.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+                         && rem.showAddToCartButton 
+                        && cartLength!=0">
+
+                          <a class="p-add-cart"
+                            (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div *ngFor="let items of cartDetails && cartDetails.cart_details; let i=index">
+                      <div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+                        && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+                         ">
+                        <div class="p-qty-form minus_plus_section">
+                          <button class="minus_input_plus" *ngIf="items.quantity==1"
+                            (click)="removeFoodFromCart(items)">-</button>
+                          <button class="minus_input_plus" *ngIf="items.quantity>1"
+                            (click)="changeCart(items, 'decreement')">-</button>
+                          <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity" readonly />
+                          <button class="minus_input_plus" (click)="changeCart(items, 'increement')">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+
+            </div>
+
+            <p class="like" (click)="addFavourite(item._id,item.selectedPriceDetail.attributes[0].chaild_id)">
+              <i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+              <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+            </p>
+          </div>
+        </div>
+        <div class="stage_logo" *ngIf="tagObjects['tag10'].batchimg && tagObjects['tag10'].batchimg != ''">
+          <a [routerLink]="['/page/our-story']"><img [src]="environment.apiUrl+tagObjects['tag10'].batchimg" alt=""></a>
+        </div>
+      </section>
+    </div>
+
+  </section>
+
+  <section class="slider-shop-slider mt-5">
+    <div class="container p-0">
+
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="bannershop" (init)="slickInit($event)"
+        (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
+        <div class="banner-shop-img" ngxSlickItem *ngFor="let prefoot of filteredprefooterList">
+          <picture *ngIf="prefoot?.image">
+            <source
+              *ngIf="prefoot && prefoot.image && prefoot.image.fallbackImage != (undefined || null || '') && prefoot.image.fallbackImage"
+              [srcset]="environment.apiUrl + prefoot.image.fallbackImage">
+            <img
+              [src]="environment.apiUrl +  (prefoot && prefoot.image && prefoot.image.fallbackImage != (undefined || null || '') ? prefoot.image.fallbackImage : prefoot && prefoot.image) "
+              onerror="this.src='assets/image/clickart_logo.png'" alt="Trade Mark Image">
+
+          </picture>
+        </div>
+
+
+      </ngx-slick-carousel>
+
+    </div>
+  </section>
+
+  <ng-template #loginSignupTemplate>
+    <section class="login-signup-page">
+      <div class="padding-container">
+        <div class="login-sec">
+          <h3 class="login_label_head">Login</h3>
+          <form #loginForm="ngForm" (ngSubmit)="onFormSubmit(loginForm)">
+
+
+
+            <div class="l-form-group login_ph">
+              <div class="input_btn">
+                <ngx-intl-tel-input cssClass="form-control" id="phoneNum" [preferredCountries]="preferredCountries"
+                  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="true"
+                  [selectedCountryISO]="selectedCountryISO" [phoneValidation]="true" [separateDialCode]="true"
+                  [maxLength]="15" #phoneNum="ngModel" (keyup)="phoneNumber($event)" name="phoneNum" required ngModel>
+                </ngx-intl-tel-input>
+
+              </div>
+              <button type="button" class="btn btn-primary ml-2 otpverify_btn bef_enter"
+                (click)="loginitiateOTPRequest()" [disabled]="logotpRequested">
+                {{ logotpRequested ? 'OTP Sent' : 'Continue' }}
+              </button>
+              <div *ngIf="loginsubmitted && !phoneNum.valid">
+                <div class="invalid-feedback d-block text-left" *ngIf="phoneNum.errors?.['required']">
+                  Enter valid mobile number
+                </div>
+              </div>
+
+
+            </div>
+
+            <div *ngIf="logotpRequested" class="l-form-group otp_form mt-4">
+              <label class="login_label_head">Verify Mobile Number<span> *</span></label>
+              <p class="form_sec_title">Enter OTP</p>
+              <div class="d-flex mt-2">
+                <input type="text" maxlength="1" class="otp-input" name="loginotp1" id="loginotp1" ngModel
+                  #loginotp1="ngModel" (input)="logonOtpInput($event, 1)" required>
+                <input type="text" maxlength="1" class="otp-input" name="loginotp2" id="loginotp2" ngModel
+                  #loginotp2="ngModel" (input)="logonOtpInput($event, 2)" required>
+                <input type="text" maxlength="1" class="otp-input" name="loginotp3" id="loginotp3" ngModel
+                  #loginotp3="ngModel" (input)="logonOtpInput($event, 3)" required>
+                <input type="text" maxlength="1" class="otp-input" name="loginotp4" id="loginotp4" ngModel
+                  #loginotp4="ngModel" (input)="logonOtpInput($event, 4)" required>
+              </div>
+
+              <div
+                *ngIf="loginsubmitted && phoneNum.valid && (!loginotp1.valid || !loginotp2.valid || !loginotp3.valid || !loginotp4.valid)">
+                <div class="invalid-feedback d-block text-left"
+                  *ngIf="loginotp1.errors?.['required'] || loginotp2.errors?.['required'] || loginotp3.errors?.['required'] || loginotp4.errors?.['required']">
+                  OTP is required.
+                </div>
+              </div>
+
+            </div>
+            <div class="l-form-submit">
+              <button type="submit">Verify & Continue</button>
+
+            </div>
+            <div class="d-flex align-items-center mt-2 resenOtp">
+              <button type="button" class="btn    " (click)="logrestartOTPRequest()" [disabled]="logincountdown > 0">
+                Resend OTP <span *ngIf="logincountdown > 0">{{ logincountdown }} seconds</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+
+
+
+
+        <div class="signup-sec">
+          <h3 class="login_label_head">Register</h3>
+          <form [formGroup]="registerForm" (ngSubmit)="onregFormSubmit()">
+            <div class="l-form-group fst_name">
+              <label class="form_sec_title">First name<span> *</span></label>
+              <input type="text" id="first_name" formControlName="first_name" maxlength="40"
+                placeholder="Enter first name" />
+              <div *ngIf="submitted && registerForm.controls['first_name'].invalid">
+                <div *ngIf="registerForm.controls['first_name'].errors?.['required']" class="invalid-feedback d-block">
+                  First name is required.
+                </div>
+                <div *ngIf="registerForm.controls['first_name'].errors?.['pattern']" class="invalid-feedback d-block">
+                  Invalid first name
+                </div>
+              </div>
+            </div>
+            <div class="l-form-group lst_name">
+              <label class="form_sec_title">Last name<span> *</span></label>
+              <input type="text" id="last_name" formControlName="last_name" maxlength="40"
+                placeholder="Enter last name" />
+              <div *ngIf="submitted && registerForm.controls['last_name'].invalid">
+                <div *ngIf="registerForm.controls['last_name'].errors?.['required']" class="invalid-feedback d-block">
+                  Last name is required.
+                </div>
+                <div *ngIf="registerForm.controls['last_name'].errors?.['pattern']" class="invalid-feedback d-block">
+                  Invalid last name
+                </div>
+              </div>
+            </div>
+            <div class="l-form-group">
+              <label class="form_sec_title">E-mail address <span>*</span></label>
+              <input type="email" id="email" formControlName="email" maxlength="40" required
+                placeholder="Enter your email" />
+              <div *ngIf="submitted && registerForm.controls['email'].invalid">
+                <div *ngIf="registerForm.controls['email'].errors?.['required']" class="invalid-feedback d-block">
+                  E-mail is required
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors?.['maxlength']" class="invalid-feedback d-block">
+                  Maximum limit 40 characters
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors?.['minlength']" class="invalid-feedback d-block">
+                  Minimum limit 7 characters
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors?.['pattern']" class="invalid-feedback d-block">
+                  Invalid email
+                </div>
+              </div>
+            </div>
+
+
+            <div class="l-form-group signup_ph mt-3">
+              <label class="form_sec_title">Phone Number<span> *</span></label>
+              <div class="input_btn">
+                <ngx-intl-tel-input [cssClass]="'form-control'" id="phone" [preferredCountries]="preferredCountries"
+                  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                  [selectedCountryISO]="selectedCountryISO" [phoneValidation]="true" [separateDialCode]="true"
+                  name="phone" formControlName="phone" [maxLength]="15" (keyup)="phoneNumberChange($event)">
+                </ngx-intl-tel-input>
+
+              </div>
+              <button type="button" class="btn btn-primary ml-2 mt-3" (click)="initiateOTPRequest()"
+                [disabled]="otpRequested">
+                {{ otpRequested ? 'OTP Sent' : 'Verify' }}
+              </button>
+              <div *ngIf="submitted && !registerForm.controls['phone'].valid">
+                <div class="invalid-feedback d-block text-left"
+                  *ngIf="registerForm.controls['phone'].errors?.['required']">
+                  Telephone number is required
+                </div>
+              </div>
+              <div
+                *ngIf="registerForm.controls['phone'].errors && registerForm.controls['phone'].errors['validatePhoneNumber']"
+                class="invalid-feedback d-block text-left">
+                Invalid phone number
+              </div>
+
+            </div>
+
+            <div *ngIf="otpRequested" class="l-form-group mt-4 otp_form">
+              <label class="form_sec_title mb-3"> Enter OTP<span> *</span></label>
+              <div class="d-flex">
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp1"
+                  (input)="onOtpInput($event, 1)" #otp1>
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp2"
+                  (input)="onOtpInput($event, 2)" #otp2>
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp3"
+                  (input)="onOtpInput($event, 3)" #otp3>
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp4"
+                  (input)="onOtpInput($event, 4)" #otp4>
+              </div>
+              <div
+                *ngIf="submitted && (registerForm.controls['otp1'].invalid || registerForm.controls['otp2'].invalid || registerForm.controls['otp3'].invalid || registerForm.controls['otp4'].invalid)">
+                <div class="invalid-feedback d-block">
+                  OTP is required.
+                </div>
+              </div>
+              <div class="d-flex align-items-center mt-2 resenOtp">
+                <button type="button" class="btn btn-secondary" (click)="restartOTPRequest()"
+                  [disabled]="countdown > 0">
+                  Resend OTP <span *ngIf="countdown > 0">{{ countdown }} seconds</span>
+                </button>
+              </div>
+            </div>
+            <div class="l-form-submit">
+              <p>Your data helps us improve your experience on this website and manage your account. For more
+                details, see our <span style="color: #0a472e;"><a (click)="footerRouter()">privacy
+                    policy.</a></span></p>
+              <button type="submit">Register</button>
+            </div>
+          </form>
+        </div>
+
+
+
+      </div>
+      <div class="back-dash">
+        <a href="">Back to Dashboard</a>
+      </div>
+    </section>
+  </ng-template>
+
+</div>

@@ -1,0 +1,131 @@
+<div class="product-variation-add_variation_page margin_top">
+
+    <div class="container">
+        <div class="full_page_title">
+            <strong class="ng-binding" *ngIf='!id'>Add attribute</strong>
+            <strong class="ng-binding" *ngIf='id'>Edit attribute</strong>
+        </div>
+        <form name="nameDetails" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="name_input">
+                        <div class="label_input">
+                            <label for="rcategory">Name <span class="color_red">*</span></label>
+                            <div class="att_name_input_btn">
+
+                                <input type="text" [pattern]="pattern" class="form-control" formControlName="name"
+                                    placeholder="Name" required>
+
+                                <input type="button" title="Click to add more symbols" class="add_cls " id="addrow"
+                                    value="+" (click)="onAddSkills()" />
+
+                            </div>
+                            <div *ngIf="submitted && f.name.errors && f.name.errors.required" style="color:red">
+                                Attribute Name is required.
+                            </div>
+                            <div *ngIf="submitted && f.name.errors?.pattern" style="color:red">
+                                Enter Atleast one alphabet and space at beggining is not allowed.
+                            </div>
+                        </div>
+                        <!-- <span class="tooltiptext">Tooltip text</span> -->
+
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <!-- <div class="status">
+                        <label for="rcategory">Status <span class="color_red">*</span></label> -->
+                    <!-- <select type="text" name="status" id="status" class="form-control" formControlName="status"
+                            [(ngModel)]="status" convert-to-number required>
+                            <option value="" selected disabled>Select</option>
+                            <option value="1">Active</option>
+                            <option value="2">In-Active</option>
+                        </select> -->
+                    <!-- <ng-select [items]="statusOptions" bindLabel="label" bindValue="value"
+                                        [(ngModel)]="selectedStatus" name="status" id="status" #status="ngModel" ngModel
+                                       class="form-control custom-ng-select"
+                                        [ngClass]="{ 'is-invalid': f.submitted && status?.errors, 'is-valid': !f.status?.errors && status?.valid }"
+                                        [style.border-radius.px]="dropdownBorderRadius" required>
+                                    </ng-select>
+                        <div *ngIf="submitted && f.status.errors && f.status.errors.required" style="color:red">Status
+                            is
+                            required.
+                        </div>
+                    </div> -->
+
+                    <div class="status">
+                        <label for="status">Status <span class="color_red">*</span></label>
+                        <ng-select [items]="statusOptions" bindLabel="label" bindValue="value"
+                            [(ngModel)]="selectedStatus" placeholder="Select Status" formControlName="status"
+                            name="status" id="status" class="form-control custom-ng-select"
+                            [style.border-radius.px]="dropdownBorderRadius" required>
+                            <ng-template ng-header>
+                                <div class="ng-option-header">Select Status</div>
+                            </ng-template>
+                            <ng-option *ngFor="let option of statusOptions" [value]="option.value">{{
+                                option.label}}</ng-option>
+                        </ng-select>
+
+
+                        <div *ngIf="submitted && f.status.errors && f.status.errors.required" style="color:red">
+                            Attribute Status is required.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="select_category">
+                        <!-- <small>{{userForm.get('webHeader').errors|json}}</small> -->
+                        <label for="web_header">Select Category <span class="mandatory">*</span> </label>
+                        <ng-select [items]="webfoodcategory" id="web_header" dropdownPosition="bottom" bindValue="_id"
+                            bindLabel="rcatname" [multiple]="true" [(ngModel)]="selectedWebHeader"
+                            formControlName="webHeader" required placeholder="Select Category" [searchable]="true"
+                            [clearable]="true" (change)="onSelectionChange($event)"
+                            [ngClass]="{ 'is-invalid': submitted && userForm.get('webHeader').errors }"
+                            [ngClass]="{ 'is-valid': !userForm.get('webHeader').errors && userForm.get('webHeader').valid}">
+                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                                <b>{{ item.rcatname }}</b>
+                            </ng-template>
+                        </ng-select>
+                        <div *ngIf="submitted && f.webHeader.errors && f.webHeader.errors.required" style="color:red">
+                            Category
+                            is
+                            required.
+                        </div>
+
+                    </div>
+
+                    <!-- </div> -->
+                </div>
+                <div class="col-md-12 mt-4" formArrayName="units">
+                    <div class="symbol_input">
+                
+                        <div class="head" *ngFor="let unit of getUnits(userForm); let i = index" [formGroupName]="i">
+                            <label for="rcategory">Value<span class="color_red">*</span></label>
+                            <div class="symbol_input_btn">
+                                <div>
+                                    <input [pattern]="patternvalue" type="text" class="form-control" name="name" formControlName="name" maxlength="20">
+                                    <!-- Error messages for required field and invalid pattern -->
+                                    <div *ngIf="submitted && f.units.controls[i].get('name').errors?.required" style="color:red">
+                                        Attribute is required.
+                                    </div>
+                                    <div *ngIf="submitted && f.units.controls[i].get('name').errors?.pattern" style="color:red">
+                                        Enter a valid attribute (e.g., 500g, 250l, etc.).
+                                    </div>
+                                </div>
+                                <button type="button" class="remove" (click)="onRemoveSkill(i)">_</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card_footer_btn">
+                    <button type="submit" class="add_unit_save btn-primary mt-2">Submit</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

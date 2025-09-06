@@ -1,0 +1,224 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #CDD1E2;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #3DBE8B;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #3DBE8B;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.slider.round:before {
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+}
+::ng-deep span.tox-statusbar__branding {
+  display: none !important;
+}
+
+.input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+}
+.color_red {
+  color: red;
+}
+.input_choose_file {
+  position: relative;
+  padding: 0;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 110px;
+  height: 33px;
+}
+:where(.coupon_from_date, .coupon_to_date) {
+  position: relative;
+  button {
+    position: absolute;
+    top: 49px;
+    right: 21px;
+  }
+}
+
+.add_coupon_submit {
+  border: none;
+  background-color: #4dbd74;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 30px;
+  margin: 20px 0;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container {
+  /* Add your custom styles here */
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+::ng-deep .custom-ng-select .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container .ng-clear-wrapper,
+::ng-deep .custom-ng-select .ng-select-container .ng-clear-wrapper {
+  display: none !important; /* Hide the clear button */
+}
+
+.email_template-add_edit_email_template
+  :where(
+    .template_name,
+    .email_subject,
+    .sender_name,
+    .sender_email_address,
+    .subscription_mail_option,
+    .email_header,
+    .email_content,
+    .email_footer
+  ) {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  margin-bottom: 20px;
+}
+input,
+ng-select {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+}
+ng-select {
+  padding: 0;
+}
+
+.card_footer_btn {
+  margin-left: auto;
+  margin-right: 12px;
+  margin-top: 30px;
+  margin-bottom: 80px;
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+  button:nth-child(1) {
+    font-size: 17px;
+    width: 125px;
+    height: 47px;
+    font-weight: 600;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+  }
+}
+.card_footer_btn .add_btn {
+  background-color: #1b84ff;
+  color: #fff;
+}
+.card_footer_btn button:nth-child(2) {
+  background-color: #1b84ff;
+  height: 47px;
+  width: 151px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+.card_footer_btn button:nth-child(1):hover {
+  background-color: #f1f1f4;
+}
+.card_footer_btn button:nth-child(2):hover {
+  background-color: #056ee9;
+}
+
+// input up and down arrow disable
+::ng-deep .select_category ng-select,
+::ng-deep .status ng-select {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+}
+::ng-deep input[type="number"]::-webkit-inner-spin-button,
+::ng-deep input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::ng-deep input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--bs-gray-800);
+  font-size: 15px;
+}

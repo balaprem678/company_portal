@@ -1,0 +1,49 @@
+::ng-deep .category-category_list {
+  position: relative;
+  .search-input-tag {
+    margin: unset;
+  }
+  .customtable-design {
+    table {
+      thead {
+        tr {
+          th {
+            border: none;
+          }
+        }
+      }
+      tbody {
+        tr {
+          td {
+            vertical-align: middle;
+          }
+          td:nth-child(2) {
+            img {
+              background: #cccccc4d;
+              padding: 3px;
+              border-radius: 3px;
+              height: 80px;
+              width: 80px;
+              margin: 8px 0;
+            }
+          }
+          td:nth-child(3) {
+            ng2-smart-table-cell {
+              table-cell-view-mode {
+                div {
+                  font-weight: 700;
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .product_list_filter {
+  display: none;
+}
+

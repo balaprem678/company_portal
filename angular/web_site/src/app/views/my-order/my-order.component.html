@@ -1,0 +1,714 @@
+<div class="profile order pt_110">
+    <section class="order-sec">
+        <div class="container">
+            <div class="bread-crumb">
+                <a [routerLink]="['']">Home</a>
+                <p> <i class="fa fa-angle-right" aria-hidden="true"></i> </p>
+                <a>Orders</a>
+            </div>
+            <div class="orders-page">
+                <h3>Orders</h3>
+                <div class="order-search">
+
+                    <form action="" (ngSubmit)="searchProduct()" #searchForm="ngForm">
+                        <input type="text" id="search" [(ngModel)]="search" minlength="3" autocomplete="off"
+                            required="true" name="search" placeholder="Search here" />
+                        <button type="submit" class="search-btn">Search Orders</button>
+                    </form>
+                    <!-- (click)="searchProduct()" -->
+                </div>
+                <div class="order-header" *ngFor="let order of orderDetails">
+                    <div class="header-field d-flex flex-wrap align-items-center justify-content-between">
+                        <p for="" class="order-p m-0" *ngIf="order.status == 1"><mark
+                                style="background-color: rgb(92, 251, 116);"> Order Placed </mark>
+                            <span class="d-block">{{order.createdAt | date : 'd MMMM, y'}}</span>
+                        </p>
+                        <p for="" class="order-p m-0" *ngIf="order.status == 3"> <mark
+                                style="background-color: rgb(80, 139, 248);"> Order Packed </mark>
+                            <span class="d-block">{{order.packed_date | date : 'd MMMM, y'}}</span>
+                        </p>
+                        <p for="" class="order-p m-0" *ngIf="order.status == 6"> <mark
+                                style="background-color: rgb(247, 169, 52);"> Order Shipped</mark>
+                            <span class="d-block">{{order.shipped_date | date : 'd MMMM, y'}}</span>
+                        </p>
+                        <p for="" class="order-p m-0" *ngIf="order.status  == 7 || order.status == 8"><mark>Order
+                                Delivered</mark>
+                            <span class="d-block">{{order.delivery | date : 'd MMMM, y'}}</span>
+                        </p>
+                        <p for="" class="order-p m-0" *ngIf="order.status  == 9 || order.status == 10"><mark
+                                style="background-color: rgb(242, 60, 60);">Order
+                                Canceled</mark>
+                            <span class="d-block">{{order.delivery | date : 'd MMMM, y'}}</span>
+                        </p>
+                        <p for="" class="order-p m-0" *ngIf="order.status  == 16"><mark
+                                style="background-color: rgb(255, 38, 219);">Order
+                                Return Accepted</mark>
+                            <span class="d-block">{{order.delivery | date : 'd MMMM, y'}}</span>
+                        </p>
+                        <p for="" class="order-p m-0" *ngIf="order.status  == 17"><mark
+                                style="background-color: rgb(32, 200, 251);">Order
+                                Collected</mark>
+                            <span class="d-block">{{order.delivery | date : 'd MMMM, y'}}</span>
+                        </p>
+                        <p for="" class="order-p m-0" *ngIf="order.status  == 18"><mark
+                                style="background-color: rgb(87, 198, 109);">Refunded
+                            </mark>
+                            <span class="d-block">{{order.delivery | date : 'd MMMM, y'}}</span>
+                        </p>
+                        <p for="" class="order-p m-0"> Total
+                            <span class="d-block">₹ {{order.amount? order.billings.amount.grand_total :
+                                order.billings.amount.grand_total | number}}</span>
+                        </p>
+                        <p for="" class="order-p m-0">Order Id
+                            <span class="d-block">{{order.order_id}}</span>
+
+                        </p>
+                        <button *ngIf="order.status  == 7 || order.status == 8" (click)="downloadInvoice(order)"
+                            class="invoice-btn">Download Invoice</button>
+                    </div>
+                    <div class="my_order_tracking">
+                        <div class="ordered col-lg-5">
+                            <div class="my-wishlist-box" *ngFor="let item of order.foods">
+                                <div *ngIf="item.status==1">
+                                    <div class="wishlist-dec ">
+                                        <span style="cursor: pointer"
+                                            (click)="productDetails(item.slug,item.id,item.rcat_id,item.scat_id, item.cart_id, item.size)">
+                                            <img src="{{apiurl + item.image}}"
+                                                onerror="this.src='assets/image/no_img.png'" />
+                                        </span>
+                                        <div class="wishlist-cnt">
+                                            <a href="/products/{{item.slug}}"
+                                                style="text-decoration: none;cursor: pointer;">
+                                                <h6 *ngIf="item?.variations?.length>0">
+                                                    {{formatNameWithVariants(item.name, item.variations) }} </h6>
+                                                <h6 *ngIf="item.variations==0"> {{item.name}}</h6>
+                                            </a>
+                                            <div class="wish-data">
+                                                <p *ngIf="item.offer ==0 || !item.offer" class="price-p">₹ {{item.price
+                                                    | number}}<i *ngIf="item.mprice>item.price">₹ {{item.mprice |
+                                                        number}}</i>
+                                                </p>
+                                                <p *ngIf="item.offer>0" class="price-p">₹
+                                                    {{item.price | number}} <i>₹
+                                                        {{item.mprice |
+                                                        number}}</i></p>
+                                                <p *ngIf="item.offer>0" class="offer-price">{{item.offer}} % Offer</p>
+                                            </div>
+                                            <ngb-rating *ngIf="review_rating" class="review-star-small"
+                                                [(rate)]="item.rating" [disabled]="true"
+                                                [readonly]="readonly"></ngb-rating>
+                                            <p>{{order.createdAt | date : 'd MMMM, y'}}</p>
+                                            <!-- <p class="amt-p" *ngIf="item.size_status == 1 ">({{item.variations}})</p> -->
+                                            <!-- <p class="amt-p" *ngIf="item.size_status == 1 ">{{
+                                                formatNameWithVariants(item.name, item.variations) }}</p> -->
+
+                                            <p class="pro-quantity mt-2">Quantity :<i
+                                                    class="fst-normal mx-2">{{item.quantity}}</i>
+                                            </p>
+                                            <div class="invoice-btn" *ngIf="order.status==7 && checkReturn(item)">
+                                                <p class="review-rating"
+                                                    (click)="createReturn(order._id,item.id,returnOrder)">
+                                                    <a>Return
+                                                        Order</a>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="rivew-part">
+                                        <div class="order-invoice"
+                                            *ngIf="(order.status == 7 || order.status == 8) && review_rating">
+
+                                            <div *ngIf="item.rating_user === true" class="order_review">
+
+
+                                                <button class="edit_reviews"
+                                                    (click)="createReview(item,order._id,changePasswordPop,'edit')">Edit
+                                                    Review</button>
+                                            </div>
+                                            <!-- <p class="review-rating" *ngIf="item.rating == true"
+                                                (click)="viewReview(item.id,changePasswordPop)"><a>View a Review</a> </p> -->
+                                            <p class="review-rating" *ngIf="!item.rating_user"
+                                                (click)="createReview(item,order._id,changePasswordPop,'add')"><a>Add
+                                                    Review</a> </p>
+                                        </div>
+                                        <!-- <ngb-rating *ngIf="review_rating" class="review-star-small" [(rate)]="item.rating" [disabled]="true"
+                                            [readonly]="readonly"></ngb-rating> -->
+                                        <!-- <p>{{order.createdAt | date : 'd MMMM, y'}}</p>
+                                        <p class="amt-p" *ngIf="item.size_status == 1 ">({{item.variations}})</p>
+                                        <p class="pro-quantity ">Quantity :<i
+                                                class="fst-normal mx-2">{{item.quantity}}</i>
+                                        </p> -->
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="item.status==16 || item.status==17 || item.status==18">
+                                    <div class="wishlist-dec ">
+                                        <span style="cursor: pointer"
+                                            (click)="productDetails(item.slug,item.id,item.rcat_id,item.scat_id, item.cart_id, item.size)">
+                                            <img src="{{apiurl + item.image}}"
+                                                onerror="this.src='assets/image/no_img.png'" />
+                                        </span>
+                                        <div class="wishlist-cnt">
+                                            <a href="/products/{{item.slug}}"
+                                                style="text-decoration: none;cursor: pointer;">
+                                                <h6 *ngIf="item?.variations?.length>0">
+                                                    {{formatNameWithVariants(item.name, item.variations) }} </h6>
+                                                <h6 *ngIf="item.variations==0"> {{item.name}}</h6>
+                                            </a>
+                                            <!-- <div class="wish-data">
+                                                <p *ngIf="item.offer>0" class="price-p"><span>MRP ₹ <b
+                                                            class="fw-normal">{{item.mprice}}</b></span>&nbsp;&nbsp;&nbsp;
+                                                    ₹
+                                                    {{item.mprice -((item.mprice * item.offer)/100)}}</p>
+                                                <p *ngIf="item.offer ==0 || !item.offer" class="price-p"><span
+                                                        *ngIf="item.mprice > item.price">MRP ₹ <b
+                                                            class="fw-normal">{{item.mprice}}</b></span>₹
+                                                    {{item.price}}</p>
+                                                <p *ngIf="item.offer>0" class="offer-price">{{item.offer}} % Offer</p>
+                                            </div> -->
+                                            <div class="wish-data">
+                                                <p *ngIf="item.offer ==0 || !item.offer" class="price-p">₹ {{item.price
+                                                    | number}}<i *ngIf="item.mprice>item.price">₹ {{item.mprice |
+                                                        number}}</i>
+                                                </p>
+                                                <p *ngIf="item.offer>0" class="price-p">₹
+                                                    {{item.price | number}} <i>₹
+                                                        {{item.mprice |
+                                                        number}}</i></p>
+                                                <p *ngIf="item.offer>0" class="offer-price">{{item.offer}} % Offer</p>
+                                            </div>
+                                            <ngb-rating *ngIf="review_rating" class="review-star-small"
+                                                [(rate)]="item.rating" [disabled]="true"
+                                                [readonly]="readonly"></ngb-rating>
+                                            <p>{{order.createdAt | date : 'd MMMM, y'}}</p>
+                                            <!-- <p class="amt-p" *ngIf="item.size_status == 1 ">({{item.variations}})</p> -->
+
+                                            <p class="pro-quantity mt-2">Quantity :<i
+                                                    class="fst-normal mx-2">{{item.quantity}}</i>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                    <div *ngIf="item.status=='16'">
+                                        <main>
+                                            <ol class="progress-tracker">
+                                                <li class="completed"><span>Returned</span></li>
+                                                <li class="current"><span>Collected</span></li>
+                                                <li><span>Refunded</span></li>
+                                            </ol>
+                                        </main>
+                                    </div>
+                                    <div *ngIf="item.status=='17'">
+                                        <main>
+                                            <ol class="progress-tracker">
+                                                <li class="completed"><span>Returned</span></li>
+                                                <li class="completed"><span>Collected</span></li>
+                                                <li class="current"><span>Refunded</span></li>
+                                            </ol>
+                                        </main>
+                                    </div>
+                                    <div *ngIf="item.status=='18'">
+                                        <main>
+                                            <ol class="progress-tracker">
+                                                <li class="completed"><span>Returned</span></li>
+                                                <li class="completed"><span>Collected</span></li>
+                                                <li class="completed"><span>Refunded</span></li>
+                                            </ol>
+                                        </main>
+                                    </div>
+                                    <div *ngIf="item.status=='16'">
+                                        <p>{{item.return_date | date:'mediumDate'}}</p>
+                                    </div>
+                                    <div *ngIf="item.status=='17'" class="retur_date">
+                                        <p>{{item.return_date | date:'mediumDate'}}</p>
+                                        <p>{{item.collected_date | date:'mediumDate'}}</p>
+                                    </div>
+                                    <div *ngIf="item.status=='18'" class="retur_date">
+                                        <p>{{item.return_date | date:'mediumDate'}}</p>
+                                        <p>{{item.collected_date | date:'mediumDate'}}</p>
+                                        <p>{{item.refund_date | date:'mediumDate'}}</p>
+                                    </div>
+                                    <div>
+                                        <p> <span class="return_reason">Return Reason</span> {{ item.return_reason}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order_tracking col-lg-7">
+                            <div class="review_part_cancel">
+                                <div class="rivew-part">
+                                    <div class="order-details" *ngIf="order.status == 1">
+                                        <span class="dot-span"></span>
+                                        <p>Created on {{order.createdAt | date : 'MMMM d, y'}}<i
+                                                class="fst-normal d-block">Your
+                                                order is created</i></p><br>
+                                    </div>
+                                    <div class="order-details" *ngIf="order.status == 3">
+                                        <span class="dot-span"></span>
+                                        <p>Packed on {{order.packed_date | date : 'MMMM d, y'}}<i
+                                                class="fst-normal d-block">Your
+                                                order is packed</i></p><br>
+                                    </div>
+                                    <div class="order-details" *ngIf="order.status == 6">
+                                        <span class="dot-span"></span>
+                                        <p>Shipped on {{order.shipped_date | date : 'MMMM d, y'}}<i
+                                                class="fst-normal d-block">Your order is shipped</i></p><br>
+                                    </div>
+                                    <div class="order-details" *ngIf="order.status == 7 || order.status == 8">
+                                        <span class="dot-span"></span>
+                                        <p>Delivered on {{order.delivery | date : 'MMMM d, y'}}<i
+                                                class="fst-normal d-block">Your
+                                                item has been delivered </i></p><br>
+                                    </div>
+
+                                    <!-- <div class="order-invoice" *ngIf="order.status == 7 || order.status == 8">
+                                    <p class="review-rating" *ngIf="rattingList.includes(item['id']) == true" (click)="viewReview(item.id,changePasswordPop)"><a>View a Review</a> </p>
+                                    <p class="review-rating" *ngIf="rattingList.includes(item['id']) == false" (click)="createReview(item.id,changePasswordPop)"><a>Create Review</a> </p>
+                                </div> -->
+                                </div>
+                                <div class="invoice-btn" *ngIf="order.status == 1 || order.status == 3">
+                                    <p class="review-rating" (click)="createCancel(order._id,cancelOrder)"><a>Cancel
+                                            Order</a>
+                                    </p>
+                                </div>
+                                <!-- <div class="invoice-btn" *ngIf="order.returnStatus==true">
+                                    <p class="review-rating" (click)="createReturn(order._id,returnOrder,returnOrder)"><a>Return
+                                            Order</a>
+                                    </p>
+                                </div> -->
+                            </div>
+
+                            <div class="inside_order_tracker" *ngIf="order.status == 1">
+                                <div class="horizontal timeline">
+                                    <div class="row justify-content-between">
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Ordered</p>
+                                        </div>
+                                        <div class="order-tracking  ">
+                                            <span class="is-complete"></span>
+                                            <p>Packed</p>
+                                        </div>
+                                        <div class="order-tracking  ">
+                                            <span class="is-complete"></span>
+                                            <p>Shipped</p>
+                                        </div>
+                                        <div class="order-tracking ">
+                                            <span class="is-complete"></span>
+                                            <p>Delivered</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inside_order_tracker" *ngIf="order.status == 3">
+                                <div class="horizontal timeline">
+                                    <div class="row justify-content-between">
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Ordered</p>
+                                        </div>
+                                        <div class="order-tracking completed ">
+                                            <span class="is-complete"></span>
+                                            <p>Packed</p>
+                                        </div>
+                                        <div class="order-tracking  ">
+                                            <span class="is-complete"></span>
+                                            <p>Shipped</p>
+                                        </div>
+                                        <div class="order-tracking ">
+                                            <span class="is-complete"></span>
+                                            <p>Delivered</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inside_order_tracker" *ngIf="order.status == 6">
+                                <div class="horizontal timeline">
+                                    <div class="row justify-content-between">
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Ordered</p>
+                                        </div>
+                                        <div class="order-tracking completed ">
+                                            <span class="is-complete"></span>
+                                            <p>Packed</p>
+                                        </div>
+                                        <div class="order-tracking completed ">
+                                            <span class="is-complete"></span>
+                                            <p>Shipped</p>
+                                        </div>
+                                        <div class="order-tracking ">
+                                            <span class="is-complete"></span>
+                                            <p>Delivered</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="inside_order_tracker" *ngIf="order.status  == 7 || order.status == 8">
+                                <div class="horizontal timeline">
+                                    <div class="row justify-content-between">
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Ordered</p>
+                                        </div>
+                                        <div class="order-tracking completed ">
+                                            <span class="is-complete"></span>
+                                            <p>Packed</p>
+                                        </div>
+                                        <div class="order-tracking completed ">
+                                            <span class="is-complete"></span>
+                                            <p>Shipped</p>
+                                        </div>
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Delivered</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inside_order_tracker" *ngIf="order.status == 16">
+                                <div class="horizontal timeline">
+                                    <div class="row justify-content-between">
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Return confirmed</p>
+                                        </div>
+                                        <div class="order-tracking  ">
+                                            <span class="is-complete"></span>
+                                            <p>Product collected</p>
+                                        </div>
+                                        <div class="order-tracking  ">
+                                            <span class="is-complete"></span>
+                                            <p>Refunded</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inside_order_tracker" *ngIf="order.status == 19">
+                                <div class="horizontal timeline">
+                                    <div class="row justify-content-between">
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Ordered</p>
+                                        </div>
+                                        <div class="order-tracking  completed">
+                                            <span class="is-complete"></span>
+                                            <p>Cancelled by admin</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inside_order_tracker" *ngIf="order.status == 17">
+                                <div class="horizontal timeline">
+                                    <div class="row justify-content-between">
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Return confirmed</p>
+                                        </div>
+                                        <div class="order-tracking  completed">
+                                            <span class="is-complete"></span>
+                                            <p>Product collected</p>
+                                        </div>
+                                        <div class="order-tracking  ">
+                                            <span class="is-complete"></span>
+                                            <p>Refunded</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="inside_order_tracker" *ngIf="order.status == 18">
+                                <div class="horizontal timeline">
+                                    <div class="row justify-content-between">
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Return confirmed</p>
+                                        </div>
+                                        <div class="order-tracking  completed">
+                                            <span class="is-complete"></span>
+                                            <p>Product collected</p>
+                                        </div>
+                                        <div class="order-tracking " *ngIf="order.refundStatus=='PENDING'">
+                                            <span class="is-complete"></span>
+                                            <p>Refunded pending</p>
+                                        </div>
+                                        <div class="order-tracking  completed" *ngIf="order.refundStatus=='SUCCESS'">
+                                            <span class="is-complete"></span>
+                                            <p>Refunded</p>
+                                        </div>
+                                        <div class="order-tracking  " *ngIf="order.refundStatus=='CANCELLED'">
+                                            <span class="is-complete"></span>
+                                            <p>Canceled</p>
+                                        </div>
+                                        <div class="order-tracking  " *ngIf="order.refundStatus=='FAILED'">
+                                            <span class="is-complete"></span>
+                                            <p>Failed</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inside_order_tracker" *ngIf="order.status == 9">
+                                <div class="horizontal timeline">
+                                    <div class="row justify-content-between">
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Ordered</p>
+                                        </div>
+
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete"></span>
+                                            <p>Canceled</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inside_order_tracker" *ngIf="order.status == 10">
+                                <div class="horizontal timeline">
+                                    <div class="row justify-content-between">
+                                        <div class="order-tracking ">
+                                            <span class="is-complete"></span>
+                                            <p>Ordered</p>
+                                        </div>
+
+                                        <div class="order-tracking completed">
+                                            <span class="is-complete "></span>
+                                            <p>Canceled by admin</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="delivery-address">
+                                <h2>Delivery Address</h2>
+                                <div class="deli_add_nacpn">
+                                    <label for="name">Name: {{order.delivery_address.name}}</label>
+                                    <label for="address">Address: {{order.delivery_address.fulladres}}</label>
+                                    <label for="city">City: {{order.delivery_address.city}}</label>
+                                    <label for="postal-code">Postal Code: {{order.delivery_address.zipcode}}</label>
+                                    <label for="number">Number: {{order.delivery_address.phone}}</label>
+                                </div>
+
+                            </div>
+                            <div *ngIf="order.status== 9">
+                                <p>{{order.cancellationreason}}</p>
+                            </div>
+                            <div *ngIf="order.status== 16 || order.status== 17 || order.status == 18">
+                                <p>{{order.returnReason}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                    </div>
+                </div>
+                <div class="pagination-sec" *ngIf="orderDetails.length != 0">
+                    <span class="page-number">Page {{currentPage}} of {{totalPages}}</span>
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+                                <a class="page-link" (click)="setPage(currentPage - 1)" aria-label="Previous">
+                                    Previous
+                                </a>
+                            </li>
+                            <li class="page-item" *ngFor="let page of getVisiblePageNumbers()"
+                                [ngClass]="{'active': currentPage === page}">
+                                <a class="page-link" (click)="setPage(page)">{{ page }}</a>
+                            </li>
+                            <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+                                <a class="page-link" (click)="setPage(currentPage + 1)" aria-label="Next">
+                                    Next
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="no-order d-flex flex-wrap justify-content-center"
+                    *ngIf="showorder && orderDetails.length == 0">
+                    <span>
+                        <img src="assets/image/no-product.png" alt="" width="100%" height="100%">
+                    </span>
+                    <p class="empty-p mt-2"><span>Your Shopping Cart Is Empty</span></p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <ng-template #changePasswordPop>
+        <div class="modal-header">
+            <h4 class="m-0">Review & Rating</h4>
+            <div (click)="destroy()" title="close the popup" class="pop_cls_btn">
+                &#10006;
+            </div>
+        </div>
+        <div class="modal-body login-body">
+            <div class="container-fluid">
+                <form #ratingForm="ngForm" (ngSubmit)="onFormSubmit(ratingForm)">
+                    <div class="form-group d-flex my-2">
+                        <!-- <label for="newpassword"> <strong>*</strong></label> -->
+                        <ngb-rating [(rate)]="rating" (hover)="hovered=$event" name="ratings" (leave)="hovered=0"
+                            [readonly]="readonly"></ngb-rating>
+                        <div *ngIf="ratingForm.submitted && !rating" class="invalid-feedback">
+                            <div *ngIf="rating!">Rating is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group gap-2 py-2" *ngIf="!viewImage">
+                        <label for="comment">comment<strong>*</strong></label>
+                        <input name="comment" type="comment" [(ngModel)]="comment1" disabled #comment="ngModel" ngModel
+                            class="form-control" placeholder="Enter comment" id="comment">
+                    </div>
+                    <div class="form-group gap-2 py-2" *ngIf="viewImage">
+                        <label for="comment">comment<strong>*</strong></label>
+                        <textarea required name="comment" type="comment" [(ngModel)]="comment1" #comment="ngModel"
+                            ngModel class="form-control" placeholder="Enter comment" id="comment" required></textarea>
+
+                        <div *ngIf="ratingForm.submitted && !comment.valid" class="invalid-feedback">
+                            <div *ngIf="comment.errors && comment.errors['required']">Review is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group gap-2" *ngIf="viewImage">
+                        <label for="review">Image</label>
+                        <input type="file" multiple class="form-control input-file" (change)="detectFiles($event)">
+                    </div>
+                    <div class="form-group gap-2" *ngIf="!viewImage">
+                        <label for="review">Image</label>
+                        <input type="file" multiple disabled class="form-control input-file"
+                            (change)="detectFiles($event)">
+                    </div>
+                    <div class="form-group">
+                        <div class="view-img w-100 d-flex flex-wrap justify-content-start align-items-center gap-2 mt-4 mb-3"
+                            *ngIf="viewImage">
+                            <span class="multiple-img position-relative" *ngFor="let url of images;let i =index">
+                                <span class="close-icon-multi position-absolute" (click)="imageEdit(i)">
+                                    <i class="fa fa-times-circle close-icon" aria-hidden="true"></i>
+                                </span>
+                                <img [src]="env_url+url" width="50" height="50" onerror="this.src='assets/img/pdf.svg'"
+                                    class="img-view rounded-3 mb-3">
+                            </span>
+                            <span class="multiple-img position-relative" *ngFor="let url of Preview_files; let i=index">
+                                <span class="close-icon-multi position-absolute" (click)="closeMultiImage(i,url)">
+                                    <i class="fa fa-times-circle close-icon" aria-hidden="true"></i>
+                                </span>
+                                <img [src]="url" width="50" height="50" onerror="this.src='assets/img/pdf.svg'"
+                                    class="img-view rounded-3 mb-3">
+                            </span>
+                        </div>
+                        <!-- <div class="view-img w-100 d-flex flex-wrap justify-content-start align-items-center gap-2 mt-4 mb-3"
+                            >
+                            <span class="multiple-img position-relative" *ngFor="let url of images;let i =index">
+                                <span class="close-icon-multi position-absolute" (click)="imageEdit(i)">
+                                <i class="fa fa-times-circle close-icon" aria-hidden="true"></i>
+                            </span>
+                                <img [src]="url" width="50" height="50" onerror="this.src='assets/img/pdf.svg'"
+                                    class="img-view rounded-3 mb-3">
+                            </span>
+                        </div> -->
+                    </div>
+                    <div class="sumbit-btn d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                        <button type="button" class="cancel-pass rounded text-center  py-2 px-4 m-0"
+                            (click)="destroy()">Cancel</button>
+                        <button *ngIf="viewImage" type="submit"
+                            class="link-border link-color change-password rounded text-center  py-2 px-4 m-0">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-template>
+
+
+    <ng-template #cancelOrder>
+        <div class="cancel_order_sec">
+            <div class="modal-header">
+                <h4>Cancel Order</h4>
+                <div (click)="destroy()" title="close the popup" class="pop_cls_btn">
+                    &#10006;
+                </div>
+            </div>
+            <div class="modal-body login-body">
+                <div class="container-fluid">
+                    <form #cancelForm="ngForm" (ngSubmit)="cancelFormSubmit(cancelForm)">
+                        <div class="form-group gap-2 py-2">
+                            <label for="reason">Reason<strong>*</strong></label>
+                            <select name="reason" [(ngModel)]="selectedReason" class="form-control" id="reason">
+                                <option value="changeContact">I want to change the contact details</option>
+                                <option value="changeAddress">I want to change the delivery address</option>
+                                <option value="ratingReviews">I'm worried about the rating and reviews</option>
+                                <option value="shorterDeliveryTime">I was hoping for a shorter delivery time</option>
+                                <option value="decreasedPrice">Price of the product has now decreased</option>
+                                <option value="changeSizeColorType">I want to change the size/color/type</option>
+                                <option value="notListed">My reasons are not listed here</option>
+                            </select>
+                        </div>
+
+                        <div *ngIf="selectedReason === 'notListed'" class="comment_custom form-group gap-2 py-2">
+                            <label for="customComment">Custom Comment<strong>*</strong></label>
+                            <input name="customComment" [(ngModel)]="customComment" class="form-control"
+                                placeholder="Enter custom comment" id="customComment">
+                        </div>
+
+                        <div
+                            class="back sumbit-btn d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                            <button type="button" class="cancel-pass rounded text-center py-2 px-4 m-0"
+                                (click)="destroy()">Back</button>
+                            <button *ngIf="selectedReason || customComment" type="submit"
+                                class="link-border link-color change-password rounded text-center py-2 px-4 m-0">Cancel
+                                Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+
+    <ng-template #returnOrder>
+        <div class="cancel_order_sec">
+            <div class="modal-header">
+                <h4>Return Order</h4>
+                <div (click)="destroy()" title="close the popup" class="pop_cls_btn">
+                    &#10006;
+                </div>
+            </div>
+            <div class="modal-body login-body">
+                <div class="container-fluid">
+                    <form #returnForm="ngForm" (ngSubmit)="returnFormSubmit(returnForm)">
+                        <div class="form-group gap-2 py-2">
+                            <label for="reason">Reason<strong>*</strong></label>
+                            <select name="reason" [(ngModel)]="selectedReason" class="form-control" id="reason">
+                                <option value="Defective or Damaged Products">Defective or Damaged Products</option>
+                                <option value="Wrong Item Received">Wrong Item Received</option>
+                                <option value="Size or Fit Issues">Size or Fit Issues</option>
+                                <option value="Quality Concerns">Quality Concerns</option>
+                                <option value="Late Delivery">Late Delivery</option>
+                                <option value="Not as Described">Not as Described</option>
+                                <option value="notListed">My reasons are not listed here</option>
+                            </select>
+                        </div>
+
+                        <div *ngIf="selectedReason === 'notListed'" class="form-group gap-2 py-2">
+                            <label for="customComment">Custom Comment<strong>*</strong></label>
+                            <input name="customComment" [(ngModel)]="customComment" class="form-control"
+                                placeholder="Enter custom comment" id="customComment">
+                        </div>
+
+                        <div
+                            class="back sumbit-btn d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                            <button type="button" class="cancel-pass rounded text-center py-2 px-4 m-0"
+                                (click)="destroy()">Back</button>
+                            <button *ngIf="selectedReason || customComment" type="submit"
+                                class="link-border link-color change-password rounded text-center py-2 px-4 m-0">Return
+                                Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

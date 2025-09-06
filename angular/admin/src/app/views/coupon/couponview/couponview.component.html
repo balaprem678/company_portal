@@ -1,0 +1,86 @@
+<div class="coupon-coupon_list-view margin_top">
+    <div class="container">
+        <div class="full_page_title">
+            <strong>Coupon</strong>
+        </div>
+        <div *ngIf="data" class="coupon_view">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span><strong>Coupon Name</strong></span></label>
+                </div>
+                <div class="col-md-1">
+                    <label class="group-control" for="name"><span><strong>:</strong></span></label>
+                </div>
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span>{{data.name}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span><strong>Coupon Type</strong></span></label>
+                </div>
+                <div class="col-md-1">
+                    <label class="group-control" for="name"><span><strong>:</strong></span></label>
+                </div>
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span>{{data.coupon_type}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span><strong>Code</strong></span></label>
+                </div>
+                <div class="col-md-1">
+                    <label class="group-control" for="name"><span><strong>:</strong></span></label>
+                </div>
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span>{{data.code}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span><strong>Discount Type</strong></span></label>
+                </div>
+                <div class="col-md-1">
+                    <label class="group-control" for="name"><span><strong>:</strong></span></label>
+                </div>
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span>{{data.discount_type}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span><strong>Usage Limit Per User</strong></span></label>
+                </div>
+                <div class="col-md-1">
+                    <label class="group-control" for="name"><span><strong>:</strong></span></label>
+                </div>
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span>{{data.usage.per_user}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span><strong>Usage Limit Per Coupon</strong></span></label>
+                </div>
+                <div class="col-md-1">
+                    <label class="group-control" for="name"><span><strong>:</strong></span></label>
+                </div>
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span>{{data.usage.total_coupons}}</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span><strong>Expiry Date</strong></span></label>
+                </div>
+                <div class="col-md-1">
+                    <label class="group-control" for="name"><span><strong>:</strong></span></label>
+                </div>
+                <div class="col-md-3">
+                    <label class="group-control" for="name"><span>{{data.expiry_date}}</span></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

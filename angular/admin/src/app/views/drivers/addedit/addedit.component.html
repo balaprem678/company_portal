@@ -1,0 +1,280 @@
+<div class="container">
+    <form [formGroup]="userAddEditForm" (ngSubmit)="onFormSubmit()">
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="rcategory">Select City <span class="mandatory">*</span></label>
+                <ng-select style="width: 100%;" [items]="getcity" [clearable]="false" bindValue="cityname"
+                    formControlName="selectcity" [(ngModel)]="selectcity" bindLabel="cityname"
+                    placeholder="Select category" name="selectcity" required>
+                </ng-select>
+                <div *ngIf="addform.selectcity.touched && addform.selectcity.invalid" class="alert alert-danger">
+                    Select City is required!
+                </div>
+                <div *ngIf="submitted && addform.selectcity.errors && addform.selectcity.errors.required"
+                    style="color:red">
+                    Select City is required!
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label for="rcategory">Vehicle <span class="mandatory">*</span></label>
+                <select type="text" formControlName="category" name="vehicle" id="vehicle" required
+                    class="form-control">
+                    <option value="">Select</option>
+                    <option value="Bike">Bike</option>
+                </select>
+                <div *ngIf="submitted && addform.category.errors && addform.category.errors.required" style="color:red">
+                    Select Vehicle is required!
+                </div>
+                <div *ngIf="addform.category.touched && addform.category.invalid" class="alert alert-danger">
+                    Select Vehicle is required!
+                </div>
+                <!-- <div *ngIf="userAddEditForm.submitted && !selectadmin.valid">
+                    <div class="invalid-feedback" *ngIf="selectadmin.errors.required">Coupon Type is required.
+                    </div>
+                </div> -->
+            </div>
+            <div class="col-sm-4">
+                <label for="rcategory">Driver Name <span class="mandatory">*</span></label>
+                <input type="text" formControlName="drivername" required class="form-control">
+                <div *ngIf="submitted && addform.drivername.errors && addform.drivername.errors.required || addform.drivername.touched && addform.drivername.invalid"
+                    style="color:red">
+                    Driver Name is required!
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="email">E-Mail <span class="mandatory">*</span></label>
+                <input type="text" formControlName="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    class="form-control" />
+                <div *ngIf="submitted && addform.email.errors && addform.email.errors.required"
+                    class="invalid-feedback">
+                    Email is required
+                </div>
+                <div *ngIf="submitted && addform.email.errors && addform.email.errors.pattern" class="invalid-feedback">
+                    Enter valid Email
+                </div>
+                <div *ngIf="addform.email.touched && addform.email.invalid" class="alert alert-danger">
+                    Please Giver your E-mail Id
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="phone">Mobile Number <span class="mandatory">*</span></label><br>
+                <ngx-intl-tel-input id="phone" [preferredCountries]="preferredCountries"
+                    [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                    [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" [phoneValidation]="true"
+                    [separateDialCode]="separateDialCode" formControlName="phone"
+                    [numberFormat]="PhoneNumberFormat.National" (keyup)="phoneNumberChange($event)" name="phone"
+                    required>
+                </ngx-intl-tel-input>
+                <div *ngIf="submitted && addform.phone.errors && addform.phone.errors.required" style="color:red">
+                    Mobile Number is required!
+                </div>
+                <div *ngIf="submitted && addform.phone.errors && addform.phone.errors.validatePhoneNumber"
+                    style="color:red">
+                    Invalid mobile number!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="email">Address Line 1 <span class="mandatory">*</span></label>
+                <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" name="addressline1"
+                    required formControlName="addressline1" placeholder="Search Nearest Location" autocorrect="off"
+                    autocapitalize="off" spellcheck="off" type="text" required #search>
+                <div *ngIf="submitted && addform.addressline1.errors && addform.addressline1.errors.required"
+                    style="color:red">
+                    Address line 1 is required!
+                </div>
+                <div *ngIf="addform.addressline1.touched && addform.addressline1.invalid" class="alert alert-danger">
+                    Address line 1 is required!
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="email">Address Line 2 <span class="mandatory">*</span></label>
+                <input type="text" class="form-control" placeholder="Search Nearest Location" name="addressline2"
+                    formControlName="addressline2" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
+                <div *ngIf="submitted && addform.addressline2.errors && addform.addressline2.errors.required"
+                    style="color:red">
+                    Address line 2 is required!
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="email">City <span class="mandatory">*</span></label>
+                <input type="text" class="form-control" placeholder="Search Nearest Location" name=""
+                    formControlName="city" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
+                <div *ngIf="submitted && addform.city.errors && addform.city.errors.required" style="color:red">
+                    City is required!
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="email">State/Province <span class="mandatory">*</span></label>
+                <input type="text" class="form-control" placeholder="Search Nearest Location" name="state"
+                    formControlName="state" autocapitalize="off" spellcheck="off" type="text">
+                <div *ngIf="submitted && addform.state.errors && addform.state.errors.required" style="color:red">
+                    State is required!
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="email">Country <span class="mandatory">*</span></label>
+                <input type="text" class="form-control" placeholder="Search Nearest Location" name="country"
+                    formControlName="country" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
+
+                <div *ngIf="submitted && addform.country.errors && addform.country.errors.required" style="color:red">
+                    Country is required!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="email">ZipCode <span class="mandatory">*</span></label>
+                <input type="text" class="form-control" placeholder="Zipcode is Required" name="zipcode"
+                    formControlName="zipcode" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
+                <div *ngIf="submitted && addform.zipcode.errors && addform.zipcode.errors.required" style="color:red">
+                    ZipCode is required!
+                </div>
+                <div *ngIf="addform.zipcode.touched && addform.zipcode.invalid" class="alert alert-danger">
+                    Please Enter your ZipCode
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="email">About <span class="mandatory">*</span></label>
+                <textarea id="about" name="about" formControlName="about" class="form-control" name="about" rows="4"
+                    cols="50"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="rcategory">Image <span class="mandatory">*</span></label>
+                <div class="form-group">
+                    <div class="text-center col-md-8">
+                        <input type="file" name="avatar" formControlName="avatar" accept="image/*"
+                            (change)="fileChangeEvent($event)" />
+                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                            [aspectRatio]="4 / 4" [resizeToWidth]="256" format="png"
+                            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+                    </div>
+                    <div class="text-center col-md-4">
+                        <h5 *ngIf="croppedImage">Preview</h5>
+                        <img style="width: 250px;" [src]="croppedImage" *ngIf="croppedImage" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5> Document Settings</h5>
+        <div class="row" *ngFor="let doc of docdata;let i=index;">
+            <div class="col-md-6">
+                <label for="rcategory">{{doc.doc_name}} <span class="mandatory">*</span></label>
+                <div class="form-group">
+                    <input class="form-control" type="file" id="license" name="license" formControlName='license'
+                        accept="image/*" (change)="onSelectedFile($event ,i)" [required]="!preview[0]">
+                    <img [src]="preview[i]" style="width: 250px;" *ngIf="preview" />
+                    <p class="help-block" *ngIf="doc.has_require == 1">
+                        <span *ngIf="submitted && !preview[i]" style="color:red">{{doc.doc_name}}
+                            is
+                            required, Allowed files: png, pdf, jpg.
+                            Max file size 1Mb</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <h5> Account Settings</h5>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="rcategory">Account Name</label>
+                <div class="form-group">
+                    <input class="form-control" type="text" formControlName="accountname">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="rcategory">Account Address</label>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="accountaddress" formControlName="accountaddress">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="rcategory">Account Number</label>
+                <div class="form-group">
+                    <input class="form-control" type="number" min=0 name="accountnumber"
+                        formControlName="accountnumber">
+                </div>
+                <div *ngIf="submitted && addform.accountnumber.errors && addform.accountnumber.errors.max"
+                    style="color:red">
+                    Invalid Account Number.Account Number must be less than 20!
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="rcategory">Bank Name</label>
+                <div class="form-group">
+                    <input class="form-control" type="text" formControlName="bankname">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="rcategory">Branch Name </label>
+                <div class="form-group">
+                    <input class="form-control" type="text" formControlName="branchname">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="rcategory">Branch Address </label>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="branchaddress" formControlName="branchaddress">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="rcategory">Swiftcode </label>
+                <div class="form-group">
+                    <input class="form-control" type="text" formControlName="swiftcode">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="rcategory">Routing Number </label>
+                <div class="form-group">
+                    <input class="form-control" type="text" formControlName="routingnumber">
+                </div>
+                <div *ngIf="submitted && addform.routingnumber.errors && addform.routingnumber.errors.maxlength"
+                    style="color:red">
+                    <span>Routing number should be maximum of 9 characters.</span>
+                </div>
+            </div>
+        </div>
+
+        <h5>Security Settings</h5>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="rcategory">Status <span class="mandatory">*</span></label>
+                <select type="text" name="status" formControlName="status" class="form-control">
+                    <option value="">Select</option>
+                    <option value="1">Active</option>
+                    <option value="2">InActive</option>
+                    <option value="3">New</option>
+                </select>
+                <div *ngIf="submitted && addform.status.errors && addform.status.errors.required" style="color:red">
+                    Status is required!
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <button type="submit" style="position: absolute;left:1000px;" class="btn btn-sm btn-success">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

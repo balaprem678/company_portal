@@ -1,0 +1,167 @@
+<section class="cart-p-page pt_110 mt-5">
+	<div class="container">
+		<div class="cart-left">
+			<h2>MY CART</h2>
+			<!-- <h2>CART ({{cartDetails && cartDetails.cart_details && cartDetails.cart_details.length}})</h2> -->
+			<!-- <div *ngIf="loading" class="loading-placeholder">
+				<img src="../../../assets/Loader/spinner.gif" alt="Loading..." />
+
+
+			</div> -->
+
+			<h4 *ngIf="!loading &&!cartDetails?.cart_details?.length">No products in the cart.</h4>
+			<!-- <h4 style="text-align: center;" *ngIf="(cartDetails && cartDetails != (undefined || null) && cartDetails.cart_details && cartDetails.cart_details.length == 0) || cartDetails == {}">No products in the cart.</h4> -->
+			<div class="cart-part" *ngFor="let item of cartDetails.cart_details; let i=index">
+				<div class="cart-part-sec">
+					<!-- <label>
+						<input type="checkbox" name="" />
+						<span class="cart-check"></span>
+					</label> -->
+					<span class="cart-p-img"
+						(click)="productDetails(item.slug,item.id,item.rcat_id,item.scat_id, item.cart_id, item.size)">
+
+						<picture *ngIf="item.image || item.avatar">
+							<source *ngIf="item.avatar?.webpImg" [srcset]="apiUrl + item.avatar?.webpImg"
+								type="image/webp">
+							<img [src]=" (apiUrl + item.image) || (apiUrl+ item.avatar?.fallback)"
+								onerror="this.src='assets/image/no_img.png'" alt="Trade Mark Image">
+						</picture>
+						<!-- <img src="{{apiUrl + item.image}}" alt="" /> -->
+					</span>
+					<div class="cart-part-text">
+						<h3 *ngIf="item?.variations?.length>0"
+							(click)="productDetails(item.slug,item.id,item.rcat_id,item.scat_id, item.cart_id, item.size)">
+							{{ formatNameWithVariants(item.name, item.variations) }}</h3>
+						<h3 *ngIf="item.variations==0"
+							(click)="productDetails(item.slug,item.id,item.rcat_id,item.scat_id, item.cart_id, item.size)">
+							{{item.name}}</h3>
+						<ul>
+							<!-- <li>1 item (100g)</li> -->
+							<!-- <li>Varieties : {{ item.variations?.[0]?.[0]?.attri_name}}</li> -->
+						</ul>
+						<div class="cart-qty">
+							<button *ngIf="item.quantity === 1" (click)="removeFoodFromCart(item)">-</button>
+							<button *ngIf="item.quantity > 1" (click)="changeCart(item, 'decreement')">-</button>
+							<input type="text" [(ngModel)]="cartDetails.cart_details[i].quantity" readonly />
+							<button *ngIf="item.size_status == 1" [disabled]="item.variations.length<0"
+								(click)="changeCart(item,'increement')">+</button>
+							<button *ngIf="item.size_status == 2" [disabled]="item.no_size == 0"
+								(click)="changeCart(item,'increement')">+</button>
+						</div>
+					</div>
+					<div class="cart-p-c">
+						<p>SKU {{(item.variations && item.variations[0][0].sku ? item.variations[0][0].sku : item &&
+							item.sku ? item.sku : '-')}}</p>
+						<b>{{currency_symbol ? currency_symbol : '₹'}} {{item.price * item.quantity}}</b>
+					</div>
+				</div>
+				<div class="cart-wishlist-line">
+					<a (click)="addFavourite(item.id,item.variations[0][0].chaild_id)">
+					<!-- <a (click)="addFavourite(item.id, loginPopup)"> -->
+
+						<i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+						<i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+					</a>
+					<button (click)="removeFoodFromCart(item)"><img src="../../../assets/image/pillais/trash.png"
+							alt="" /></button>
+				</div>
+			</div>
+			<button class="add_more_items" *ngIf="cartDetails?.cart_details?.length > 0" (click)="shopUrl()">Add More
+				Items</button>
+		</div>
+		<div class="cart-right"
+			*ngIf="!loading && cartDetails && cartDetails.cart_details && cartDetails.cart_details.length > 0">
+			<h2>Shopping summary</h2>
+			<div class="cary-summery">
+				<h6>Price Details</h6>
+				<ul>
+					<div class="info-cart-box" *ngFor="let food of cartDetails.cart_details">
+						<span><img width="100%" [src]="apiUrl+food.image" alt="" /><i>{{food.net_quantity}}
+							</i></span>
+						<div class="cart_name_price">
+							<div class="info-cart-name">
+								<p>{{food.name}} ({{food.quantity}} {{(food.quantity == 1) ? "Item" : "Items"}})
+									{{food.variations[0][0].chaild_name}}
+								</p>
+							</div>
+							<div class="info-cart-price">
+								<span class="total-price">
+									{{ currency_symbol ? currency_symbol : "₹" }}{{ food.quantity * food.price
+									}}
+								</span>
+								<span class="saved-text">
+									( Saved: ₹ {{ food.mtotal - (food.price * food.quantity) }} )
+								</span>
+							</div>
+						</div>
+					</div>
+					<p class="you_save_cs" style="color: rgba(71, 111, 0, 1);">
+						You will save {{ currency_symbol ? currency_symbol : "₹" }}{{totalMtotal | async }} on
+						this order
+					</p>
+					<li>
+						Subtotal ({{cartDetails.cart_details && cartDetails.cart_details.length ?
+						cartDetails.cart_details.length : 0}} items)
+						<span>{{currency_symbol ?currency_symbol : "₹"}}{{cartDetails.sub_total |
+							number:'1.2-2'}}</span>
+					</li>
+					<li>
+						Tax
+						<span>{{currency_symbol ?currency_symbol : "₹"}}{{ (totalTax.toFixed(2) ? totalTax.toFixed(2) : 0)
+							}}</span>
+					</li>
+					<li class="total">
+						Total
+						<span>{{currency_symbol ?currency_symbol : "₹"}} {{(cartDetails.sub_total + totalTax) |
+							number:'1.2-2'}}</span>
+					</li>
+				</ul>
+
+				<button class="buy-now" (click)="placeOrder(loginPopup)">Buy Now</button>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<!-- <section class="wishlist mt-4" *ngIf="favoritList && favoritList.length > 0">
+	<div class="container">
+		<h2>Favourites</h2>
+		<div class="wishlist-parts">
+			<h4 *ngIf="favoritList && favoritList.length == 0">No products in the wishlist.
+			</h4>
+			<div *ngIf="favoritList && favoritList.length>0">
+				<div class="cart-part" *ngFor="let item of favoritList">
+					<div class="cart-part-sec">
+						<span class="cart-p-img"
+							(click)="productDetailwish(item.product.slug,item.product._id, item.product.rcategory, item.product.scategory)"><img
+								src="{{item.product.avatar}}" alt="" /></span>
+						<div class="cart-part-text">
+							<h3
+								(click)="productDetailwish(item.product.slug,item.product._id, item.product.rcategory, item.product.scategory)">
+								{{item.product.name}}</h3>
+							<ul>
+								<li class="veriant">SKU {{item.product.sku}}</li>
+							</ul>
+							<div class="move-to-cart">
+								<button *ngIf="cart_details.indexOf(item.product['_id']) == -1"
+									(click)="addToCart(item.product)">Move to Cart</button>
+								<br>
+								<p *ngIf="cart_details.indexOf(item.product['_id'])!=-1">Already Added in cart
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="cart-wishlist-line">
+						<button (click)="singleDelete(item._id)"><img src="../../../assets/image/pillais/trash.png"
+								alt="" /></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section> -->
+<ng-template #loginPopup>
+	<app-login [modalRef]="modalRef"> </app-login>
+</ng-template>

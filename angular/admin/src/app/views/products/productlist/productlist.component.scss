@@ -1,0 +1,125 @@
+::ng-deep th.ng2-smart-th.avatar {
+  width: auto;
+  height: auto;
+  display: block;
+  border-radius: 0 !important;
+}
+
+::ng-deep .product-product_list .container {
+  position: relative;
+  .bulk_upload {
+    position: absolute;
+    right: 250px;
+    z-index: 2;
+  }
+}
+.bulk_uploded_modal {
+  max-width: 900px;
+  width: 100%;
+  margin: 0;
+  h4 {
+    font-size: 20px;
+    font-weight: 800;
+  }
+  .btn-close {
+    border: none;
+    border-radius: 50px;
+    padding: 3px 10px;
+    position: absolute;
+    right: -15px;
+    top: -15px;
+  }
+  .modal-body {
+    form {
+      .form-group {
+        input {
+          padding: 0;
+          &::-webkit-file-upload-button {
+            height: 33px;
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}
+::ng-deep .product-product_list .customtable-design table {
+  thead tr {
+    th {
+      border: none;
+    }
+
+    th:nth-child(3) {
+      text-align: left;
+    }
+  }
+
+  tbody tr {
+    td {
+      vertical-align: middle;
+    }
+
+    td:nth-child(7) span {
+      font-size: 12px;
+    }
+
+    td:nth-child(4) {
+      font-weight: 700;
+    }
+
+    td:nth-child(2) img {
+      background: rgba(204, 204, 204, 0.3019607843);
+      padding: 3px;
+      border-radius: 3px;
+      height: 50px;
+      width: 50px;
+    }
+
+    td:nth-child(3) {
+      text-align: left;
+    }
+
+    .pdt_list_name {
+      color: #252f4a;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .pdt_list_details {
+      color: #99a1b7;
+      font-weight: 600;
+      font-size: 13px;
+    }
+  }
+}
+
+::ng-deep .search-input-tag {
+  input {
+    width: 80%;
+  }
+}
+
+::ng-deep .search-input-tag {
+  form {
+    input {
+      border: 1px solid #e4e7ea !important;
+      position: relative;
+      // left: -40px;
+    }
+    img {
+      // left: -26px !important;
+      z-index: 1;
+    }
+  }
+}
+::ng-deep .product_list_only .adds-heading {
+  right: -15px !important;
+  top: 53px !important;
+}
+::ng-deep .product_list_only .full_page_title {
+  margin-bottom: 24px;
+}
+::ng-deep .product_list_only .search-input-tag {
+  position: absolute;
+  right: 80px;
+}

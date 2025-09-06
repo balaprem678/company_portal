@@ -1,0 +1,856 @@
+<div class="setting_social_network margin_top">
+    <div class="container">
+        <div class="full_page_title">
+            <strong> Social Networks</strong>
+        </div>
+        <form #socialNetSettingForm="ngForm" (ngSubmit)="onFormSubmit(socialNetSettingForm)" autocomplete="off">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="facebook">
+                        <h5>Facebook</h5>
+                        <div class="group-control">
+                            <label for="Facebookname">Name <span class="mandatory">*</span> </label>
+                            <input type="text" id="Facebookname" ngModel name="Facebookname" #Facebookname="ngModel"
+                                class="form-control" placeholder="Faceboook">
+
+                        </div>
+
+                        <div class="group-control">
+                            <label for="Facebookurl">URL <span class="mandatory">*</span> </label>
+                            <input type="text" id="Facebookurl" ngModel name="Facebookurl" #Facebookurl="ngModel"
+                                class="form-control" placeholder="Facebook Url">
+
+                        </div>
+                        <div class="group-control">
+                            <label for="Facebookstatus">Status <span class="mandatory">*</span></label>
+
+                            <ng-select class="form-control custom-ng-select" #Facebookstatus="ngModel" ngModel
+                                [items]="facebookStatusOptions" bindLabel="label" bindValue="value"
+                                [placeholder]="'Select Status'" [style.border-radius.px]="dropdownBorderRadius"
+                                [disabled]="disableView">
+                                <ng-template ng-option-tmp let-item="item">
+                                    <span>{{ item.label }}</span>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="facebook_icon">
+                        <label for="Facebookicon">Facebook Icon <span class="mandatory">*</span> </label>
+                        <div class="pencil_icon">
+
+                            <div class="pencil">
+                                <input type="file" name="Facebookicon" id="Facebookicon"
+                                    (change)="filechange($event,'facebook_icon',1)"
+                                    class="input_choose_file  form-control" accept="image/*" ngModel name="Facebookicon"
+                                    #Facebookicon="ngModel">
+                            </div>
+                            <div class="preview">
+                                <img class="profile-pic" [src]="previewfacebookicon">
+                            </div>
+                            <div class="img_center_call">
+                                <img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+                        </div>
+
+                        <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                            *.png, *.jpg and *.jpeg image files are
+                            accepted</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 mt-4">
+                    <div class="twitter">
+                        <h5>Twitter</h5>
+                        <div class="group-control">
+                            <label for="Twittername">Name <span class="mandatory">*</span> </label>
+                            <input type="text" id="Twittername" ngModel name="Twittername" #Twittername="ngModel"
+                                class="form-control" placeholder="Tiktok">
+
+                        </div>
+                        <div class="group-control">
+                            <label for="Twitterurl">URL <span class="mandatory">*</span> </label>
+                            <input type="text" id="Twitterurl" ngModel name="Twitterurl" #Twitterurl="ngModel"
+                                class="form-control" placeholder="Tiktok Url">
+
+                        </div>
+                        <div class="group-control">
+                            <label for="Twitterstatus">Status <span class="mandatory">*</span></label>
+
+                            <ng-select class="form-control custom-ng-select" #Twitterstatus="ngModel" ngModel
+                                [items]="twitterStatusOptions" bindLabel="label" bindValue="value"
+                                placeholder="Select Status" [style.border-radius.px]="dropdownBorderRadius"
+                                [disabled]="disableView">
+                            </ng-select>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4">
+                    <div class="twitter_icon">
+                        <label for="Twittericon">Twitter Icon <span class="mandatory">*</span> </label>
+                        <div class="pencil_icon">
+                            <div class="pencil">
+                                <input type="file" name="Twittericon" id="Twittericon"
+                                    (change)="filechange($event,'twitter_icon',1)"
+                                    class="input_choose_file form-control" accept="image/*" ngModel name="Twittericon"
+                                    #Twittericon="ngModel">
+                            </div>
+                            <div class="preview">
+                                <img class="profile-pic" [src]="previewtwittericon">
+                            </div>
+                            <div class="img_center_call">
+                                <img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+
+                        </div>
+                        <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                            *.png, *.jpg and *.jpeg image files are
+                            accepted</p>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-8 mt-4">
+                    <div class="instagram">
+                        <h5>Instagram</h5>
+                        <div class="group-control">
+                            <label for="Instagramname">Name <span class="mandatory">*</span> </label>
+                            <input type="text" id="Instagramname" ngModel name="Instagramname" #Instagramname="ngModel"
+                                class="form-control" placeholder="Instagram">
+                            <div *ngIf="socialNetSettingForm.submitted && !Instagramname.valid">
+                                <div class="invalid-feedback" *ngIf="Instagramname.errors.required">Name is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group-control">
+                            <label for="Instagramurl">URL <span class="mandatory">*</span> </label>
+                            <input type="text" id="Instagramurl" ngModel name="Instagramurl" #Instagramurl="ngModel"
+                                class="form-control" placeholder="Instagram Url">
+                            <div *ngIf="socialNetSettingForm.submitted && !Instagramurl.valid">
+                                <div class="invalid-feedback" *ngIf="Instagramurl.errors.required">URL is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group-control">
+                            <label for="Instagramstatus">Status <span class="mandatory">*</span></label>
+
+
+                            <ng-select class="form-control custom-ng-select" #Instagramstatus="ngModel" ngModel
+                                [items]="instagramStatusOptions" bindLabel="label" bindValue="value"
+                                placeholder="Select Status" [style.border-radius.px]="dropdownBorderRadius"
+                                [disabled]="disableView">
+                            </ng-select>
+                            <div *ngIf="socialNetSettingForm.submitted && !Instagramstatus.valid">
+                                <div class="invalid-feedback" *ngIf="Instagramstatus.errors.required">Status is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4">
+                    <div class="instagram_icon">
+                        <label for="Instagramicon">Icon <span class="mandatory">*</span> </label>
+
+                        <div class="pencil_icon">
+                            <div class="pencil">
+                                <input type="file" name="Instagramicon" id="Instagramicon"
+                                    (change)="filechange($event,'Instagram_icon',1)"
+                                    class="input_choose_file form-control" accept="image/*" ngModel name="Instagramicon"
+                                    #Instagramicon="ngModel">
+                            </div>
+                            <div class="preview">
+                                <img class="profile-pic" [src]="previewInstagramicon">
+                            </div>
+                            <div class="img_center_call">
+                                <img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+
+                        </div>
+                        <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                            *.png, *.jpg and *.jpeg image files are
+                            accepted</p>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12 mt-4">
+                    <div class="facebook_api">
+                        <h5>Facebook API</h5>
+                        <div class="group-control">
+                            <label for="facebookapplicationid">Application ID <span class="mandatory">*</span>
+                            </label>
+                            <input type="text" id="facebookapplicationid" ngModel name="facebookapplicationid"
+                                #facebookapplicationid="ngModel" class="form-control" placeholder="Application ID">
+                            <!-- <div *ngIf="socialNetSettingForm.submitted && !facebookapplicationid.valid">
+                                    <div class="invalid-feedback" *ngIf="facebookapplicationid.errors.required">Application ID is required.
+                                    </div>
+                                </div> -->
+                        </div>
+                        <div class="group-control">
+                            <label for="facebookapplicationsecret">Application Secret <span class="mandatory">*</span>
+                            </label>
+                            <input type="text" id="facebookapplicationsecret" ngModel name="facebookapplicationsecret"
+                                #facebookapplicationsecret="ngModel" class="form-control"
+                                placeholder="Application Secret">
+
+                        </div>
+                        <div class="group-control">
+                            <label for="facebookcallback">Callback <span class="mandatory">*</span> </label>
+                            <input type="text" id="facebookcallback" ngModel name="facebookcallback"
+                                #facebookcallback="ngModel" class="form-control" placeholder="Callback">
+                            <div *ngIf="socialNetSettingForm.submitted && !facebookcallback.valid">
+                                <div class="invalid-feedback" *ngIf="facebookcallback.errors.required">Callback
+                                    is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 mt-4">
+                    <div class="google_api">
+                        <h5>Google API</h5>
+                        <div class="group-control">
+                            <label for="googleclientid">Client ID <span class="mandatory">*</span> </label>
+                            <input type="text" id="googleclientid" ngModel name="googleclientid"
+                                #googleclientid="ngModel" class="form-control" placeholder="Client Key">
+                            <!-- <div *ngIf="socialNetSettingForm.submitted && !googleclientid.valid">
+                                <div class="invalid-feedback" *ngIf="googleclientid.errors.required">Client ID is required.
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="group-control">
+                            <label for="googlesecretkey"> Secret Key <span class="mandatory">*</span> </label>
+                            <input type="text" id="googlesecretkey" ngModel name="googlesecretkey"
+                                #googlesecretkey="ngModel" class="form-control" placeholder="Secret Key">
+                            <!-- <div *ngIf="socialNetSettingForm.submitted && !googlesecretkey.valid">
+                                <div class="invalid-feedback" *ngIf="googlesecretkey.errors.required">Secret Key is required.
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="group-control">
+                            <label for="googlecallback">Callback <span class="mandatory">*</span> </label>
+                            <input type="text" id="googlecallback" ngModel name="googlecallback"
+                                #googlecallback="ngModel" class="form-control" placeholder="Callback">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 mt-4">
+                    <div class="google__map_api_keys">
+                        <h5>Google Map API Keys</h5>
+                        <div class="group-control">
+                            <label for="mapwebsitkey">Website Key <span class="mandatory">*</span> </label>
+                            <input type="text" id="mapwebsitkey" ngModel name="mapwebsitkey" #mapwebsitkey="ngModel"
+                                class="form-control" placeholder="Website Key">
+                            <!-- <div *ngIf="socialNetSettingForm.submitted && !mapwebsitkey.valid">
+                                <div class="invalid-feedback" *ngIf="mapwebsitkey.errors.required">Websit Key is required.
+                                </div>
+                            </div> -->
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card_footer_btn">
+                        <button type="submit" class="btn btn-sm " [disabled]="submitebtn">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- <div class="card-body">
+                        <h5>LinkedIn</h5>
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="LinkedInname">Name <span class="mandatory">*</span> </label>
+                                    <input type="text" id="LinkedInname" ngModel name="LinkedInname" #LinkedInname="ngModel" class="form-control" placeholder="LinkedIn">
+                                    <div *ngIf="socialNetSettingForm.submitted && !LinkedInname.valid">
+                                        <div class="invalid-feedback" *ngIf="LinkedInname.errors.required">Name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="LinkedInurl">URL <span class="mandatory">*</span> </label>
+                                    <input type="text" id="LinkedInurl" ngModel name="LinkedInurl" #LinkedInurl="ngModel" class="form-control" placeholder="LinkedIn Url">
+                                    <div *ngIf="socialNetSettingForm.submitted && !LinkedInurl.valid">
+                                        <div class="invalid-feedback" *ngIf="LinkedInurl.errors.required">URL is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="LinkedInicon">Icon <span class="mandatory">*</span> </label>
+                                    <input type="file" name="LinkedInicon" id="LinkedInicon" (change)="filechange($event,'LinkedIn_icon',1)" class="form-control" accept="image/*" ngModel name="LinkedInicon" #LinkedInicon="ngModel">
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewlinkedinicon">
+                                    </div>
+                                    <div *ngIf="socialNetSettingForm.submitted && !LinkedInicon.valid">
+                                        <div class="invalid-feedback" *ngIf="LinkedInicon.errors.required">
+                                            Icon is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="LinkedInstatus">Status <span class="mandatory">*</span></label>
+                                    <select name="LinkedInstatus" id="LinkedInstatus" class="form-control" ngModel name="LinkedInstatus" #LinkedInstatus="ngModel">
+                                        <option value="1" >Publish</option>
+                                        <option value='2'>UnPublish</option>
+                                    </select>
+                                    <div *ngIf="socialNetSettingForm.submitted && !LinkedInstatus.valid">
+                                        <div class="invalid-feedback" *ngIf="LinkedInstatus.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+<!-- <br> -->
+<!-- <div class="card-body">
+                        <h5>Pinterest</h5>
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Pinterestname">Name <span class="mandatory">*</span> </label>
+                                    <input type="text" id="Pinterestname" ngModel name="Pinterestname" #Pinterestname="ngModel" class="form-control" placeholder="Pinterest">
+                                    <div *ngIf="socialNetSettingForm.submitted && !Pinterestname.valid">
+                                        <div class="invalid-feedback" *ngIf="Pinterestname.errors.required">Name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Pinteresturl">URL <span class="mandatory">*</span> </label>
+                                    <input type="text" id="Pinteresturl" ngModel name="Pinteresturl" #Pinteresturl="ngModel" class="form-control" placeholder="Pinterest Url">
+                                    <div *ngIf="socialNetSettingForm.submitted && !Pinteresturl.valid">
+                                        <div class="invalid-feedback" *ngIf="Pinteresturl.errors.required">URL is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Pinteresticon">Icon <span class="mandatory">*</span> </label>
+                                    <input type="file" name="Pinteresticon" id="Pinteresticon" (change)="filechange($event,'Pinterest_icon',1)" class="form-control" accept="image/*" ngModel name="Pinteresticon" #Pinteresticon="ngModel">
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewpinteresticon">
+                                    </div>
+                                    <div *ngIf="socialNetSettingForm.submitted && !Pinteresticon.valid">
+                                        <div class="invalid-feedback" *ngIf="Pinteresticon.errors.required">
+                                            Icon is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Pintereststatus">Status <span class="mandatory">*</span></label>
+                                    <select name="Pintereststatus" id="Pintereststatus" class="form-control" ngModel name="Pintereststatus" #Pintereststatus="ngModel">
+                                        <option value="1" >Publish</option>
+                                        <option value='2'>UnPublish</option>
+                                    </select>
+                                    <div *ngIf="socialNetSettingForm.submitted && !Pintereststatus.valid">
+                                        <div class="invalid-feedback" *ngIf="Pintereststatus.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+<!-- <div class="card-body">
+                        <h5>Youtube</h5>
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Youtubename">Name <span class="mandatory">*</span> </label>
+                                    <input type="text" id="Youtubename" ngModel name="Youtubename" #Youtubename="ngModel" class="form-control" placeholder="Youtube">
+                                    <div *ngIf="socialNetSettingForm.submitted && !Youtubename.valid">
+                                        <div class="invalid-feedback" *ngIf="Youtubename.errors.required">Name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Youtubeurl">URL <span class="mandatory">*</span> </label>
+                                    <input type="text" id="Youtubeurl" ngModel name="Youtubeurl" #Youtubeurl="ngModel" class="form-control" placeholder="Youtube Url">
+                                    <div *ngIf="socialNetSettingForm.submitted && !Youtubeurl.valid">
+                                        <div class="invalid-feedback" *ngIf="Youtubeurl.errors.required">URL is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Youtubeicon">Icon <span class="mandatory">*</span> </label>
+                                    <input type="file" name="Youtubeicon" id="Youtubeicon" (change)="filechange($event,'Youtube_icon',1)" class="form-control" accept="image/*" ngModel name="Youtubeicon" #Youtubeicon="ngModel">
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewyoutubeicon">
+                                    </div>
+                                    <div *ngIf="socialNetSettingForm.submitted && !Youtubeicon.valid">
+                                        <div class="invalid-feedback" *ngIf="Youtubeicon.errors.required">
+                                            Icon is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Youtubestatus">Status <span class="mandatory">*</span></label>
+                                    <select name="Youtubestatus" id="Youtubestatus" class="form-control" ngModel name="Youtubestatus" #Youtubestatus="ngModel">
+                                        <option value="1" >Publish</option>
+                                        <option value='2'>UnPublish</option>
+                                    </select>
+                                    <div *ngIf="socialNetSettingForm.submitted && !Youtubestatus.valid">
+                                        <div class="invalid-feedback" *ngIf="Youtubestatus.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+<!-- <br>
+                    <div class="card-body">
+                        <h5>Google+</h5>
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Google_plusname">Name <span class="mandatory">*</span> </label>
+                                    <input type="text" id="Google_plusname" ngModel name="Google_plusname" #Google_plusname="ngModel" class="form-control" placeholder="Enter Name">
+                                    <div *ngIf="socialNetSettingForm.submitted && !Google_plusname.valid">
+                                        <div class="invalid-feedback" *ngIf="Google_plusname.errors.required">Name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Google_plusurl">URL <span class="mandatory">*</span> </label>
+                                    <input type="text" id="Google_plusurl" ngModel name="Google_plusurl" #Google_plusurl="ngModel" class="form-control" placeholder="Google_plus Url" [ngClass]="{ 'is-invalid': socialNetSettingForm.submitted && Google_plusurl.errors }">
+                                    <div *ngIf="socialNetSettingForm.submitted && !Google_plusurl.valid">
+                                        <div class="invalid-feedback" *ngIf="Google_plusurl.errors.required">URL is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Google_plusicon">Icon <span class="mandatory">*</span> </label>
+                                    <input type="file" name="Google_plusicon" id="Google_plusicon" (change)="filechange($event,'Google_plus_icon',1)" class="form-control" accept="image/*" ngModel name="Google_plusicon" #Google_plusicon="ngModel">
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewgoogleplusicon">
+                                    </div>
+                                    <div *ngIf="socialNetSettingForm.submitted && !Google_plusicon.valid">
+                                        <div class="invalid-feedback" *ngIf="Google_plusicon.errors.required">
+                                            Icon is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="Google_plusstatus">Status <span class="mandatory">*</span></label>
+                                    <select name="Google_plusstatus" id="Google_plusstatus" class="form-control" ngModel name="Google_plusstatus" #Google_plusstatus="ngModel">
+                                        <option value="1" >Publish</option>
+                                        <option value='2'>UnPublish</option>
+                                    </select>
+                                    <div *ngIf="socialNetSettingForm.submitted && !Google_plusstatus.valid">
+                                        <div class="invalid-feedback" *ngIf="Google_plusstatus.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br> -->
+<!-- <hr>
+                    <div class="card-header">
+                        <h5><i class="fa fa-share-square"></i> Mobile Download URL/Links</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5>Google Play</h5>
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="googleplayname">Name <span class="mandatory">*</span> </label>
+                                    <input type="text" id="googleplayname" ngModel name="googleplayname" #googleplayname="ngModel" class="form-control" placeholder="Enter Name">
+                                    <div *ngIf="socialNetSettingForm.submitted && !googleplayname.valid">
+                                        <div class="invalid-feedback" *ngIf="googleplayname.errors.required">Name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control" *ngFor="let item of googleurl; let i=index">
+                                    <label for="{{item.name}}url">{{item.name}}  URL </label>
+                                    <input type="text" name="google_{{item.name}}" [(ngModel)]="googleurl[i].url" class="form-control" placeholder="{{item.name}} Url">
+                                    <div *ngIf="socialNetSettingForm.submitted && !Google_plusurl.valid">
+                                        <div class="invalid-feedback" *ngIf="Google_plusurl.errors.required">URL is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="googleplayicon">Icon <span class="mandatory">*</span> </label>
+                                    <input type="file" name="googleplayicon" id="googleplayicon" (change)="filechange($event,'googleplayicon',2)" class="form-control" accept="image/*" ngModel name="googleplayicon" #googleplayicon="ngModel">
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewgoogleplayicon">
+                                    </div>
+                                    <div *ngIf="socialNetSettingForm.submitted && !googleplayicon.valid">
+                                        <div class="invalid-feedback" *ngIf="googleplayicon.errors.required">
+                                            Icon is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="googleplaylandingicon">Landing Icon <span class="mandatory">*</span> </label>
+                                    <input type="file" name="googleplaylandingicon" id="googleplaylandingicon" (change)="filechange($event,'googleplaylandingicon',2)" class="form-control" accept="image/*" ngModel name="googleplaylandingicon" #googleplaylandingicon="ngModel">
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewgoogleplaylandingicon">
+                                    </div>
+                                    <div *ngIf="socialNetSettingForm.submitted && !googleplaylandingicon.valid">
+                                        <div class="invalid-feedback" *ngIf="googleplaylandingicon.errors.required">
+                                            Landing Icon is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="googleplaycommingsoonicon">Comming Soon Icon <span class="mandatory">*</span> </label>
+                                    <input type="file" name="googleplaycommingsoonicon" id="googleplaycommingsoonicon" (change)="filechange($event,'googleplaycommingsoonicon',2)" class="form-control" accept="image/*" ngModel name="googleplaycommingsoonicon" #googleplaycommingsoonicon="ngModel">
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewgoogleplaycommingsoonicon">
+                                    </div>
+                                    <div *ngIf="socialNetSettingForm.submitted && !googleplaycommingsoonicon.valid">
+                                        <div class="invalid-feedback" *ngIf="googleplaycommingsoonicon.errors.required">
+                                            Comming Soon Icon is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="googleplaystatus">Status <span class="mandatory">*</span></label>
+                                    <select name="googleplaystatus" id="googleplaystatus" class="form-control" ngModel name="googleplaystatus" #googleplaystatus="ngModel">
+                                        <option value="1" >Publish</option>
+                                        <option value='2'>UnPublish</option>
+                                    </select>
+                                    <div *ngIf="socialNetSettingForm.submitted && !googleplaystatus.valid">
+                                        <div class="invalid-feedback" *ngIf="googleplaystatus.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card-body">
+                        <h5>App Store</h5>
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="appstorename">Name <span class="mandatory">*</span> </label>
+                                    <input type="text" id="appstorename" ngModel name="appstorename" #appstorename="ngModel" class="form-control" placeholder="Enter Name">
+                                    <div *ngIf="socialNetSettingForm.submitted && !appstorename.valid">
+                                        <div class="invalid-feedback" *ngIf="appstorename.errors.required">Name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control" *ngFor="let item of appurl; let i=index">
+                                    <label for="{{item.name}}url">{{item.name}}  URL </label>
+                                    <input type="text" name="app_{{item.name}}" [(ngModel)]="item.url" class="form-control" placeholder="{{item.name}} Url">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="appstoreicon">Icon <span class="mandatory">*</span> </label>
+                                    <input type="file" name="appstoreicon" id="appstoreicon" (change)="filechange($event,'appstoreicon',2)" class="form-control" accept="image/*" ngModel name="appstoreicon" #appstoreicon="ngModel">
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewappstoreicon">
+                                    </div>
+                                    <div *ngIf="socialNetSettingForm.submitted && !appstoreicon.valid">
+                                        <div class="invalid-feedback" *ngIf="appstoreicon.errors.required">
+                                            Icon is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="appstorelandingicon">Landing Icon <span class="mandatory">*</span> </label>
+                                    <input type="file" name="appstorelandingicon" id="appstorelandingicon" (change)="filechange($event,'appstorelandingicon',2)" class="form-control" accept="image/*" ngModel name="appstorelandingicon" #appstorelandingicon="ngModel">
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewappstorelandingicon">
+                                    </div>
+                                    <div *ngIf="socialNetSettingForm.submitted && !appstorelandingicon.valid">
+                                        <div class="invalid-feedback" *ngIf="appstorelandingicon.errors.required">
+                                            Landing Icon is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="appstorecommingsoonicon">Comming Soon Icon <span class="mandatory">*</span> </label>
+                                    <input type="file" name="appstorecommingsoonicon" id="appstorecommingsoonicon" (change)="filechange($event,'appstorecommingsoonicon',2)" class="form-control" accept="image/*" ngModel name="appstorecommingsoonicon" #appstorecommingsoonicon="ngModel">
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewappstorecommingsoonicon">
+                                    </div>
+                                    <div *ngIf="socialNetSettingForm.submitted && !appstorecommingsoonicon.valid">
+                                        <div class="invalid-feedback" *ngIf="appstorecommingsoonicon.errors.required">
+                                            Comming Soon Icon is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="appstorestatus">Status <span class="mandatory">*</span></label>
+                                    <select name="appstorestatus" id="appstorestatus" class="form-control" ngModel name="appstorestatus" #appstorestatus="ngModel">
+                                        <option value="1" >Publish</option>
+                                        <option value='2'>UnPublish</option>
+                                    </select>
+
+                                    <div *ngIf="socialNetSettingForm.submitted && !appstorestatus.valid">
+                                        <div class="invalid-feedback" *ngIf="appstorestatus.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br> -->
+<!-- <hr> -->
+
+
+
+
+<!-- <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="mapandroiduserkey"> Android User Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="mapandroiduserkey" ngModel name="mapandroiduserkey" #mapandroiduserkey="ngModel" class="form-control" placeholder="Android User Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !mapandroiduserkey.valid">
+                                        <div class="invalid-feedback" *ngIf="mapandroiduserkey.errors.required">Android User Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="mapandroidoutletkey">Android Outlet Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="mapandroidoutletkey" ngModel name="mapandroidoutletkey" #mapandroidoutletkey="ngModel" class="form-control" placeholder="Android Outlet Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !mapandroidoutletkey.valid">
+                                        <div class="invalid-feedback" *ngIf="mapandroidoutletkey.errors.required">Android Outlet Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="mapandroiddriverkey">Android Driver Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="mapandroiddriverkey" ngModel name="mapandroiddriverkey" #mapandroiddriverkey="ngModel" class="form-control" placeholder="Android Driver Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !mapandroiddriverkey.valid">
+                                        <div class="invalid-feedback" *ngIf="mapandroiddriverkey.errors.required">Android Driver Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="mapiosuserkey"> IOS User Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="mapiosuserkey" ngModel name="mapiosuserkey" #mapiosuserkey="ngModel" class="form-control" placeholder="IOS User Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !mapiosuserkey.valid">
+                                        <div class="invalid-feedback" *ngIf="mapiosuserkey.errors.required">IOS User Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="mapiosoutletkey">IOS Outlet Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="mapiosoutletkey" ngModel name="mapiosoutletkey" #mapiosoutletkey="ngModel" class="form-control" placeholder="IOS Driver Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !mapiosoutletkey.valid">
+                                        <div class="invalid-feedback" *ngIf="mapiosoutletkey.errors.required">IOS Outlet Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="mapiosdriverkey">IOS Driver Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="mapiosdriverkey" ngModel name="mapiosdriverkey" #mapiosdriverkey="ngModel" class="form-control" placeholder="IOS Driver Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !mapiosdriverkey.valid">
+                                        <div class="invalid-feedback" *ngIf="mapiosdriverkey.errors.required">IOS Driver Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+<!-- <br>
+                    <hr>
+                    <div class="card-body">
+                        <h5>Android FCM Keys</h5>
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="androiduserkey">User Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="androiduserkey" ngModel name="androiduserkey" #androiduserkey="ngModel" class="form-control" placeholder="User Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !androiduserkey.valid">
+                                        <div class="invalid-feedback" *ngIf="androiduserkey.errors.required">User Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="androidoutletkey"> Outlet Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="androidoutletkey" ngModel name="androidoutletkey" #androidoutletkey="ngModel" class="form-control" placeholder="Outlet Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !androidoutletkey.valid">
+                                        <div class="invalid-feedback" *ngIf="androidoutletkey.errors.required">Outlet Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="androiddriverkey">Driver Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="androiddriverkey" ngModel name="androiddriverkey" #androiddriverkey="ngModel" class="form-control" placeholder="Driver Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !androiddriverkey.valid">
+                                        <div class="invalid-feedback" *ngIf="androiddriverkey.errors.required">Driver Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <hr> -->
+<!-- <div class="card-body">
+                        <h5>IOS FCM Keys</h5>
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="iosuserkey">User Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="iosuserkey" ngModel name="iosuserkey" #iosuserkey="ngModel" class="form-control" placeholder="User Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !iosuserkey.valid">
+                                        <div class="invalid-feedback" *ngIf="iosuserkey.errors.required">User Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="iosoutletkey"> Outlet Key  <span class="mandatory">*</span> </label>
+                                    <input type="text" id="iosoutletkey" ngModel name="iosoutletkey" #iosoutletkey="ngModel" class="form-control" placeholder="Outlet Key">
+                                    <div *ngIf="socialNetSettingForm.submitted && !iosoutletkey.valid">
+                                        <div class="invalid-feedback" *ngIf="iosoutletkey.errors.required">Outlet Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="group-control">
+                                    <label for="iosdriverkey">Driver Key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="iosdriverkey" ngModel name="iosdriverkey" #iosdriverkey="ngModel" class="form-control" placeholder="Driver Key ">
+                                    <div *ngIf="socialNetSettingForm.submitted && !iosdriverkey.valid">
+                                        <div class="invalid-feedback" *ngIf="iosdriverkey.errors.required">Driver Key is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+<!-- facebook -->
+<!-- <div *ngIf="socialNetSettingForm.submitted && !Facebookname.valid">
+                                <div class="invalid-feedback" *ngIf="Facebookname.errors.required">Name is required.
+                                </div>
+                            </div> -->
+
+<!-- <div *ngIf="socialNetSettingForm.submitted && !Facebookurl.valid">
+                                <div class="invalid-feedback" *ngIf="Facebookurl.errors.required">URL is required.
+                                </div>
+                            </div> -->
+
+<!-- <select name="Facebookstatus" id="Facebookstatus" class="form-control" ngModel
+                                name="Facebookstatus" #Facebookstatus="ngModel">
+                                <option value="1">Publish</option>
+                                <option value='2'>UnPublish</option>
+                            </select> -->
+<!-- <div *ngIf="socialNetSettingForm.submitted && !Facebookicon.valid">
+                            <div class="invalid-feedback" *ngIf="Facebookicon.errors.required">
+                                Icon is required.
+                            </div>
+                        </div> -->
+
+<!-- Whatsapp -->
+
+<!-- <div *ngIf="socialNetSettingForm.submitted && !Twittername.valid">
+                                <div class="invalid-feedback" *ngIf="Twittername.errors.required">Name is required.
+                                </div>
+                            </div> -->
+<!-- <div *ngIf="socialNetSettingForm.submitted && !Twitterurl.valid">
+                                <div class="invalid-feedback" *ngIf="Twitterurl.errors.required">URL is required.
+                                </div>
+                            </div> -->
+<!-- <select name="Twitterstatus" id="Twitterstatus" class="form-control" ngModel
+                                name="Twitterstatus" #Twitterstatus="ngModel">
+                                <option value="1">Publish</option>
+                                <option value='2'>UnPublish</option>
+                            </select> -->
+<!-- <div *ngIf="socialNetSettingForm.submitted && !Twitterstatus.valid">
+                                <div class="invalid-feedback" *ngIf="Twitterstatus.errors.required">Status is required.
+                                </div>
+                            </div> -->
+<!-- <div *ngIf="socialNetSettingForm.submitted && !Twittericon.valid">
+                            <div class="invalid-feedback" *ngIf="Twittericon.errors.required">
+                                Icon is required.
+                            </div>
+                        </div> -->
+
+<!-- Instagram -->
+<!-- <select name="Instagramstatus" id="Instagramstatus" class="form-control" ngModel
+                                name="Instagramstatus" #Instagramstatus="ngModel">
+                                <option value="1">Publish</option>
+                                <option value='2'>UnPublish</option>
+                            </select> -->
+
+<!-- <div *ngIf="socialNetSettingForm.submitted && !Instagramicon.valid">
+                            <div class="invalid-feedback" *ngIf="Instagramicon.errors.required">
+                                Icon is required.
+                            </div>
+                        </div> -->
+
+<!-- facebook api -->
+<!-- <div *ngIf="socialNetSettingForm.submitted && !facebookapplicationsecret.valid">
+                                    <div class="invalid-feedback" *ngIf="facebookapplicationsecret.errors.required">Application Secret is required.
+                                    </div>
+                                </div> -->

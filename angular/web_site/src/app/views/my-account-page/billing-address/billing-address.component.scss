@@ -1,0 +1,98 @@
+.billing-adddress-page h2 {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1em;
+  color: #222;
+  text-align: center;
+  font-family: "Signika", Sans-serif;
+}
+
+.bill-forms h3 {
+  color: #0a472e;
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin-bottom: 45px;
+  font-family: "Mulish", sans-serif;
+}
+.bill-forms form {
+  padding: 40px;
+  border: 1px solid #f4f4f4;
+  border-radius: 4px;
+}
+
+.b-group-sec label {
+  width: 100%;
+  color: #222222;
+  font-weight: 500;
+  font-family: "Mulish", sans-serif;
+  font-size: 14px;
+}
+.b-group-sec label span {
+  color: #ff0000;
+}
+.t-bill-group .b-group-sec {
+  width: 50%;
+}
+.b-group-sec input,
+.b-group-sec select {
+  width: 100%;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.5333333333);
+  border: 1px solid #cccccc75;
+  padding: 16px;
+  outline: none;
+  font-family: "Mulish", sans-serif;
+  font-size: 14px;
+  border-radius: 6px;
+}
+.b-group-sec {
+  margin-bottom: 20px;
+}
+.b-group-but button {
+  background: #0a472e;
+  border: none;
+  color: #fff;
+  padding: 8px 38px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.back-dash a {
+  text-decoration: none;
+  font-size: 15px;
+  color: #000000;
+  background: #f4f4f4;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.back-dash {
+  text-align: center;
+  margin: 34px 0 0px 0;
+}
+
+@media screen and (max-width: 991px) {
+  .bill-forms form {
+    padding: 17px;
+  }
+  .t-bill-group {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .t-bill-group .b-group-sec {
+    width: 100%;
+  }
+  .billing-adddress-page h2 {
+    margin-bottom: 2em;
+  }
+}
+.address-form-group {
+  label {
+    display: block;
+  }
+  span {
+    display: inline-flex;
+    gap: 4px;
+    margin-right: 10px;
+  }
+}

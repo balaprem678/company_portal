@@ -1,0 +1,140 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-comment"></i> Appearance Setting
+                </div>
+                <form #appearanceSettingForm="ngForm" (ngSubmit)="onFormSubmit(appearanceSettingForm)"
+                    autocomplete="off">
+                    <div class="card-body">
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-12">
+                                <div class="group-control">
+                                    <label for="adminlogin">Admin Login <span class="mandatory">*</span></label>
+                                    <input type="file" name="adminlogin" id="adminlogin"
+                                        (change)="adminfilechange($event)" class="form-control" accept="image/*" ngModel
+                                        name="adminlogin" #adminlogin="ngModel"
+                                        required="{{adminloginimage ? false : true}}"
+                                        [ngClass]="{ 'is-invalid': appearanceSettingForm.submitted && adminlogin.errors }"
+                                        [ngClass]="{ 'is-valid': !adminlogin.errors && adminlogin.valid && !adminfilesize && !adminfileDimension}">
+                                    <br>
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic"
+                                            [src]="previewadminlogin">
+                                    </div>
+                                    <div>Allowed files: png, jpg. Max file size 5Mb</div>
+                                    <div class="invalid-feedback" *ngIf="adminfilesize">Max file size less than 5Mb.
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="adminfileDimension">Admin Login minimum
+                                        dimension 1366 * 662 in pixels.
+                                    </div>
+                                    <div *ngIf="appearanceSettingForm.submitted && !adminlogin.valid">
+                                        <div class="invalid-feedback" *ngIf="adminlogin.errors.required">Admin Login is
+                                            required.
+                                        </div>
+                                    </div>
+                                    <div class="text-center col-md-10"
+                                        *ngIf="adminloginChangedEvent && adminloginChangedEvent!=''">
+                                        <image-cropper [imageChangedEvent]="adminloginChangedEvent"
+                                            [maintainAspectRatio]="true" [aspectRatio]="6 / 6" format="png"
+                                            (imageCropped)="adminloginCropped($event)">
+                                        </image-cropper>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-12">
+                                <div class="group-control">
+                                    <label for="taskersignup">Restaurant Signup <span class="mandatory">*</span></label>
+                                    <input type="file" name="taskersignup" id="taskersignup" (change)="taskersignupfilechange($event)" class="form-control" accept="image/*" ngModel name="taskersignup" #taskersignup="ngModel" required="{{taskersignupimage ? false : true}}" [ngClass]="{ 'is-invalid': appearanceSettingForm.submitted && taskersignup.errors }"
+                                        [ngClass]="{ 'is-valid': !taskersignup.errors && taskersignup.valid && !taskersignupfilesize && !taskersignupfileDimension}">
+                                    <br>
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewtaskersignup">
+                                    </div>
+                                    <div>Allowed files: png, jpg. Max file size 5mb</div>
+                                    <div class="invalid-feedback" *ngIf="taskersignupfilesize">Max file size less than 5Mb.
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="taskersignupfileDimension">Restaurant Signup minimum dimension 1540 * 400 in pixels.
+                                    </div>
+                                    <div *ngIf="appearanceSettingForm.submitted && !taskersignup.valid">
+                                        <div class="invalid-feedback" *ngIf="taskersignup.errors.required">Restaurant Signup is required.
+                                        </div>
+                                    </div>
+                                    <div class="text-center col-md-10" *ngIf="taskersignupChangedEvent && taskersignupChangedEvent!=''">
+                                        <image-cropper [imageChangedEvent]="taskersignupChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="6 / 6" format="png" (imageCropped)="taskersignupCropped($event)">
+                                        </image-cropper>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="group-control">
+                                    <label for="taskerlogin">Restaurant Login <span class="mandatory">*</span></label>
+                                    <input type="file" name="taskerlogin" id="taskerlogin" (change)="taskerloginfilechange($event)" class="form-control" accept="image/*" ngModel name="taskerlogin" #taskerlogin="ngModel" required="{{taskerloginimage ? false : true}}" [ngClass]="{ 'is-invalid': appearanceSettingForm.submitted && taskerlogin.errors }"
+                                        [ngClass]="{ 'is-valid': !taskerlogin.errors && taskerlogin.valid && !taskerloginfilesize && !taskerloginfileDimension}">
+                                    <br>
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic" [src]="previewtaskerlogin">
+                                    </div>
+                                    <div>Allowed files: png, jpg. Max file size 5Mb</div>
+                                    <div class="invalid-feedback" *ngIf="taskerloginfilesize">Max file size less than 5Mb.
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="taskerloginfileDimension">Restaurant Login minimum dimension 1587 * 500 in pixels.
+                                    </div>
+                                    <div *ngIf="appearanceSettingForm.submitted && !taskerlogin.valid">
+                                        <div class="invalid-feedback" *ngIf="taskerlogin.errors.required">Restaurant Login is required.
+                                        </div>
+                                    </div>
+                                    <div class="text-center col-md-10" *ngIf="taskerloginChangedEvent && taskerloginChangedEvent!=''">
+                                        <image-cropper [imageChangedEvent]="taskerloginChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="6 / 6" format="png" (imageCropped)="taskerloginCropped($event)">
+                                        </image-cropper>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-12">
+                                <div class="group-control">
+                                    <label for="sitelanding">Site Landing <span class="mandatory">*</span></label>
+                                    <input type="file" name="sitelanding" id="sitelanding"
+                                        (change)="sitelandingfilechange($event)" class="form-control" accept="image/*"
+                                        ngModel name="sitelanding" #sitelanding="ngModel"
+                                        required="{{sitelandingimage ? false : true}}"
+                                        [ngClass]="{ 'is-invalid': appearanceSettingForm.submitted && sitelanding.errors }"
+                                        [ngClass]="{ 'is-valid': !sitelanding.errors && sitelanding.valid && !sitelandingfilesize && !sitelandingfileDimension}">
+                                    <br>
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic"
+                                            [src]="previewsitelanding">
+                                    </div>
+                                    <div>Allowed files: png, jpg. Max file size 5Mb</div>
+                                    <div class="invalid-feedback" *ngIf="sitelandingfilesize">Max file size less than
+                                        5Mb.
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="sitelandingfileDimension">Site Landing minimum
+                                        dimension 1349 * 528 in pixels.
+                                    </div>
+                                    <div *ngIf="appearanceSettingForm.submitted && !sitelanding.valid">
+                                        <div class="invalid-feedback" *ngIf="sitelanding.errors.required">Site Landing
+                                            is required.
+                                        </div>
+                                    </div>
+                                    <div class="text-center col-md-10"
+                                        *ngIf="sitelandingChangedEvent && sitelandingChangedEvent!=''">
+                                        <image-cropper [imageChangedEvent]="sitelandingChangedEvent"
+                                            [maintainAspectRatio]="true" [aspectRatio]="6 / 6" format="png"
+                                            (imageCropped)="sitelandingCropped($event)">
+                                        </image-cropper>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-success" [disabled]="submitebtn">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

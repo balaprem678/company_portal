@@ -1,0 +1,8 @@
+<app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit"
+    [tablename]="'Debate List'" [deleteApis]="deleteApis" [export_btn]="export_btn" [filter_action]="filter_action"
+    [user_based_name]="user_based_name" (onDeleteChange)="onDeleteChange($event)" [viewUrl]="viewUrl"
+    [filter_action_list]="filter_action_list" (onitemsPerPageChange)="onitemsPerPageChange($event)"
+    [card_details]="card_details" [bulk_action]="bulk_action" [cardActive]="cardActive"
+    (onPageChange)="onPageChange($event)" (onheaderCardChange)="onheaderCardChange($event)"
+    (onSearchChange)="onSearchChange($event)" (onFilterAction)="onFilterAction($event)">
+</app-common-table>

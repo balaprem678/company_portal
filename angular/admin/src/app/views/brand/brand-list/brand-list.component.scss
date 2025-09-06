@@ -1,0 +1,243 @@
+.container {
+    width: 1170px;
+}
+
+// .row {
+//     margin-right: -15px;
+//     margin-left: -15px;
+// }
+
+.col-md-12 {
+    width: 100%;
+}
+
+.col-lg-3 {
+    width: 25%;
+}
+
+.feature-box-container .card {
+    min-height: 110px;
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    z-index: 9;
+    top: 10px;
+}
+
+.bg-greensea {
+    background-color: #16a085 !important;
+    color: white;
+}
+
+.col-xs-4 {
+    width: 33.33333333%;
+}
+
+.fa-4x {
+    font-size: 4em;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 20px;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.col-xs-8 {
+    width: 66.66666667%;
+}
+
+.feature-box-container .card .front {
+    height: 100%;
+    position: relative;
+    width: 100%;
+    padding: 34px;
+    top: 0;
+    left: 0;
+    z-index: 11;
+}
+
+.bg-lightred {
+    background-color: #e05d6f;
+    color: white;
+}
+
+.bg-blue {
+    background-color: #418bca !important;
+    color: white !important;
+}
+.feature-box-container .ng-star-inserted {
+    display: flex;
+    flex-wrap: wrap;
+}
+.feature-box-container .ng-star-inserted i {
+    margin-right: 40px;
+}
+.feature-box-container .ng-star-inserted a p {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    line-height: normal;
+}
+.feature-box-container span {
+    font-size: 14px !important;
+}
+.feature-box-container .ng-star-inserted a {
+    line-height: normal;
+}
+.feature-box-container i {
+    font-size: 57px !important;
+}
+.feature-box-container .front {
+    padding: 24px 24px !important;
+}
+.user-list {
+    clear: both;
+    padding-top: 60px;
+}
+.user-list .table-extension {
+    width: 100%;
+    padding: 15px;
+    background: #fff;
+    border-radius: 2px;
+    font-size: 14px;
+}
+.user-list table {
+    width: 100% !important;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+.user-list table th {
+    border: none !important;
+    border-bottom: 2px solid #ddd !important;
+    color: #616f77;
+}
+.user-list table tbody {
+    width: 100%;
+}
+.user-list .table-extension h4 {
+    font-size: 20px;
+    color: #616f77;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+}
+.user-list button.send-mail {
+    border-width: 1px;
+    border-style: solid;
+    padding: 4px 16px 4px 10px;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+.user-list button.send-mail i {
+    font-size: 12px !important;
+    margin-right: 10px;
+}
+span.no-record {
+    white-space: nowrap;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+}
+.tle-pagination {
+    clear: both;
+    // background: #e7eaeb;
+    padding: 12px 10px;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.tle-pagination pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+}
+.tle-pagination .col-md-4 {
+    margin-left: auto;
+}
+.tle-pagination .col-md-12 {
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+}
+.tle-pagination select {
+    margin-right: 10px;
+    color: #616f77;
+    border: none;
+    background: #efefef;
+    padding: 6px 14px !important;
+    outline: none;
+}
+.tle-pagination label {
+    color: #616f77;
+    font-weight: normal;
+    margin: 0 12px;
+}
+.tle-pagination pagination ul.pagination {
+    margin: 0;
+}
+.user-list-search {
+    display: flex;
+    justify-content: flex-end;
+}
+.user-list-search input {
+    font-size: 12px;
+    margin-bottom: 10px;
+    font-style: italic;
+    color: #616f77;
+    outline: none !important;
+    box-shadow: none !important;
+}
+table#user-list tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+table#user-list tbody td {
+    border-left: 0;
+    border-right: 0;
+    text-align: left;
+}
+table#user-list tbody td p {
+    font-size: 14px;
+    color: #616f77;
+    word-break: break-all;
+}
+table#user-list tbody td button {
+    padding: 0;
+    border: none;
+    margin: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+table#user-list tbody td button a {
+    font-size: 14px;
+    background: #5bc0de;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+table#user-list tbody tr {
+    display: table-row;
+}
+table#user-list td.ng-star-inserted {
+    display: table-cell;
+}
+
+img {
+    width: 50px;
+}

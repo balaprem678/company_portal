@@ -1,0 +1,157 @@
+<div class="filter_design">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="form-group col-sm-3">
+                <select class="form-control mb-10" *ngIf="cityList" [(ngModel)]="main_city" required>
+                    <option value="">Filter By City</option>
+                    <option *ngFor="let city of cityList" value="{{city.cityname}}">{{city.cityname}}</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-3 btn_submit dnt-sw">
+                <button class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10" style="float: right;"
+                    (click)="getDrivers()">Submit
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="city_page_style">
+    <div class="form-group col-md-12">
+        <section class="tile" fullscreen="isFullscreen07">
+            <div class="tile-header dvd dvd-btm">
+                <h1 class="custom-font">
+                    <strong>Drivers </strong>Statistics
+                </h1>
+            </div>
+            <!--<flot dataset="dataset" options="options" height="250px" class=""></flot>-->
+            <!-- <div id="container" style="height: 400px"></div>-->
+            <div class="tile-body" style="overflow:visible;"></div>
+        </section>
+    </div>
+</div>
+
+
+<div class="chart-wrapper"
+    *ngIf="pieChartData[0] != 0 || pieChartData[1] != 0 || pieChartData[2] != 0 || pieChartData[3] != 0 || pieChartData[4] != 0">
+    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+        [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieColor" [legend]="pieChartLegend">
+    </canvas>
+</div>
+<div style="display: table;height: 400px;width: 100%;"
+    *ngIf="pieChartData[0]==0 && pieChartData[1]==0 && pieChartData[2]==0 && pieChartData[3]==0 && pieChartData[4]==0">
+    <h3 style="display: table-cell; vertical-align: middle;text-align: center">No Drivers Available</h3>
+</div>
+
+
+<div class="col-md-12">
+    <section class="tile toolbr rcnt-tsk" fullscreen="isFullscreen08">
+        <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font">
+                <strong>Top</strong>
+                <strong> Drivers in Rating </strong>
+            </h1>
+        </div>
+        <div class="tile-body p-0">
+            <table class="table" *ngIf="driverData">
+                <thead>
+                    <tr>
+                        <th>Driver Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Rating</th>
+                        <th>No.of Deliveries</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <pre>321654897{{driverData[0]}}</pre> -->
+                    <tr *ngFor="let driver of driverData[0]">
+                        <td>
+                            <a href="#/app/drivers/editdriver/{{driver._id}}">{{driver.username}}</a>
+                        </td>
+                        <!--<td>{{driver._id}}</td>-->
+                        <td>{{driver.email}}</td>
+                        <td>{{driver.phone.code}}-{{driver.phone.number}}</td>
+                        <td class="rating" max="5">{{driver.avg_ratings}}
+                        </td>
+                        <td>{{driver.deliverd}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<div class="col-md-12">
+    <section class="tile toolbr rcnt-tsk" fullscreen="isFullscreen08">
+        <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font">
+                <strong>Top</strong>
+                <strong> Drivers in Delivery </strong>
+            </h1>
+        </div>
+        <div class="tile-body p-0">
+            <table class="table" *ngIf="driverData">
+                <thead>
+                    <tr>
+                        <th>Driver Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Rating</th>
+                        <th>No.of Deliveries</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let driver of driverData[2]">
+                        <!--<td>{{driver.username}}</td>-->
+                        <td>
+                            <a href="#/app/drivers/editdriver/{{driver._id}}">{{driver.username}}</a>
+                        </td>
+                        <td>{{driver.email}}</td>
+                        <td>{{driver.phone.code}}-{{driver.phone.number}}</td>
+                        <td class="rating" max="5">{{driver.avg_ratings}}
+                        </td>
+                        <td>{{driver.deliverd}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<div class="col-md-12">
+    <section class="tile toolbr rcnt-tsk" fullscreen="isFullscreen08">
+        <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font">
+                <strong>Drivers </strong>
+                <strong> in Least Rating </strong>
+            </h1>
+        </div>
+        <div class="tile-body p-0">
+            <table class="table" *ngIf="driverData">
+                <thead>
+                    <tr>
+                        <th>Driver Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Rating</th>
+                        <th>No.of Deliveries</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let driver of driverData[1]">
+                        <!--<td>{{driver.username}}</td>-->
+                        <td>
+                            <a href="#/app/drivers/editdriver/{{driver._id}}">{{driver.username}}</a>
+                        </td>
+                        <td>{{driver.email}}</td>
+                        <td>{{driver.phone.code}}-{{driver.phone.number}}</td>
+                        <td class="rating" max="5">{{driver.avg_ratings}}
+                        </td>
+                        <td>{{driver.deliverd}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

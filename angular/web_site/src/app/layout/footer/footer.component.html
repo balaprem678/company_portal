@@ -1,0 +1,477 @@
+<!-- <div class="footer">
+    <div class="container">
+        <div class="foot-logo col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <img src="{{apiUrl + logo}}" onerror="this.src='assets/image/logo.png'"/>
+            <span [innerHtml]="footer_widgets_1 | safeHtml"></span>
+        </div>
+        <div class="foot-two col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <span [innerHtml]="footer_widgets_2 | safeHtml"></span>
+        </div>
+        <div class="foot-three col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <span [innerHtml]="footer_widgets_3 | safeHtml"></span>
+            <div class="foot-form">
+				<input type="" name="" placeholder="Enter your email to get Special Offers">
+				<i class="fa fa-location-arrow" aria-hidden="true"></i>
+			</div>
+        </div>
+        <div class="foot-four col-md-3 col-lg-3 col-sm-12 col-xs-12">
+            <span [innerHtml]="footer_widgets_4 | safeHtml"></span>
+        </div>
+        <div class="copy-right col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <p>Copyright © {{copyrightYear | date:'yyyy'}} {{settings && settings.site_title}}.</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer_sec">
+    <div class="container">
+        <div class=" footer_one">            <h3>Get in touch</h3>
+            <div class="" style="line-height: 34px;">
+                <a href="mailto:{{settings.email_address}}" target="_blank"><img src="../../../assets/image/mail.png"
+                        width="20" height="20" />{{settings.email_address}}</a><br>              
+                          <a href="https://wa.me/{{settings.phone}}" target="_blank"><img
+                        src="../../../assets/image/new_images/whatsapp.png" />{{settings.phone}}</a><br>
+                <ul class="mt-2">
+                    <li *ngFor="let item of socialLink">
+                        <a href="{{item.url}}" target="_blank"><img src="{{apiUrl + item.img}}"
+                                onerror="this.src='assets/image/new_images/f-facebook.png'" /></a>
+                    </li>                </ul>
+            </div>
+        </div>
+        <div class="">
+            <ul class="m-0 p-0">
+                <h6>Quick Links</h6>
+                <li><a href="">Home</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Contact</a></li>
+                <li><a href="">Corporate Orders</a></li>
+                <li><a href="">Terms &amp; Conditions</a></li>
+                <li><a href="">Privacy Policy</a></li>
+                <li><a href="">Refund Policy</a></li>  
+                      </ul>
+            
+            
+            </div>        <div class="">
+            <ul class="m-0 p-0">
+                <h6>Shops By Categories</h6>
+                <li><a href="">Earbuds cleaning</a></li>
+                <li><a href="">Earbuds Cases</a></li>
+                <li><a href="">Smart Watch</a></li>
+                <li><a href="">Phone Cases</a></li>
+                <li><a href="">Accessories</a></li>
+                <li><a href="">Airpods</a></li>
+                <li><a href="">Bands</a></li>
+            </ul>
+        </div>
+        <div class="">
+            <ul class="m-0 p-0">
+                <h6 class="" style="visibility: hidden;">Shops By</h6>
+                <li><a href="">Wireless Chargers and Powerbanks</a></li>
+                <li><a href="">Cables, Chargers and Adapters</a></li>
+                <li><a href="">Cable Protectors &amp; Winders</a></li>
+                <li><a href="">Mobile Screen Protectors</a></li>
+                <li><a href="">Tab Covers</a></li>
+                <li><a href="">Organizers</a></li>
+            </ul>
+        </div>
+        <div class="">
+            <ul class="m-0 p-0">
+                <h6 style="visibility: hidden;">Shops By</h6>
+                <li><a href="">Camera Accessories</a></li>
+                <li><a href="">Gaming Accessories</a></li>
+                <li><a href="">Other Accessories</a></li>
+                <li><a href="">Kids Accessories</a></li>
+                <li><a href="">Car Accessories</a></li>
+            </ul>
+        </div>
+        <div class="footer_links">
+            <ul>
+                <a *ngFor="let item of pageList" href="{{apiUrl+ item.url + item.slug}}">{{item.name}}</a>            </ul>
+            <p class="rights">Ecommerce © 2023 All Right Reserved</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer_sec">
+    <div class="container">
+        <div class="full_footer_sec">
+            <div class=" footer_one">
+                <div class="">
+
+                    <div [innerHtml]="address"></div>
+                </div>
+            </div>
+            <div class="footer_two" [innerHTML]="quicklinks">
+            </div>
+            <div [innerHtml]="get_app"></div>
+            <div [innerHTML]="stay_connected"> </div>
+        </div>
+        <div class="footer_links"> 
+<ul>
+                <a *ngFor="let item of pageList" href="{{apiUrl+ item.url + item.slug}}">{{item.name}}</a>
+            </ul> 
+<div [innerHtml]="copy_right"></div> 
+<p class="rights">Ecommerce © 2023 All Right Reserved</p> 
+</div>
+    </div>
+</div>
+
+
+
+<footer>
+    <div class="container">
+        <div class="footer_head">
+            <div class="footer_1 footer_sec">
+                <a href="/">
+                    <img src="../../../assets/image/clickart_logo.png" alt="clickart_logo"> <br>
+                </a>
+                <a>
+                    <img src="../../../assets/image/Common/location.png" alt="location">
+                    <span>No 3/29, ragava nagar, 2nd street <br>
+                        madipakkam, chennai 6000921.</span>
+                </a><br>
+                <a>
+                    <img src="../../../assets/image/Common/timing.png" alt="timing">
+                    <span>Monday - Saturday <br>
+                        9.00 AM to 6.00 PM</span>
+                </a>
+                <div [innerHtml]="address"></div>
+
+            </div>
+            <div class="footer_2 footer_sec">
+                <h6>Quick links</h6>
+                <ul>
+                    <li><a href="">Our Story</a></li>
+                    <li><a href="">Contact us</a></li>
+                    <li><a href="">Receipts</a></li>
+                    <li> <a href="">Shop</a></li>
+                </ul>
+                <div [innerHtml]="quicklinks"></div>
+            </div>
+            <div class="footer_3 footer_sec">
+                <h6>Service</h6>
+                <ul>
+                    <li><a href="">Shipping policy</a></li>
+                    <li><a href="">Cancellation Policy</a></li>
+                    <li><a href="">Privacy Policy</a></li>
+                    <li><a href="">Terms & Conditions</a></li>
+                </ul>
+                <div [innerHtml]="services"></div>
+
+            </div>
+            <div class="footer_4 footer_sec">
+                <h6>Account & More</h6>
+                <ul>
+                    <li><a href="">Orders</a></li>
+                    <li><a href="">Favorite</a></li>
+                    <li><a href="">Account</a></li>
+                    <li><a href="">Review</a></li>
+                </ul>
+                <div [innerHtml]="account_more"></div>
+
+            </div>
+            <div class="footer_5 footer_sec">
+                <h6>Service</h6>
+                <ul>
+                    <li><a href="">Mail Support</a></li>
+                    <li><a href="">FAQ</a></li>
+                    <li><a href="">Complaint & Report</a></li>
+                </ul>
+                <div [innerHtml]="support"></div>
+
+
+
+            </div>
+            <div class="footer_6 footer_sec">
+                <h6>Also Available On </h6>
+                <a href=""><img src="../../../assets/image/Common/googleplay_cs.svg" alt="googleplay"></a><br>
+                <a href=""><img src="../../../assets/image/Common/appstore_cs.svg" alt="appstore"></a>
+                <div [innerHtml]="get_app"></div>
+
+                <a href=""><img src="../../../assets/image/Common/googleplay.png" alt="googleplay"></a><br>
+                <a href=""><img src="../../../assets/image/Common/appstore.png" alt="appstore"></a>
+            </div>
+        </div>
+        <div class="footer_bottom">
+            <div class="social_icon">
+                <a href=""><img src="../../../assets/image/Common/facebook.png" alt="facebook"></a>
+                <a href=""><img src="../../../assets/image/Common/instagram.png" alt="instagram"></a>
+                <a href=""><img src="../../../assets/image/Common/twitter.png" alt="twitter"></a>
+                <a href=""><img src="../../../assets/image/Common/whatsapp.png" alt="whatsapp"></a>
+                <a href=""><img src="../../../assets/image/Common/youtube.png" alt="youtube"></a>
+            </div>
+            <div class="secure_payment">
+                <p>100% secure payment</p><img src="../../../assets/image/Common/line.png" alt="line"><img
+                    src="../../../assets/image/Common/online_payment.png" alt="">
+            </div>
+            <div [innerHtml]="all_services_foot"></div>
+        </div>
+    </div>
+</footer> -->
+
+
+
+<footer class="mt-5">
+    <div class="four-col" *ngIf="urlData === '/'">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-6">
+                    <div class="four-part">
+                        <span><img src="../../../assets/image/pillais/four-1.webp" alt="" width="70px"
+                                height="70px" /></span>
+                        <h6>Unbeatable Quality </h6>
+                    </div>
+                </div>
+                <div class=" col-lg-3 col-md-6 col-6">
+                    <div class="four-part clr-2">
+                        <span><img src="../../../assets/image/pillais/four-2.webp" alt="" width="70px"
+                                height="70px" /></span>
+                        <h6>Products of India</h6>
+                    </div>
+                </div>
+                <div class=" col-lg-3 col-md-6 col-6">
+                    <div class="four-part clr-3">
+                        <span><img src="../../../assets/image/pillais/four-3.webp" alt="" width="70px"
+                                height="70px" /></span>
+                        <h6>Hassle Free Shipping</h6>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <div class="four-part clr-4">
+                        <span><img src="../../../assets/image/pillais/four-4.webp" alt="" width="70px"
+                                height="70px" /></span>
+                        <h6>Natural & Hygienic</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-sec-two" *ngIf="urlData === '/'">
+        <div class="container footer-container">
+            <div class="email-sub-left">
+                <div class="email-us">
+                    <span><img src="../../../assets/image/pillais/email.webp" width="50px" height="50px"
+                            alt="" /></span>
+                    <div>
+                        <h6>Email Us</h6>
+                        <!-- <a href="mailto:helpdesk@pillais.uk">{{settings.email_address}}</a> -->
+
+                        <a [href]="'mailto:' + settings.email_address">{{settings.email_address}}</a>
+                    </div>
+                </div>
+                <!-- <div class="email-us">
+					<span><img src="../../../assets/image/pillais/email.png" alt="" /></span>
+					<div>
+						<h6>Report</h6>
+						<a href="mailto:query@pillais.uk">query@pillais.uk</a>
+					</div>
+				</div> -->
+                <div class="email-us news-letter">
+                    <span><img src="../../../assets/image/pillais/newsletter.webp" width="50px" height="50px"
+                            alt="" /></span>
+                    <div>
+                        <h6>Subscribe To Our Newsletter</h6>
+                        <input type="text" #subemail [(ngModel)]="subscribe_email"
+                            placeholder="Enter your email address" />
+                        <button type="button" (click)="subscribes()">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="qlty-guar">
+                <h6>QUALITY GUARANTEE</h6>
+                <p>Our number one priority here at Pillai's Foods is the quality of our products sourced and brought to
+                    your table. We take pride in that which means, we stand by it 100% no matter what, no questions
+                    asked. However, if you have a problem with our products for whatever reason, we will do the needful
+                    to solve it, replace it or send a refund for it. Whatever it takes. Just reach out to our friendly
+                    customer care team and we will go out of our way to do the needful.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="looking-for" *ngIf="urlData === '/'">
+        <div class="padding-container">
+            <h2>Didn't find what you were looking for?</h2>
+            <p>Suggest something and we’ll look into it.</p>
+            <button (click)="routeToContactUs()">Contact Us</button>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <div class="d-flex flex-wrap padding-container" style="padding-inline-start: 40px; padding-inline-end: 40px;">
+            <div class="footer-part footer-1">
+                <!-- <span><img src="../../../assets/image/pillais/footer-logo.png" alt="" /></span> -->
+                <!-- <span><img src="{{apiUrl + settings.footer_icon}}"
+                        onerror="this.src='assets/image/pillais/footer-logo.png'" width="150px" height="128px"
+                        alt="" /></span> -->
+                <div class="f-shop">
+                    <h6>Address</h6>
+                    <!-- <p>No 3/29, Ragava Nagar, 2nd Street, Madipakkam, Chennai 600091.</p> -->
+                     <p><b>Pillai’s foods
+                    </b></p>
+                    <p>{{settings && settings.site_address ? settings.site_address : "No 3/29, Ragava Nagar, 2nd Street,
+                        Madipakkam, Chennai 600091."}}</p>
+                </div>
+                <div class="f-support">
+                    <h6>Support Hours</h6>
+                    <p>Monday – Saturday</p>
+                    <h5>9.00 AM to 6.00 PM</h5>
+                </div>
+            </div>
+            <div class="footer-part footer-2">
+                <div>
+                    <h6>Useful links</h6>
+                    <ul>
+                        <li><a (click)="footerRouter('our-story')"><i class="fa fa-angle-right"
+                                    aria-hidden="true"></i>Who We Are</a></li>
+                        <li><a (click)="contactUs()"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact Us</a>
+                        </li>
+                        <!-- <li><a href=""><i class="fa fa-angle-right" aria-hidden="true"></i>Recipes</a></li> -->
+                        <li><a (click)="allCategory()"><i class="fa fa-angle-right" aria-hidden="true"></i>Shop</a></li>
+
+                        <li><a href="https://pillais-blog.quickiz.com/"><i class="fa fa-angle-right"
+                                    aria-hidden="true"></i>Blog</a></li>
+                        <li><a (click)="product_catalog()"><i class="fa fa-angle-right"
+                                    aria-hidden="true"></i>Product catlog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6>Policies</h6>
+                    <ul>
+                        <li><a (click)="footerRouter('shipping-policy')"><i class="fa fa-angle-right"
+                                    aria-hidden="true"></i>Shipping Policy</a></li>
+                        <li><a (click)="footerRouter('cancellation-policy')"><i class="fa fa-angle-right"
+                                    aria-hidden="true"></i>Cancellation Policy</a></li>
+                        <li><a (click)="footerRouter('privacy-policy')"><i class="fa fa-angle-right"
+                                    aria-hidden="true"></i>Privacy Policy</a></li>
+                        <li><a (click)="footerRouter('terms-and-conditions')"><i class="fa fa-angle-right"
+                                    aria-hidden="true"></i>Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-part footer-3">
+                <div>
+                    <h6>Account & More</h6>
+                    <ul>
+                        <li><a (click)="myaccount()"><i class="fa fa-angle-right" aria-hidden="true"></i>Orders</a></li>
+                        <li><a (click)="wishlist()"><i class="fa fa-angle-right" aria-hidden="true"></i>Favourite</a>
+                        </li>
+                        <li><a (click)="myaccount()"><i class="fa fa-angle-right" aria-hidden="true"></i>Account</a>
+                        </li>
+                        <li style="visibility: hidden;"><a href=""><i class="fa fa-angle-right"
+                                    aria-hidden="true"></i>Review</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6>Support</h6>
+                    <ul>
+                        <li><a [href]="getMailToLink()"><i class="fa fa-angle-right" aria-hidden="true"></i>Mail
+                                Support</a></li>
+                        <li><a (click)="faq()"><i class="fa fa-angle-right" aria-hidden="true"></i>FAQ</a></li>
+                        <li><a href="mailto:query@pillais.in"><i class="fa fa-angle-right"
+                                    aria-hidden="true"></i>Complaint & Report</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-part footer-4">
+                <div class="follow-us">
+                    <h6>Follow Us</h6>
+                    <ul>
+                        <li><a href="https://www.facebook.com/pillaisfoodsin" target="_blank"><i class="fa fa-facebook"
+                                    aria-hidden="true"></i></a></li>
+                        <li><a href="https://www.instagram.com/pillaisfoodsin/" target="_blank"><i
+                                    class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a href="https://x.com/pillaisfoodsin" target="_blank"><i class="fa fa-twitter"
+                                    aria-hidden="true"></i></a></li>
+                        <li><a href="https://api.whatsapp.com/send?phone=919566032510&text=Hey%2C%20guys!%20I%20want%20to%20order%20something%20today."
+                                target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
+                        <li><a href="https://www.youtube.com/@pillaisfoodsin" target="_blank"><i
+                                    class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+                <div class="secure">
+                    <p>100% Secure Payment</p>
+                    <img src="../../../assets/image/pillais/payment_method.png" alt="" />
+                </div>
+                <div class="also-available">
+                    <p>Also Available On</p>
+                    <a href="https://www.amazon.in/stores/RRPillais/page/9CD2722A-EC93-49B6-9DB4-234055B0BFC7"
+                        target="_blank"><img src="../../../assets/image/pillais/Amazon_logo.webp" width="100px"
+                            height="31px" alt="" /></a>
+                    <a href="https://www.jiomart.com/groceries/b/rr-pillai-s/146965" target="_blank"><img
+                            src="../../../assets/image/pillais/JioMart-Logo.webp" width="100px" height="33px"
+                            alt="" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container">
+            <span>© 2024 RR Pillai’s Agro Exim Pvt. Ltd.</span>
+            <span><a href="https://www.teamtweaks.com/">Technology Partner <b>Team Tweaks</b></a></span>
+        </div>
+    </div>
+</footer>
+
+<div class="mobile-footer">
+    <span>
+        <a href="">
+            <img src="../../../assets/image/pillais/home-icon.png" alt="" />
+            <p>Home</p>
+        </a>
+    </span>
+    <span>
+        <a [routerLink]="['./offers']">
+            <img src="../../../assets/image/pillais/offer.png" alt="" />
+            <p>Offer</p>
+        </a>
+    </span>
+    <span class="center-shop">
+        <a data-bs-toggle="modal" data-bs-target="#catModel">
+            <img src="../../../assets/image/pillais/cat.svg" alt="" />
+            <p>Shop</p>
+        </a>
+    </span>
+    <!-- <span class="center-shop">
+        <a (click)="allCategory()">
+            <img src="../../../assets/image/pillais/cat.svg" alt="" />
+            <p>Shop</p>
+        </a>
+    </span> -->
+    <span>
+        <a (click)="myaccount()">
+            <img src="../../../assets/image/pillais/account.png" alt="" />
+            <p>Account</p>
+        </a>
+    </span>
+    <span>
+        <!-- <a [routerLink]="['/checkout']" (click)="scrollToTop()">
+            <img src="../../../assets/pillai_images/checkout.svg" alt="" />
+            <p>Checkout</p>
+        </a> -->
+        <a (click)="faq()">
+            <!-- <img src="../../../assets/pillai_images/checkout.svg" alt="" /> -->
+            <i class="fa fa-commenting" aria-hidden="true"></i>
+            <p>FAQ</p>
+        </a>
+    </span>
+</div>
+
+
+<div class="modal fade shop_category_popup" id="catModel" tabindex="-1" aria-labelledby="cat-tab" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            <h3>Department</h3>
+
+            <div class="model-catagory-list">
+                <a data-bs-dismiss="modal" *ngFor="let item of featured_categories_" routerLink="/category/{{item.slug}}">
+                    <img src="{{apiUrl + item.img}}" class="" onerror="this.src='assets/image/no_img.png'" 
+                          alt="" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

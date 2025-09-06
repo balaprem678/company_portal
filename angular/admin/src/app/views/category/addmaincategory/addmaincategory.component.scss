@@ -1,0 +1,226 @@
+.restaurant-img-error {
+  position: absolute;
+  top: 83px;
+}
+
+// New Changes - 12:07:24
+.full_page_title {
+  margin-bottom: 20px;
+}
+.full_page_title strong {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.icon_image,
+.category_image {
+  position: relative;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  min-height: 343px;
+  max-height: 407px;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  background-color: #ffffff;
+  background: #fff;
+  padding: 30px;
+}
+
+.icon_image label,
+.category_image label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--bs-gray-800);
+  font-size: 21.1px;
+}
+
+.icon_image input,
+.category_image input {
+  border: none;
+  background-color: transparent;
+  width: 30px;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  padding: 0;
+}
+.meta_description,
+.meta_keyword,
+.meta_title,
+.category_name,
+.status,
+.slug,
+.select_category,
+.banner_name {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+}
+::ng-deep span.ng-value-label,
+::ng-deep .ng-select .ng-select-container .ng-value-container .ng-placeholder,
+select,
+input,
+input::placeholder {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+}
+.specification p,
+.banner_name p {
+  font-size: 14.35px;
+  color: #99a1b7;
+  margin-top: 8px;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container .ng-clear-wrapper {
+  display: none; /* Example: hide the dropdown arrow */
+}
+::ng-deep .ng-select.custom-ng-select .ng-select-container,
+::ng-deep .custom-ng-select .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--bs-gray-800);
+  font-size: 15px;
+}
+
+::ng-deep .inline_cat_image {
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: auto;
+  position: relative;
+
+  input.input_pencil {
+    width: 30px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    &::-webkit-file-upload-button {
+      width: 28px;
+      height: 28px;
+      border-radius: 15px;
+      border: none;
+      background: #fff;
+      background-image: url("../../../../assets/image/pencil.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      box-shadow: 0px 0 3px 0 #ccc;
+      color: #fff0;
+      z-index: 1;
+      position: relative;
+    }
+    &::-webkit-file-upload-button:focus-visible {
+      outline: none;
+    }
+  }
+  .img_center_call {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 15px auto;
+    box-shadow: 0 0 80px 0 #dddddd;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    img {
+      box-shadow: 0 0 4px 0 #f1f1f1;
+    }
+  }
+
+  .preview {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 142px;
+    height: 142px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    img {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      background-color: #fff;
+      padding: 7px;
+      height: unset;
+    }
+  }
+}
+
+p.image_size_filter {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 34px;
+  color: #99a1b7;
+}
+::ng-deep ng-select {
+  .ng-input {
+    input {
+      caret-color: transparent !important;
+    }
+  }
+}
+
+
+::ng-deep .form-control {
+  input {
+    font-weight: 700 !important;
+  }
+}
+.tags-box {
+  border: transparent;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  .tags-box-list {
+    margin: 5px 0px;
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style: none;
+    li {
+      display: flex;
+      align-items: center;
+
+      span {
+        background: #e1e1e1;
+        padding: 3px 8px;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: capitalize;
+        border-radius: 4px;
+        margin-right: 5px;
+      }
+
+      i {
+        cursor: pointer;
+        margin-left: 5px;
+      }
+    }
+  }
+}

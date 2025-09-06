@@ -1,0 +1,90 @@
+.shipping_policy_page {
+  width: 670px;
+  margin: auto;
+  h2 {
+    color: #222;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 40px;
+    text-align: center;
+    margin-top: 45px;
+    margin-bottom: 120px;
+  }
+  .customer_request {
+    padding: 44px;
+    background-color: #fcfcfc;
+    box-shadow: 0 0 2px 0 #ccc;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    p {
+      font-size: 16px;
+      font-weight: 700;
+      color: #222;
+      &:nth-child(3) {
+        font-weight: 400;
+      }
+    }
+    .fslto {
+      background-color: #ddf6ec;
+      padding: 28px;
+      border-radius: 8px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      -ms-border-radius: 8px;
+      -o-border-radius: 8px;
+      h3 {
+        color: #0a472e;
+        font-size: 24px;
+        font-weight: 900;
+        line-height: 1.5em;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .fssf {
+        display: flex;
+        justify-content: space-between;
+        gap: 26px;
+        :where(.free_shipping, .shipping_fare) {
+          border: 2px solid #0a472e;
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          gap: 10px;
+          border-radius: 6px;
+          -webkit-border-radius: 6px;
+          -moz-border-radius: 6px;
+          -ms-border-radius: 6px;
+          -o-border-radius: 6px;
+          h4 {
+            font-size: 23px;
+            font-weight: 800;
+            color: #0a472e;
+          }
+          p {
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0;
+          }
+          svg,
+          i {
+            font-size: 55px;
+            color: #0a472e;
+            fill: #0a472e;
+            width: 80px;
+            display: flex;
+            justify-content: center;
+          }
+        }
+        .free_shipping {
+          background-color: #faffc3;
+        }
+        .shipping_fare {
+          background-color: #f3e4dc;
+        }
+      }
+    }
+  }
+}

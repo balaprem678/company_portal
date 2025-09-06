@@ -1,0 +1,72 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header"><strong>{{pageTitle | titlecase}}</strong></div>
+                <form #rattingQusForm="ngForm" (ngSubmit)="onFormSubmit(rattingQusForm)" autocomplete="off">
+                    <div class="card-body">
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="title">Title <span class="mandatory">*</span> </label>
+                                    <input type="text" id="title" ngModel name="title" #title="ngModel" required
+                                        class="form-control" placeholder="Enter Title"
+                                        [ngClass]="{ 'is-invalid': rattingQusForm.submitted && title.errors }"
+                                        [ngClass]="{ 'is-valid': !title.errors && title.valid}">
+                                    <div *ngIf="rattingQusForm.submitted && !title.valid">
+                                        <div class="invalid-feedback" *ngIf="title.errors.required">Title is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="type">Type <span class="mandatory">*</span></label>
+                                    <select name="type" id="type" class="form-control" ngModel name="type"
+                                        #type="ngModel" required
+                                        [ngClass]="{ 'is-invalid': rattingQusForm.submitted && type.errors }"
+                                        [ngClass]="{ 'is-valid': !type.errors && type.valid}">
+                                        <option value="">--Select--</option>
+                                        <option value="moderator">Moderator</option>
+                                        <option value="speaker">Speaker</option>
+                                    </select>
+                                    <div *ngIf="rattingQusForm.submitted && !type.valid">
+                                        <div class="invalid-feedback" *ngIf="type.errors.required">Type is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="status">Status <span class="mandatory">*</span></label>
+                                    <select name="status" id="status" class="form-control" ngModel name="status"
+                                        #status="ngModel" required
+                                        [ngClass]="{ 'is-invalid': rattingQusForm.submitted && status.errors }"
+                                        [ngClass]="{ 'is-valid': !status.errors && status.valid}">
+                                        <option value="">--Select--</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Inactive</option>
+                                    </select>
+                                    <div *ngIf="rattingQusForm.submitted && !status.valid">
+                                        <div class="invalid-feedback" *ngIf="status.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" *ngIf="!viewpage" class="btn btn-sm btn-success" [disabled]="submitebtn">
+                            Submit
+                        </button>
+                        <button type="button" *ngIf="!viewpage" routerLink="/app/paymentgateway/list"
+                            class="btn btn-sm btn-danger">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

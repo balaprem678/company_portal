@@ -1,0 +1,93 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-cloud-upload"></i> S3 Bucket Setting
+                </div>
+                <form #s3BucketSettingForm="ngForm" (ngSubmit)="onFormSubmit(s3BucketSettingForm)" autocomplete="off">
+                    <div class="card-body">
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="bucket_name">Bucket Name <span class="mandatory">*</span> </label>
+                                    <input type="text" id="bucket_name" ngModel name="bucket_name"
+                                        #bucket_name="ngModel" required class="form-control"
+                                        placeholder="Enter Bucket Name"
+                                        [ngClass]="{ 'is-invalid': s3BucketSettingForm.submitted && bucket_name.errors }"
+                                        [ngClass]="{ 'is-valid': !bucket_name.errors && bucket_name.valid}">
+                                    <div *ngIf="s3BucketSettingForm.submitted && !bucket_name.valid">
+                                        <div class="invalid-feedback" *ngIf="bucket_name.errors.required">Bucket Name is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="region">Region <span class="mandatory">*</span> </label>
+                                    <input type="text" id="region" ngModel name="region" #region="ngModel" required
+                                        class="form-control" placeholder="Enter Region"
+                                        [ngClass]="{ 'is-invalid': s3BucketSettingForm.submitted && region.errors }"
+                                        [ngClass]="{ 'is-valid': !region.errors && region.valid}">
+                                    <div *ngIf="s3BucketSettingForm.submitted && !region.valid">
+                                        <div class="invalid-feedback" *ngIf="region.errors.required">Region is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="access_key">Access key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="access_key" ngModel name="access_key" #access_key="ngModel"
+                                        required class="form-control" placeholder="Enter Access Key"
+                                        [ngClass]="{ 'is-invalid': s3BucketSettingForm.submitted && access_key.errors }"
+                                        [ngClass]="{ 'is-valid': !access_key.errors && access_key.valid}">
+                                    <div *ngIf="s3BucketSettingForm.submitted && !access_key.valid">
+                                        <div class="invalid-feedback" *ngIf="access_key.errors.required">Access key is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="secret_key">Secret key <span class="mandatory">*</span> </label>
+                                    <input type="text" id="secret_key" ngModel name="secret_key" #secret_key="ngModel"
+                                        required class="form-control" placeholder="Enter Secret Key"
+                                        [ngClass]="{ 'is-invalid': s3BucketSettingForm.submitted && secret_key.errors }"
+                                        [ngClass]="{ 'is-valid': !secret_key.errors && secret_key.valid}">
+                                    <div *ngIf="s3BucketSettingForm.submitted && !secret_key.valid">
+                                        <div class="invalid-feedback" *ngIf="secret_key.errors.required">Secret key is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="base_url">Base URL <span class="mandatory">*</span> </label>
+                                    <input type="text" id="base_url" ngModel name="base_url" #base_url="ngModel"
+                                        required class="form-control" placeholder="Enter Base URL"
+                                        [ngClass]="{ 'is-invalid': s3BucketSettingForm.submitted && base_url.errors }"
+                                        [ngClass]="{ 'is-valid': !base_url.errors && base_url.valid}">
+                                    <div *ngIf="s3BucketSettingForm.submitted && !base_url.valid">
+                                        <div class="invalid-feedback" *ngIf="base_url.errors.required">Base URL is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-success" [disabled]="submitebtn">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

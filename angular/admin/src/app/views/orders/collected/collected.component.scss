@@ -1,0 +1,21 @@
+.order-collected_orders_page {
+  position: relative;
+}
+
+::ng-deep .order-collected_orders_page .search-input-tag {
+  position: absolute;
+  right: 228px;
+}
+
+::ng-deep .order-collected_orders_page .product_list_filter {
+  right: 118px !important;
+}
+::ng-deep .order-collected_orders_page .export-lists:focus {
+  box-shadow: none !important;
+}
+::ng-deep .order-collected_orders_page .export-lists {
+  position: absolute;
+  right: 0;
+  top: 68px;
+  z-index: 1;
+}

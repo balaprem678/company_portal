@@ -1,0 +1,84 @@
+// :host ::selection {
+//   background: green;
+//   color: white;
+// }
+
+.df {
+  display: flex;
+}
+
+.jcsb {
+  justify-content: space-between;
+}
+
+.kg_add {
+  position: relative;
+h6{
+  font-weight: 600;
+}
+  input {
+    width: 100%;
+    height: 34px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 4px;
+  }
+
+  span {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+.setting_shipping_page {
+  table {
+    background-color: #fff;
+
+    thead {
+      tr {
+        th {
+          text-align: center;
+          border: none;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-top: 1px solid #eff2f7;
+        border-bottom: 1px solid #eff2f7;
+
+        td {
+          text-align: center;
+
+          input {
+            height: 35px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            -ms-border-radius: 6px;
+            -o-border-radius: 6px;
+            width: 40%;
+    padding: 0 10px;
+
+          }
+
+          input:focus,
+          input:focus-visible {
+            border: 2px solid #0a482f;
+          }
+        }
+      }
+
+      .table_action {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+::ng-deep .plan-modal {
+  cursor: pointer;
+}
+.modal-dialog.plain-details {
+  max-width: 500px;
+}
+.modal-dialog.plain-details .modal-header {
+  padding: 10px;
+}
+.modal-dialog.plain-details .modal-header h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+.common-ranges {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.common-ranges label {
+  width: 100%;
+  position: relative;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+}
+span.qbs-stru {
+  position: absolute;
+  right: 0;
+}
+.common-ranges h5 {
+  width: 100%;
+  margin: 0;
+  font-size: 14px;
+  color: #646464;
+}
+.common-ranges h4 {
+  width: 100%;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #029e02;
+}
+.plain-details .modal-body {
+  padding: 1rem 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .common-ranges .col-md-6 {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 414px) {
+  .common-ranges h5 {
+    font-size: 13px;
+  }
+  .common-ranges label {
+    font-size: 13px;
+  }
+  .common-ranges h4 {
+    font-size: 18px;
+  }
+}
+
+::ng-deep .user-user_list .search-input-tag {
+  position: absolute;
+  top: 0;
+  right: 100px;
+  display: flex;
+  justify-content: end;
+}
+::ng-deep .export-lists {
+  top: 68px;
+}
+
+::ng-deep .user-user_list {
+  table {
+    thead {
+      tr {
+        th {
+          border: none;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td:nth-child(1),
+        td:nth-child(2),
+        td:nth-child(3),
+        td:nth-child(4) {
+          font-weight: 700;
+        }
+        td:nth-child(5) span {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+::ng-deep .product_list_filter {
+  display: none;
+}

@@ -1,0 +1,102 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"> <strong>{{pageTitle | titlecase}}</strong> </div>
+                <div class="container">
+                    <form name="nameDetails" [formGroup]="fareform" (ngSubmit)="onSubmit()" autocomplete="off">
+                        <div class="card-body">
+                            <div class="form-group grouping-strains row">
+                                <h4> <strong>City Fare</strong> Settings</h4>
+                            </div>
+                            <!-- <div class="form-group grouping-strains row">
+                                <div class="col-sm-6">
+                                    <label for="cityname">City Name <span class="mandatory">*</span></label>
+                                    <input type="text" formControlName="cityname" class="form-control" placeholder="City  Name" required>
+                                    <div *ngIf="submitted && formcontrol.cityname.errors?.required" class="invalid-feedback">City Name is required!
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="form-group grouping-strains row">
+                                <h4> <strong>Delivery Charge</strong> Setting (user)</h4>
+                            </div>
+                            <div class="form-group grouping-strains row">
+                                <div class="col-sm-6">
+                                    <label for="default_amt">Default Delivery Amount<span
+                                            class="mandatory">*</span></label>
+                                    <input type="number" formControlName="default_amt" class="form-control"
+                                        placeholder="Default Delivery Amount" required>
+                                    <div *ngIf="submitted && formcontrol.default_amt.errors?.required"
+                                        class="invalid-feedback">Default Delivery Amount is required! </div>
+                                    <div *ngIf="submitted && formcontrol.default_amt.errors?.max && formcontrol.default_amt.invalid"
+                                        class="invalid-feedback">Enter a valid amount</div>
+                                    <div *ngIf="submitted && formcontrol.default_amt.errors?.max"
+                                        class="invalid-feedback">Amount maximum limit 9999</div>
+                                    <div *ngIf="submitted && formcontrol.default_amt.errors?.min"
+                                        class="invalid-feedback">Please enter minimum 1</div>
+                                    <!-- File Input -->
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="target_amount">Target Amount For No Delivery Charge<span
+                                            class="mandatory">*</span></label>
+                                    <input type="number" formControlName="target_amount" class="form-control"
+                                        placeholder="Target Amount For No Delivery Charge" required>
+                                    <div *ngIf="submitted && formcontrol.target_amount.errors?.required"
+                                        class="invalid-feedback">Target Amount For No Delivery Charge is required!
+                                    </div>
+                                    <div *ngIf="submitted && formcontrol.target_amount.errors?.max && formcontrol.target_amount.$invalid"
+                                        class="invalid-feedback">Enter a valid amount</div>
+                                    <div *ngIf="submitted && formcontrol.target_amount.errors?.max"
+                                        class="invalid-feedback">Amount maximum limit 9999</div>
+                                    <div *ngIf="submitted && formcontrol.target_amount.errors?.min"
+                                        class="invalid-feedback">Please enter minimum 1</div>
+                                    <!-- File Input -->
+                                </div>
+
+                            </div>
+                            <div class="form-group grouping-strains row">
+                                <div class="col-sm-6">
+                                    <label for="minimum_distance">Minimum Distance for Base Price<span
+                                            class="mandatory">*</span></label>
+                                    <input type="number" name="minimum_distance" formControlName="minimum_distance"
+                                        class="form-control" placeholder="Minimum Distance for Base Price" required>
+                                    <div *ngIf="submitted && formcontrol.minimum_distance.errors?.required"
+                                        class="invalid-feedback">Minimum Distance for Base Price is required!
+                                    </div>
+                                    <div *ngIf="submitted && formcontrol.minimum_distance.errors?.max"
+                                        class="invalid-feedback">Amount maximum limit 9999</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="format">Extra fee amount for each<span
+                                            class="mandatory">*</span></label>&nbsp;&nbsp;<br>
+                                    <input type="radio" name="format" formControlName="format" required value="km">Km
+                                    <input type="radio" name="format" formControlName="format" required
+                                        value="mile">Miles
+                                    <div *ngIf="submitted && formcontrol.format.errors?.required"
+                                        class="invalid-feedback">Km/Miles is required! </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group grouping-strains row">
+                                <div class="col-sm-6">
+                                    <label for="extra_price">Extra Fee amount <span class="mandatory">*</span></label>
+                                    <input type="number" name="extra_price" formControlName="extra_price"
+                                        class="form-control" placeholder="Extra Fee amount" required>
+                                    <div *ngIf="submitted && formcontrol.extra_price.errors?.required"
+                                        class="invalid-feedback">Extra Fee amount is required!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" routerLink="/app/cityManagement/list" class="btn btn-sm btn-danger">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,330 @@
+.manage-address {
+  padding-top: 124px;
+}
+.bread-crumb {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+.bread-crumb p {
+  margin: 0;
+}
+.bread-crumb a {
+  color: #4a4a4a;
+  text-decoration: none;
+}
+.bread-crumb p {
+  margin: 0 13px;
+}
+
+.address-page h3 {
+  font-size: 22px;
+}
+button.add-new-add {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: #ff0000;
+  font-family: "GilroySemiBold";
+  margin-bottom: 15px;
+  padding: 0;
+}
+.add-address-form {
+  width: 65%;
+  margin-top: 10px;
+}
+.add-address-form h5 {
+  color: #252525;
+  font-size: 20px;
+}
+.add-address-form h6 {
+  color: #252525;
+  margin: 22px 0;
+}
+.address-form-group {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.address-form-group label {
+  width: 100%;
+  color: #252525;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.address-form-group ::ng-deep ngx-intl-tel-input#phone {
+  width: 100%;
+}
+.address-form-group ::ng-deep ngx-intl-tel-input#phone input {
+  border: 1px solid #cdcfd1;
+  height: 44px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.address-form-group input,
+.state-zip .address-form-group select {
+  width: 100%;
+  border: 1px solid #cdcfd1;
+  height: 44px;
+  border-radius: 4px;
+  padding: 10px;
+  outline: none;
+  font-size: 14px;
+  // text-transform: lowercase;
+}
+.state-zip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.state-zip .address-form-group {
+  width: 100%;
+}
+.address-form-group span {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 34px;
+}
+.address-form-group span input {
+  width: auto;
+  height: auto;
+  margin-right: 10px;
+}
+.address-button button {
+  border: 1px solid #bebebe;
+  background: transparent;
+  font-size: 14px;
+  color: #252525;
+  height: 50px;
+  padding: 0 50px;
+  border-radius: 4px;
+}
+.address-button {
+  gap: 30px;
+  margin-top: 30px;
+}
+.address-button button.save-add {
+  background: #ff0000;
+  color: #fff;
+  border-color: transparent;
+}
+.address-button button.save-add:hover {
+  color: #ff0000;
+  border-color: #ff0000;
+  background: transparent;
+}
+.address-form-group span input {
+  accent-color: #ff0000;
+}
+
+.address-form-box {
+  border: 1px solid #cdcfd1;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 23px;
+  position: relative;
+  padding: 25px;
+}
+.address-form-box label {
+  background: #f4eae5;
+  color: #ff0000;
+  font-size: 14px;
+  padding: 5px 19px;
+  border-radius: 4px;
+  width: 93px;
+  text-align: center;
+}
+.address-form-right {
+  margin-left: auto;
+}
+.address-form-left {
+  width: 38%;
+  padding-left: 25px;
+}
+.address-form-box p {
+  margin: 0;
+}
+p.add-name {
+  font-size: 16px;
+  color: #252525;
+  font-family: "GilroySemiBold";
+  margin: 8px 0;
+}
+.address-form-left p.address-cnt {
+  font-size: 14px;
+}
+.address-form-box p.add-name {
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+button.add-remove {
+  border: none;
+  background: transparent;
+  margin-right: 10px;
+  transition: 0.2s;
+}
+.address-form-right button {
+  font-size: 14px;
+  color: #252525;
+}
+.address-form-right button.add-Edit {
+  border: 1px solid #bebebe;
+  background: transparent;
+  padding: 6px 26px;
+  border-radius: 4px;
+  transition: 0.2s;
+  color: #ff0000;
+}
+.address-form-right button.add-Edit:hover {
+  transition: 0.2s;
+  background: #ff0000;
+  color: #fff;
+}
+button.add-remove:hover {
+  color: #ff0000;
+}
+.address-page {
+  margin-bottom: 75px;
+}
+/*new chnages*/
+.address-form-group label b {
+  color: #ff0000;
+  font-weight: normal;
+  font-size: 21px;
+  position: relative;
+  top: 3px;
+  left: 3px;
+  line-height: 10px;
+}
+@media screen and (max-width: 767px) {
+  .add-address-form {
+    width: 100%;
+  }
+  .state-zip .address-form-group {
+    width: 100%;
+  }
+  .address-form-box {
+    position: relative;
+  }
+  .address-form-left {
+    width: 100%;
+  }
+  .address-form-right {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+  .manage-address {
+    padding-top: 190px;
+  }
+}
+@media only screen and (min-width: 320px) and (max-width: 567px) {
+  .address-form-right {
+    position: relative;
+    right: 0;
+    top: 0;
+  }
+}
+@media only screen and (min-width: 767px) and (max-width: 991px) {
+  .add-address-form {
+    width: 100%;
+  }
+  .manage-address {
+    padding-top: 150px;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .manage-address {
+    padding-top: 120px;
+  }
+}
+
+.address-form-group ::ng-deep.iti.iti--allow-dropdown {
+  width: 100%;
+}
+.address-form-box input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  top: 50%;
+  left: 10px;
+  z-index: 1;
+}
+
+.address-form-box span.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border: 1px solid #cdcdcd;
+  border-radius: 5px;
+}
+.address-form-box input:checked ~ span.checkmark {
+  background-color: #f02828;
+  border-color: transparent;
+}
+.address-form-box span.checkmark:after {
+  content: "";
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  display: none;
+}
+.address-form-box input:checked ~ span.checkmark:after {
+  display: block;
+}
+
+.con-info {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding: 15px 0 10px 0;
+}
+.con-btn {
+  background: #ff2828;
+  border-radius: 5px;
+  padding: 10px !important;
+  margin: 10px;
+  width: 150px;
+  color: #fff;
+  font-size: 14px;
+  border: 1px solid transparent;
+}
+
+::ng-deep input::-webkit-contacts-auto-fill-button {
+  display: none !important;
+
+  -webkit-appearance: none !important;
+
+  -moz-appearance: none !important;
+
+  appearance: none !important;
+}
+select::-webkit-contacts-auto-fill-button,
+textarea::-webkit-contacts-auto-fill-button,
+input::-webkit-contacts-auto-fill-button {
+  background: none;
+}
+
+@media screen and (max-width: 480px) {
+  .billing-address h3 {
+    font-size: 1.25rem;
+  }
+}

@@ -1,0 +1,16 @@
+db.payment_gateway.insertOne({
+  "_id": {
+    "$oid": "5ef35d2d8007e115ccb35b2a"
+  },
+  "alias": "",
+  "gateway_name": "",
+  "settings": {
+    "secret_key": "",
+    "mode": "sandbox",
+    "app_key": ""
+  },
+  "status": 1,
+  "updatedAt": {
+    "$date": "2020-06-26T06:25:31.635Z"
+  }
+})

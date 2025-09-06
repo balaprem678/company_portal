@@ -1,0 +1,1392 @@
+<!-- <div class="product_details_page">
+  <section class="product-details">
+    <div class="container" *ngIf="productdetails">
+      <div class="inner-breadcam">
+        <a [routerLink]="['']"><b>Home</b></a>
+        <p><i class="fa fa-angle-right" aria-hidden="true"></i></p><a class="pro-name">{{productdetails.name}}</a>
+      </div>
+      <div class="product-details-left">
+        <div class="product_detail_image_hover_img">
+          <div class="product-large-img">
+            <span *ngIf="!showadditional_images"> <img src="{{env_url}}{{product_img}}" /></span>
+            <ng-container *ngIf="showadditional_images">
+              <span><img src="{{env_url}}{{showadditional_images_url}}" /></span>
+            </ng-container>
+          </div>
+          <div class="hover_nav" *ngIf="productdetails.images &&  productdetails.images.length >0">
+            <div class="hover_img" *ngFor="let addimgs of  productdetails.images let i=index">
+              <span (mouseenter)="changeimage(addimgs,true)" (mouseleave)="changeimage(addimgs,false)"
+                class="Select_hover_img"><img src="{{env_url}}{{addimgs}}" alt=""></span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!isOutOfStock">
+          <div class="product-buttons" *ngIf="productdetails.size_status==2">
+            <button class="add-cart" (click)="addToProdcutCart(productdetails,'add')">
+              Add To Cart
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <svg id="Layer_1" enable-background="new 0 0 511.728 511.728" height="25" viewBox="0 0 511.728 511.728"
+                width="25">
+                <path
+                  d="m147.925 379.116c-22.357-1.142-21.936-32.588-.001-33.68 62.135.216 226.021.058 290.132.103 17.535 0 32.537-11.933 36.481-29.017l36.404-157.641c2.085-9.026-.019-18.368-5.771-25.629s-14.363-11.484-23.626-11.484c-25.791 0-244.716-.991-356.849-1.438l-17.775-65.953c-4.267-15.761-18.65-26.768-34.978-26.768h-56.942c-8.284 0-15 6.716-15 15s6.716 15 15 15h56.942c2.811 0 5.286 1.895 6.017 4.592l68.265 253.276c-12.003.436-23.183 5.318-31.661 13.92-8.908 9.04-13.692 21.006-13.471 33.695.442 25.377 21.451 46.023 46.833 46.023h21.872c-3.251 6.824-5.076 14.453-5.076 22.501 0 28.95 23.552 52.502 52.502 52.502s52.502-23.552 52.502-52.502c0-8.049-1.826-15.677-5.077-22.501h94.716c-3.248 6.822-5.073 14.447-5.073 22.493 0 28.95 23.553 52.502 52.502 52.502 28.95 0 52.503-23.553 52.503-52.502 0-8.359-1.974-16.263-5.464-23.285 5.936-1.999 10.216-7.598 10.216-14.207 0-8.284-6.716-15-15-15zm91.799 52.501c0 12.408-10.094 22.502-22.502 22.502s-22.502-10.094-22.502-22.502c0-12.401 10.084-22.491 22.483-22.501h.038c12.399.01 22.483 10.1 22.483 22.501zm167.07 22.494c-12.407 0-22.502-10.095-22.502-22.502 0-12.285 9.898-22.296 22.137-22.493h.731c12.24.197 22.138 10.208 22.138 22.493-.001 12.407-10.096 22.502-22.504 22.502zm74.86-302.233c.089.112.076.165.057.251l-15.339 66.425h-51.942l8.845-67.023 58.149.234c.089.002.142.002.23.113zm-154.645 163.66v-66.984h53.202l-8.84 66.984zm-74.382 0-8.912-66.984h53.294v66.984zm-69.053 0h-.047c-3.656-.001-6.877-2.467-7.828-5.98l-16.442-61.004h54.193l8.912 66.984zm56.149-96.983-9.021-67.799 66.306.267v67.532zm87.286 0v-67.411l66.022.266-8.861 67.145zm-126.588-67.922 9.037 67.921h-58.287l-18.38-68.194zm237.635 164.905h-36.426l8.84-66.984h48.973l-14.137 61.217c-.784 3.396-3.765 5.767-7.25 5.767z" />
+              </svg>
+              
+            </button>
+            <button class="buy-now" (click)="goCheckout(productdetails, loginPopup)">Buy Now&nbsp;&nbsp;&nbsp;&nbsp;
+
+              <svg height="25" viewBox="0 0 32 32" width="25">
+                <g>
+                  <path
+                    d="m16 17.82a6 6 0 0 1 -5.89-4.82 1 1 0 0 1 1-1.15 1 1 0 0 1 1 .83 4 4 0 0 0 7.83 0 1 1 0 0 1 1-.83 1 1 0 0 1 1 1.15 6 6 0 0 1 -5.94 4.82z"
+                    fill="#fff" />
+                  <path
+                    d="m24.9 31h-17.8a3 3 0 0 1 -3-3.15l.81-17.24a3 3 0 0 1 3-2.87h16.18a3 3 0 0 1 3 2.87l.81 17.24a3 3 0 0 1 -3 3.15zm-16.99-21.25a1 1 0 0 0 -1 1l-.81 17.2a1 1 0 0 0 1 1.05h17.8a1 1 0 0 0 1-1.05l-.81-17.24a1 1 0 0 0 -1-1z"
+                    fill="#fff" />
+                  <path d="m22 8.75h-2v-1.75a4 4 0 0 0 -8 0v1.75h-2v-1.75a6 6 0 0 1 12 0z" fill="#fff" />
+                </g>
+              </svg>
+            </button>
+          </div>
+
+          <div class="product-buttons" *ngIf="productdetails.size_status==1">
+            <button class="add-cart" (click)="preAddCart(productdetails,'add')">
+              Add To Cart&nbsp;&nbsp;&nbsp;&nbsp; <svg id="Layer_1" enable-background="new 0 0 511.728 511.728"
+                height="25" viewBox="0 0 511.728 511.728" width="25">
+                <path
+                  d="m147.925 379.116c-22.357-1.142-21.936-32.588-.001-33.68 62.135.216 226.021.058 290.132.103 17.535 0 32.537-11.933 36.481-29.017l36.404-157.641c2.085-9.026-.019-18.368-5.771-25.629s-14.363-11.484-23.626-11.484c-25.791 0-244.716-.991-356.849-1.438l-17.775-65.953c-4.267-15.761-18.65-26.768-34.978-26.768h-56.942c-8.284 0-15 6.716-15 15s6.716 15 15 15h56.942c2.811 0 5.286 1.895 6.017 4.592l68.265 253.276c-12.003.436-23.183 5.318-31.661 13.92-8.908 9.04-13.692 21.006-13.471 33.695.442 25.377 21.451 46.023 46.833 46.023h21.872c-3.251 6.824-5.076 14.453-5.076 22.501 0 28.95 23.552 52.502 52.502 52.502s52.502-23.552 52.502-52.502c0-8.049-1.826-15.677-5.077-22.501h94.716c-3.248 6.822-5.073 14.447-5.073 22.493 0 28.95 23.553 52.502 52.502 52.502 28.95 0 52.503-23.553 52.503-52.502 0-8.359-1.974-16.263-5.464-23.285 5.936-1.999 10.216-7.598 10.216-14.207 0-8.284-6.716-15-15-15zm91.799 52.501c0 12.408-10.094 22.502-22.502 22.502s-22.502-10.094-22.502-22.502c0-12.401 10.084-22.491 22.483-22.501h.038c12.399.01 22.483 10.1 22.483 22.501zm167.07 22.494c-12.407 0-22.502-10.095-22.502-22.502 0-12.285 9.898-22.296 22.137-22.493h.731c12.24.197 22.138 10.208 22.138 22.493-.001 12.407-10.096 22.502-22.504 22.502zm74.86-302.233c.089.112.076.165.057.251l-15.339 66.425h-51.942l8.845-67.023 58.149.234c.089.002.142.002.23.113zm-154.645 163.66v-66.984h53.202l-8.84 66.984zm-74.382 0-8.912-66.984h53.294v66.984zm-69.053 0h-.047c-3.656-.001-6.877-2.467-7.828-5.98l-16.442-61.004h54.193l8.912 66.984zm56.149-96.983-9.021-67.799 66.306.267v67.532zm87.286 0v-67.411l66.022.266-8.861 67.145zm-126.588-67.922 9.037 67.921h-58.287l-18.38-68.194zm237.635 164.905h-36.426l8.84-66.984h48.973l-14.137 61.217c-.784 3.396-3.765 5.767-7.25 5.767z" />
+              </svg>
+          
+            </button>
+            <button class="buy-now" (click)="goCheckout(productdetails, loginPopup)">Buy Now
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <svg height="25" viewBox="0 0 32 32" width="25">
+                <g>
+                  <path
+                    d="m16 17.82a6 6 0 0 1 -5.89-4.82 1 1 0 0 1 1-1.15 1 1 0 0 1 1 .83 4 4 0 0 0 7.83 0 1 1 0 0 1 1-.83 1 1 0 0 1 1 1.15 6 6 0 0 1 -5.94 4.82z"
+                    fill="#fff" />
+                  <path
+                    d="m24.9 31h-17.8a3 3 0 0 1 -3-3.15l.81-17.24a3 3 0 0 1 3-2.87h16.18a3 3 0 0 1 3 2.87l.81 17.24a3 3 0 0 1 -3 3.15zm-16.99-21.25a1 1 0 0 0 -1 1l-.81 17.2a1 1 0 0 0 1 1.05h17.8a1 1 0 0 0 1-1.05l-.81-17.24a1 1 0 0 0 -1-1z"
+                    fill="#fff" />
+                  <path d="m22 8.75h-2v-1.75a4 4 0 0 0 -8 0v1.75h-2v-1.75a6 6 0 0 1 12 0z" fill="#fff" />
+                </g>
+              </svg>
+              
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-details-right ">
+        <div class="product-details-cnt box-scroll">
+          <div class="product-likes">
+            <div>
+              <div class="title_like_share">
+                <h3>{{productdetails.name}}</h3>
+                <div class="like_share">
+                  <p class="like" (click)="addFavourite(productdetails._id, loginPopup)">
+                    <i class="fa fa-heart-o" aria-hidden="true" *ngIf="!productdetails.favourite"></i>
+                    <i class="fa fa-heart" aria-hidden="true" *ngIf="productdetails.favourite"></i>
+                  </p>
+                  <div class="btn-group" dropdown>
+                    <button id="button-animated" dropdownToggle type="button" class="btn share_btn dropdown-toggle"
+                      aria-controls="dropdown-animated">
+                      <i class="fa fa-share-alt" aria-hidden="true"></i> <span class="caret"></span>
+                    </button>
+                    <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+                      aria-labelledby="button-animated">
+                      <li *ngFor="let item of arrayOfObjects" role="menuitem" (click)="handleItemClick(item)">
+                        <img [src]="item.image" alt="image" class="list-item-image">
+                        
+                      </li>
+                    </ul>
+                  </div>
+                 
+                </div>
+              </div>
+              <p class="product_details_title">{{productdetails.information}}</p>
+              
+              <div *ngIf="productdetails.total_rating_users>0" class="index-overallRating">
+              
+                <div class="no_star_rating_review">
+                  <div>{{productdetails.rating}}</div>
+                 
+                  <i class="fa fa-star"></i>
+                  <span class="h_line">|</span>
+                  <label class="review_content">{{productdetails.total_rating_users ?
+                    productdetails.total_rating_users
+                    : 0}} Reviews</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="price-sec">
+          <p class="price" *ngIf="productdetails.offer_status == 0">₹ {{productdetails.sale_price}}</p>
+          <p class="price" *ngIf="productdetails.offer_status == 1">₹ {{productdetails.offer_sale}}</p>
+
+
+
+          <p class="old-price"
+            *ngIf="productdetails.offer_status == 0 && productdetails.base_price > productdetails.sale_price">₹
+            {{productdetails.base_price}}</p>
+          <p class="old-price"
+            *ngIf="productdetails.offer_status == 1 && productdetails.offer_base > productdetails.offer_sale">₹
+            {{productdetails.offer_base}}</p>
+          
+          <p *ngIf="productdetails.offer_status==1" class="old-price ms-2">{{productdetails.base_price}}</p>
+          <p class="price-offer" *ngIf="productdetails.offer_status == 1">{{productdetails.offer_amount}}% Off</p>
+
+
+
+    
+        </div>
+        <div class="product-size d-flex flex-wrap align-items-center justify-content-start gap-3">
+          
+          <div class="choose-bottom" *ngIf="productdetails.variants">
+            <div class="dec-diff-part mb-3" *ngFor="let variant of productdetails.variants; let i = index">
+              <p class="m-0">{{ variant.name }}</p>
+              <button *ngFor="let item of variant.units" [value]="item._id" (click)="processArray(item.name)"
+                class="attributebuttons" [ngStyle]="{'border': (selectedArray.includes(item.name)) ? '2px solid #333c4d' : '', 
+                          'color': item.isSelected ? '#ccc' : '#333c4d'}">
+                {{item.name}}
+              </button>
+            </div>
+          </div>
+
+        </div>
+       
+        <div *ngIf="isOutOfStock">
+          <p class="notAv">The product is currently not available </p>
+          <p class="wishlist">Add to your wishlist </p>
+        </div>
+
+      </div>
+      <div class="product-det-info" *ngIf="productdetails">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="project-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+              role="tab" aria-controls="home" aria-selected="true">Product Details</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#information" type="button"
+              role="tab" aria-controls="information" aria-selected="false">Information</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="project-tab">
+            <h6>{{productdetails.rcatname}}</h6>
+            <ul class="p-details">
+              <li *ngFor="let value of productdetails.product_details">
+                <p>{{value.title}}</p>{{value.content}}
+              </li>
+            </ul>
+          </div>
+          <div class="tab-pane fade" id="information" role="tabpanel" aria-labelledby="info-tab">
+            <p>{{productdetails.information}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ 
+  </section>
+
+
+  <section class="related-products details-related " *ngIf="recentlyVistProd && recentlyVistProd.length > 0">
+    <div class="container-fluid pt-4">
+      <div class="container">
+        <div class="related-head">
+          <h3>Recently Viewed</h3>
+          <p></p>
+        </div>
+
+        <div class="related-product-slider">
+          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="recentSlide"
+            (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+            (beforeChange)="beforeChange($event)">
+            <div ngxSlickItem class="slide" *ngFor="let item of recentlyVistProd">
+              <div class="card_box">
+            
+                <span>
+
+                  <img src="{{item.avatar}}" class="" onerror="this.src='assets/image/no_img.png'" />
+                  <img src="{{item.hover_image}}" class="hover_img" onerror="this.src='assets/image/no_img.png'" />
+                  <p *ngIf="item.offer_status == 1" class="xcelerator-pdpXceleratorImageTag">Special Offer</p>
+                  <p class="like" (click)="addFavourite(item.product_id, loginPopup)">
+                    <i class="fa fa-heart-o" aria-hidden="true" *ngIf="item.favourite_add != true"></i>
+                    <i class="fa fa-heart" aria-hidden="true" *ngIf="item.favourite_add === true"></i>
+                  </p>
+                  <a href="/products/{{item.slug}}">Detail view <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                </span>
+                <div class="card_box_details">
+            
+                  <p class="price" *ngIf="item.offer_status == 0">₹ {{item.sale_price | number}} <i
+                      class="fst-normal text-decoration-line-through" *ngIf="item.base_price > item.sale_price">₹
+                      {{item.base_price | number}}</i></p>
+
+
+
+
+                  <p class="price" *ngIf="item.offer_status == 1">₹ {{item.offer_sale | number}} <i
+                      class="fst-normal text-decoration-line-through" *ngIf="item.offer_base > item.offer_sale">₹
+                      {{item.offer_base | number}}</i></p>
+                  <a class="cart_cnt" href="/products/{{item.slug}}">
+                    {{item.name}}
+                    <i class="price__dis_offer"
+                      *ngIf="item.discount_percentage > 0 && item.offer_status != 1">({{item.discount_percentage
+                      }}OFF)%</i>
+
+                    <i class="price__dis_offer" *ngIf="item.offer_status == 1">({{item.offer_amount
+                      }}OFF)%</i>
+                  </a>
+                  <p class="deal-outofstock"><span *ngIf="item.size_status == 2 && isOutOfStock_recentview"><i></i> Out
+                      Of
+                      Stock</span> </p>
+                  <p class="deal-outofstock"><span *ngIf="item.size_status == 2 && isOutOfStock_recentview"><i></i> Out
+                      Of
+                      Stock</span> </p>
+                  <button
+                    *ngIf="cart_details.indexOf(item['product_id'])!=-1 && item.size_status == 2 && !isOutOfStock_recentview"
+                    [routerLink]="['/cart']">
+                    Go To Cart <i class="fa fa-angle-right" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    *ngIf="cart_details.indexOf(item['product_id'])==-1 && item.size_status == 2 && !isOutOfStock_recentview"
+                    (click)="addCartRecent(item,'add')">
+                    Add To Cart <i class="fa fa-angle-right" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    *ngIf="cart_details.indexOf(item['product_id'])!=-1 && item.size_status == 1 && !isOutOfStock_recentview"
+                    [routerLink]="['/cart']">
+                    Go To Cart <i class="fa fa-angle-right" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    *ngIf="cart_details.indexOf(item['product_id'])==-1 && item.size_status == 1 && !isOutOfStock_recentview"
+                    (click)="addCartRecent(item,'add')">
+                    Add To Cart <i class="fa fa-angle-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ngx-slick-carousel>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ratings_reviews " #ratingsReviewsTemplate *ngIf="settings.review_rating && ratingList.length >0 ">
+    <div class="container-fluid pt-4">
+      <div class="container">
+        <h3 class="mb-4">Ratings
+          <svg version="1.1" id="svg3420" xml:space="preserve" width="1.15rem" height="1.15rem"
+            viewBox="0 0 682.66669 682.66669">
+            <defs id="defs3424">
+              <clipPath clipPathUnits="userSpaceOnUse" id="clipPath3434">
+                <path d="M 0,512 H 512 V 0 H 0 Z" id="path3432" />
+              </clipPath>
+            </defs>
+            <g id="g3426" transform="matrix(1.3333333,0,0,-1.3333333,0,682.66667)">
+              <g id="g3428">
+                <g id="g3430" clip-path="url(#clipPath3434)">
+                  <g id="g3436" transform="translate(479.2803,41.8701)">
+                    <path
+                      d="m 0,0 -51.75,-41.87 -78.681,86.28 c -35.492,-39.752 -85.02,-70.306 -138.399,-77.66 l -22.046,27.443 22.046,37.977 c 37.866,8.688 68.328,33.009 93.319,61.68 l -93.319,102.34 -27.152,63.33 27.152,53.299 c 10.66,6.611 19.85,12.871 27.6,19.031 37.381,29.671 21.682,73.591 -27.6,74.11 l -22.046,34.531 22.046,29.639 c 63.353,-0.424 133.616,-51.831 116.909,-122.03 -10.057,-42.211 -47.663,-69.604 -82.579,-90.951 L -132.99,145.84 c 22.875,29.648 44.02,60.374 64.679,91.57 l 57.851,-34.02 c -24.316,-36.848 -49.491,-72.936 -76.9,-107.6 z"
+                      style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path3438" />
+                  </g>
+                  <g id="g3440" transform="translate(159.8896,412.3398)">
+                    <path
+                      d="m 0,0 c -1.649,-10.84 1.091,-21.21 7.5,-28.46 l 32.471,-35.6 c 3.679,2.18 7.21,4.31 10.59,6.41 v -116.629 l -25.04,27.459 c -7.51,-4.06 -15.42,-8.31 -23.741,-12.78 -33.15,-17.8 -55.559,-48.2 -59.95,-81.33 -8.058,-60.907 50.06,-110.937 108.731,-97.37 v -65.42 c -97.525,-13.637 -189.647,70.792 -176.42,170.73 7.03,53.131 42.12,101.43 93.859,129.211 4.181,2.25 8.261,4.449 12.261,6.59 L -44.39,-70.17 c -0.07,0.09 -0.15,0.17 -0.23,0.26 -18.949,21.23 -27.3,50.02 -22.92,78.99 8.738,57.624 62.791,90.935 118.101,90.58 V 35.49 C 27.433,35.766 3.8,25.119 0,0"
+                      style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path3442" />
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg> Reviews
+        </h3>
+        <div *ngIf="ratingList.length === 0">
+          <h5>No Ratings Found</h5>
+        </div>
+        <div *ngIf="ratingList.length> 0" class="row d-flex">
+          <div *ngFor="let rating of ratingList" (click)="rating_model(ratingImage,rating.image,0,rating._id)"
+            class=" col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="overall_review_rating">
+
+              <div class="profile_rev_rat mb-2">
+                <div class="reviewed_user">
+                  <img src="{{env_url}}{{rating.users.avatar?rating.users.avatar:'uploads/default/user.jpg'}}"
+                    onerror="this.src='assets/image/new_../../../assets/image/pillais/user.svg'" width="60px" class="user_svg"
+                    class="user_svg" />
+                </div>
+               
+                <div *ngIf="settings.review_rating" class="review_rating">
+                  <div class="_3LWZlK">
+                    <p> <label>{{rating.users.username ? rating.users.username : '-'}}</label><br>
+                      <span>
+                        {{rating.rating }}&nbsp;<i class="fa fa-star" aria-hidden="true"></i>
+                      </span>
+
+                    </p>
+                    <div *ngIf="rating.image && rating.image.length > 0">
+                      <img *ngFor="let image of rating.image;let j= index" src="{{env_url+image}}" width="40px"
+                        height="50px" class="mx-1">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="user_reviewes">
+                <p class="m-0">{{rating.comment ? rating.comment : '-'}}</p>
+              </div>
+            </div>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ng-template #loginPopup>
+    <app-login [modalRef]="modalRef">
+
+    </app-login>
+  </ng-template>
+
+  <ng-template #ratingImage>
+    <div class="related-product-slider orders_review_modal">
+      <div class="row d-flex ">
+        <div class="col-lg-6 "
+          *ngIf="selectedRatingData && selectedRatingData.image && selectedRatingData.image.length>0">
+          <ngx-slick-carousel class="carousel" #slickModalRating="slick-carousel" [config]="slideConfigRating"
+            (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+            (beforeChange)="beforeChange($event)">
+            <div ngxSlickItem class="slide" *ngFor="let item of selectedRatingData.image">
+              <img (load)="slickModalRating.slickGoTo(selectedImage)" class="img-modal-view"
+                style="width: 100%;height: 344px;" src="{{env_url+item}}" width="60px" height="70px" class="mx-1">
+            </div>
+          </ngx-slick-carousel>
+        </div>
+        <div class=" modal_review"
+          [ngClass]="selectedRatingData && selectedRatingData.image && selectedRatingData.image.length > 0 ? 'col-lg-6' : 'col-lg-12'">
+          <div class="profile_name_rat_rev">
+            
+            <img class="reviewer_profile user_svg" src="{{env_url + selectedRatingData.users.avatar}}"
+              onerror="this.src='assets/image/new_../../../assets/image/pillais/user.svg'" alt="profileIamge">
+            <div>
+              <h6 class="reviewer_name">{{selectedRatingData.users.username}} </h6>
+
+
+              <p class="reviewer_ratings">
+
+                <ng-container *ngIf="ratingStarArray && ratingStarArray.length >0">
+                  <span *ngFor="let star of ratingStarArray" class="fa fa-star"></span>
+                </ng-container>
+                <ng-container *ngIf="nonRatingStarArray && nonRatingStarArray.length >0">
+                  <span *ngFor="let star of nonRatingStarArray" class="fa fa-star-o"></span>
+
+                </ng-container>
+
+              
+              </p>
+              <p class="reviewer_date">Reviewed in India on <b>7 May 2023</b></p>
+            </div>
+
+          </div>
+          <p class="reviewer_reviewes">
+            {{selectedRatingData.comment}}
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</div>
+
+<ng-template #shareModal>
+  <div class="modal-header">
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li *ngFor="let item of arrayOfObjects" class="list-item">
+        <button (click)="handleItemClick(item)" class="list-item-link">
+          <img [src]="item.image" alt="image" class="list-item-image">
+          <span>{{ item.name }}</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+ -->
+
+
+<div class="mob-category-head pt_110">
+	<div class="back_arrow_title mt-4">
+		<a href="">
+			<img src="../../../assets/image/pillais/c-head-arrow.png" alt="" />
+		</a>
+		<h6>Atta | Flours</h6>
+	</div>
+</div>
+<div class="bread-crumbs">
+	<div class="container inner-padding">
+		<ul>
+			<li><a href="">Home</a></li>
+			/
+			<li><a href="">{{productDetailss && productDetailss.rcatname}}</a></li>
+			/
+			<li><a href="">{{productDetailss && productDetailss.scatname}}</a></li>
+			<li>/ {{productDetailss && productDetailss.name}}</li>
+		</ul>
+	</div>
+</div>
+
+
+<section class="product-details-banner">
+	<div class="container inner-padding">
+		<!-- <div class="product-details-image">
+			<div class="slider-nav">
+        <ngx-slick-carousel class="carousel" id="sliderNav" #slickModal="slick-carousel" [config]="slidernav"
+        (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+        (beforeChange)="beforeChange($event)">
+            <div ngxSlickItem><img src="../../../assets/image/pillais/product-img/Homemade-Madurai-Mandi-Masala-100g.jpg" alt="" /></div>
+            <div ngxSlickItem><img src="../../../assets/image/pillais/product-img/Homemade-Madurai-Mandi-Masala-100g-.jpg" alt="" /></div>
+            <div ngxSlickItem><img src="../../../assets/image/pillais/product-img/Homemade-Madurai-Mandi-Masala-100g-U.jpg" alt="" /></div>
+            <div ngxSlickItem><img src="../../../assets/image/pillais/product-img/Homemade-Madurai-Mandi-Masala-100g-UK.jpg" alt="" /></div>
+            <div ngxSlickItem><img src="../../../assets/image/pillais/product-img/Homemade-Madurai-Mandi-Masala-100g-UK.jpg" alt="" /></div>
+         </ngx-slick-carousel>
+			</div>
+
+			<div class="slider-for">
+        <ngx-slick-carousel class="carousel" id="sliderFor" #slickModal="slick-carousel" [config]="sliderfor"
+        (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+        (beforeChange)="beforeChange($event)">
+          <div ngxSlickItem><img src="../../../assets/image/pillais/product-img/Homemade-Madurai-Mandi-Masala-100g.jpg" alt="" /></div>
+          <div ngxSlickItem><img src="../../../assets/image/pillais/product-img/Homemade-Madurai-Mandi-Masala-100g-.jpg" alt="" /></div>
+          <div ngxSlickItem><img src="../../../assets/image/pillais/product-img/Homemade-Madurai-Mandi-Masala-100g-U.jpg" alt="" /></div>
+          <div ngxSlickItem><img src="../../../assets/image/pillais/product-img/Homemade-Madurai-Mandi-Masala-100g-UK.jpg" alt="" /></div>
+        </ngx-slick-carousel>  
+			</div>
+		</div> -->
+
+		<div class="product-details-image">
+			<div class="slider-nav" *ngIf="productdetails && productdetails.images">
+				<ngx-slick-carousel class="carousel" id="sliderNav" #slickNav="slick-carousel" [config]="slidernav"
+					(afterChange)="afterChange($event)" (init)="slickInit($event)" (breakpoint)="breakpoint($event)"
+					(beforeChange)="beforeChange($event)">
+					<div ngxSlickItem *ngFor="let image of productdetails.images"><img src="{{env_url}}{{image}}"
+							alt="" /></div>
+				</ngx-slick-carousel>
+			</div>
+
+			<div class="slider-for" *ngIf="productdetails && productdetails.images">
+				<ngx-slick-carousel class="carousel" id="sliderFor" #slickFor="slick-carousel" [config]="sliderfor"
+					(afterChange)="afterChange($event)" (init)="slickInit($event)" (breakpoint)="breakpoint($event)"
+					(beforeChange)="beforeChange($event)">
+					<div ngxSlickItem *ngFor="let image of productdetails.images">
+						<!-- <img src="{{env_url}}{{image}}" alt="" /> -->
+						<!-- <lib-ngx-image-zoom 
+						[thumbImage]="env_url + image" 
+						[fullImage]="env_url + image"
+						[magnification]="0.5"
+
+						>
+					</lib-ngx-image-zoom> -->
+
+						<!-- <lib-ngx-image-zoom [thumbImage]="env_url + image" [fullImage]="env_url + image"></lib-ngx-image-zoom> -->
+
+						<div class="product-image-container">
+							<!-- Main Product Image -->
+							<img src="{{env_url}}{{image}}" alt="Product Image" class="main-product-image"
+								(mousemove)="zoom($event)" (mouseout)="hideZoom()" />
+
+							<!-- Zoomed Image Container -->
+							<div class="zoomed-image-container" [class.show]="isZoomVisible" [ngStyle]="{
+								'background-image': 'url(' + env_url + image + ')',
+								'background-position': zoomPosition,
+								'width.px': zoomWidth,
+								'height.px': zoomHeight,
+								'background-size': backgroundSize
+							  }"></div>
+						</div>
+
+
+
+
+					</div>
+				</ngx-slick-carousel>
+			</div>
+
+		</div>
+		<div class="product-details-cnt">
+			<span class="red-label"
+				*ngIf="productdetails && productdetails.vegOptions != (undefined || null) &&  productdetails.vegOptions == 1"><img
+					src="../../../assets/image/pillais/green.png" alt="" /></span>
+			<span class="red-label"
+				*ngIf="productdetails && productdetails.vegOptions != (undefined || null) && productdetails.vegOptions == 2"><img
+					src="../../../assets/image/pillais/red.png" alt="" /></span>
+			<h2 [ngStyle]="{'color': productdetails?.scatHead_color || 'pink'
+		}">{{productdetails && productdetails.name}}</h2>
+			<hr />
+			<!-- <span class="prod-label" style="background-color: {productdetails.scat_color};">(Made in small batches to maintain freshness & quality)</span> -->
+			<span class="prod-label" [ngStyle]="{'background-color': productdetails && productdetails.scat_color != (undefined || null || '') ?  productdetails.scat_color : 'pink'}">
+				(Made in small batches to maintain freshness & quality)
+			</span>
+			<hr />
+			<div class="prod-logos">
+				<a [routerLink]="['/page/our-story']">
+					<picture class="home_traditional_form" *ngIf="productdetails?.trade_mark_image">
+						<source *ngIf="productdetails.trade_mark_image?.webpImg"
+							[srcset]="env_url + productdetails.trade_mark_image?.webpImg" type="image/webp">
+						<img width="100%"
+							[src]="env_url +productdetails.trade_mark_image?.fallback || env_url + productdetails.trade_mark_image"
+							onerror="this.src='assets/image/no_img.png'" alt="Trade Mark Image">
+
+					</picture>
+				</a>
+
+				<!-- <img src="{{env_url}}{{productdetails && productdetails.trade_mark_image && productdetails.trade_mark_image != (undefined || null)? productdetails.trade_mark_image : productdetails && productdetails.hover_image}}"
+					alt="" /> -->
+				<!-- <p>{{env_url}}{{productdetails && productdetails.trade_mark_image && productdetails.trade_mark_image != (undefined || null)? productdetails.trade_mark_image : productdetails && productdetails.hover_image}}</p> -->
+				<!-- <img src="../../../assets/image/pillais/prod-logo-1.png" alt="" />
+				<img src="../../../assets/image/pillais/prod-logo-2.png" alt="" />
+				<img src="../../../assets/image/pillais/prod-logo-3.png" alt="" /> -->
+			</div>
+			<hr />
+			<!-- <p class="p-dec">
+				Homemade Madurai Mandi Masala is a blend of aromatic spices that is perfect for preparing the famous Arabic dish, Mandi. This spice mix contains a perfect balance of various spices like cumin, coriander, cardamom, cloves, cinnamon, and more, that add a unique flavor and aroma to the dish. It can be used to marinate meats or to cook rice for a delicious and flavorful Mandi dish.
+			</p> -->
+			<p class="p-dec">
+				{{productdetails && productdetails.information}}
+			</p>
+			<p *ngIf="productdetails && productdetails.alternative_name && productdetails.alternative_name.length > 0">
+				<b>Alternative Names:</b> {{ getAlternativeNames(productdetails && productdetails.alternative_name)
+				}}
+			</p>
+			<!-- <p><b> Alternative Names:</b>*ngFor="let alternative of productdetails.alternative_name"{{alternative}}</p> -->
+			<ul class="health-benefits" [ngStyle]="{
+				'background-color': productdetails.scat_color || 'pink', 
+				'border': '1px solid ' + (productdetails.scatHead_color || 'pink')
+			  }"
+				*ngIf="productdetails && productdetails.HealthBenefit_List && productdetails.HealthBenefit_List != (undefined || null) && productdetails.HealthBenefit_List.length > 0">
+				<h3 [ngStyle]="{ 'color': productdetails.scatHead_color || 'pink', }">Health Benefits</h3>
+				<li *ngFor="let healthBenefits of productdetails.HealthBenefit_List"><i class="fa fa-check"
+						aria-hidden="true"></i> {{healthBenefits}}</li>
+				<!-- <li><i class="fa fa-check" aria-hidden="true"></i> It contains antioxidants that may help reduce oxidative stress.</li>
+				<li><i class="fa fa-check" aria-hidden="true"></i> The spices used in Mandi Masala are known to have digestion-boosting effects.</li>
+				<li><i class="fa fa-check" aria-hidden="true"></i> Mandi Masala's aromatic ingredients may have mood-boosting effects.</li> -->
+			</ul>
+			<hr />
+			<div class="p-dec-data">
+				<!-- <div class="p-dec-left">
+					<h4>£1.79</h4>
+					<div class="p-dec-weight">
+						<span>{{productdetails.price_details[0].attributes[0].attri_name}}</span>
+						<ul>
+							<li *ngFor="let priceDetails of productdetails.price_details">
+								<input type="radio" name="p-d" >
+								<p>{{priceDetails.attributes[0].chaild_name}}</p>
+							</li>
+						</ul>
+					</div>
+					<div class="p-dec-qty">
+						<div class="p-qty-form">
+							<button>-</button>
+							<input type="text" value="1" name="" minlength="1" />
+							<button>+</button>
+						</div>
+						<button><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+					</div>
+				</div> -->
+				<div class="p-dec-left">
+					<div class="base_sale_price" *ngFor="let variant of filteredVariants">
+						<p><span class="base_price">₹ {{variant.mprice}}</span><span class="sale_price">₹
+								{{variant.sprice}}</span></p>
+
+					</div>
+					<!-- <div class="choose-bottom" *ngIf="productdetails.variants">
+						<div class="dec-diff-part mb-3" *ngFor="let variant of productdetails.variants; let i = index">
+						  <p class="m-0">Pack sizes</p>
+						  <div *ngFor="let item of variant.units">
+							<button [value]="item._id" (click)="onPriceDetailChange(item)" class="attributebuttons" [ngStyle]="{'border': (selectedArray.includes(item.name)) ? '1px solid #333c4d' : '', 
+									  'color': item.isSelected ? '#000' : '#333c4d'}">
+							  <span>{{item.name}}</span>
+							  <p><span>MRP:&nbsp;{{item.attributes.sprice}}</span> <br><span>
+								  MRP:&nbsp;{{item.attributes.mprice}} <span
+									*ngIf="productdetails.offer_status == 1">{{productdetails.offer_amount}}% OFF</span></span>
+							  </p>
+							</button>
+						  </div>
+						</div>
+					  </div> -->
+
+					<div *ngIf="productdetails && productdetails.variants">
+						<div *ngFor="let variant of productdetails.variants; let i = index">
+
+							<div class="p-dec-weight">
+								<span>{{ productdetails.price_details[0].attributes[0].attri_name }}</span>
+								<ul>
+									<!-- {{variant.units | json}} -->
+									<li *ngFor="let item of variant.units; let i= index">
+										<input type="radio" name="p-d" [value]="item._id" [(ngModel)]="selectedUnitId"
+											(ngModelChange)="onPriceDetailChange(item,i)">
+										<p [ngStyle]="item.isSelected?{ 'background': '#80891b','color':'#fff'} : {}">
+											{{item.name}} </p>
+										<!-- <P>{{item.isSelected}}</P> -->
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<button class="shoping_cart_icon" *ngIf="cartbutton "
+						(click)="preAddCarts(productdetails, 'add')"><i class="fa fa-shopping-cart"
+							aria-hidden="true"></i></button>
+					<div class="p-dec-qty">
+
+						<!-- <p>{{cartDetails && cartDetails.cart_details}}</p> -->
+						<div *ngIf="cartDetails && cartDetails.cart_details">
+							<div *ngFor="let items of cartDetails.cart_details; let i=index">
+								<div class="p-qty-form" *ngIf="matchtrue && filteredVariant.product_id ==items.id && 
+								filteredVariant.attribute_ids[0] == items.variations[0][0].chaild_id">
+
+									<button *ngIf="items.quantity==1" (click)="removeFoodFromCart(items)">-</button>
+									<button *ngIf="items.quantity>1"
+										(click)="changeCart(items, 'decreement')">-</button>
+									<input type="text" [(ngModel)]="items.quantity" readonly />
+									<button (click)="changeCart(items, 'increement')">+</button>
+								</div>
+
+								<!-- <button *ngIf="items.quantity==1" (click)="removeFoodFromCart(items)">
+									<i class="fa fa-minus" aria-hidden="true"></i>
+								  </button>
+								  <button *ngIf="items.quantity>1" (click)="changeCart(items, 'decreement')">
+									<i class="fa fa-minus" aria-hidden="true"></i>
+								  </button>
+								  <input type="text" [(ngModel)]="items.quantity" readonly />
+								  <button (click)="changeCart(items, 'increement')">
+									<i class="fa fa-plus" aria-hidden="true"></i>
+								  </button> -->
+							</div>
+						</div>
+
+						<!-- <button [routerLink]="['/cart']"  class="view_cart">View Cart</button> -->
+					</div>
+				</div>
+
+				<div class="p-dec-right"
+					*ngIf="productdetails && productdetails.sku || productdetails && productdetails.scatname">
+					<div>
+						<span *ngFor="let variant of filteredVariants">
+							<label>SKU</label>
+							<span class="base_price"> {{variant.sku || productdetails.sku}}</span>
+						</span>
+					</div>
+
+					<span *ngIf="productdetails && productdetails.scatname"><label>Category</label><a [routerLink]="['/category', productdetails.rcat_slug]">{{productdetails && productdetails.scatname}}</a></span>
+				</div>
+			</div>
+			<hr />
+
+			<!-- <div class="accordion" id="accordionExample">
+			  <div class="accordion-item" *ngIf="productdetails && productdetails.product_descriptions && productdetails.product_descriptions != ('' || null || undefined)">
+			    <h2 class="accordion-header" id="headingOne">
+			      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			        <span><img src="../../../assets/image/pillais/accord-icon-1.png" alt="" /></span> Product Details
+			      </button>
+			    </h2>
+			    <div id="collapseOne"  class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+			      <div class="accordion-body">
+					<p>{{productdetails.product_descriptions}}</p>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="accordion-item" *ngIf="productdetails && productdetails.Product_ingredients && productdetails.Product_ingredients.length > 0">
+			    <h2 class="accordion-header" id="headingTwo">
+			      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+			        <span><img src="../../../assets/image/pillais/accord-icon-2.png" alt="" /></span> Product Ingredients
+			      </button>
+			    </h2>
+			    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+			      <div class="accordion-body">
+					<p>{{productdetails.Product_ingredients}}</p>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="accordion-item" *ngIf="productdetails && productdetails.receipes_cook && productdetails.receipes_cook.length > 0">
+			    <h2 class="accordion-header" id="headingThree">
+			      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+			        <span><img src="../../../assets/image/pillais/accord-icon-3.png" alt="" /></span> Recipes to Cook
+			      </button>
+			    </h2>
+			    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+			      <div class="accordion-body">
+					<ol class="recipeone_cook">
+						<li *ngFor="let receipecook of productdetails.receipes_cook">{{receipecook}}</li>
+				
+					</ol>
+			      </div>
+			    </div>
+			  </div>
+			</div> -->
+
+
+
+			<div class="accordion" id="accordionExample">
+				<div class="accordion-item"
+					*ngIf="productdetails && productdetails.product_descriptions && productdetails.product_descriptions != ('' || null || undefined)">
+					<h2 class="accordion-header" id="headingOne">
+						<button [ngStyle]="{
+							'background-color': productdetails.scat_color || 'pink', 
+							'border': '1px solid ' + (productdetails.scatHead_color || 'pink') , 'color': productdetails.scatHead_color || 'pink'
+						  }" 
+						  class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						  data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+							<span><img src="../../../assets/image/pillais/accord-icon-1.png" alt="" /></span>
+							Product Details
+						</button>
+					</h2>
+					<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
+						<div class="accordion-body">
+							<p>{{productdetails.product_descriptions}}</p>
+						</div>
+					</div>
+				</div>
+			
+				<div class="accordion-item"
+					*ngIf="productdetails && productdetails.Product_ingredients && productdetails.Product_ingredients.length > 0">
+					<h2 class="accordion-header" id="headingTwo">
+						<button [ngStyle]="{
+							'background-color': productdetails.scat_color || 'pink', 
+							'border': '1px solid ' + (productdetails.scatHead_color || 'pink') , 'color': productdetails.scatHead_color || 'pink'
+						  }"
+						  class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							<span><img src="../../../assets/image/pillais/accord-icon-2.png" alt="" /></span>
+							Product Ingredients
+						</button>
+					</h2>
+					<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+						<div class="accordion-body">
+							<p>{{productdetails.Product_ingredients}}</p>
+						</div>
+					</div>
+				</div>
+			
+				<div class="accordion-item"
+					*ngIf="productdetails && productdetails.receipes_cook && productdetails.receipes_cook.length > 0">
+					<h2 class="accordion-header" id="headingThree">
+						<button [ngStyle]="{
+							'background-color': productdetails.scat_color || 'pink', 
+							'border': '1px solid ' + (productdetails.scatHead_color || 'pink') , 'color': productdetails.scatHead_color || 'pink'
+						  }"
+						  class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							<span><img src="../../../assets/image/pillais/accord-icon-3.png" alt="" /></span>
+							Recipes to Cook
+						</button>
+					</h2>
+					<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
+						<div class="accordion-body">
+							<ol class="recipeone_cook">
+								<li *ngFor="let receipecook of productdetails.receipes_cook">{{receipecook}}</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- <p class="like">
+				<i class="fa-regular fa-heart" aria-hidden="true"></i>
+				<i class="fa-solid fa-heart" aria-hidden="true"></i>
+			</p> -->
+			
+			<!-- <p class="like" (click)="addFavourite(productdetails._id)">
+				<i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!productdetails?.favourite"></i>
+				<i class="fa-solid fa-heart" aria-hidden="true" *ngIf="productdetails && productdetails.favourite"></i>
+			</p> -->
+			 
+			<p class="like" *ngIf="productdetails?.favourite" (click)="addFavourite(productdetails._id,chalidId)">
+				<i class="fa-heart fa-solid " aria-hidden="true" ></i>
+			  </p>
+			  <p class="like" *ngIf="!productdetails?.favourite" (click)="addFavourite(productdetails._id,chalidId)">
+			
+				<i class="fa-regular fa-heart" aria-hidden="true" ></i>
+			  </p>
+
+		</div>
+
+	</div>
+</section>
+
+<app-deals [color]="productdetails && productdetails.scat_color != (undefined || null || '') ?  productdetails.scat_color : 'pink'" [listName]="'people_selected_products'"></app-deals>
+
+
+
+
+
+
+
+<section class="photo-gallery"
+	*ngIf="productdetails && productdetails.images && productdetails.images != (undefined || null || '')">
+	<div class="container inner-padding">
+		<h2>Product Image Gallery</h2>
+
+		<div class="photo-gal-img">
+			<img *ngFor="let image of productdetails.images" src="{{env_url}}{{image}}" alt="">
+		</div>
+	</div>
+</section>
+
+<!-- <section class="popular-recipe"
+	*ngIf="productdetails && productdetails.recipe_ingredients && productdetails.recipe_ingredients.length > 0">
+	<div class="container">
+		<div class="popular-rep-cnt">
+			<h2>Popular Recipe</h2>
+			<h3>Recipe Name: <b>{{productdetails.recipe_name}}</b></h3>
+
+			<div class="accordion" id="popularRecipe">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="recipe-1">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+							data-bs-target="#recipeOne" aria-expanded="true" aria-controls="recipeOne">
+							<span><img src="../../../assets/image/pillais/accord-icon-2.png" alt="" /></span>
+							Recipe Ingredients
+						</button>
+					</h2>
+					<div id="recipeOne" class="accordion-collapse collapse" aria-labelledby="recipe-1"
+						data-bs-parent="#popularRecipe">
+						<div class="accordion-body">
+							<ol class="recipeone_cook">
+								<li *ngFor="let receipeIng of productdetails.recipe_ingredients">{{receipeIng}}
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="recipe-2">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+							data-bs-target="#recipeTwo" aria-expanded="false" aria-controls="recipeTwo">
+							<span><img src="../../../assets/image/pillais/accord-icon-3.png" alt="" /></span>
+							Cooking Instructions
+						</button>
+					</h2>
+					<div id="recipeTwo" class="accordion-collapse collapse" aria-labelledby="recipe-2"
+						data-bs-parent="#popularRecipe">
+						<div class="accordion-body">
+							<ol>
+								<li *ngFor="let cook_ins of productdetails.cooking_instructions">
+									{{cook_ins}}
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</section> -->
+
+<section class="popular-recipe"
+	*ngIf="productdetails && productdetails.recipe_ingredients && productdetails.recipe_ingredients.length > 0">
+	<div class="container">
+		<div class="popular-rep-cnt">
+			<h2>Popular Recipe</h2>
+			<h3>Recipe Name: <b [ngStyle]="{'color': productdetails.scatHead_color || 'pink'
+			  }">{{productdetails.recipe_name}}</b></h3>
+
+			<div class="accordion" id="popularRecipe">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="recipe-1">
+						<button [ngStyle]="{
+							'background-color': productdetails.scat_color || 'pink', 
+							'border': '1px solid ' + (productdetails.scatHead_color || 'pink') , 'color': productdetails.scatHead_color || 'pink'
+						  }" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#recipeOne"
+							aria-expanded="true" aria-controls="recipeOne">
+							<span><img src="../../../assets/image/pillais/accord-icon-2.png" alt="" /></span>
+							Recipe Ingredients
+						</button>
+					</h2>
+					<div id="recipeOne" class="accordion-collapse collapse show" aria-labelledby="recipe-1">
+						<div class="accordion-body">
+							<ol class="recipeone_cook">
+								<li *ngFor="let receipeIng of productdetails.recipe_ingredients">{{receipeIng}}
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="recipe-2">
+						<button [ngStyle]="{
+							'background-color': productdetails.scat_color || 'pink', 
+							'border': '1px solid ' + (productdetails.scatHead_color || 'pink') , 'color': productdetails.scatHead_color || 'pink'
+						  }"
+							class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+							data-bs-target="#recipeTwo" aria-expanded="false" aria-controls="recipeTwo">
+							<span><img src="../../../assets/image/pillais/accord-icon-3.png" alt="" /></span>
+							Cooking Instructions
+						</button>
+					</h2>
+					<div id="recipeTwo" class="accordion-collapse collapse" aria-labelledby="recipe-2">
+						<div class="accordion-body">
+							<ol>
+								<li *ngFor="let cook_ins of productdetails.cooking_instructions">{{cook_ins}}
+								</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+<!-- <section class="faq" *ngIf="(productdetails && productdetails.faq_details && productdetails.faq_details != (undefined || '' || null) &&  productdetails.faq_details.length > 0) && productdetails.faq_details[0].title != ''">
+	<div class="container">
+		<div class="faq-cnt">
+			<h2>FAQ</h2>
+			<div class="accordion" id="faq">
+				  <div class="accordion-item" *ngFor="let faq of productdetails.faq_details">
+				    <h2 class="accordion-header" id="faq-1">
+				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">
+				         {{faq.title}}
+				      </button>
+				    </h2>
+				    <div id="faqOne" class="accordion-collapse collapse show" aria-labelledby="faq-1" data-bs-parent="#faq">
+				      <div class="accordion-body">
+				        <p>
+				        	{{faq.content}}
+				        </p>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+
+		</div>
+	</div>
+</section> -->
+<!-- <section class="faq"
+	*ngIf="productdetails && productdetails.faq_details && productdetails.faq_details.length > 0 && productdetails.faq_details[0].title !== ''">
+	<div class="container">
+		<div class="faq-cnt">
+			<h2>FAQ</h2>
+			<div class="accordion" id="faqAccordion">
+				<div class="accordion-item" *ngFor="let faq of productdetails.faq_details; let i = index">
+					<h2 class="accordion-header" [attr.id]="'heading' + i">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+							[attr.data-bs-target]="'#collapseFaq' + i" aria-expanded="false"
+							[attr.aria-controls]="'collapseFaq' + i">
+							{{faq.title}}
+						</button>
+					</h2>
+					<div [id]="'collapseFaq' + i" class="accordion-collapse collapse"
+						[attr.aria-labelledby]="'heading' + i" data-bs-parent="#faqAccordion">
+						<div class="accordion-body">
+							<p>
+								{{faq.content}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section> -->
+
+<section class="faq"
+	*ngIf="productdetails && productdetails.faq_details && productdetails.faq_details.length > 0 && productdetails.faq_details[0].title !== ''">
+	<div class="container">
+		<div class="faq-cnt">
+			<h2>FAQ</h2>
+
+			<div class="accordion" id="faqAccordion">
+				<div class="accordion-item" *ngFor="let faq of productdetails.faq_details; let i = index">
+				  <h2 class="accordion-header" [attr.id]="'heading' + i">
+					<button [ngStyle]="{
+						'background-color': productdetails.scat_color || 'pink', 
+						'border': '1px solid ' + (productdetails.scatHead_color || 'pink'), 
+						'color': productdetails.scatHead_color || 'pink'
+					  }"
+					  class="accordion-button" type="button" (click)="toggleFaq(i)"
+					  [attr.aria-expanded]="openFaqs[i]" [attr.aria-controls]="'collapseFaq' + i">
+					  {{faq.title}}
+					</button>
+				  </h2>
+				  <div [id]="'collapseFaq' + i" class="accordion-collapse collapse"
+					[ngClass]="{'show': openFaqs[i]}" [attr.aria-labelledby]="'heading' + i">
+					<div class="accordion-body">
+					  <p>
+						{{faq.content}}
+					  </p>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  
+
+		</div>
+	</div>
+</section>
+
+
+<ng-template #bubbleTemp>
+	<app-deals [color]="productdetails?.scat_color" [listName]="'recommended_products'"></app-deals>
+</ng-template>
+
+<ng-container *ngIf="showDeals">
+	<ng-container *ngTemplateOutlet="bubbleTemp"></ng-container>
+</ng-container>
+
+
+
+
+
+<!-- <section class="related-product recom-prod">
+	<div class="container inner-padding">
+		<h3>Recommended Products</h3>
+		<div class="product-list-right" *ngIf="recommendedArray.length > 0">
+			<div class="product-part" *ngFor="let recommended of recommendedArray">
+				<div class="p-list-cnt" > -->
+<!-- <p>{{recommended.avatar}}</p> -->
+<!-- <a href="" class="p-img-part"> -->
+<!-- <img [src]="env_url+recommended.avatar" alt=""> -->
+<!-- <img [src]="env_url+recommended.avatar" class=""
+						onerror="this.src='assets/image/no_img.png'"
+						(click)="productDetails(recommended.slug,recommended._id,recommended.rcat_id,recommended.scat_id)">
+					</a>
+					<div class="p-product-cnt">
+						<div class="p-product-hide">
+							<a href="" class="p-img-part" (click)="productDetails(recommended.slug,recommended.product_id,recommended.rcategory,recommended.scategory)">
+								<h2>{{recommended.name}}</h2>
+								<p class="price 1"><span> ₹ 565 </span>&nbsp; <span> ₹ 465 </span></p>
+							</a>
+
+						</div>
+						<div class="v-add qty-sec">
+							<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+									alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<i class="fa-regular fa-heart"></i>
+			<i class="fa-solid fa-heart"></i> -->
+<!-- <div class="product-part">
+				<div class="p-list-cnt">
+					<a href="" class="p-img-part">
+						<img src="../../../assets/image/pillais/product-img/Premium-Urad-Dal-Black-Whole.jpg"
+							alt="">
+					</a>
+					<div class="p-product-cnt">
+						<div class="p-product-hide">
+							<a href="" class="p-img-part">
+								<h2>Premium Urad Dal – Black (Whole)</h2>
+								<p class="price 1"><span> ₹ 532 </span>&nbsp; <span> ₹ 432 </span></p>
+							</a>
+							<ul>
+								<li>
+									<input type="radio" name="p-q">
+									<p>1kg</p>
+								</li>
+							</ul>
+
+						</div>
+						<div class="v-add qty-sec">
+							<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+									alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="product-part">
+				<div class="p-list-cnt">
+					<a href="" class="p-img-part">
+						<img src="../../../assets/image/pillais/product-img/Daria-Dal-Split.jpg" alt="">
+					</a>
+					<div class="p-product-cnt">
+						<div class="p-product-hide">
+							<a href="" class="p-img-part">
+								<h2>Daria Dal (Split)</h2>
+								<p class="price 1"><span> ₹ 532 </span>&nbsp; <span> ₹ 432 </span></p>
+							</a>
+							<ul>
+								<li>
+									<input type="radio" name="p-q">
+									<p>250g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>500g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>1kg</p>
+								</li>
+							</ul>
+
+						</div>
+						<div class="v-add qty-sec">
+							<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+									alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="product-part">
+				<div class="p-list-cnt">
+					<a href="" class="p-img-part">
+						<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+					</a>
+					<div class="p-product-cnt">
+						<div class="p-product-hide">
+							<a href="" class="p-img-part">
+								<h2>Verkadalai – 500g</h2>
+								<p class="price 1"><span> ₹ 594 </span>&nbsp; <span> ₹ 494 </span></p>
+							</a>
+
+							<ul>
+								<li>
+									<input type="radio" name="p-q">
+									<p>100g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>500g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>1kg</p>
+								</li>
+							</ul>
+
+						</div>
+						<div class="v-add qty-sec">
+							<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+									alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="product-part">
+				<div class="p-list-cnt">
+					<a href="" class="p-img-part">
+						<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+					</a>
+					<div class="p-product-cnt">
+						<div class="p-product-hide">
+							<a href="" class="p-img-part">
+								<h2>Verkadalai – 500g</h2>
+								<p class="price 1"><span> ₹ 532 </span>&nbsp; <span> ₹ 432 </span></p>
+							</a>
+							<ul>
+								<li>
+									<input type="radio" name="p-q">
+									<p>100g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>500g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>1kg</p>
+								</li>
+							</ul>
+
+						</div>
+						<div class="v-add qty-sec">
+							<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+									alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="product-part">
+				<div class="p-list-cnt">
+					<a href="" class="p-img-part">
+						<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+					</a>
+					<div class="p-product-cnt">
+						<div class="p-product-hide">
+							<a href="" class="p-img-part">
+								<h2>Verkadalai – 500g</h2>
+								<p class="price 1"><span> ₹ 532 </span>&nbsp; <span> ₹ 432 </span></p>
+							</a>
+							<ul>
+								<li>
+									<input type="radio" name="p-q">
+									<p>100g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>500g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>1kg</p>
+								</li>
+							</ul>
+
+						</div>
+						<div class="v-add qty-sec">
+							<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+									alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="product-part">
+				<div class="p-list-cnt">
+					<a href="" class="p-img-part">
+						<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+					</a>
+					<div class="p-product-cnt">
+						<div class="p-product-hide">
+							<a href="" class="p-img-part">
+								<h2>Verkadalai – 500g</h2>
+								<p class="price 1"><span> ₹ 565 </span>&nbsp; <span> ₹ 465 </span></p>
+							</a>
+							<ul>
+								<li>
+									<input type="radio" name="p-q">
+									<p>100g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>500g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>1kg</p>
+								</li>
+							</ul>
+
+						</div>
+						<div class="v-add qty-sec">
+							<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+									alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="product-part">
+				<div class="p-list-cnt">
+					<a href="" class="p-img-part">
+						<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+					</a>
+					<div class="p-product-cnt">
+						<div class="p-product-hide">
+							<a href="" class="p-img-part">
+								<h2>Verkadalai – 500g</h2>
+								<p class="price 1"><span> ₹ 565 </span>&nbsp; <span> ₹ 465 </span></p>
+							</a>
+							<ul>
+								<li>
+									<input type="radio" name="p-q">
+									<p>100g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>500g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>1kg</p>
+								</li>
+							</ul>
+
+						</div>
+						<div class="v-add qty-sec">
+							<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+									alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="product-part">
+				<div class="p-list-cnt">
+					<a href="" class="p-img-part">
+						<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+					</a>
+					<div class="p-product-cnt">
+						<div class="p-product-hide">
+							<a href="" class="p-img-part">
+								<h2>Verkadalai – 500g</h2>
+								<p class="price 1"><span> ₹ 532 </span>&nbsp; <span> ₹ 432 </span></p>
+							</a>
+
+							<ul>
+								<li>
+									<input type="radio" name="p-q">
+									<p>100g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>500g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>1kg</p>
+								</li>
+							</ul>
+
+						</div>
+						<div class="v-add qty-sec">
+							<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+									alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="product-part">
+				<div class="p-list-cnt">
+					<a href="" class="p-img-part">
+						<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+					</a>
+					<div class="p-product-cnt">
+						<div class="p-product-hide">
+							<a href="" class="p-img-part">
+								<h2>Verkadalai – 500g</h2>
+								<p class="price 1"><span> ₹ 595 </span>&nbsp; <span> ₹ 495 </span></p>
+							</a>
+							<ul>
+								<li>
+									<input type="radio" name="p-q">
+									<p>100g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>500g</p>
+								</li>
+								<li>
+									<input type="radio" name="p-q">
+									<p>1kg</p>
+								</li>
+							</ul>
+
+						</div>
+						<div class="v-add qty-sec">
+							<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+									alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div> -->
+
+
+<!-- </div>
+	</div>
+</section> -->
+
+<ng-template #loginPopup>
+	<app-login [modalRef]="modalRef">
+
+	</app-login>
+</ng-template>

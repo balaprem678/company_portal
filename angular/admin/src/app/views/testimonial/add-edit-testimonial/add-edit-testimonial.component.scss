@@ -1,0 +1,201 @@
+.color_red {
+  color: red;
+}
+
+h2 strong {
+  font-size: 18px;
+}
+
+.profile_images {
+  position: relative;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  min-height: 343px;
+  max-height: 407px;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  background-color: #ffffff;
+  background: #fff;
+  padding: 30px;
+
+  input {
+    border: none;
+    background-color: transparent;
+    width: 30px;
+    position: absolute;
+    right: 20px;
+    top: 75px;
+    padding: 0;
+
+    &::-webkit-file-upload-button:focus-visible {
+      outline: none;
+    }
+
+    &::-webkit-file-upload-button {
+      width: 28px;
+      height: 28px;
+      border-radius: 15px;
+      border: none;
+      background: #fff;
+      background-image: url("../../../../assets/image/pencil.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      box-shadow: 0px 0 3px 0 #ccc;
+      color: #fff0;
+      z-index: 1;
+      position: relative;
+    }
+  }
+
+  .img_center_call {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 15px auto;
+    box-shadow: 0 0 80px 0 #dddddd;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+
+  p.image_size_filter {
+    font-size: 13px;
+    text-align: center;
+    margin-top: 34px;
+    color: #99a1b7;
+  }
+
+  .preview {
+    position: absolute;
+    top: 85px;
+    left: 42px;
+    width: 73%;
+    height: 148px;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 100%;
+      background: #fff;
+    }
+  }
+
+  p {
+    font-size: 14.35px;
+    color: #99a1b7;
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-weight: 600;
+  }
+}
+
+:where(
+    .profile_images,
+    .status,
+    .Your_name,
+    .company_name,
+    .your_position,.location,.rating,
+    .description
+  ) {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  margin-bottom: 20px;
+}
+
+:where(
+    .profile_images,
+    .status,
+    .Your_name,
+    .company_name,
+    .your_position,
+    .description,.location,.rating
+  )
+  label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--bs-gray-800);
+  font-size: 21.1px;
+}
+
+.description textarea {
+  width: 100%;
+  height: 80px;
+  resize: none;
+}
+
+::ng-deep
+  .ng-select
+  .ng-select-container
+  .ng-value-container
+  .ng-value
+  .ng-value-label,
+input::placeholder {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container,
+::ng-deep .custom-ng-select .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+::ng-deep .custom-ng-select .ng-select-container .ng-clear-wrapper,
+::ng-deep .ng-select.custom-ng-select .ng-select-container .ng-clear-wrapper {
+  display: none !important;
+}
+
+.card_footer_btn {
+  margin-left: auto;
+  margin-right: 12px;
+  margin-top: 30px;
+  margin-bottom: 80px;
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+
+  button:nth-child(1) {
+    font-size: 17px;
+    width: 125px;
+    height: 47px;
+    font-weight: 600;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border: none;
+
+    &:hover {
+      background-color: #f1f1f4;
+    }
+  }
+
+  button:nth-child(2) {
+    background-color: #1b84ff;
+    height: 47px;
+    border: none;
+    width: 151px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+
+    &:hover {
+      background-color: #056ee9;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+<h1><strong>Vehicle</strong></h1>
+<app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit"
+    [tablename]="'Vehicle List'" [deleteApis]="deleteApis" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName" [viewUrl]="viewUrl" [editUrl]="editUrl"
+   (onDeleteChange)="onDeleteChange($event)"  [bulk_action]="bulk_action"
+    (onitemsPerPageChange)="onitemsPerPageChange($event)"  (onPageChange)="onPageChange($event)"
+     (onSearchChange)="onSearchChange($event)">
+</app-common-table>

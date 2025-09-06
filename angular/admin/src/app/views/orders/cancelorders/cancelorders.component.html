@@ -1,0 +1,42 @@
+<!-- <div class="row">
+    <input type="text" [(ngModel)]="dataid">
+    <button type="button" (click)="onSubmit(dataid)">Submit</button>
+</div> -->
+<div class="container" *ngIf="this.global_filter_action.id">
+    <div class="row">
+        <table style="" class="table table-bordered" border="1" id="user-list">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Order Id</th>
+                    <th style="width: 20%;">User</th>
+                    <th style="width: 20%;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of canceluser">
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.order_id}}</p>
+                    </td>
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.user[0].username}}</p>
+                    </td>
+                    <td style="width: 20%;padding-left:8px">
+                        <p *ngIf="item.status == 10">Order Cancelled By Admin</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="order-admin_cancel_order">
+
+    <app-common-table [settings]="settings" [source]="source" [count]="totalItems" [itemsPerPage]="limit"
+        [tablename]="'Canceled Orders - Admin'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName"
+        [editUrl]="editUrl" [viewUrl]="viewUrl" (onitemsPerPageChange)="onitemsPerPageChange($event)"
+        [card_details]="card_details" (onPageChange)="onPageChange($event)" [bulk_action]="bulk_action"
+        (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)"
+        [filter_action]="filter_action" [filter_action_list]="filter_action_list"
+        (onFilterAction)="onFilterAction($event)">
+    </app-common-table>
+</div>

@@ -1,0 +1,965 @@
+<!-- <div class="modal-body login-body">
+    <div (click)="destroyModel()" title="close the popup" class="pop_cls_btn">
+        &#10006;
+    </div>
+    <div class="popup-image">
+        <img src="{{env}}{{settings.login_image}}" onerror="this.src='assets/image/login_banner.png'" width="100%"
+            height="100%" alt="">
+    </div>
+    <div class="popup-form">
+        <h6 class="popup-head text-center">Login</h6>
+        <p class="p-head text-center">Login to your account</p>
+        <form #loginForm="ngForm" (ngSubmit)="onFormSubmit(loginForm, otpModel)">
+            <div class="form-group">
+                <input type="text" pattern="^[^A-Z]*$" name="username" id="username" class="form-control"
+                    placeholder="Enter your registered  email" ngModel #username="ngModel" required>
+                <div class="invalid-feedback" *ngIf="username.errors && username.errors['pattern']">
+                    Enter Valid Email Id
+                </div>
+                <div *ngIf="loginForm.submitted && !username.valid">
+                    <div class="invalid-feedback" *ngIf="username.errors && username.errors['required']">
+                        Email is required.
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group login-input mt-2 login_password">
+                <input [type]="passwordFieldType" required name="password" #password="ngModel" ngModel class="form-control"
+                        placeholder="Enter Password" id="password" required>
+                    <img src="/assets/image/new_images/pw_hide.svg" alt="hide" *ngIf="passwordFieldType === 'password'" (click)="togglePasswordVisibility()">
+                    <img src="/assets/image/new_images/pw_show.svg" alt="show" *ngIf="passwordFieldType === 'text'" (click)="togglePasswordVisibility()">
+                    <div *ngIf="loginForm.submitted && !password.valid">
+                        <div class="invalid-feedback" *ngIf="password.errors && password.errors['required']">
+                            Password is required.
+                        </div>
+                    </div>
+            </div>
+            <div class="sumbit-btn d-flex flex-wrap gap-2 justify-content-between align-items-start mt-2">
+                <div class="pass-part">
+                    <input type="checkbox" style="cursor: pointer;">
+                    <label class="checkmark"></label>
+                    <span>Remember Me</span>
+                </div>
+                <span class="forgot-part"><a (click)="forgotPopup(forGotPop)">Forgot Password?</a></span>
+                <span class="login-part">
+
+                    <button type="submit" [disabled]="!loginForm.valid"
+                        class="link-border link-color rounded text-center  py-2 px-4 m-0">Continue</button>
+                </span>
+                <span class="signup-part">Don't have an account? <a (click)="registPopup(regPopup)">Register</a></span>
+            </div>
+        </form>
+        <div class="sign-alter d-flex flex-wrap align-items-center justify-content-between">
+        </div>
+    </div>
+</div>
+
+<ng-template #forGotPop>
+    <div class="modal-header">
+        <h5 class="m-0">Forgot Password</h5>
+        <div (click)="destroyForModel()" title="close the popup" class="pop_cls_btn">
+            &#10006;
+        </div>
+    </div>
+    <div class="modal-body login-body">
+        <div class="container-fluid p-0">
+            <form #forgetForm="ngForm" (ngSubmit)="onForgotSubmit(forgetForm, otpModel)" class="form-group"
+                style="width: 100%;">
+                <div class="form-group">
+                    <label class="form-label">E-mail</label>
+                    <input type="email" name="email" id="email" ngModel #email="ngModel"
+                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control"
+                        placeholder="Enter your e-mail" required>
+                    <div *ngIf="forgetForm.submitted && !email.valid">
+                        <div class="invalid-feedback" *ngIf="email.errors && email.errors['required']">
+                            Email is required.
+                        </div>
+                        <div class="invalid-feedback" *ngIf="email.errors && email.errors['pattern']">
+                            Please enter vaild email.
+                        </div>
+                    </div>
+                </div>
+                <div class="forget-btn d-flex justify-content-center mt-5 align-items-center">
+                    <button type="submit"
+                        class="link-border link-color rounded text-center  py-2 px-4 m-0">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</ng-template>
+<ng-template #otpModel>
+    <div class="modal-header">
+        <h4 class="m-0">Verify Account</h4>
+        <div (click)="destroyOtpModel()" title="close the popup" class="pop_cls_btn">
+            &#10006;
+        </div>
+    </div>
+    <div class="modal-body login-body">
+        <div class="container-fluid p-0">
+            <form (ngSubmit)="onSubmit(otpform, changePasswordPop)" #otpform="ngForm">
+                <p>Enter 4 digit code sent to your email</p>
+                <div class="row d-flex">
+                    <div
+                        class="form-group d-flex flex-wrap align-items-center justify-content-between gap-2 login-value mb-5">
+                        <input type="number" name="num1" autocomplete="off" id="num1" [(ngModel)]="num1"
+                            [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                            #digit1="ngModel" (keyup)="onDigitInput(1,$event)">
+                        <input type="number" name="num2" autocomplete="off" id="num2" [(ngModel)]="num2"
+                            [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                            #digit2="ngModel" (keyup)="onDigitInput(2,$event)">
+                        <input type="number" name="num3" autocomplete="off" id="num3" [(ngModel)]="num3"
+                            [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                            #digit3="ngModel" (keyup)="onDigitInput(3,$event)">
+                        <input type="number" name="num4" autocomplete="off" id="num4" [(ngModel)]="num4"
+                            [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                            #digit4="ngModel" (keyup)="onDigitInput(4,$event)">
+                    </div>
+                </div>
+                <button type="submit" class="btn verify-bnt">Verify</button>
+            </form>
+        </div>
+        <p *ngIf="remainingTime > 0" class="pass-p codedisap-p  text-center mt-3"><a>Resend Code in</a> <strong>{{
+                remainingTime >
+                0? remainingTime : 00 }}</strong> seconds &nbsp;</p>
+        <p *ngIf="remainingTime == 0" class="pass-p code-p text-center mt-3"><a (click)="resenOtp()">Resend Code in</a>
+            <strong>{{ remainingTime >
+                0? remainingTime : 00 }}</strong> seconds &nbsp;
+        </p>
+    </div>
+</ng-template>
+
+<ng-template #regPopup>
+    <app-register [registerRef]="registerRef" [sociallogin]="sociallogin"></app-register>
+</ng-template>
+
+<ng-template #changePasswordPop>
+    <div class="modal-header">
+        <h4 class="m-0">Change Password</h4>
+        <div (click)="destroyPassModel()" title="close the popup" class="pop_cls_btn">
+            &#10006;
+        </div>
+    </div>
+    <div class="modal-body login-body">
+        <div class="container-fluid">
+            <form #changeForm="ngForm" (ngSubmit)="onChangeFormSubmit(changeForm)">
+                <div class="form-group change-pass mb-3">
+                    <label for="newpassword">New Password</label>
+                    <input required name="newpassword"
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])(?!.*\s).{8,}$"
+                        type="{{passtypenp}}" #newpassword="ngModel" minlength="6" maxlength="100" ngModel
+                        class="form-control" placeholder="Enter Password" id="newpassword" required>
+                    <span><i class="{{nppassicon}} password-icon" (click)="hideShowPassword('np')"></i></span>
+                    <div *ngIf="changeForm.submitted && !newpassword.valid" class="invalid-feedback">
+                        <div *ngIf="newpassword.errors && newpassword.errors['pattern']">
+                            Confirm Password Must
+                            Contain Atleast One uppercase,One lower case,One Numeric,One Special Character.
+                        </div>
+                        <div *ngIf="newpassword.errors && newpassword.errors['maxlength']">Password must be maximum of
+                            100 characters.</div>
+                        <div *ngIf="newpassword.errors && newpassword.errors['required']">Password is required</div>
+                    </div>
+                </div>
+                <div class="form-group change-pass mb-3">
+                    <label for="confirmpassword">Confirm Password</label>
+                    <input required name="confirmpassword"
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])(?!.*\s).{8,}$"
+                        type="{{passtypecnp}}" #confirmpassword="ngModel" minlength="6" maxlength="100" ngModel
+                        class="form-control" placeholder="Enter Confirm Password" id="confirmpassword" required>
+                    <span><i class="{{cnppassicon}} password-icon" (click)="hideShowPassword('cnp')"></i></span>
+                    <div *ngIf="confirmpassword.touched && !confirmpassword.valid" class="invalid-feedback">
+                        <div *ngIf="newpassword.value != confirmpassword.value">Password and Confirm Password is not
+                            matching.</div>
+                    </div>
+                    <div *ngIf="changeForm.submitted && !confirmpassword.valid" class="invalid-feedback">
+                        <div *ngIf="confirmpassword.errors && confirmpassword.errors['pattern']">
+                            Confirm Password Must
+                            Contain Atleast One uppercase,One lower case,One Numeric,One Special Character.
+                        </div>
+                        <div *ngIf="confirmpassword.errors && confirmpassword.errors['maxlength']">Confirm Password must
+                            be maximum of 100 characters.</div>
+                        <div *ngIf="confirmpassword.errors && confirmpassword.errors['required']">Confirm Password is
+                            required</div>
+                    </div>
+                </div>
+                <div class="sumbit-btn d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                    <button type="button" class="cancel-pass rounded text-center  py-2 px-4 m-0"
+                        (click)="destroyPassModel()">Cancel</button>
+                    <button type="submit"
+                        class="link-border link-color change-password rounded text-center  py-2 px-4 m-0">Save
+                        Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template> -->
+
+
+<section class="login-signup-page">
+    <div class="padding-container">
+        <!-- <h2>Welcome back, Guest</h2> -->
+        <div class="login-sec">
+            <h3 class="login_label_head">Login</h3>
+            <form #loginForm="ngForm" (ngSubmit)="onFormSubmit(loginForm, otpModel)">
+
+                <!-- <div class="l-form-group">
+                    <label>Username or e-mail address <span>*</span></label>
+                    <input type="text"
+                        pattern="^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|([a-zA-Z0-9._]{3,20})$"
+                        name="username" id="username" class="form-control"
+                        placeholder="Enter your username or registered email" ngModel #username="ngModel" required
+                        maxlength="40" />
+                    <div *ngIf=" loginsubmitted && username.invalid && username.touched" class="error-message">
+                        Please enter a valid username or e-mail address.
+                    </div>
+                </div> -->
+
+                <!-- <div class="l-form-group login_password">
+                    <label>Password <span>*</span></label>
+                    <input [type]="passwordFieldType" required name="password" #password="ngModel" ngModel
+                        class="form-control" placeholder="Enter Password" id="password" required maxlength="40">
+                    <img src="/assets/image/new_images/pw_hide.svg" alt="hide" *ngIf="passwordFieldType === 'password'"
+                        (click)="togglePasswordVisibility()">
+                    <img src="/assets/image/new_images/pw_show.svg" alt="show" *ngIf="passwordFieldType === 'text'"
+                        (click)="togglePasswordVisibility()">
+                    <div *ngIf="loginsubmitted && !password.valid && password.touched">
+
+                        <div *ngIf="password.errors && password.errors['required']" class="error-message">
+                            Password is required.
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="l-form-group login_ph">
+                    <!-- <label>Phone Number<span> *</span></label> -->
+                    <div class="input_btn">
+                        <ngx-intl-tel-input cssClass="form-control" id="phoneNum"
+                            [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                            [enablePlaceholder]="true" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                            [selectFirstCountry]="true" [selectedCountryISO]="selectedCountryISO"
+                            [phoneValidation]="true" [separateDialCode]="true" [maxLength]="15" #phoneNum="ngModel"
+                            (keyup)="phoneNumber($event)" name="phoneNum" required ngModel>
+                        </ngx-intl-tel-input>
+
+                    </div>
+                    <button type="button" class="btn btn-primary ml-2 otpverify_btn bef_enter"
+                        (click)="loginitiateOTPRequest()" [disabled]="logotpRequested">
+                        {{ logotpRequested ? 'OTP Sent' : 'Continue' }}
+                    </button>
+                    <div *ngIf="loginsubmitted && !phoneNum.valid">
+                        <div class="invalid-feedback d-block text-left" *ngIf="phoneNum.errors?.['required']">
+                          Enter valid mobile number
+                        </div>
+                    </div>
+                    <!-- <div *ngIf="loginForm.controls['phone'].errors && loginForm.controls['phone'].errors['validatePhoneNumber']"
+                       class="invalid-feedback d-block text-left">
+                    Invalid phone number
+                  </div> -->
+
+                </div>
+
+                <div *ngIf="logotpRequested" class="l-form-group otp_form mt-4">
+                    <label class="login_label_head">Verify Mobile Number<span> *</span></label>
+                    <!-- <a href="" class="edit_phone_no">6374706784</a> -->
+                    <p class="form_sec_title">Enter OTP</p>
+                    <div class="d-flex mt-2">
+                        <input type="text" maxlength="1" class="otp-input" name="loginotp1" id="loginotp1" ngModel
+                            #loginotp1="ngModel" (input)="logonOtpInput($event, 1)" required>
+                        <input type="text" maxlength="1" class="otp-input" name="loginotp2" id="loginotp2" ngModel
+                            #loginotp2="ngModel" (input)="logonOtpInput($event, 2)" required>
+                        <input type="text" maxlength="1" class="otp-input" name="loginotp3" id="loginotp3" ngModel
+                            #loginotp3="ngModel" (input)="logonOtpInput($event, 3)" required>
+                        <input type="text" maxlength="1" class="otp-input" name="loginotp4" id="loginotp4" ngModel
+                            #loginotp4="ngModel" (input)="logonOtpInput($event, 4)" required>
+                    </div>
+                    <!-- <div *ngIf="submitted && (loginotp1.invalid || loginotp2.invalid || loginotp3.invalid || loginotp4.invalid)">
+                        <div class="invalid-feedback d-block">
+                            OTP is required.
+                        </div>
+                    </div> -->
+                    <div
+                        *ngIf="loginsubmitted && phoneNum.valid && (!loginotp1.valid || !loginotp2.valid || !loginotp3.valid || !loginotp4.valid)">
+                        <div class="invalid-feedback d-block text-left"
+                            *ngIf="loginotp1.errors?.['required'] || loginotp2.errors?.['required'] || loginotp3.errors?.['required'] || loginotp4.errors?.['required']">
+                            OTP is required.
+                        </div>
+                    </div>
+
+                </div>
+                <div class="l-form-submit">
+                    <button type="submit">Verify & Continue</button>
+
+                </div>
+                <div class="d-flex align-items-center mt-2 resenOtp">
+                    <button type="button" class="btn    " (click)="logrestartOTPRequest()"
+                        [disabled]="logincountdown > 0">
+                        Resend OTP <span *ngIf="logincountdown > 0">{{ logincountdown }} seconds</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+
+
+        <!-- <div class="signup-sec">
+            <h3>Register</h3>
+            <form #registerForm="ngForm" (submit)="onregFormSubmit(registerForm)">
+                <div class="l-form-group">
+                    <label>Username<span>*</span></label>
+                    <input type="text" id="username" name="username" ngModel #username="ngModel"   pattern="^[a-zA-Z]+$"  required  maxlength="40"/>
+          
+
+                            <div *ngIf="submitted && !username.valid">
+                                <div *ngIf="username.errors?.['required']">
+                            username is required.
+                        </div>
+                        <div class="error-message" *ngIf="username.errors && username.errors['pattern']" >
+                        Invalid Username
+                    </div>
+                        
+    
+                    </div>
+                </div>
+                <div class="l-form-group">
+                    <label>Email address <span>*</span></label>
+                    <input type="email" id="email" name="email" ngModel #email="ngModel"  pattern="^[a-z0-9.]+@[a-z0-9.-]+\.[a-z]{2,3}$" required maxlength="40"/>
+                    <div *ngIf="submitted && !email.valid">
+                        <div *ngIf="email.errors?.['required']"
+                            class="invalid-feedback d-block">
+                            Email is required
+                        </div>
+                        <div *ngIf="email.errors?.['maxlength']" class="invalid-feedback d-block">Maximum limit 40
+                            characters</div>
+                        <div *ngIf="email.errors?.['minlength']" class="invalid-feedback d-block">Minimum limit  7
+                            characters</div>
+                            <div *ngIf="email.errors?.['pattern']" class="invalid-feedback d-block">Invalid email</div>
+                    </div>
+                </div>
+                <div class="l-form-group">
+                    <label>Password <span>*</span></label>
+                    <input type="password"  name="password" type="password" class="form-control" minlength="6"
+                    placeholder="Password" maxlength="13" id="password" #password="ngModel"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,13}$" required ngModel/>
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
+                        <span *ngIf="password.errors['minlength']">Password must be at least 6 characters
+                            long </span>
+                        <span
+                            *ngIf="(!password.errors['minlength'] && (!hasLetter(password.value) ||!hasUpperCase(password.value) || !hasNumber(password.value) ||!hasSpecialChar(password.value) ))">Password
+                            must contain
+                        </span>
+                        <span
+                            *ngIf="( password.errors['minlength'] &&  (!hasLetter(password.value) ||!hasUpperCase(password.value) || !hasNumber(password.value) ||!hasSpecialChar(password.value))) ">and
+                            contains</span>
+                        <span *ngIf="!hasLetter(password.value)">,1 lowercase</span>
+                        <span *ngIf="!hasUpperCase(password.value)">,1 uppercase</span>
+                        <span *ngIf="!hasNumber(password.value)">,1 number</span>
+                        <span *ngIf="!hasSpecialChar(password.value)"> and 1 special character</span>
+                    </div>
+                    <div *ngIf="submitted && !password.valid" class="invalid-feedback">
+                        <div *ngIf="password.errors['required']">Password is required</div>
+                    </div>
+                </div>
+                <div class="l-form-submit">
+                    <p>Your data helps us improve your experience on this website and manage your account. For more details, see our privacy policy.</p>
+                    <button type="submit">Register</button>
+                </div>
+            </form>    
+        </div> -->
+
+
+        <div class="signup-sec">
+            <h3 class="login_label_head">Register</h3>
+            <form [formGroup]="registerForm" (ngSubmit)="onregFormSubmit()">
+                <div class="l-form-group fst_name">
+                    <label class="form_sec_title">First name<span> *</span></label>
+                    <input type="text" id="first_name" formControlName="first_name" maxlength="40"
+                        placeholder="Enter first name" />
+                    <div *ngIf="submitted && registerForm.controls['first_name'].invalid">
+                        <div *ngIf="registerForm.controls['first_name'].errors?.['required']"
+                            class="invalid-feedback d-block">
+                            First name is required.
+                        </div>
+                        <div *ngIf="registerForm.controls['first_name'].errors?.['pattern']"
+                            class="invalid-feedback d-block">
+                            Invalid first name
+                        </div>
+                    </div>
+                </div>
+                <div class="l-form-group lst_name">
+                    <label class="form_sec_title">Last name<span> *</span></label>
+                    <input type="text" id="last_name" formControlName="last_name" maxlength="40"
+                        placeholder="Enter last name" />
+                    <div *ngIf="submitted && registerForm.controls['last_name'].invalid">
+                        <div *ngIf="registerForm.controls['last_name'].errors?.['required']"
+                            class="invalid-feedback d-block">
+                            Last name is required.
+                        </div>
+                        <div *ngIf="registerForm.controls['last_name'].errors?.['pattern']"
+                            class="invalid-feedback d-block">
+                            Invalid last name
+                        </div>
+                    </div>
+                </div>
+                <div class="l-form-group">
+                    <label class="form_sec_title">E-mail address <span>*</span></label>
+                    <input type="email" id="email" formControlName="email" maxlength="40" required
+                        placeholder="Enter your email" />
+                    <div *ngIf="submitted && registerForm.controls['email'].invalid">
+                        <div *ngIf="registerForm.controls['email'].errors?.['required']"
+                            class="invalid-feedback d-block">
+                            E-mail is required
+                        </div>
+                        <div *ngIf="registerForm.controls['email'].errors?.['maxlength']"
+                            class="invalid-feedback d-block">
+                            Maximum limit 40 characters
+                        </div>
+                        <div *ngIf="registerForm.controls['email'].errors?.['minlength']"
+                            class="invalid-feedback d-block">
+                            Minimum limit 7 characters
+                        </div>
+                        <div *ngIf="registerForm.controls['email'].errors?.['pattern']"
+                            class="invalid-feedback d-block">
+                            Invalid email
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="l-form-group signup_ph mt-3">
+                    <label class="form_sec_title">Phone Number<span> *</span></label>
+                    <div class="input_btn">
+                        <ngx-intl-tel-input [cssClass]="'form-control'" id="phone"
+                            [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                            [enablePlaceholder]="true" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                            [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO"
+                            [phoneValidation]="true" [separateDialCode]="true" name="phone" formControlName="phone"
+                            [maxLength]="15" (keyup)="phoneNumberChange($event)">
+                        </ngx-intl-tel-input>
+
+                    </div>
+                    <button type="button" class="btn btn-primary ml-2 mt-3" (click)="initiateOTPRequest()"
+                        [disabled]="otpRequested">
+                        {{ otpRequested ? 'OTP Sent' : 'Verify' }}
+                    </button>
+                    <div *ngIf="submitted && !registerForm.controls['phone'].valid">
+                        <div class="invalid-feedback d-block text-left"
+                            *ngIf="registerForm.controls['phone'].errors?.['required']">
+                            Telephone number is required
+                        </div>
+                    </div>
+                    <div *ngIf="registerForm.controls['phone'].errors && registerForm.controls['phone'].errors['validatePhoneNumber']"
+                        class="invalid-feedback d-block text-left">
+                        Invalid phone number
+                    </div>
+
+                </div>
+
+                <div *ngIf="otpRequested" class="l-form-group mt-4 otp_form">
+                    <label class="form_sec_title mb-3"> Enter OTP<span> *</span></label>
+                    <div class="d-flex">
+                        <input type="text" maxlength="1" class="otp-input" formControlName="otp1"
+                            (input)="onOtpInput($event, 1)" #otp1>
+                        <input type="text" maxlength="1" class="otp-input" formControlName="otp2"
+                            (input)="onOtpInput($event, 2)" #otp2>
+                        <input type="text" maxlength="1" class="otp-input" formControlName="otp3"
+                            (input)="onOtpInput($event, 3)" #otp3>
+                        <input type="text" maxlength="1" class="otp-input" formControlName="otp4"
+                            (input)="onOtpInput($event, 4)" #otp4>
+                    </div>
+                    <div
+                        *ngIf="submitted && (registerForm.controls['otp1'].invalid || registerForm.controls['otp2'].invalid || registerForm.controls['otp3'].invalid || registerForm.controls['otp4'].invalid)">
+                        <div class="invalid-feedback d-block">
+                            OTP is required.
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mt-2 resenOtp">
+                        <button type="button" class="btn btn-secondary" (click)="restartOTPRequest()"
+                            [disabled]="countdown > 0">
+                            Resend OTP <span *ngIf="countdown > 0">{{ countdown }} seconds</span>
+                        </button>
+                        <!-- <p class="ml-3 mb-0" >Resend OTP in </p> -->
+                    </div>
+                </div>
+                <!-- <div class="l-form-group">
+                    <div class="login_password">
+                    <label>Password <span>*</span></label>
+                        <input [type]="passwordFieldTypereg" id="password" formControlName="password"
+                            placeholder="Password" />
+                        <img src="/assets/image/new_images/pw_hide.svg" alt="hide"
+                            *ngIf="passwordFieldTypereg === 'password'" (click)="togglePasswordregVisibility()">
+                        <img src="/assets/image/new_images/pw_show.svg" alt="show"
+                            *ngIf="passwordFieldTypereg === 'text'" (click)="togglePasswordregVisibility()">
+                    </div>
+                    <div *ngIf="submitted && registerForm.controls['password'].invalid">
+                        <div *ngIf="registerForm.controls['password'].errors?.['required']"
+                            class="invalid-feedback d-block">
+                            Password is required
+                        </div>
+                        <div *ngIf="registerForm.controls['password'].errors?.['minlength']"
+                            class="invalid-feedback d-block">
+                            Password must be at least 6 characters long
+                        </div>
+                        <div *ngIf="registerForm.controls['password'].errors?.['pattern']"
+                            class="invalid-feedback d-block">
+                            Password must contain 1 lowercase, 1 uppercase, 1 number, and 1 special character
+                        </div>
+                    </div>
+                </div> -->
+                <div class="l-form-submit">
+                    <p>Your data helps us improve your experience on this website and manage your account. For more
+                        details, see our <span style="color: #0a472e;"><a (click)="footerRouter()">privacy
+                                policy.</a></span></p>
+                    <button type="submit">Register</button>
+                </div>
+            </form>
+        </div>
+
+
+
+    </div>
+    <div class="back-dash">
+        <a href="">Back to Dashboard</a>
+    </div>
+</section>
+
+<ng-template #otpModel>
+    <div class="modal-header">
+        <h4 class="m-0">Verify Account</h4>
+        <div (click)="destroyOtpModel()" title="close the popup" class="pop_cls_btn">
+            &#10006;
+        </div>
+    </div>
+    <div class="modal-body login-body">
+        <div class="container-fluid p-0">
+            <form (ngSubmit)="onSubmit(otpform, changePasswordPop)" #otpform="ngForm">
+                <p>Enter 4 digit code sent to your email</p>
+                <div class="row d-flex">
+                    <div
+                        class="form-group d-flex flex-wrap align-items-center justify-content-between gap-2 login-value mb-5">
+                        <input type="number" name="num1" autocomplete="off" id="num1" [(ngModel)]="num1"
+                            [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                            #digit1="ngModel" (keyup)="onDigitInput(1,$event)">
+                        <input type="number" name="num2" autocomplete="off" id="num2" [(ngModel)]="num2"
+                            [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                            #digit2="ngModel" (keyup)="onDigitInput(2,$event)">
+                        <input type="number" name="num3" autocomplete="off" id="num3" [(ngModel)]="num3"
+                            [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                            #digit3="ngModel" (keyup)="onDigitInput(3,$event)">
+                        <input type="number" name="num4" autocomplete="off" id="num4" [(ngModel)]="num4"
+                            [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                            #digit4="ngModel" (keyup)="onDigitInput(4,$event)">
+                    </div>
+                </div>
+                <button type="submit" class="btn verify-bnt">Verify</button>
+            </form>
+        </div>
+        <p *ngIf="remainingTime > 0" class="pass-p codedisap-p  text-center mt-3"><a>Resend Code in</a> <strong>{{
+                remainingTime >
+                0? remainingTime : 00 }}</strong> seconds &nbsp;</p>
+        <p *ngIf="remainingTime == 0" class="pass-p code-p text-center mt-3"><a (click)="resenOtp()">Resend Code in</a>
+            <strong>{{ remainingTime >
+                0? remainingTime : 00 }}</strong> seconds &nbsp;
+        </p>
+    </div>
+    <!-- <div class='modal-footer justify-content-center'>
+
+        [disabled]="remainingTime == 0"
+        (keydown)="digitKeyOnly($event)" 
+
+        <div *ngIf="remainingTime > 0">
+            Resend Code in <strong>{{ remainingTime > 0? remainingTime : 00 }}</strong>  seconds &nbsp; <a (click)="resenOtp()"></a>
+        </div> 
+        <div>
+
+        </div>
+    </div> -->
+
+</ng-template>
+
+<ng-template #changePasswordPop>
+    <div class="modal-header">
+        <h4 class="m-0">Change Password</h4>
+        <div (click)="destroyPassModel()" title="close the popup" class="pop_cls_btn">
+            &#10006;
+        </div>
+    </div>
+    <div class="modal-body login-body">
+        <div class="container-fluid">
+            <form #changeForm="ngForm" (ngSubmit)="onChangeFormSubmit(changeForm)">
+                <div class="form-group change-pass mb-3">
+                    <label for="newpassword">New Password</label>
+                    <input required name="newpassword"
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])(?!.*\s).{8,}$"
+                        type="{{passtypenp}}" #newpassword="ngModel" minlength="6" maxlength="100" ngModel
+                        class="form-control" placeholder="Enter Password" id="newpassword" required>
+                    <!-- <input required name="newpassword" type="{{passtypenp}}" #newpassword="ngModel"
+                        pattern="^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{8,}$" minlength="8" maxlength="100" ngModel
+                        class="form-control" placeholder="Enter Password" id="newpassword" required> -->
+                    <span><i class="{{nppassicon}} password-icon" (click)="hideShowPassword('np')"></i></span>
+                    <div *ngIf="changeForm.submitted && !newpassword.valid" class="invalid-feedback">
+                        <!-- <div *ngIf="newpassword.errors && newpassword.errors?.['pattern'] && !newpassword.errors['minlength']">Password Must Contain Atleast
+                            One uppercase,One lower case,One Numeric digit@496W.</div> -->
+                        <!-- <div *ngIf="newpassword.errors && newpassword.errors['minlength']">Password must be minimum of 6
+                            characters.</div> -->
+                        <div *ngIf="newpassword.errors && newpassword.errors['pattern']">
+                            Confirm Password Must
+                            Contain Atleast One uppercase,One lower case,One Numeric,One Special Character.
+                        </div>
+                        <div *ngIf="newpassword.errors && newpassword.errors['maxlength']">Password must be maximum of
+                            100 characters.</div>
+                        <div *ngIf="newpassword.errors && newpassword.errors['required']">Password is required</div>
+                    </div>
+                </div>
+                <div class="form-group change-pass mb-3">
+                    <label for="confirmpassword">Confirm Password</label>
+                    <input required name="confirmpassword"
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])(?!.*\s).{8,}$"
+                        type="{{passtypecnp}}" #confirmpassword="ngModel" minlength="6" maxlength="100" ngModel
+                        class="form-control" placeholder="Enter Confirm Password" id="confirmpassword" required>
+                    <!-- <input required name="confirmpassword" type="{{passtypecnp}}" #confirmpassword="ngModel"
+                        pattern="^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{8,}$" minlength="8" maxlength="100" ngModel
+                        class="form-control" placeholder="Enter Confirm Password" id="confirmpassword" required> -->
+                    <span><i class="{{cnppassicon}} password-icon" (click)="hideShowPassword('cnp')"></i></span>
+                    <div *ngIf="confirmpassword.touched && !confirmpassword.valid" class="invalid-feedback">
+                        <div *ngIf="newpassword.value != confirmpassword.value">Password and Confirm Password is not
+                            matching.</div>
+                    </div>
+                    <div *ngIf="changeForm.submitted && !confirmpassword.valid" class="invalid-feedback">
+                        <!-- <div *ngIf="confirmpassword.errors && confirmpassword.errors?.['pattern'] && !confirmpassword.errors['minlength']">Confirm Password Must
+                            Contain Atleast One uppercase,One lower case,One Numeric digit@496W.</div> -->
+                        <div *ngIf="confirmpassword.errors && confirmpassword.errors['pattern']">
+                            Confirm Password Must
+                            Contain Atleast One uppercase,One lower case,One Numeric,One Special Character.
+                        </div>
+                        <div *ngIf="confirmpassword.errors && confirmpassword.errors['maxlength']">Confirm Password must
+                            be maximum of 100 characters.</div>
+                        <div *ngIf="confirmpassword.errors && confirmpassword.errors['required']">Confirm Password is
+                            required</div>
+                    </div>
+                </div>
+                <div class="sumbit-btn d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                    <button type="button" class="cancel-pass rounded text-center  py-2 px-4 m-0"
+                        (click)="destroyPassModel()">Cancel</button>
+                    <button type="submit"
+                        class="link-border link-color change-password rounded text-center  py-2 px-4 m-0">Save
+                        Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+
+<!-- Login -- Signup -- Modal -- Start -->
+
+<ng-template #articleDeleteTemplate>
+  <div class="modal-content">
+    <section class="login-signup-page">
+      <div class="padding-container">
+        <h2>Welcome back, Guest</h2>
+        <div class="login-sec">
+          <h3>Login</h3>
+          <form #loginForm="ngForm" (ngSubmit)="onFormSubmit(loginForm, otpModel)">
+            <div class="l-form-group login_ph">
+              <label>Phone Number<span> *</span></label>
+              <div class="input_btn">
+                <ngx-intl-tel-input cssClass="form-control" id="phoneNum" [preferredCountries]="preferredCountries"
+                  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="true"
+                  [selectedCountryISO]="selectedCountryISO" [phoneValidation]="true"
+                  [separateDialCode]="separateDialCode" [maxLength]="15" #phoneNum="ngModel"
+                  (keyup)="phoneNumber($event)" name="phoneNum" required ngModel>
+                </ngx-intl-tel-input>
+                <button type="button" class="btn btn-primary ml-2" (click)="loginitiateOTPRequest()"
+                  [disabled]="logotpRequested">
+                  {{ logotpRequested ? 'OTP Sent' : 'Verify' }}
+                </button>
+              </div>
+              <div *ngIf="loginsubmitted && !phoneNum.valid">
+                <div class="invalid-feedback d-block text-left" *ngIf="phoneNum.errors?.['required']">
+                  Telephone number is required
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="logotpRequested" class="l-form-group otp_form">
+              <label>Enter OTP<span> *</span></label>
+              <div class="d-flex">
+                <input type="text" maxlength="1" class="otp-input" name="loginotp1" id="loginotp1" ngModel
+                  #loginotp1="ngModel" (input)="logonOtpInput($event, 1)" required>
+                <input type="text" maxlength="1" class="otp-input" name="loginotp2" id="loginotp2" ngModel
+                  #loginotp2="ngModel" (input)="logonOtpInput($event, 2)" required>
+                <input type="text" maxlength="1" class="otp-input" name="loginotp3" id="loginotp3" ngModel
+                  #loginotp3="ngModel" (input)="logonOtpInput($event, 3)" required>
+                <input type="text" maxlength="1" class="otp-input" name="loginotp4" id="loginotp4" ngModel
+                  #loginotp4="ngModel" (input)="logonOtpInput($event, 4)" required>
+              </div>
+              <div
+                *ngIf="loginsubmitted && phoneNum.valid && (!loginotp1.valid || !loginotp2.valid || !loginotp3.valid || !loginotp4.valid)">
+                <div class="invalid-feedback d-block text-left"
+                  *ngIf="loginotp1.errors?.['required'] || loginotp2.errors?.['required'] || loginotp3.errors?.['required'] || loginotp4.errors?.['required']">
+                  OTP is required.
+                </div>
+              </div>
+              <div class="d-flex align-items-center mt-2 resenOtp">
+                <button type="button" class="btn btn-secondary" (click)="logrestartOTPRequest()"
+                  [disabled]="logincountdown > 0">
+                  Resend OTP
+                </button>
+                <p class="ml-3 mb-0" *ngIf="logincountdown > 0">Resend OTP in {{ logincountdown }} seconds</p>
+              </div>
+            </div>
+            <div class="l-form-submit">
+              <button type="submit">Log in</button>
+
+            </div>
+          </form>
+        </div>
+
+        <div class="signup-sec">
+          <h3>Register</h3>
+          <form [formGroup]="registerForm" (ngSubmit)="onregFormSubmit()">
+            <div class="l-form-group">
+              <label>First name<span> *</span></label>
+              <input type="text" id="first_name" formControlName="first_name" maxlength="40"
+                placeholder="Enter first name" />
+              <div *ngIf="submitted && registerForm.controls['first_name'].invalid">
+                <div *ngIf="registerForm.controls['first_name'].errors?.['required']" class="invalid-feedback d-block">
+                  First name is required.
+                </div>
+                <div *ngIf="registerForm.controls['first_name'].errors?.['pattern']" class="invalid-feedback d-block">
+                  Invalid first name
+                </div>
+              </div>
+            </div>
+            <div class="l-form-group">
+              <label>Last name<span> *</span></label>
+              <input type="text" id="last_name" formControlName="last_name" maxlength="40"
+                placeholder="Enter last name" />
+              <div *ngIf="submitted && registerForm.controls['last_name'].invalid">
+                <div *ngIf="registerForm.controls['last_name'].errors?.['required']" class="invalid-feedback d-block">
+                  Last name is required.
+                </div>
+                <div *ngIf="registerForm.controls['last_name'].errors?.['pattern']" class="invalid-feedback d-block">
+                  Invalid last name
+                </div>
+              </div>
+            </div>
+            <div class="l-form-group">
+              <label>E-mail address <span>*</span></label>
+              <input type="email" id="email" formControlName="email" maxlength="40" required
+                placeholder="Enter your email" />
+              <div *ngIf="submitted && registerForm.controls['email'].invalid">
+                <div *ngIf="registerForm.controls['email'].errors?.['required']" class="invalid-feedback d-block">
+                  E-mail is required
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors?.['maxlength']" class="invalid-feedback d-block">
+                  Maximum limit 40 characters
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors?.['minlength']" class="invalid-feedback d-block">
+                  Minimum limit 7 characters
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors?.['pattern']" class="invalid-feedback d-block">
+                  Invalid email
+                </div>
+              </div>
+            </div>
+
+
+            <div class="l-form-group signup_ph">
+              <label>Phone Number<span> *</span></label>
+              <div class="input_btn">
+                <ngx-intl-tel-input [cssClass]="'form-control'" id="phone" [preferredCountries]="preferredCountries"
+                  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                  [selectedCountryISO]="selectedCountryISO" [phoneValidation]="true"
+                  [separateDialCode]="separateDialCode" name="phone" formControlName="phone" [maxLength]="15"
+                  (keyup)="phoneNumberChange($event)">
+                </ngx-intl-tel-input>
+                <button type="button" class="btn btn-primary ml-2" (click)="initiateOTPRequest()"
+                  [disabled]="otpRequested">
+                  {{ otpRequested ? 'OTP Sent' : 'Verify' }}
+                </button>
+              </div>
+              <div *ngIf="submitted && !registerForm.controls['phone'].valid">
+                <div class="invalid-feedback d-block text-left"
+                  *ngIf="registerForm.controls['phone'].errors?.['required']">
+                  Telephone number is required
+                </div>
+              </div>
+              <div
+                *ngIf="registerForm.controls['phone'].errors && registerForm.controls['phone'].errors['validatePhoneNumber']"
+                class="invalid-feedback d-block text-left">
+                Invalid phone number
+              </div>
+
+            </div>
+
+            <div *ngIf="otpRequested" class="l-form-group otp_form">
+              <label>Enter OTP<span> *</span></label>
+              <div class="d-flex">
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp1"
+                  (input)="onOtpInput($event, 1)" #otp1>
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp2"
+                  (input)="onOtpInput($event, 2)" #otp2>
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp3"
+                  (input)="onOtpInput($event, 3)" #otp3>
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp4"
+                  (input)="onOtpInput($event, 4)" #otp4>
+              </div>
+              <div
+                *ngIf="submitted && (registerForm.controls['otp1'].invalid || registerForm.controls['otp2'].invalid || registerForm.controls['otp3'].invalid || registerForm.controls['otp4'].invalid)">
+                <div class="invalid-feedback d-block">
+                  OTP is required.
+                </div>
+              </div>
+              <div class="d-flex align-items-center mt-2 resenOtp">
+                <button type="button" class="btn btn-secondary" (click)="restartOTPRequest()"
+                  [disabled]="countdown > 0">
+                  Resend OTP
+                </button>
+                <p class="ml-3 mb-0" *ngIf="countdown > 0">Resend OTP in {{ countdown }} seconds</p>
+              </div>
+            </div>
+            <div class="l-form-submit">
+              <p>Your data helps us improve your experience on this website and manage your account. For more
+                details, see our <span style="color: #0a472e;"><a (click)="footerRouter()">privacy policy.</a></span>
+              </p>
+              <button type="submit">Register</button>
+            </div>
+          </form>
+        </div>
+
+
+
+      </div>
+      <div class="back-dash">
+        <a href="">Back to Dashboard</a>
+      </div>
+    </section>
+  </div>
+</ng-template>
+
+
+<ng-template #otpModel>
+  <div class="modal-header">
+      <h4 class="m-0">Verify Account</h4>
+      <div (click)="destroyOtpModel()" title="close the popup" class="pop_cls_btn">
+          &#10006;
+      </div>
+  </div>
+  <div class="modal-body login-body">
+      <div class="container-fluid p-0">
+          <form (ngSubmit)="onSubmit(otpform, changePasswordPop)" #otpform="ngForm">
+              <p>Enter 4 digit code sent to your email</p>
+              <div class="row d-flex">
+                  <div
+                      class="form-group d-flex flex-wrap align-items-center justify-content-between gap-2 login-value mb-5">
+                      <input type="number" name="num1" autocomplete="off" id="num1" [(ngModel)]="num1"
+                          [ngModelOptions]=" 
+                      {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                          #digit1="ngModel" (keyup)="onDigitInput(1,$event)">
+                      <input type="number" name="num2" autocomplete="off" id="num2" [(ngModel)]="num2"
+                          [ngModelOptions]=" 
+                      {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                          #digit2="ngModel" (keyup)="onDigitInput(2,$event)">
+                      <input type="number" name="num3" autocomplete="off" id="num3" [(ngModel)]="num3"
+                          [ngModelOptions]=" 
+                      {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                          #digit3="ngModel" (keyup)="onDigitInput(3,$event)">
+                      <input type="number" name="num4" autocomplete="off" id="num4" [(ngModel)]="num4"
+                          [ngModelOptions]=" 
+                      {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                          #digit4="ngModel" (keyup)="onDigitInput(4,$event)">
+                  </div>
+              </div>
+              <button type="submit" class="btn verify-bnt">Verify</button>
+          </form>
+      </div>
+      <p *ngIf="remainingTime > 0" class="pass-p codedisap-p  text-center mt-3"><a>Resend Code in</a> <strong>{{
+              remainingTime >
+              0? remainingTime : 00 }}</strong> seconds &nbsp;</p>
+      <p *ngIf="remainingTime == 0" class="pass-p code-p text-center mt-3"><a (click)="resenOtp()">Resend Code in</a>
+          <strong>{{ remainingTime >
+              0? remainingTime : 00 }}</strong> seconds &nbsp;
+      </p>
+  </div>
+
+
+</ng-template>
+
+<ng-template #changePasswordPop>
+  <div class="modal-header">
+      <h4 class="m-0">Change Password</h4>
+      <div (click)="destroyPassModel()" title="close the popup" class="pop_cls_btn">
+          &#10006;
+      </div>
+  </div>
+  <div class="modal-body login-body">
+      <div class="container-fluid">
+          <form #changeForm="ngForm" (ngSubmit)="onChangeFormSubmit(changeForm)">
+              <div class="form-group change-pass mb-3">
+                  <label for="newpassword">New Password</label>
+                  <input required name="newpassword"
+                      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])(?!.*\s).{8,}$"
+                      type="{{passtypenp}}" #newpassword="ngModel" minlength="6" maxlength="100" ngModel
+                      class="form-control" placeholder="Enter Password" id="newpassword" required>
+                
+                  <span><i class="{{nppassicon}} password-icon" (click)="hideShowPassword('np')"></i></span>
+                  <div *ngIf="changeForm.submitted && !newpassword.valid" class="invalid-feedback">
+                    
+                      <div *ngIf="newpassword.errors && newpassword.errors['pattern']">
+                          Confirm Password Must
+                          Contain Atleast One uppercase,One lower case,One Numeric,One Special Character.
+                      </div>
+                      <div *ngIf="newpassword.errors && newpassword.errors['maxlength']">Password must be maximum of
+                          100 characters.</div>
+                      <div *ngIf="newpassword.errors && newpassword.errors['required']">Password is required</div>
+                  </div>
+              </div>
+              <div class="form-group change-pass mb-3">
+                  <label for="confirmpassword">Confirm Password</label>
+                  <input required name="confirmpassword"
+                      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])(?!.*\s).{8,}$"
+                      type="{{passtypecnp}}" #confirmpassword="ngModel" minlength="6" maxlength="100" ngModel
+                      class="form-control" placeholder="Enter Confirm Password" id="confirmpassword" required>
+                  <span><i class="{{cnppassicon}} password-icon" (click)="hideShowPassword('cnp')"></i></span>
+                  <div *ngIf="confirmpassword.touched && !confirmpassword.valid" class="invalid-feedback">
+                      <div *ngIf="newpassword.value != confirmpassword.value">Password and Confirm Password is not
+                          matching.</div>
+                  </div>
+                  <div *ngIf="changeForm.submitted && !confirmpassword.valid" class="invalid-feedback">
+                      <div *ngIf="confirmpassword.errors && confirmpassword.errors['pattern']">
+                          Confirm Password Must
+                          Contain Atleast One uppercase,One lower case,One Numeric,One Special Character.
+                      </div>
+                      <div *ngIf="confirmpassword.errors && confirmpassword.errors['maxlength']">Confirm Password must
+                          be maximum of 100 characters.</div>
+                      <div *ngIf="confirmpassword.errors && confirmpassword.errors['required']">Confirm Password is
+                          required</div>
+                  </div>
+              </div>
+              <div class="sumbit-btn d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                  <button type="button" class="cancel-pass rounded text-center  py-2 px-4 m-0"
+                      (click)="destroyPassModel()">Cancel</button>
+                  <button type="submit"
+                      class="link-border link-color change-password rounded text-center  py-2 px-4 m-0">Save
+                      Changes</button>
+              </div>
+          </form>
+      </div>
+  </div>
+</ng-template>
+
+<!-- Login -- Signup -- Modal -- End -->

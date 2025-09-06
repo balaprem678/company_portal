@@ -1,0 +1,78 @@
+<div class="container mt-4">
+    <h2>Finances</h2>
+    <div class="btn-group mb-3" role="group" aria-label="Button group">
+        <label for="year" class="ml-2">Year</label>
+        <select name="year" id="year" class="form-control d-inline-block w-auto ml-2" (change)="onYearChange($event)">
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+        </select>
+
+        <label for="month" class="ml-3">Month</label>
+        <select name="month" id="month" class="form-control d-inline-block w-auto ml-2" (change)="onMonthChange($event)">
+            <option value="0">All</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <!-- Sales Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">Sales</div>
+                <div class="card-body">
+                    <p>Gross sales: <strong>{{curreny_symbol}} {{ salesData.total?.gross_sale }}</strong></p>
+                    <p>Discounts: <strong>{{curreny_symbol}} {{ salesData.total?.discount }}</strong></p>
+                    <p>Shipping: <strong>{{curreny_symbol}} {{ salesData.total?.shipping }}</strong></p>
+                    <p>Taxes: <strong>{{curreny_symbol}} {{ salesData.total?.taxes }}</strong></p>
+                    <p>Total sales: <strong>{{curreny_symbol}} {{ salesData.total?.total_sale }}</strong></p>
+                </div>
+                <div id="sales-chart">
+                    <apx-chart
+                      [series]="salesChartOptions.series"
+                      [chart]="salesChartOptions.chart"
+                      [xaxis]="salesChartOptions.xaxis"
+                      [dataLabels]="salesChartOptions.dataLabels"
+                      [grid]="salesChartOptions.grid"
+                      [stroke]="salesChartOptions.stroke"
+                      [title]="salesChartOptions.title"
+                    ></apx-chart>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payments Card -->
+        <div class="col-md-4 mb-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">Payments</div>
+                <div class="card-body">
+                    <p>Razorpay: <strong>{{curreny_symbol}} {{ paymentsData.total?.razorpay_amount_total  }}</strong></p>
+                    <p>Cash on delivery (COD): <strong>{{curreny_symbol}} {{ paymentsData.total?.cod_amount_total  }}</strong></p>
+                    <p>Total payments: <strong>{{curreny_symbol}} {{ paymentsData.total?.total_amount  }}</strong></p>
+                </div>
+                <div id="payments-chart">
+                    <apx-chart
+                      [series]="paymentsChartOptions.series"
+                      [chart]="paymentsChartOptions.chart"
+                      [xaxis]="paymentsChartOptions.xaxis"
+                      [dataLabels]="paymentsChartOptions.dataLabels"
+                      [grid]="paymentsChartOptions.grid"
+                      [stroke]="paymentsChartOptions.stroke"
+                      [title]="paymentsChartOptions.title"
+                    ></apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

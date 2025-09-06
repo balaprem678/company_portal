@@ -1,0 +1,104 @@
+<div class="setting_seo_setting-page margin_top">
+    <div class="container">
+        <div class="full_page_title">
+            <strong>SEO Setting</strong>
+        </div>
+        <form #seoSettingForm="ngForm" (ngSubmit)="onFormSubmit(seoSettingForm)" autocomplete="off">
+
+            <div class="row">
+                <div class="col-lg-8 col-md-6 col-sm-12">
+                    <div class="seo_content">
+                        <div class="group-control">
+                            <label for="seo_title">SEO Title&nbsp; <span class="mandatory">*</span></label>
+                            <input type="text" name="seo_title" id="seo_title" class="form-control" ngModel
+                                name="seo_title" #seo_title="ngModel" required [disabled]="viewOnly"
+                                [ngClass]="{ 'is-invalid': seoSettingForm.submitted && seo_title.errors }"
+                                [ngClass]="{ 'is-valid': !seo_title.errors && seo_title.valid}">
+                            <div *ngIf="seoSettingForm.submitted && !seo_title.valid">
+                                <div class="invalid-feedback" *ngIf="seo_title.errors.required">SEO Title is
+                                    required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-control mt-4">
+                            <label for="focus_keyword">Focus Keyword&nbsp; <span class="mandatory">*</span></label>
+                            <input type="text" name="apikey" id="focus_keyword" class="form-control" ngModel
+                                name="focus_keyword" #focus_keyword="ngModel" required [disabled]="viewOnly"
+                                [ngClass]="{ 'is-invalid': seoSettingForm.submitted && focus_keyword.errors }"
+                                [ngClass]="{ 'is-valid': !focus_keyword.errors && focus_keyword.valid}">
+                            <div *ngIf="seoSettingForm.submitted && !focus_keyword.valid">
+                                <div class="invalid-feedback" *ngIf="focus_keyword.errors.required">Focus
+                                    Keyword is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="og_image">
+                        <label>Og Image&nbsp; <span class="mandatory">*</span></label>
+                        <input type="file" name="og_image" id="og_image" (change)="filechange($event)"
+                            class="input_choose_file form-control" accept="image/*" ngModel name="og_image"
+                            #og_image="ngModel" required [disabled]="viewOnly"
+                            [ngClass]="{ 'is-invalid': seoSettingForm.submitted && og_image.errors }"
+                            [ngClass]="{ 'is-valid': !og_image.errors && og_image.valid && !filesize && !fileDimension }">
+                        <div class="img_center_call"*ngIf="previewOgImage">
+                            <img class="profile-pic" [src]="previewOgImage">
+                        </div>
+                        <div class="img_center_call" *ngIf="!previewOgImage">
+                            <img src="assets/image/no_images.png" alt="no_images">
+                        </div>
+
+                        <div>
+
+                            <div style="text-align: center;">Allowed files: png, jpg. Max file size 2Mb</div> <br>
+                            <div class="invalid-feedback" *ngIf="filesize">Max file size less than 2Mb.
+                            </div>
+                            <!-- <div class="invalid-feedback" *ngIf="fileDimension">Ogimage minimum
+                                dimension
+                                1200 *
+                                600 in pixels.
+                            </div> -->
+                            <div *ngIf="seoSettingForm.submitted && !og_image.valid">
+                                <div class="invalid-feedback" *ngIf="og_image.errors.required">&nbsp;Og
+                                    Image is
+                                    required.
+                                </div>
+                            </div>
+                            <!-- <div class="text-center col-md-10" *ngIf="OgimageChangedEvent && OgimageChangedEvent!=''">
+                                <image-cropper [imageChangedEvent]="OgimageChangedEvent" [maintainAspectRatio]="true"
+                                    [aspectRatio]="4 / 4" format="png" (imageCropped)="imageCropped($event)">
+                                </image-cropper>
+                            </div> -->
+                        </div>
+
+                    </div>
+                </div>
+                <div  *ngIf="!viewOnly" class="card_footer_btn">
+                    <button type="submit" class="btn btn-sm " [disabled]="submitebtn">
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- <div class="card-header">
+    Webmaster Tools
+</div>
+<div class="col-md-12">
+    <div class="group-control">
+        <label for="google_analytics">Google Analytics <span class="mandatory">*</span></label>
+        <input type="text" name="google_analytics" id="google_analytics" class="form-control"
+            placeholder="UA-67555013-1" ngModel name="google_analytics" #google_analytics="ngModel" required
+            [ngClass]="{ 'is-invalid': seoSettingForm.submitted && google_analytics.errors }"
+            [ngClass]="{ 'is-valid': !google_analytics.errors && google_analytics.valid}">
+        <div *ngIf="seoSettingForm.submitted && !google_analytics.valid">
+            <div class="invalid-feedback" *ngIf="google_analytics.errors.required">Google Analytics is required.
+            </div>
+        </div>
+    </div>
+</div> -->

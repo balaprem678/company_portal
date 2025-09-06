@@ -1,0 +1,6 @@
+<app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="limit"
+    [tablename]="'City List'" [editUrl]="editUrl" (onDeleteChange)="onDeleteChange($event)"
+    (onitemsPerPageChange)="onitemsPerPageChange($event)" [card_details]="card_details"
+    (onPageChange)="onPageChange($event)" [bulk_action]="bulk_action" (onheaderCardChange)="onheaderCardChange($event)"
+    (onSearchChange)="onSearchChange($event)">
+</app-common-table>

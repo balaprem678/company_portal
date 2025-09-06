@@ -1,0 +1,244 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>{{pageTitle | titlecase}}</strong></div>
+                <div class="tabset-div tabbing-function">
+                    <tabset type="pills">
+                        <tab heading="Debate Details" customClass="customtabClass">
+                            <div class="card-body covers-spaces " *ngIf="RootDebateDetails">
+                                <div class="col-md-8">
+                                    <div class="spaces-wisths">
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Topic <span class="qus-alg"> : </span></span>
+                                            <span>
+                                                {{RootDebateDetails.topic ?
+                                                RootDebateDetails.topic :''}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Description <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.description ?
+                                                RootDebateDetails.description :''}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Category <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.category_name ?
+                                                RootDebateDetails.category_name :''}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Created By <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.user_name ?
+                                                RootDebateDetails.user_name :''}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Debate Start Date <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.start_date ?
+                                                (RootDebateDetails.start_date | date :'dd-MMMM-yyyy')
+                                                :''}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Debate Start Time <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.start_time ?
+                                                (RootDebateDetails.start_time | date :'hh:mm a') :''}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Total Participants <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.total_participants ?
+                                                RootDebateDetails.total_participants : 0}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> For Participants <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.for_participant ?
+                                                RootDebateDetails.for_participant : 0}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Against Participants <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.against_participant ?
+                                                RootDebateDetails.against_participant : 0}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Neutral Participants <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.neutral_participant ?
+                                                RootDebateDetails.neutral_participant : 0}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Duration <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.duration ?
+                                                RootDebateDetails.duration : 0}} mins
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Language <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.language ?
+                                                (RootDebateDetails.language.name ? RootDebateDetails.language.name:'' )
+                                                :
+                                                ''}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Hastag <span class="qus-alg"> :
+                                                </span></span>
+                                            <span>
+                                                {{RootDebateDetails.hastagData ? RootDebateDetails.hastagData : ''}}
+                                            </span>
+                                        </div>
+                                        <div class="dash-details">
+                                            <span class="heading-pros"> Address <span class="qus-alg"> :
+                                                </span></span>
+                                            <span *ngIf="RootDebateDetails.address">
+                                                {{RootDebateDetails.address ?
+                                                RootDebateDetails.address:
+                                                "_"}}
+                                            </span>
+                                            <span *ngIf="!RootDebateDetails.address">
+                                                {{"-" }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="avs-details">
+                                        <span>User Avatar:</span>
+                                        <img [src]="usercroppedImage">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="cover-imgs">
+                                        <span>Cover Image:</span>
+                                        <img [src]="coverCroppedImage">
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab customClass="customtabClass">
+                            <ng-template tabHeading>
+                                Accept Debate Request <span class="badge"> {{(RootDebateDetails &&
+                                    RootDebateDetails.total_participant_accept) ?
+                                    RootDebateDetails.total_participant_accept : 0}}/{{(RootDebateDetails &&
+                                    RootDebateDetails.total_participants) ?
+                                    RootDebateDetails.total_participants : 0}}</span>
+                            </ng-template>
+                            <ul class="follow-list" *ngIf="acceptRequestList">
+                                <li *ngFor="let item of acceptRequestList">
+                                    <div class="folspac-lists">
+                                        <i><img src="{{imageurl+item.user_avatar}}"
+                                                onError="this.src='assets/image/user.jpg'">
+                                            <img *ngIf="item.request_type == 1" class="cicle-users"
+                                                src="assets/image/green-prof.svg">
+                                            <img *ngIf="item.request_type == 2" class="cicle-users"
+                                                src="assets/image/red-prof.svg">
+                                            <img *ngIf="item.request_type == 3" class="cicle-users"
+                                                src="assets/image/orange-prof.svg">
+                                        </i>
+                                        <p>
+                                            <span>{{item.user_name | titlecase}}</span>
+                                            <small>{{ item.createdAt | date:"hh:mm a" }}</small>
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="follow-list" *ngIf="acceptRequestList && acceptRequestList.length == 0">
+                                <p class="no-record">No Record found</p>
+                            </ul>
+                        </tab>
+                        <tab customClass="customtabClass">
+                            <ng-template tabHeading>
+                                Pending Debate Request <span class="badge"> {{(RootDebateDetails &&
+                                    RootDebateDetails.total_participant_req) ?
+                                    RootDebateDetails.total_participant_req : 0}}</span>
+                            </ng-template>
+                            <ul class="follow-list" *ngIf="pendingRequestList">
+                                <li *ngFor="let item of pendingRequestList">
+                                    <div class="folspac-lists">
+                                        <i><img src="{{imageurl+item.user_avatar}}"
+                                                onError="this.src='assets/image/user.jpg'">
+                                            <img *ngIf="item.request_type == 1" class="cicle-users"
+                                                src="assets/image/green-prof.svg">
+                                            <img *ngIf="item.request_type == 2" class="cicle-users"
+                                                src="assets/image/red-prof.svg">
+                                            <img *ngIf="item.request_type == 3" class="cicle-users"
+                                                src="assets/image/orange-prof.svg">
+                                        </i>
+                                        <p>
+                                            <span>{{item.user_name | titlecase}}</span>
+                                            <small>{{ item.createdAt | date:"hh:mm a" }}</small>
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="follow-list" *ngIf="pendingRequestList && pendingRequestList.length == 0">
+                                <p class="no-record">No Record found</p>
+                            </ul>
+                        </tab>
+                        <tab customClass="customtabClass">
+                            <ng-template tabHeading>
+                                Reject Debate Request <span class="badge"> {{(RootDebateDetails &&
+                                    RootDebateDetails.total_participant_reject) ?
+                                    RootDebateDetails.total_participant_reject : 0}}</span>
+                            </ng-template>
+                            <ul class="follow-list" *ngIf="rejectRequestList">
+                                <li *ngFor="let item of rejectRequestList">
+                                    <div class="folspac-lists">
+                                        <i><img src="{{imageurl+item.user_avatar}}"
+                                                onError="this.src='assets/image/user.jpg'">
+                                            <img *ngIf="item.request_type == 1" class="cicle-users"
+                                                src="assets/image/green-prof.svg">
+                                            <img *ngIf="item.request_type == 2" class="cicle-users"
+                                                src="assets/image/red-prof.svg">
+                                            <img *ngIf="item.request_type == 3" class="cicle-users"
+                                                src="assets/image/orange-prof.svg">
+                                        </i>
+                                        <p>
+                                            <span>{{item.user_name | titlecase}}</span>
+                                            <small>{{ item.createdAt | date:"hh:mm a" }}</small>
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="follow-list" *ngIf="rejectRequestList && rejectRequestList.length == 0">
+                                <p class="no-record">No Record found</p>
+                            </ul>
+                        </tab>
+                    </tabset>
+                </div>
+                <div class="card-footer">
+                    <button type="button" routerLink="/app/debate/list" class="btn back-btns">
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

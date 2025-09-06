@@ -1,0 +1,394 @@
+<div class="user-add_user margin_top add_edit_page">
+    <div class="container">
+        <div class="animated fadeIn" *ngIf="!viewpage">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- <div class="email-status" *ngIf="emailVerifyTag == 1">
+                <p><i class="fa fa-check" aria-hidden="true"></i> Email Verified </p>
+            </div>
+            <div class="email-unstatus" *ngIf="emailVerifyTag == 0">
+                <p><i class="fa fa-times" aria-hidden="true"></i> Email Unverified </p>
+            </div> -->
+
+                    <div class="full_page_title">
+                        <strong>Vendors</strong>
+                    </div>
+
+                    <form #tagAddEditForm="ngForm" (ngSubmit)="onFormSubmit(tagAddEditForm)" autocomplete="off">
+                        <!--Edit and add page-->
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="first_name">
+                                            <label for="first_name"> Name <span class="mandatory">*</span>
+                                            </label>
+                                            <input type="text" id="first_name" ngModel name="first_name"
+                                                #first_name="ngModel" required placeholder="Enter Tag Name"
+                                                class="form-control" minlength="3" maxlength="30"
+                                                pattern="^[a-zA-Z]([\w ,&]*[a-zA-Z])?$"
+                                                [ngClass]="{ 'is-valid': !first_name.errors && first_name.valid}"
+                                                (change)="tagNameCheck($event)" [(ngModel)]="tagNameCheckerVal">
+                                            <div *ngIf="tagAddEditForm.submitted && !first_name.valid">
+                                                <div class="invalid-feedback" *ngIf="first_name.errors.required">Tag
+                                                    Name
+                                                    is
+                                                    required.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="first_name.errors?.minlength">Tag
+                                                    Name
+                                                    must be at least 3 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="first_name.errors?.maxlength">Tag
+                                                    Name
+                                                    can be max 30 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="first_name.errors?.pattern">Please
+                                                    enter
+                                                    valid  Name.
+                                                </div>
+                                                <!-- <div   class="invalid-feedback" *ngIf="form.get('first_name').errors?.duplicateTagName ">
+                                                    Tag name already exists.
+                                                  </div> -->
+                                            </div>
+                                            <!-- <div class="invalid-feedback" *ngIf="first_name.errors?.duplicateTagName ">
+                                                ag name already exists.
+                                            </div> -->
+
+                                        </div>
+                                    </div>
+                                          <div class="col-md-6">
+                                        <div class="first_name">
+                                            <label for="first_name"> Address <span class="mandatory">*</span>
+                                            </label>
+                                            <input type="text" id="address" ngModel name="address"
+                                                #address="ngModel" required placeholder="Enter Tag Name"
+                                                class="form-control" minlength="3" maxlength="100"
+                                                [ngClass]="{ 'is-valid': !address.errors && address.valid}">
+                                            <div *ngIf="tagAddEditForm.submitted && !address.valid">
+                                                <div class="invalid-feedback" *ngIf="address.errors.required">Tag
+                                                    Name
+                                                    is
+                                                    required.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="address.errors?.minlength">Tag
+                                                    Name
+                                                    must be at least 3 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="address.errors?.maxlength">Tag
+                                                    Name
+                                                    can be max 100 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 mt-4">
+                                        <div class="first_name">
+                                            <label for="first_name"> Contact Number <span class="mandatory">*</span>
+                                            </label>
+                                            <input type="text" id="number" ngModel name="number"
+                                                #number="ngModel" required placeholder="Enter Tag Name"
+                                                class="form-control" minlength="10" maxlength="12"
+                                                [ngClass]="{ 'is-valid': !number.errors && number.valid}">
+                                            <div *ngIf="tagAddEditForm.submitted && !number.valid">
+                                                <div class="invalid-feedback" *ngIf="number.errors.required">Tag
+                                                    Name
+                                                    is
+                                                    required.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="number.errors?.minlength">Tag
+                                                    Name
+                                                    must be at least 10 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="number.errors?.maxlength">Tag
+                                                    Name
+                                                    can be max 12 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mt-4">
+                                        <div class="status">
+                                            <label for="status">Status <span class="mandatory">*</span></label>
+                                            <ng-select class="form-control custom-ng-select" [items]="statusOptions"
+                                                bindLabel="label" bindValue="value"
+                                                [(ngModel)]="tagAddEditForm.value.status" name="status" id="status"
+                                                #status="ngModel" [style.border-radius.px]="dropdownBorderRadius1"
+                                                [ngClass]="{ 'is-invalid': tagAddEditForm.submitted && status.errors, 'is-valid': !status.errors && status.valid }"
+                                                required>
+                                            </ng-select>
+                                            <div *ngIf="tagAddEditForm.submitted && !status.valid">
+                                                <div class="invalid-feedback" *ngIf="status.errors.required">Status is
+                                                    required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Category Selector -->
+
+                                  
+
+
+
+                                </div>
+                            </div>
+
+
+
+                            <!-- <div>
+                                <ng-template #imagecrop>
+                                    <div class="default_crop_image">
+                                        <image-cropper [imageChangedEvent]="imageChangedEvent"
+                                            [maintainAspectRatio]="true" [aspectRatio]="6 / 6" format="png"
+                                            (imageCropped)="imageCropped($event)" output="base64"
+                                            (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
+                                            (loadImageFailed)="loadImageFailed()"></image-cropper>
+                                        <button (click)="closeProductCrop()">Save Changes</button>
+                                    </div>
+                                </ng-template>
+                            </div> -->
+
+                            <div class="card_footer_btn">
+
+                                <button type="button" routerLink="/app/tags/list" class="btn btn-sm ">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="btn btn-sm " [disabled]="submitebtn">
+                                    Submit
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                        <div class="card-body row">
+                            <div class="form-group  grouping-strains row">
+
+                                <!-- <div class="col-md-12">
+                                    <div class="group-control">
+                                        <label for="address">Address <span>(Optional)</span></label>
+                                        <input type="text" id="address" ngModel name="address" #address="ngModel" class="form-control" placeholder="Enter Address" autocorrect="off" autocapitalize="off" spellcheck="off" #search (keydown.enter)="$event.preventDefault()">
+                                        <div *ngIf="tagAddEditForm.submitted && !address.valid">
+                                            <div class="invalid-feedback" *ngIf="address.errors.required">Address is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <!--profile image div-->
+                        <div class="col-md-4">
+
+                            <!-- <div class="group-control"> -->
+                            <!-- <label for="exp_user_subscription">Next Billing Date <span>(Optional)</span></label> -->
+                            <!-- <input type="text" id="exp_user_subscription" ngModel name="exp_user_subscription" #exp_user_subscription="ngModel" class="form-control" placeholder="Next Billing Date" bsDatepicker [minDate]="minDate" [bsConfig]="{ isAnimated: true,dateInputFormat: 'DD-MMM-YYYY',containerClass:'theme-orange',showWeekNumbers: false}" -->
+                            <!-- [ngClass]="{ 'is-valid': !exp_user_subscription.errors && exp_user_subscription.valid}"> -->
+                            <!-- <div *ngIf="tagAddEditForm.submitted && !exp_user_subscription.valid"> -->
+                            <!-- <div class="invalid-feedback" *ngIf="exp_user_subscription.errors.required">Next Billing Date is required. -->
+                            <!-- </div> -->
+                            <!-- <div class="invalid-feedback" *ngIf="exp_user_subscription.errors.exp_user_subscription">Please enter valid Next Billing Date -->
+                            <!-- </div> -->
+                            <!-- </div> -->
+                            <!-- </div> -->
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--View page-->
+
+<div class="customer_list-view_user">
+    <div class="container">
+        <div class="animated fadeIn" *ngIf="viewpage">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- <div class="email-status" *ngIf="emailVerifyTag == 1">
+                <p><i class="fa fa-check" aria-hidden="true"></i> Email Verified </p>
+            </div>
+            <div class="email-unstatus" *ngIf="emailVerifyTag == 0">
+                <p><i class="fa fa-times" aria-hidden="true"></i> Email Unverified </p>
+            </div> -->
+
+                    <div class="full_page_title">
+                        <strong>Vendors</strong>
+                    </div>
+                    <form #tagAddEditForm="ngForm" (ngSubmit)="onFormSubmit(tagAddEditForm)" autocomplete="off">
+                        <!--Edit and add page-->
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="first_name">
+                                            <label for="first_name"> Name <span class="mandatory">*</span>
+                                            </label>
+                                            <input type="text" id="first_name" ngModel name="first_name"
+                                                #first_name="ngModel" required placeholder="Name"
+                                                class="form-control" minlength="3" maxlength="30"
+                                                pattern="^[a-zA-Z]([\w ,&]*[a-zA-Z])?$"
+                                                [ngClass]="{ 'is-valid': !first_name.errors && first_name.valid}">
+                                            <div *ngIf="tagAddEditForm.submitted && !first_name.valid">
+                                                <div class="invalid-feedback" *ngIf="first_name.errors.required">Tag
+                                                    Name
+                                                    is
+                                                    required.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="first_name.errors?.minlength">Tag
+                                                    Name
+                                                    must be at least 3 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="first_name.errors?.maxlength">Tag
+                                                    Name
+                                                    can be max 30 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="first_name.errors?.pattern">Please
+                                                    enter
+                                                    valid Tag Name.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="first_name">
+                                            <label for="first_name"> Address <span class="mandatory">*</span>
+                                            </label>
+                                            <input type="text" id="address" ngModel name="address"
+                                                #address="ngModel" required placeholder="Enter Tag Name"
+                                                class="form-control" minlength="3" maxlength="100"
+                                                [ngClass]="{ 'is-valid': !address.errors && address.valid}">
+                                            <div *ngIf="tagAddEditForm.submitted && !address.valid">
+                                                <div class="invalid-feedback" *ngIf="address.errors.required">Tag
+                                                    Name
+                                                    is
+                                                    required.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="address.errors?.minlength">Tag
+                                                    Name
+                                                    must be at least 3 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="address.errors?.maxlength">Tag
+                                                    Name
+                                                    can be max 100 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="first_name">
+                                            <label for="first_name"> Contact Number <span class="mandatory">*</span>
+                                            </label>
+                                            <input type="text" id="number" ngModel name="number"
+                                                #number="ngModel" required placeholder="Enter Tag Name"
+                                                class="form-control" minlength="10" maxlength="12"
+                                                [ngClass]="{ 'is-valid': !number.errors && number.valid}">
+                                            <div *ngIf="tagAddEditForm.submitted && !number.valid">
+                                                <div class="invalid-feedback" *ngIf="number.errors.required">Tag
+                                                    Name
+                                                    is
+                                                    required.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="number.errors?.minlength">Tag
+                                                    Name
+                                                    must be at least 10 characters long.
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="number.errors?.maxlength">Tag
+                                                    Name
+                                                    can be max 12 characters long.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-4">
+                                        <div class="status">
+                                            <label for="status">Status <span class="mandatory">*</span></label>
+                                            <!-- <select name="status" id="status" class="form-control" ngModel name="status"
+                                            #status="ngModel" required
+                                            [ngClass]="{ 'is-invalid': tagAddEditForm.submitted && status.errors }"
+                                            [ngClass]="{ 'is-valid': !status.errors && status.valid}">
+                                            <option value="">--Select--</option>
+                                            <option value="1">Active</option>
+                                            <option value="2">Inactive</option>
+                                        </select> -->
+
+                                            <ng-select class="form-control custom-ng-select" [items]="statusOptions"
+                                                bindLabel="label" bindValue="value"
+                                                [(ngModel)]="tagAddEditForm.value.status " name="status" id="status"
+                                                #status="ngModel" [style.border-radius.px]="dropdownBorderRadius1"
+                                                [ngClass]="{ 'is-invalid': tagAddEditForm.submitted && status.errors, 'is-valid': !status.errors && status.valid }"
+                                                required>
+                                            </ng-select>
+                                            <div *ngIf="tagAddEditForm.submitted && !status.valid">
+                                                <div class="invalid-feedback" *ngIf="status.errors.required">Status is
+                                                    required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="card_footer_btn">
+
+                                <button type="button" routerLink="/app/tags/list" class="btn btn-sm ">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="btn btn-sm " [disabled]="submitebtn">
+                                    Submit
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                        <div class="card-body row">
+                            <div class="form-group  grouping-strains row">
+
+                                <!-- <div class="col-md-12">
+                                    <div class="group-control">
+                                        <label for="address">Address <span>(Optional)</span></label>
+                                        <input type="text" id="address" ngModel name="address" #address="ngModel" class="form-control" placeholder="Enter Address" autocorrect="off" autocapitalize="off" spellcheck="off" #search (keydown.enter)="$event.preventDefault()">
+                                        <div *ngIf="tagAddEditForm.submitted && !address.valid">
+                                            <div class="invalid-feedback" *ngIf="address.errors.required">Address is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <!--profile image div-->
+                        <div class="col-md-4">
+
+                            <!-- <div class="group-control"> -->
+                            <!-- <label for="exp_user_subscription">Next Billing Date <span>(Optional)</span></label> -->
+                            <!-- <input type="text" id="exp_user_subscription" ngModel name="exp_user_subscription" #exp_user_subscription="ngModel" class="form-control" placeholder="Next Billing Date" bsDatepicker [minDate]="minDate" [bsConfig]="{ isAnimated: true,dateInputFormat: 'DD-MMM-YYYY',containerClass:'theme-orange',showWeekNumbers: false}" -->
+                            <!-- [ngClass]="{ 'is-valid': !exp_user_subscription.errors && exp_user_subscription.valid}"> -->
+                            <!-- <div *ngIf="tagAddEditForm.submitted && !exp_user_subscription.valid"> -->
+                            <!-- <div class="invalid-feedback" *ngIf="exp_user_subscription.errors.required">Next Billing Date is required. -->
+                            <!-- </div> -->
+                            <!-- <div class="invalid-feedback" *ngIf="exp_user_subscription.errors.exp_user_subscription">Please enter valid Next Billing Date -->
+                            <!-- </div> -->
+                            <!-- </div> -->
+                            <!-- </div> -->
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

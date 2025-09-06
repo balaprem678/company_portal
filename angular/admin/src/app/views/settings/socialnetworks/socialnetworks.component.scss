@@ -1,0 +1,218 @@
+.input_choose_file {
+  position: relative;
+  padding: 0;
+}
+
+::-webkit-file-upload-button {
+  border: none;
+  background: none;
+  color: transparent;
+}
+::ng-deep .ng-select.custom-ng-select .ng-select-container {
+  /* Add your custom styles here */
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container .ng-clear-wrapper {
+  display: none; /* Example: hide the clear button */
+}
+
+
+
+::ng-deep .custom-ng-select .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+.setting_smtp_setting
+  :where(.smtp_host, .smtp_port, .smtp_mode, .smtp_email, .smtp_passowrd) {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  margin-bottom: 20px;
+}
+input,
+ng-select {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+  margin-bottom: 15px;
+}
+ng-select {
+  padding: 0;
+}
+
+:where(.facebook_icon, .twitter_icon, .instagram_icon) {
+  position: relative;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  height: 310px;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  background-color: #ffffff;
+  background: #fff;
+  padding: 30px;
+}
+:where(.facebook_icon, .twitter_icon, .instagram_icon) label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--bs-gray-800);
+  font-size: 21.1px;
+}
+.pencil {
+  width: 28px;
+  height: 28px;
+  border-radius: 15px;
+  border: none;
+  background: #fff;
+  background-image: url("../../../../assets/image/pencil.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 0 3px 0 #ccc;
+  color: #fff0;
+  z-index: 1;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+}
+.pencil input {
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+.profile_images .pencil input {
+  border: none;
+  background-color: transparent;
+  width: 30px;
+  padding: 0;
+}
+
+.profile_images .pencil input::-webkit-file-upload-button:focus-visible {
+  outline: none;
+}
+
+.img_center_call {
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  margin: 0px auto;
+  box-shadow: 0 0 80px 0 #dddddd;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.img_center_call img {
+  box-shadow: 0 0 4px 0 #f1f1f1;
+}
+
+p.image_size_filter {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 34px;
+  color: #99a1b7;
+}
+
+.preview {
+  position: absolute;
+  top: 35px;
+  left: 35px;
+  width: 80px;
+}
+.preview img {
+  width: 100%;
+  background: #fff;
+  padding: 10px;
+}
+
+.pencil_icon {
+  position: relative;
+  width: 150px;
+  margin: auto;
+}
+
+:where(
+    .facebook,
+    .twitter,
+    .instagram,
+    .facebook_api,
+    .google_api,
+    .google__map_api_keys
+  ) {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+}
+
+:where(
+    .facebook,
+    .twitter,
+    .instagram,
+    .facebook_api,
+    .google_api,
+    .google__map_api_keys
+  )
+  h5 {
+  font-size: 21.5px;
+  font-weight: 700;
+  width: 100%;
+}
+.card_footer_btn {
+  margin-left: auto;
+  margin-right: 12px;
+  margin-top: 30px;
+  margin-bottom: 80px;
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+}
+
+.card_footer_btn button {
+  background-color: #1b84ff;
+  height: 47px;
+  width: 151px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.card_footer_btn button:hover {
+  background-color: #056ee9;
+}
+
+::ng-deep input[type="number"]::-webkit-inner-spin-button,
+::ng-deep input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::ng-deep input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+
+label{
+  
+text-align: left;
+margin-bottom: 0.5rem;
+font-weight: 600;
+color: var(--bs-gray-800);
+font-size: 15px;
+}

@@ -1,0 +1,229 @@
+.orders-list {
+  margin-top: 3em;
+}
+
+.orders-list h2 {
+  font-family  : "Signika", Sans-serif;
+  font-size    : 30px;
+  font-weight  : 800;
+  line-height  : 1.3em;
+  text-align   : center;
+  margin-bottom: 30px;
+}
+
+.orders-list h5 {
+  font-size                 : 20px;
+  font-weight               : 700;
+  text-decoration           : underline;
+  text-decoration-style     : dotted;
+  text-underline-offset     : 3px;
+  -moz-text-decoration-style: dotted;
+}
+
+.order-list-table {
+  padding           : 40px;
+  //   border: 1px solid #f4f4f4;
+  //   border-radius: 4px;
+}
+
+.order-list-table table {
+  font-size      : 14px;
+  margin         : 0 -1px 24px 0;
+  text-align     : left;
+  width          : 100%;
+  border-collapse: separate;
+  border-radius  : 5px;
+  border-collapse: collapse;
+}
+
+.order-list-table table th {
+  color         : #0a472e;
+  padding-bottom: 9px;
+  padding       : 4px 8px;
+  font-weight   : 800;
+  border-bottom : 1px solid #f4f4f4;
+}
+
+.order-list-table table td {
+  padding      : 16px 8px;
+  border-bottom: 1px solid #f4f4f4;
+  color        : #222222;
+  font-weight  : 500;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.order-list-table table td a {
+  text-decoration: none;
+  color          : #0a472e;
+  font-weight    : 800;
+}
+
+.order-list-table table td a.t-view {
+  background   : #0a472e;
+  color        : #fff;
+  border-radius: 4px;
+  padding      : 6px 12px;
+  font-size    : 14px;
+  transition   : 0.2s;
+}
+
+.order-list-table table td a:hover {
+  color: #80891b;
+}
+
+.order-list-table table td a.t-view:hover {
+  background: #80891b;
+  color     : #fff;
+  transition: 0.2s;
+}
+
+.back-dash {
+  text-align: center;
+  margin    : 34px 0 0px 0;
+}
+
+.back-dash a {
+  text-decoration: none;
+  font-size      : 15px;
+  color          : #000000;
+  background     : #f4f4f4;
+  padding        : 12px 24px;
+  border-radius  : 4px;
+  font-weight    : 500;
+}
+
+// pagination
+
+/*------------ Pagination ------------*/
+
+.pagination-sec {
+  width          : 100%;
+  border-top     : 1px solid #bebebe;
+  padding        : 20px 0;
+  display        : flex;
+  flex-wrap      : wrap;
+  align-items    : center;
+  justify-content: space-between;
+}
+
+.pagination-sec nav {
+  width          : 59%;
+  justify-content: end;
+  display        : flex;
+}
+
+.pagination-sec ul.pagination {
+  margin: 0;
+}
+
+.page-number {
+  color: #666666;
+  width: 30%;
+}
+
+.pagination-sec li a {
+  border       : none !important;
+  color        : #666666;
+  width        : 33px;
+  height       : 33px;
+  border-radius: 25px;
+  font-size    : 14px;
+  text-align   : center;
+}
+
+.pagination-sec li.active a,
+.pagination-sec li a:hover {
+  background: #f02828;
+  color     : #fff;
+  box-shadow: none !important;
+  cursor    : pointer;
+}
+
+.pagination-sec ul.pagination li:first-child a,
+.pagination-sec ul.pagination li:last-child a {
+  width     : auto !important;
+  margin    : 0;
+  background: transparent;
+  color     : #666666;
+}
+
+.pagination-sec li {
+  margin: 0 2px;
+  cursor: pointer;
+}
+
+// end pagination
+
+@media screen and (max-width: 991px) {
+  .order-list-table {
+    padding: 10px;
+  }
+
+  .order-list-table thead {
+    display: none;
+  }
+
+  .order-list-table tr td:before {
+    content    : attr(data-title) ": ";
+    font-weight: 800;
+    float      : left;
+    color      : #222;
+  }
+
+  .order-list-table tr td {
+    width     : 100%;
+    display   : block;
+    text-align: right !important;
+  }
+
+  .order-list-table tr {
+    display      : block;
+    border       : 1px solid #d5d5d5;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .order-list-table table td[data-title="Status"] {
+    background-color: #ddf6ec !important;
+    // border-radius: 30px;
+    padding         : 10px !important;
+    font-weight     : 600;
+  }
+
+  .order-list-table table td[data-title="Date"] {
+    border: none !important;
+  }
+}
+
+@media (max-width: 580px) {
+  .orders-list h2 {
+    font-size    : 18px;
+    margin-bottom: 10px;
+  }
+
+  .order-list-table table td {
+    padding: 10px 8px;
+  }
+}
+
+
+.actions_icons {
+  display: flex;
+  gap    : 10px;
+
+  a {
+    width          : 40px;
+    height         : 35px;
+    padding        : 0;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+  }
+}
+
+.action {
+  width: 156px;
+}

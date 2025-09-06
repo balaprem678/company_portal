@@ -1,0 +1,4 @@
+<app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit" [tablename]="'Transaction List'" (onDeleteChange)="onDeleteChange($event)" [viewUrl]="viewUrl" (onitemsPerPageChange)="onitemsPerPageChange($event)"
+    [card_details]="card_details" [filter_transaction_list]="filter_transaction_list" [filter_action]="filter_action" [filter_action_list]="filter_action_list" (onPageChange)="onPageChange($event)" (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)"
+    (onFilterAction)="onFilterAction($event)">
+</app-common-table>

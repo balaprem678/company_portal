@@ -1,0 +1,2431 @@
+<div class="admin_add_view_product_page margin_top">
+    <div class="container">
+        <div class="animated fadeIn" *ngIf="view">
+            <div class="card-header p-0"><strong>{{pageTitle | titlecase}}</strong></div>
+            <form #productForm="ngForm" (ngSubmit)="onFormSubmit(productForm)" [disabled]="view" autocomplete="off">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="product_name general">
+                            <!-- <h2>General</h2> -->
+                            <div>
+                                <label for="food_name">Product Name
+                                    <span class="mandatory">*</span></label>
+                                <input name="food_name" id="food_name" disabled class="form-control" ngModel
+                                    #food_name="ngModel" required placeholder="Enter Product Name"
+                                    [ngClass]="{ 'is-invalid': submitted && food_name.errors }"
+                                    [ngClass]="{ 'is-valid': !food_name.errors && food_name.valid}" required>
+                                <div *ngIf="submitted && !food_name.valid">
+                                    <div class="invalid-feedback" *ngIf="food_name.errors?.required"> Product
+                                        name is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="combo mt-4">
+                                <label for="food_name">Combo</label>
+                                <div class="switch">
+                                    <input  type="checkbox">
+                                    <span class="slider round"></span>
+                                </div>
+                                
+                            </div>
+
+
+
+                            <div class="veg_nonveg mt-4">
+                                <label>Veg (or) Non-Veg<span class="color_red"> *</span></label>
+                                <ng-select class="custom-ng-select" [items]="vegOptions" bindLabel="name" bindValue="id"
+                                    placeholder="Select Status" [(ngModel)]="selectedVeg"
+                                    (ngModelChange)="onStatusChange($event)" name="selectedVeg" id="selectedVeg"
+                                    [ngModelOptions]="{standalone: true}" [disabled]="view">
+                                </ng-select>
+
+                            </div>
+
+                            <div class="group-control mt-4" *ngIf="selected_size_status !== 1 ">
+                                <label for="food_name">SKU</label>
+                                <input disabled name="sku" id="sku" class="form-control" ngModel #sku="ngModel"
+                                    placeholder="Enter SKU" maxlength="20">
+                                <!-- <div *ngIf="submitted && !sku.valid">
+                                <div class="invalid-feedback" *ngIf="sku.errors.required"> Product
+                                    name is
+                                    required.
+                                </div>
+                            </div> -->
+                            </div>
+
+                            <div class="group-control mt-4 information p-0">
+                                <label for="information">Description&nbsp; <span class="mandatory">*</span></label>
+                                <!-- <input type="text" name="information" placeholder="Information"
+                                id="information" class="form-control" ngModel #information="ngModel"
+                                required
+                                [ngClass]="{ 'is-invalid': submitted && information.errors }"
+                                [ngClass]="{ 'is-valid': !information.errors && information.valid}"
+                                required> -->
+                                <textarea type="text" name="information" placeholder="Type your text here..."
+                                    id="information" class="form-control" ngModel #information="ngModel" required
+                                    [ngClass]="{ 'is-invalid': submitted && information.errors }"
+                                    [ngClass]="{ 'is-valid': !information.errors && information.valid}" required
+                                    disabled>
+
+
+                                </textarea>
+                                <!-- <span class="input_suggession">Set a description to the product for
+                                    better
+                                    visibility.</span> -->
+
+                                <div *ngIf="submitted && !information.valid">
+                                    <div class="invalid-feedback" *ngIf="information.errors?.required">
+                                        Description is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group alternative_name">
+                                <label class="form-label" for="tags">Alternative Name</label>
+                                <div class="tags-box">
+                                    <input type="text" class="form-control" id="alternative" name="alternative"
+                                        [(ngModel)]="alternativeName" ngModel #alternative="ngModel"
+                                        placeholder="Alternative Name" (keypress)="addAlternativeTag($event)" disabled>
+                                    <ul class="tags-box-list">
+                                        <li *ngFor="let item of alternativeList; let i = index">
+                                            <span>{{ item }}</span>
+                                            <i class="fa fa-times" (click)="removealternativeTag(i)" *ngIf="!view"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group health_benefits">
+                                <label class="form-label" for="tags">Health Benefits
+
+                                </label>
+                                <div class="tags-box">
+                                    <input type="text" class="form-control" id="healthBenefit" name="healthBenefit"
+                                        [(ngModel)]="healthBenefits" ngModel #healthBenefit="ngModel"
+                                        placeholder="Health Benefits" (keypress)="addHealthTag($event)" disabled>
+                                    <ul class="tags-box-list">
+                                        <li *ngFor="let item of HealthBenefitList; let i = index">
+                                            <span>{{ item }}</span>
+                                            <i class="fa fa-times" (click)="removeHealthTag(i)" *ngIf="!view"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="group-control information p-0">
+                                <label for="information">Product Details&nbsp; <span class="mandatory">*</span></label>
+                                <textarea type="text" name="productDetails" [(ngModel)]='productDesc'
+                                    placeholder="Type your text here..." id="productDetails" class="form-control"
+                                    ngModel #productDetails="ngModel" required
+                                    [ngClass]="{ 'is-invalid': submitted && productDetails.errors }"
+                                    [ngClass]="{ 'is-valid': !productDetails.errors && productDetails.valid}" required
+                                    disabled>
+
+
+                                </textarea>
+                                <!-- <span class="input_suggession">Set a description to the product for
+                                    better
+                                    visibility.</span> -->
+
+                                <div *ngIf="submitted && !productDetails.valid">
+                                    <div class="invalid-feedback" *ngIf="productDetails.errors?.required">
+                                        Product details is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group product_ingredients">
+                                <label class="form-label" for="tags">Product Ingredients</label>
+                                <div class="tags-box">
+                                    <input type="text" class="form-control" id="tags" name="tags" [(ngModel)]="tagname"
+                                        ngModel #tags="ngModel" placeholder="Product Ingredients"
+                                        (keypress)="addTag($event)" disabled>
+                                    <ul class="tags-box-list">
+                                        <li *ngFor="let item of tagsList; let i = index">
+                                            <span>{{ item }}</span>
+                                            <i class="fa fa-times" (click)="removeTag(i)" *ngIf="!view"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group recipes_to_cook">
+                                <label class="form-label" for="tags">Recipes to Cook</label>
+                                <div class="tags-box">
+                                    <input type="text" class="form-control" id="receipes" name="receipes"
+                                        [(ngModel)]="receipesname" ngModel #receipes="ngModel" placeholder="Recipes"
+                                        (keypress)="addTagmanage($event)" disabled>
+                                    <ul class="tags-box-list">
+                                        <li *ngFor="let item of receipeList; let i = index">
+                                            <span>{{ item }}</span>
+                                            <i class="fa fa-times" (click)="removereceipeTag(i)" *ngIf="!view"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="receipeNme || receipeIngList.length >0 || cookingInsList.length>0"
+                            class="war-border mt-4 popular_recipe">
+                            <h2 class="">Popular Recipe</h2>
+                            <div class="recipe_name my-4">
+                                <label for="rcatname">Recipe Name
+                                </label>
+                                <div class="tags-box">
+                                    <input type="text" class="form-control" id="receipe_name" name="receipe_name"
+                                        [(ngModel)]="receipeNme" ngModel #receipe_name="ngModel"
+                                        placeholder="Recipe Name" disabled>
+                                    <div *ngIf="submitted && !receipe_name.valid">
+                                        <div class="invalid-feedback" *ngIf="receipe_name.errors?.required">
+                                            Recipe name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group product_ingredients mt-4">
+                                <label class="form-label" for="tags">Recipe Ingredients</label>
+                                <div class="tags-box">
+                                    <input type="text" class="form-control" id="recipe_ing" name="recipe_ing"
+                                        [(ngModel)]="recipe_ingred" ngModel #recipe_ing="ngModel"
+                                        placeholder="#Receipe Ingredients" (keypress)="addreceipeTag($event)" disabled>
+                                    <ul class="tags-box-list">
+                                        <li *ngFor="let item of receipeIngList; let i = index">
+                                            <span>{{ item }}</span>
+                                            <i class="fa fa-times" (click)="removeReceipeIngTag(i)" *ngIf="!view"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group recipes_to_cook mt-4">
+                                <label class="form-label" for="tags">Cooking Instructions</label>
+                                <div class="tags-box">
+                                    <input type="text" class="form-control" id="cookingins" name="cookingins"
+                                        [(ngModel)]="cooking_instruc" ngModel #cookingins="ngModel"
+                                        placeholder="#Cooking Instructions" (keypress)="addCookingmanage($event)"
+                                        disabled>
+                                    <ul class="tags-box-list">
+                                        <li *ngFor="let item of cookingInsList; let i = index">
+                                            <span>{{ item }}</span>
+                                            <i class="fa fa-times" (click)="removecookingTag(i)" *ngIf="!view"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <!-- <div class="information">
+                            <label for="information">Information <span class="mandatory">*</span></label>
+                            <input type="text" disabled name="information" placeholder="Information" id="information"
+                                class="form-control" ngModel #information="ngModel" required
+                                [ngClass]="{ 'is-invalid': submitted && information.errors }"
+                                [ngClass]="{ 'is-valid': !information.errors && information.valid}" required>
+                            <div *ngIf="submitted && !information.valid">
+                                <div class="invalid-feedback" *ngIf="information.errors?.required">
+                                    Information is
+                                    required.
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="quantity">
+                            <label for="quantity">Quantity <span class="mandatory">*</span></label>
+                            <input disabled type="text" name="quantity" id="quantity" placeholder="Quantity"
+                                onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                class="form-control" ngModel #quantity="ngModel" required
+                                [ngClass]="{ 'is-invalid': submitted && quantity.errors }"
+                                [ngClass]="{ 'is-valid': !quantity.errors && quantity.valid}" required>
+                            <div *ngIf="submitted && !quantity.valid">
+                                <div class="invalid-feedback" *ngIf="quantity.errors.required">Quantity is
+                                    required.
+                                </div>
+                            </div>
+                        </div> -->
+
+
+
+                        <!-- <div class="product_details">
+                            <h5> Product Details <span class="mandatory">*</span></h5>
+                            <div class="form-group grouping-strains w-100 d-flex justify-content-center"
+                                *ngFor="let item of product_details; let i=index">
+                                <div class="col-md-6">
+                                    <input disabled type="text" name="titlepr{{i}}" id="titlepr{{i}}"
+                                        placeholder="Enter Title" class="form-control"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="product_details[i].title"
+                                        ngModel #titlepr{{i}}="ngModel">
+                                </div>
+                                <div class="col-md-6">
+                                    <input disabled type="text" name="contentpr{{i}}" id="contentpr{{i}}"
+                                        placeholder="Enter Content" class="form-control"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="product_details[i].content"
+                                        ngModel #contentpr{{i}}="ngModel">
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                        <!-- <div class="return_days">
+                            <label for="food_name">Return days
+                                <span class="mandatory">*</span></label>
+                            <input name="food_return" id="food_return" disabled class="form-control" ngModel
+                                #food_return="ngModel" required placeholder="Enter Return days"
+                                [ngClass]="{ 'is-invalid': submitted && food_name.errors }"
+                                [ngClass]="{ 'is-valid': !food_name.errors && food_name.valid}" required>
+                            <div *ngIf="submitted && !food_return.valid">
+                                <div class="invalid-feedback" *ngIf="food_return.errors.required"> Product
+                                    return
+                                    day is
+                                    required.
+                                </div>
+                            </div>
+                        </div> -->
+
+
+
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="product_image">
+                            <h2 for="avatar">Product Image<span class="color_red"> *</span></h2>
+
+                            <div class="form-group" *ngIf="cropImgPreview">
+                                <img [src]="cropImgPreview" width="300" height="400" alt="" class="img-responsive">
+                                <!-- <image-cropper [imageChangedEvent]="imgChangeEvt" [maintainAspectRatio]="true" [aspectRatio]="4 / 4" [resizeToHeight]="300" [resizeToWidth]="300" format="png" (imageCropped)="cropImg($event)" (imageLoaded)="imgLoad()" (cropperReady)="initCropper()" (loadImageFailed)="imgFailed()"
+                                        style="width: 400px;">
+                                    </image-cropper> -->
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="hover_product_image">
+                            <h2 for="hover_image">Trademark Image <span class="color_red">*</span></h2>
+                            <div class="form-group" *ngIf="hoverImage">
+                                <img [src]="hoverImage" width="300" height="400" alt="" class="img-responsive">
+                                <!-- <image-cropper [imageChangedEvent]="imgChangeEvt" [maintainAspectRatio]="true" [aspectRatio]="4 / 4" [resizeToHeight]="300" [resizeToWidth]="300" format="png" (imageCropped)="cropImg($event)" (imageLoaded)="imgLoad()" (cropperReady)="initCropper()" (loadImageFailed)="imgFailed()"
+                                        style="width: 400px;">
+                                    </image-cropper> -->
+
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="pdt_view_details view-img w-100 d-flex flex-wrap justify-content-start align-items-center gap-2"
+                            *ngFor="let url of Preview_files; let i=index">
+                            <span class="multiple-img position-relative">
+                                <span class="close-icon-multi position-absolute" (click)="closeMultiImage(i,url)">
+                                    <i class="fa fa-times-circle close-icon" aria-hidden="true"></i>
+                                </span>
+                                <img [src]="url" width="50" height="50" onerror="this.src='assets/img/pdf.svg'"
+                                    class="img-view rounded-3 w-100 h-100">
+                            </span>
+                        </div> -->
+
+                        <div class="select_category 1">
+                            <label for="rcatname">Select Category <span class="mandatory">*</span> </label>
+                            <ng-select class="custom-ng-select" [items]="categorylist" bindLabel="rcatname"
+                                [placeholder]="'Select Category'" appendTo="body" [multiple]="false" name="rcatname"
+                                ngModel id="rcatname" #rcatname="ngModel"
+                                [ngClass]="{ 'is-invalid': submitted && rcatname.errors }"
+                                [ngClass]="{'is-valid': !rcatname.errors && rcatname.valid}" [disabled]="view"
+                                [closeOnScroll]="false">
+                            </ng-select>
+
+
+
+
+                            <div *ngIf="submitted && !rcatname.valid">
+                                <div class="invalid-feedback" *ngIf="rcatname.errors?.required">Category is
+                                    required.</div>
+                            </div>
+                        </div>
+
+                        <div class="select_sub_category" *ngFor="let all_subcategory of all_subcategory; let i = index">
+                            <div *ngIf="id">
+                                <label for="rcategory">Select Sub Category level {{i+1}}<span
+                                        class="mandatory">*</span></label>
+                                <!-- Replace the ng-select with Bootstrap Select -->
+                                <select class="selectpicker form-control" data-live-search="true" [multiple]="false"
+                                    name="scategory" id="scategory" [(ngModel)]="childcats[i]"
+                                    (change)="getsubscategory($event, i+1)" [disabled]="view">
+                                    <option value="" selected disabled>Select category {{i+1}}</option>
+                                    <option *ngFor="let subcategory of all_subcategory" [value]="subcategory._id"
+                                        [selected]="selectedValues[i+1] === subcategory._id">
+                                        {{subcategory.scatname}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && !scategory.valid">
+                                    <div class="invalid-feedback" *ngIf="scategory.errors?.required"> Sub
+                                        Category level is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="!id && (all_subcategory && all_subcategory.length > 0)">
+                                <div class="group-control war-border">
+                                    <label for="rcategory">Select Sub Category level {{i+1}} <span
+                                            class="mandatory">*</span></label>
+                                    <!-- Replace the ng-select with Bootstrap Select -->
+                                    <select class="selectpicker form-control" data-live-search="true" [multiple]="false"
+                                        name="scategory" id="scategory" (change)="getsubscategory($event, i+1)"
+                                        [disabled]="view">
+                                        <option value="" selected disabled>Select category {{i+1}}</option>
+                                        <option *ngFor="let subcategory of all_subcategory" [value]="subcategory._id">
+                                            {{subcategory.scatname}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="submitted && !scategory.valid">
+                                        <div class="invalid-feedback" *ngIf="scategory.errors?.required"> Sub
+                                            Category level is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="offer">
+                            <label for="status" class="m-0">Offer %</label>&nbsp;
+                            <label class="switch">
+                                <input disabled type="checkbox" ngModel name="offer_status" [(ngModel)]="offer_check"
+                                    (change)="offer_check= $event.target.checked? 1: 0" id="offer_status"
+                                    #offer_status="ngModel" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div> -->
+
+                        <!-- <div class="offer_amount" *ngIf="offer_check == 1">
+                            <label for="offer_amount">Offer Amount <span class="mandatory">*</span></label>
+                            <input disabled type="number" name="offer_amount" placeholder="Offer Amount"
+                                id="offer_amount" class="form-control" ngModel #offer_amount="ngModel" required
+                                [ngClass]="{ 'is-invalid': submitted && offer_amount.errors }"
+                                [ngClass]="{ 'is-valid': !offer_amount.errors && offer_amount.valid}" required>
+                            <div *ngIf="submitted && !offer_amount.valid">
+                                <div class="invalid-feedback" *ngIf="offer_amount.errors?.required">Offer
+                                    amount
+                                    is required.
+                                </div>
+                            </div>
+                        </div> -->
+
+
+
+                        <div class="varience_status">
+                            <label for="status">Varience status <span class="mandatory">*</span></label>
+                            <ng-select [items]="varienceStatusOptions" bindLabel="label" bindValue="value"
+                                [(ngModel)]="selected_size_status" name="size_status" id="size_status"
+                                #size_status="ngModel" class="form-control custom-ng-select"
+                                [ngClass]="{ 'is-invalid': submitted && size_status?.errors, 'is-valid': !size_status?.errors && size_status?.valid }"
+                                [style.border-radius.px]="dropdownBorderRadius1" required
+                                (change)="changeSizeStatus(size_status)" [disabled]="true">
+                            </ng-select>
+                            <!-- <select [disabled]="view" name="size_status" id="size_status" class="form-control" ngModel
+                                name="size_status" #size_status="ngModel" required
+                                (change)="changeSizeStatus(size_status)"
+                                [ngClass]="{ 'is-invalid': submitted && size_status.errors }"
+                                [ngClass]="{ 'is-valid': !size_status.errors && size_status.valid}">
+                                <option value="1">Yes</option>
+                                <option value="2">No</option>
+                            </select> -->
+                            <div *ngIf="submitted && !size_status.valid">
+                                <div class="invalid-feedback" *ngIf="size_status.errors?.required">Size
+                                    category
+                                    is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product_sale_price" *ngIf="!sizeStatus">
+                            <label for="product_sale_price">Product Sale Price</label>
+                            <input type="number" disabled name="product_sale_price" id="product_sale_price"
+                                placeholder="Enter Sale Price"
+                                onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                class="form-control" ngModel #product_sale_price="ngModel"
+                                [ngClass]="{ 'is-invalid': submitted && product_sale_price.errors }"
+                                [ngClass]="{ 'is-valid': !product_sale_price.errors && product_sale_price.valid}">
+                            <div *ngIf="submitted && !product_sale_price.valid" disabled>
+                                <div class="invalid-feedback" *ngIf="product_sale_price.errors?.required">
+                                    Product
+                                    Sale Price is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product_base_price" *ngIf="!sizeStatus">
+                            <label for="product_base_price">Product Base Price <span class="mandatory">*</span></label>
+                            <input type="number" disabled name="product_base_price" id="product_base_price"
+                                class="form-control" placeholder="Enter Base Price"
+                                onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                ngModel #product_base_price="ngModel" required
+                                [ngClass]="{ 'is-invalid': submitted && product_base_price.errors }"
+                                [ngClass]="{ 'is-valid': !product_base_price.errors && product_base_price.valid}"
+                                disabled>
+                            <div *ngIf="submitted && !product_base_price.valid">
+                                <div class="invalid-feedback" *ngIf="product_base_price.errors?.required">
+                                    Product
+                                    Base Price is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product_variations" *ngIf="size_status && size_status.value == 1">
+                            <label for="attributes">Product Variations <span class="mandatory">*</span>
+                            </label>
+                            <ng-select [items]="attributesdata" bindLabel="name" placeholder="Select Variation"
+                                appendTo="body" [multiple]="true" name="attributes" [(ngModel)]="varientsnames"
+                                id="attributes" #attributes="ngModel"
+                                [ngClass]="{ 'is-invalid': submitted && attributes.errors }"
+                                [ngClass]="{'is-valid': !attributes.errors && attributes.valid}" required
+                                [disabled]="view" (change)="storeattributes($event)">
+                            </ng-select>
+                            <div *ngIf="submitted && !attributes.valid">
+                                <div class="invalid-feedback"
+                                    *ngIf="attributesdata.length > 0 && attributes.errors?.required">
+                                    Variations
+                                    is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="meta mt-4">
+                            <h2>Meta Details</h2>
+                            <div class="meta_title mt-4">
+                                <label for="">Meta Title
+                                    <span class="mandatory">*</span></label>
+                                <input disabled name="meta_title" id="meta_title" class="form-control" ngModel
+                                    #meta_title="ngModel" required placeholder="Enter Title" required>
+                                <div *ngIf="submitted && !meta_title.valid">
+                                    <div class="invalid-feedback" *ngIf="meta_title.errors?.required"> Title
+                                        is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="meta_keyword mt-4">
+                                <label for="">Meta Keyword
+                                    <span class="mandatory">*</span></label>
+                                <!-- <input disabled name="meta_keyword" id="meta_keyword" class="form-control" ngModel
+                                    #meta_keyword="ngModel" required placeholder="Enter Title" required> -->
+                                <div class="tags-box">
+                                    <input type="text" class="form-control" id="meta_keyword" name="meta_keyword"
+                                        [(ngModel)]="metakeyname" ngModel #meta_keyword="ngModel"
+                                        placeholder="#meta keyword" (keypress)="addmetamanage($event)" disabled>
+                                    <ul class="tags-box-list">
+                                        <li *ngFor="let item of metakeyList; let i = index">
+                                            <span>{{ item }}</span>
+                                            <i class="fa fa-times" (click)="removemetaTag(i)" *ngIf="!view"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div *ngIf="submitted && metakeyList.length == 0">
+
+                                    <div class="invalid-feedback" *ngIf="meta_keyword.errors?.required">
+                                        Keyword is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="meta_description  mt-4">
+                                <label for="meta_description">Meta Description&nbsp;<span
+                                        class="mandatory">*</span></label>
+                                <textarea disabled class="form-control" rows="7" name="meta_description"
+                                    id="meta_description" ngModel name="meta_description"
+                                    placeholder="Enter Description..." #meta_description="ngModel" required></textarea>
+                                <div *ngIf="submitted && !meta_description.valid">
+                                    <div class="invalid-feedback" *ngIf="meta_description.errors?.required">
+                                        Meta
+                                        Description is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="status">
+                            <label for="status">Status <span class="mandatory">*</span></label>
+                            <ng-select [items]="statusOptions" bindLabel="label" bindValue="id"
+                                [(ngModel)]="selectedStatus" name="status" id="status" #status="ngModel"
+                                class="form-control custom-ng-select"
+                                [ngClass]="{ 'is-invalid': submitted && status?.errors, 'is-valid': !status?.errors && status   ?.valid }"
+                                [style.border-radius.px]="dropdownBorderRadius" [disabled]="true" required
+                                [ngModelOptions]="{standalone: true}">
+                            </ng-select>
+                            <!-- <select name="status" id="status" [disabled]="view" class="form-control" ngModel
+                                name="status" #status="ngModel" required
+                                [ngClass]="{ 'is-invalid': submitted && status.errors }"
+                                [ngClass]="{ 'is-valid': !status.errors && status.valid}">
+                                <option value="">Select Status</option>
+                                <option value="1">Active</option>
+                                <option value="2">Inactive</option>
+                            </select>
+                            <div *ngIf="submitted && !status.valid">
+                                <div class="invalid-feedback" *ngIf="status.errors?.required">Category status
+                                    is
+                                    required.
+                                </div>
+                                <div class="invalid-feedback" *ngIf="status.errors.status">Please enter
+                                    valid
+                                    status
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <h4>Additional Images</h4>
+                        <div
+                            class="pdt_view_details p-0 view-img w-100 d-flex flex-wrap justify-content-start align-items-center gap-2">
+                            <span class="p-3 multiple-img position-relative"
+                                *ngFor="let url of Preview_files; let i=index">
+                                <!-- <span class="close-icon-multi position-absolute" (click)="closeMultiImage(i,url)">
+                                    <i class="fa fa-times-circle close-icon" aria-hidden="true"></i>
+                                </span> -->
+                                <img [src]="url" width="50" height="50" onerror="this.src='assets/img/no_img.png'"
+                                    class="img-view rounded-3 w-100 h-100">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+
+                        <div class="status">
+                            <label for="status">Status <span class="mandatory">*</span></label>
+                            <ng-select [items]="statusOptions" bindLabel="label" bindValue="id"
+                                [(ngModel)]="selectedStatus" name="status" id="status" #status="ngModel"
+                                class="form-control custom-ng-select"
+                                [ngClass]="{ 'is-invalid': submitted && status?.errors, 'is-valid': !status?.errors && status   ?.valid }"
+                                [style.border-radius.px]="dropdownBorderRadius" [disabled]="true" required
+                                [ngModelOptions]="{standalone: true}">
+                            </ng-select>
+                            <!-- <select name="status" id="status" [disabled]="view" class="form-control" ngModel
+                            name="status" #status="ngModel" required
+                            [ngClass]="{ 'is-invalid': submitted && status.errors }"
+                            [ngClass]="{ 'is-valid': !status.errors && status.valid}">
+                            <option value="">Select Status</option>
+                            <option value="1">Active</option>
+                            <option value="2">Inactive</option>
+                        </select> -->
+                            <div *ngIf="submitted && !status.valid">
+                                <div class="invalid-feedback" *ngIf="status.errors?.required">Category status
+                                    is
+                                    required.
+                                </div>
+                                <div class="invalid-feedback" *ngIf="status.errors.status">Please enter
+                                    valid
+                                    status
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="attri[0]" class="col-lg-12">
+                        <!-- <button type="button" class="btn-primary add-vari" style="float:right;"
+                                (click)="add_variation();">Add Variation</button> -->
+                        <div class="table-parts">
+                            <table class="table">
+                                <thead *ngIf="attri">
+                                    <tr>
+                                        <th>S.no</th>
+                                        <th *ngFor="let attr of attri">
+                                            {{attr.name | titlecase}}
+                                            <!-- <button type="button" class="btn cls-table"
+                                                    (click)="remove_attri(attr._id)"> X </button> -->
+                                        </th>
+                                        <th> Quantity</th>
+                                        <th>MRP Price </th>
+                                        <th> Sales Price</th>
+                                        <th> SKU</th>
+                                        <!-- <th> Action </th> -->
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="price_details && price_details.length > 0">
+                                    <tr *ngFor="let pricedetail of price_details; let i = index">
+                                        <td>{{i+1}}</td> {{attribute |json}}
+                                        <td *ngFor="let attribute of attri; let j = index">
+                                            <ng-select [items]="attribute.units" bindLabel="name"
+                                                placeholder="Select {{attribute.name}}" bindValue="_id" appendTo="body"
+                                                [multiple]="false" name="units{{i}}{{j}}"
+                                                [(ngModel)]="price_details[i].attributes[j].chaild_id" id="units{{i}}"
+                                                [ngClass]="{ 'is-invalid': submitted && attributes.errors }" ngModel
+                                                #units="ngModel" [disabled]="view"
+                                                [ngClass]="{'is-valid': !attributes.errors && attributes.valid}"
+                                                (change)="multiAttributes($event,i,j)"> required >
+                                            </ng-select>
+                                            <p class="help-block">
+                                                <span style="color: red;"
+                                                    *ngIf="submitted && !price_details[i].attributes[j].chaild_id;">
+                                                    Variant is required.</span>
+                                            </p>
+                                        </td>
+                                        <td> <input style="width:100px" disabled type="number" min="1"
+                                                name="quantity{{i}}" ngModel #quantity="ngModel"
+                                                class="form-control col-md-2" string-to-number
+                                                [(ngModel)]="price_details[i].quantity" id="quantity{{i}}" required>
+                                            <p class="help-block">
+                                                <span style="color: red;"
+                                                    *ngIf="submitted && !price_details[i].quantity">Quantity
+                                                    is required.</span>
+                                            </p>
+                                        </td>
+                                        <td><input style="width:100px" disabled type="number" name="addmprice{{i}}"
+                                                min="0" ng-change='checkprice(i)' class="form-control col-md-2" ngModel
+                                                #addmprice="ngModel" ng-value="mprice"
+                                                [(ngModel)]="price_details[i].mprice" id="addmprice{{i}}" required>
+                                            <p class="help-block">
+                                                <span *ngIf="submitted && !price_details[i].mprice"
+                                                    style="color: red;">Base price is
+                                                    required.</span>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <input disabled style="width:100px" type="number" name="addsprice{{i}}"
+                                                class="form-control col-md-2" min="0" ngModel #addsprice="ngModel"
+                                                ng-value="EPDC.sprice{{i}}" [(ngModel)]="price_details[i].sprice"
+                                                id="addsprice{{i}}" ng-required="addsprice{{i}}" required />
+                                            <p class="help-block">
+                                                <span style="color: red;"
+                                                    *ngIf="submitted && !price_details[i].sprice ">Sale
+                                                    price is required </span>
+                                                <span
+                                                    *ngIf="submitted && price_details[i].sprice && price_details[i].sprice > price_details[i].mprice"
+                                                    style="color:red">Sale price need to be
+                                                    Less-than Mrp price </span>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="sku{{ i }}" class="form-control" ngModel
+                                                [(ngModel)]="price_details[i].sku" placeholder="Enter SKU" required
+                                                #sku="ngModel" disabled>
+                                            <p class="help-block">
+                                                <span style="color: red;"
+                                                    *ngIf="submitted && (!price_details[i].sku || price_details[i].sku.trim() === '')">
+                                                    SKU is required.
+                                                </span>
+                                            </p>
+                                        </td>
+                                        <!-- <td>
+                                            <div class="d-flex">
+
+                                                <p class="help-block">
+                                                    <img [src]="attributimage+price_details[i].image" width="40"
+                                                        height="50" *ngIf="price_details[i].image"
+                                                        class="img-view rounded-3 mb-3">
+
+                                                    <span style="color: red;"
+                                                        *ngIf="submitted && !price_details[i].image && !productForm.value.image">Image
+                                                        is required.</span>
+                                                </p>
+                                            </div>
+                                        </td> -->
+                                        <!-- <td>
+                                                <span (click)="remove(i)"><i class="fa fa-trash-o"
+                                                        aria-hidden="true"></i></span>
+                                            </td> -->
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card_footer_btn">
+                        <button type="button" *ngIf="!viewpage" routerLink="/app/products/list" class="btn btn-sm">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="form-group grouping-strains row">
+                    <div class="col-md-6">
+                        <div class="group-control war-border">
+                            <label for="rcatname">Product Brand Name
+                            </label>
+                            <ng-select [items]="brandsList" bindLabel="brandname" placeholder="Select Brand"
+                                appendTo="body" [multiple]="false" name="brandname" ngModel id="brandname"
+                                #brandname="ngModel"
+                                [ngClass]="{ 'is-invalid': submitted && brandname.errors }"
+                                [ngClass]="{'is-valid': !brandname.errors && brandname.valid}">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="group-control war-border">
+                            <label for="main_city">Select City <span class="mandatory">*</span> </label>
+                            <ng-select [items]="cityList" bindLabel="cityname" placeholder="Select City" appendTo="body"
+                                [multiple]="true" name="main_city" ngModel id="main_city" #main_city="ngModel"
+                                [ngClass]="{ 'is-invalid': submitted && main_city.errors }"
+                                [ngClass]="{'is-valid': !main_city.errors && main_city.valid}" required>
+                            </ng-select>
+                            <div *ngIf="submitted && !main_city.valid">
+                                <div class="invalid-feedback" *ngIf="main_city.errors.required">City is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+<!-- <div class="col-md-6">
+                        <div class="group-control">
+                            <label for="size">Category Size</label>
+                            <ng-select ngModel name="size" #size="ngModel" [multiple]="true" required
+                                [ngClass]="{ 'is-invalid': submitted && size.errors }"
+                                [ngClass]="{ 'is-valid': !size.errors && size.valid}">
+                                <ng-option *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>
+                                <ng-option value="">Select Size</ng-option>
+                                <ng-option value="S">S</ng-option>
+                                <ng-option value="M">M</ng-option>
+                                <ng-option value="L">L</ng-option>
+                                <ng-option value="XL">XL</ng-option>
+                                <ng-option value="XXL">XXL</ng-option>
+                            </ng-select>
+                            <ng-select [items]="sizeCategory" id="size" bindValue="_id" bindLabel="rcatname"
+                                [multiple]="true" ngModel name="size" #size="ngModel" placeholder="Select Your size"
+                                [searchable]="true" [clearable]="true"
+                                [ngClass]="{ 'is-valid': !size.errors && size.valid}">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <b>{{ item }}</b>
+                                </ng-template>
+                            </ng-select>
+                            <select name="size" id="size" class="form-control" ngModel name="size" #size="ngModel"
+                                required [ngClass]="{ 'is-invalid': submitted && size.errors }"
+                                [ngClass]="{ 'is-valid': !size.errors && size.valid}">
+                                <option value="">Select Size</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                            <div *ngIf="submitted && !size.valid">
+                                <div class="invalid-feedback" *ngIf="size.errors.required">Category Size is required.
+                                </div>
+                                <div class="invalid-feedback" *ngIf="size.errors.size">Please enter valid status
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+<!-- <div class="col-md-4">
+                                <div class="group-control tile-widget p-20 cash-opt">
+                                    <label for="status">Recommended</label>
+                                    <label class="switch">
+                                        <input type="checkbox" ngModel name="recommended" #recommended="ngModel"
+                                            checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div> -->
+<!-- <div class="form-group grouping-strains row m-0" *ngIf="size_status && size_status.value == 1">
+                        <h5><b>Size</b> Quantity</h5>
+                        <div class="form-group grouping-strains w-100 d-flex"
+                            *ngFor="let item of quantity_size; let i=index">
+                            <div class="col-md-4">
+                                <input type="text" readonly name="ngsize{{i}}" id="ngsize{{i}}"
+                                    placeholder="Enter Size" class="form-control"
+                                    [(ngModel)]="item.size" ngModel #ngsize{{i}}="ngModel">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="ngquantity{{i}}" id="ngquantity{{i}}" min="0"
+                                    onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                    placeholder="Enter Quantity" class="form-control"
+                                    [(ngModel)]="item.quantity" ngModel #ngquantity{{i}}="ngModel">
+                            </div>
+                            <div class="col-md-4">
+                                <select name="ngstatus{{i}}" id="ngstatus{{i}}" class="form-control"
+                                    [(ngModel)]="item.status" ngModel #ngstatus{{i}}="ngModel">
+                                    <option value="">--Select--</option>
+                                    <option value=1>Active</option>
+                                    <option value=2>Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> -->
+<!-- <div class="col-md-12" *ngIf="attri[0]">
+                        <button type="button" class="btn-primary add-vari" style="float:right;" (click)="add_variation();">Add Variation</button>
+                        <div class="table-parts">
+                            <table class="table">
+                                <thead *ngIf="attri">
+                                    <tr>
+                                        <th>S.no</th>
+                                        <th *ngFor="let attr of attri">
+                                            {{attr.name | titlecase}}<button type="button" class="btn cls-table" (click)="remove_attri(attr._id)"> X </button>
+                                        </th>
+                                        <th> Quantity</th>
+                                        <th>MRP Price </th>
+                                        <th> Sales Price</th>
+                                        <th> Image</th>
+                                        <th> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="price_details && price_details.length > 0">
+                                    <tr *ngFor="let pricedetail of price_details; let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td *ngFor="let attribute of attri; let j = index">
+                                            <ng-select [items]="attribute.units" bindLabel="name" placeholder="Select {{attribute.name}}" bindValue="_id" appendTo="body" [multiple]="false" name="units{{i}}{{j}}" [(ngModel)]="price_details[i].attributes[j].chaild_id" id="units{{i}}" [ngClass]="{ 'is-invalid': submitted && attributes.errors }"
+                                                ngModel #units="ngModel" [ngClass]="{'is-valid': !attributes.errors && attributes.valid}" (change)="multiAttributes($event,i,j)"> required >
+                                            </ng-select>
+                                            <p class="help-block">
+                                                <span style="color: red;" *ngIf="submitted && !price_details[i].attributes[j].chaild_id;">
+                                                    variable is required.</span>
+                                            </p>
+                                        </td>
+                                        <td> <input style="width:100px" type="number" min="1" name="quantity{{i}}" ngModel #quantity="ngModel" class="form-control col-md-2" string-to-number [(ngModel)]="price_details[i].quantity" id="quantity{{i}}" required>
+                                            <p class="help-block">
+                                                <span style="color: red;" *ngIf="submitted && !price_details[i].quantity">Quantity
+                                                    is required.</span>
+                                            </p>
+                                        </td>
+                                        <td><input style="width:100px" type="number" name="addmprice{{i}}" min="0" ng-change='checkprice(i)' class="form-control col-md-2" ngModel #addmprice="ngModel" ng-value="mprice" [(ngModel)]="price_details[i].mprice"
+                                                id="addmprice{{i}}" required>
+                                            <p class="help-block">
+                                                <span *ngIf="submitted && !price_details[i].mprice" style="color: red;">MRP price is
+                                                    required.</span>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <input style="width:100px" type="number" name="addsprice{{i}}" class="form-control col-md-2" min="0" ngModel #addsprice="ngModel" ng-value="EPDC.sprice{{i}}" [(ngModel)]="price_details[i].sprice" id="addsprice{{i}}" ng-required="addsprice{{i}}" required
+                                            />
+                                            <p class="help-block">
+                                                <span style="color: red;" *ngIf="submitted && !price_details[i].sprice ">Sale
+                                                    price is required </span>
+                                                <span *ngIf="submitted && price_details[i].sprice && price_details[i].sprice > price_details[i].mprice" style="color:red">Sale price need to be
+                                                    Less-than Mrp price </span>
+                                            </p>
+                                        </td>
+                                        <td><input style="width:200px" type="file"  accept="image/*" ng-class="{ 'has-error' : productForm.addimage1{{i}}.$invalid && !productForm.addimage1{{i}}.$pristine, 'has-success' : productForm.addimage1{{i}}.$valid && !productForm.addimage1{{i}}.$pristine}"
+                                                class="form-control col-md-2" (change)="fileUploads($event,i)" name="image{{i}}" ngModel #image="ngModel" accept="image/*">
+                                            <p class="help-block">
+                                                <span style="color: red;" *ngIf="submitted && !price_details[i].image && !productForm.value.image">Image
+                                                    is required.</span>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <span (click)="remove(i)"><i class="fa fa-trash-o"
+                                                    aria-hidden="true"></i></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div> -->
+<!-- <div class="upload_img_cont"
+                                    ng-class="{ 'has-error' : foodForm.avatar.$invalid && !foodForm.avatar.$pristine, 'has-success' : foodForm.avatar.$valid && !foodForm.avatar.$pristine}">
+                                    <input id="fileInput" class="form-control" type="file" ngModel #avatar="ngModel"
+                                        (change)="onFileChange($event)" name="avatar" id="avatar" aria-invalid="true" />
+                                    <p class="help-block">
+                                        <span class="invalid-feedback"
+                                            *ngIf="submitted && !cropImgPreview">Product
+                                            Image required, Allowed files: jpeg, png, jpg. Max file size
+                                            50Mb.</span>
+                                    </p>
+                                </div> -->
+<!-- <div class="upload_img_cont"
+                                    ng-class="{ 'has-error' : foodForm.hover_image.$invalid && !foodForm.hover_image.$pristine, 'has-success' : foodForm.hover_image.$valid && !foodForm.hover_image.$pristine}">
+                                    <input id="fileInput" class="form-control" type="file" ngModel
+                                        #hover_image="ngModel" (change)="onHoverFileChange($event)" name="hover_image"
+                                        id="hover_image" aria-invalid="true" />
+                                    <p class="help-block">
+                                        <span class="invalid-feedback"
+                                            *ngIf="submitted && !hoverImage">Product
+                                            Hover Image required, Allowed files: jpeg, png, jpg. Max file size
+                                            50Mb.</span>
+                                    </p>
+                                </div> -->
+<!-- <div class="col-md-6">
+                                <label for="Aditional Images">Additional Images</label>
+                                <input type="file" multiple class="form-control input-file" #additionlimage
+                                    (change)="detectFiles($event)">
+                            </div> -->
+
+<!-- Admin Add Product Page -->
+<div class="admin_edit_product_page margin_top">
+    <div class="container">
+        <div class="animated fadeIn" *ngIf="!view">
+            <div class="row">
+                <div class="card">
+                    <div class="card-header mb-4"><strong>{{pageTitle | titlecase}}</strong></div>
+                    <form #productForm="ngForm" autocomplete="off">
+                        <div class="card-body">
+                            <div class="form-group grouping-strains row m-0 position-relative">
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        <div class="upload_img_cont"
+                                            ng-class="{ 'has-error' : foodForm.avatar.$invalid && !foodForm.avatar.$pristine, 'has-success' : foodForm.avatar.$valid && !foodForm.avatar.$pristine}">
+                                            <label for="avatar">Product Image <span class="mandatory">*</span></label>
+                                            <div class="inline_cat_image">
+                                                <input id="fileInput" class="form-control input_pencil front_pht"
+                                                    type="file" ngModel #avatar="ngModel"
+                                                    (change)="onFileChange($event);imageCropPopout(imagecrop)"
+                                                    name="avatar" id="avatar" aria-invalid="true"
+                                                    accept=".jpg, .jpeg, .png, .webp" />
+                                                <div class="img_center_call">
+                                                    <img src="assets/image/no_images.png" alt="no_images">
+                                                </div>
+
+
+                                                <div class="form-group preview" *ngIf="cropImgPreview">
+
+                                                    <img [src]="cropImgPreview" width="400" height="400" alt=""
+                                                        class="img-responsive">
+
+                                                </div>
+                                            </div>
+
+
+                                            <p class="image_size_filter">Set the product thumbnail image <b>145X145</b>
+                                                pixel. Only
+                                                *.png, *.jpg and *.jpeg image files are
+                                                accepted</p>
+
+                                            <p class="help-block tac">
+                                                <span class="invalid-feedback tac"
+                                                    *ngIf="submitted && !cropImgPreview">Image is required</span>
+                                            </p>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="hover_thumbnail mt-4 trade_mark_img">
+                                        <div class="upload_img_cont"
+                                            ng-class="{ 'has-error' : foodForm.hover_image.$invalid && !foodForm.hover_image.$pristine, 'has-success' : foodForm.hover_image.$valid && !foodForm.hover_image.$pristine}">
+                                            <label for="hover_image">Trade Mark Image<span class="mandatory">
+                                                    *</span></label>
+                                            <span class="inline_cat_image">
+                                                <input id="fileInput" class="form-control input_pencil" type="file"
+                                                    ngModel #hover_image="ngModel"
+                                                    (change)="onHoverFileChange($event);imageCropPopout(hovercrop)"
+                                                    name="hover_image" id="hover_image" aria-invalid="true"
+                                                    accept=".jpg, .jpeg, .png, .webp" />
+                                                <div class="img_center_call">
+                                                    <img src="assets/image/no_images.png" alt="no_images">
+                                                </div>
+
+                                                <div class="form-group preview " *ngIf="hoverImage">
+
+                                                    <img [src]="hoverImage" width="400" height="400" alt=""
+                                                        class="img-responsive">
+
+                                                </div>
+
+                                            </span>
+
+                                            <p class="image_size_filter">Set the trademark thumbnail image
+                                                <b>145X145</b> pixel. Only
+                                                *.png, *.jpg and *.jpeg image files are accepted
+                                            </p>
+                                            <p class="help-block tac">
+                                                <span class="invalid-feedback tac" *ngIf="submitted && !hoverImage">Max
+                                                    file size 50Mb.</span>
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- <div class="quantity mt-4" *ngIf="!sizeStatus">
+                                        <label for="quantity">Quantity <span class="mandatory">*</span></label>
+                                        <input type="text" name="quantity" id="quantity" placeholder="Quantity"
+                                            onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                            class="form-control" ngModel #quantity="ngModel" required
+                                            [ngClass]="{ 'is-invalid': submitted && quantity.errors }"
+                                            [ngClass]="{ 'is-valid': !quantity.errors && quantity.valid}" required>
+                                        <div *ngIf="submitted && !quantity.valid">
+                                            <div class="invalid-feedback" *ngIf="quantity.errors.required">Quantity is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="group-control returns_days mt-4">
+                                        <label for="food_name">Return days
+                                            <span class="mandatory">*</span></label>
+                                        <input name="food_return" id="food_return" class="form-control" ngModel
+                                            #food_return="ngModel" required placeholder="Enter Return days"
+                                            [ngClass]="{ 'is-invalid': submitted && food_name.errors }"
+                                            [ngClass]="{ 'is-valid': !food_name.errors && food_name.valid}" required>
+                                        <div *ngIf="submitted && !food_return.valid">
+                                            <div class="invalid-feedback" *ngIf="food_return.errors.required"> Product
+                                                return
+                                                day is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="group-control war-border mt-4 product_categorys">
+                                        <h2 class="">Product Category</h2>
+                                        <label for="rcatname">Select Category <span class="mandatory">*</span> </label>
+                                        <ng-select class="category_select" dropdownPosition="bottom"
+                                            [items]="rcategorylist" bindLabel="rcatname"
+                                            [placeholder]="'Select Category'" [multiple]="false" name="rcatname" ngModel
+                                            id="rcatname" #rcatname="ngModel"
+                                            [ngClass]="{ 'is-invalid': submitted && rcatname.errors }"
+                                            [ngClass]="{'is-valid': !rcatname.errors && rcatname.valid}" required
+                                            (change)="getsubcategory($event,0,2)" [searchable]="false"
+                                            [closeOnScroll]="false" [clearable]="false">
+                                        </ng-select>
+                                        <div *ngIf="submitted && !rcatname.valid">
+                                            <div class="invalid-feedback" *ngIf="rcatname.errors?.required">Category is
+                                                required.
+                                            </div>
+                                        </div>
+
+                                        <div class="select_sub_cat"
+                                            *ngFor="let all_subcategory of all_subcategory; let i = index">
+                                            <div *ngIf="id">
+                                                <div class="group-control war-border">
+                                                    <label for="rcategory">Select Sub Category level {{i+1}}<span
+                                                            class="mandatory">*</span></label>
+                                                    <select class="selectpicker form-control" data-live-search="true"
+                                                        [multiple]="false" name="scategory" id="scategory"
+                                                        [(ngModel)]="childcats[i]" #scategory="ngModel" ngModel
+                                                        (change)="getsubscategory($event, i+1)" [disabled]="view"
+                                                        required>
+                                                        <option value="selected" disabled>Select category {{i+1}}
+                                                        </option>
+                                                        <option *ngFor="let subcategory of all_subcategory"
+                                                            [value]="subcategory._id"
+                                                            [selected]="selectedValues[i+1] === subcategory._id">
+                                                            {{subcategory.scatname}}
+                                                        </option>
+                                                    </select>
+                                                    <div *ngIf="submitted && !scategory.valid">
+                                                        <div class="invalid-feedback"
+                                                            *ngIf="scategory.errors?.required">
+                                                            Sub
+                                                            Category level is
+                                                            required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="!id && (all_subcategory && all_subcategory.length > 0)">
+                                                <div class="group-control war-border">
+                                                    <label for="rcategory">Select Sub Category level {{i+1}} <span
+                                                            class="mandatory">*</span></label>
+                                                    <select class="selectpicker form-control" data-live-search="true"
+                                                        [multiple]="false" name="scategory" id="scategory" ngModel
+                                                        #scategory="ngModel" (change)="getsubscategory($event, i+1)"
+                                                        [disabled]="view" required>
+                                                        <option value="selected">Select category
+                                                            {{i+1}}
+                                                        </option>
+                                                        <option *ngFor="let subcategory of all_subcategory"
+                                                            [value]="subcategory._id">
+                                                            {{subcategory.scatname}}
+                                                        </option>
+                                                    </select>
+                                                    <div *ngIf="submitted && !scategory.valid">
+                                                        <div class="invalid-feedback"
+                                                            *ngIf="scategory.errors?.required">
+                                                            Sub
+                                                            Category level is
+                                                            required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class=" " *ngFor="let all_subcategory of all_subcategory; let i = index">
+                                        <ng-container *ngIf="all_subcategory && all_subcategory.length > 0">
+                                            <div *ngIf="id">
+                                                 <small>{{all_subcategory|json}}</small> 
+                                                <div class="group-control war-border">
+                                                    <label for="rcategory">Select Sub Category level {{i+1}} <span
+                                                            class="mandatory">*</span></label>
+                                                    <select class="selectpicker form-control" data-live-search="true"
+                                                        [multiple]="false" name="scategory" id="scategory"
+                                                        (change)="getsubscategory_edit($event, i+1)" required>
+                                                        <option value="" selected disabled>Select category {{i+1}}
+                                                        </option>
+                                                        <option *ngFor="let subcategory of all_subcategory"
+                                                            [value]="subcategory._id"
+                                                            [selected]="selectedValues[i+1] === subcategory._id">
+                                                            {{subcategory.scatname}}
+                                                        </option>
+                                                    </select>
+                                                     <div *ngIf="submitted && !scategory.valid">
+                                                    <div class="invalid-feedback"
+                                                        *ngIf=" submitted && scategory?.errors?.required">
+                                                        Sub
+                                                        Category level is
+                                                        required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </ng-container> -->
+
+
+                                        <!-- <div *ngIf="!id && (all_subcategory && all_subcategory.length > 0)">
+                                            <div class="select_sub_cat">
+                                            <div class="group-control war-border">
+                                                <label for="rcategory">Select Sub Category level {{i+1}} <span
+                                                        class="mandatory">*</span></label>
+                                                    Replace the ng-select with Bootstrap Select 
+                                                <select class="selectpicker form-control" data-live-search="true"
+                                                    [multiple]="false" name="scategory" id="scategory" required
+                                                    (change)="getsubscategory($event, i+1)">
+                                                        <option value="" selected disabled>Select category {{i+1}}
+                                                        </option>
+                                                    <option *ngFor="let subcategory of all_subcategory"
+                                                        [value]="subcategory._id">
+                                                        {{subcategory.scatname}}
+                                                    </option>
+                                                </select>
+                                                <div *ngIf="submitted && !scategory.valid">
+                                                        <div class="invalid-feedback"
+                                                            *ngIf="scategory.errors?.required">
+                                                        Sub
+                                                        Category level is
+                                                        required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        </div> -->
+
+                                        <!-- <div *ngIf="!id && (all_subcategory && all_subcategory.length > 0)">
+                                            <div class="select_sub_cat">
+                                            <div class="group-control war-border">
+                                                <label for="rcategory">Select Sub Category level {{i+1}} <span
+                                                        class="mandatory">*</span></label>
+                                                   
+                                                <select class="selectpicker form-control" data-live-search="true"
+                                                    [multiple]="false" name="scategory" id="scategory" required
+                                                    (change)="getsubscategory($event, i+1)">
+                                                        <option value="" selected disabled>Select category {{i+1}}
+                                                        </option>
+                                                    <option *ngFor="let subcategory of all_subcategory"
+                                                        [value]="subcategory._id">
+                                                        {{subcategory.scatname}}
+                                                    </option>
+                                                </select>
+                                                <div *ngIf="submitted && !scategory.valid">
+                                                        <div class="invalid-feedback"
+                                                            *ngIf="scategory.errors?.required">
+                                                        Sub
+                                                        Category level is
+                                                        required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div> -->
+
+
+                                        <!-- <div class="" *ngFor="let all_subcategory of all_subcategory; let i = index">
+                                            <ng-container *ngIf="all_subcategory && all_subcategory.length > 0">
+                                                <div *ngIf="id"> 
+                                                     <small>{{all_subcategory|json}}</small> 
+                                                     <div class="group-control war-border">
+                                                        <label for="rcategory">Select Sub Category level {{i+1}} <span
+                                                                class="mandatory">*</span></label>
+                                                        <select class="selectpicker form-control" data-live-search="true"
+                                                            [multiple]="false" name="scategory" id="scategory"
+                                                            (change)="getsubscategory_edit($event, i+1)" required>
+                                                            <option value="" selected disabled>Select category {{i+1}}</option>
+                                                            <option *ngFor="let subcategory of all_subcategory"
+                                                                [value]="subcategory._id"
+                                                                [selected]="selectedValues[i+1] === subcategory._id">
+                                                                {{subcategory.scatname}}
+                                                            </option>
+                                                        </select> 
+                                                         <div *ngIf="submitted && !scategory.valid"> 
+                                                         <div class="invalid-feedback"
+                                                            *ngIf=" submitted && scategory?.errors?.required"> Sub
+                                                            Category level is
+                                                            required.
+                                    </div>
+                                </div>
+                                                     </div>
+                                                </div>
+                                            </ng-container> -->
+
+
+                                    </div>
+
+                                    <div class="pricing mt-4">
+                                        <h2>Pricing</h2>
+                                        <div class="varience_status" >
+                                            <label for="size_status">Varience status <span
+                                                    class="mandatory">*</span></label>
+                                            <ng-select [items]="varienceStatusOptions" bindLabel="label"
+                                                bindValue="value" [(ngModel)]="selected_size_status" name="size_status"
+                                                id="size_status" #size_status="ngModel"
+                                                [placeholder]="'Select Size Status'"
+                                                class="form-control custom-ng-select"
+                                                [ngClass]="{ 'is-invalid': submitted && size_status?.errors, 'is-valid': !size_status?.errors && size_status?.valid }"
+                                                [style.border-radius.px]="dropdownBorderRadius1" [required]="!combo"
+                                                (change)="changeSizeStatus(size_status)"
+                                                [ngModelOptions]="{standalone: true}" [searchable]="false"
+                                                [closeOnScroll]="false" [clearable]="false">
+                                            </ng-select>
+                                            <div *ngIf="submitted && size_status?.invalid">
+                                                <div class="invalid-feedback" *ngIf="size_status?.errors?.required">
+                                                    Variant
+                                                    type is required.</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="group-control" *ngIf="selected_size_status !== 1">
+                                            <label for="food_name">SKU</label>
+                                            <input name="sku" id="sku" class="form-control" ngModel #sku="ngModel"
+                                                placeholder="Enter SKU" maxlength="20">
+                                            <!-- <div *ngIf="submitted && !sku.valid">
+                                            <div class="invalid-feedback" *ngIf="sku.errors.required"> Product
+                                                name is
+                                                required.
+                                            </div>
+                                        </div> -->
+                                        </div>
+                                        <div class="group-control">
+                                            <label for="food_name">Tax %</label>
+                                            <input name="tax" id="tax" class="form-control" ngModel #tax="ngModel"
+                                                placeholder="(Example : 18)" maxlength="5" required  (keypress)="allowOnlyNumbers($event)">
+                                            <div *ngIf="submitted && !tax.valid">
+                                            <div class="invalid-feedback" *ngIf="tax.errors.required"> Tax is
+                                                required.
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="product_variations" *ngIf="selected_size_status == 1">
+                                            <div class="group-control">
+                                                <label for="attributes">Product Variations <span
+                                                        class="mandatory">*</span>
+                                                </label>
+                                                <ng-select [items]="attributesdata" bindLabel="name"
+                                                    placeholder="Select Variation" appendTo="body" [multiple]="true"
+                                                    name="attributes" [(ngModel)]="varientsnames" id="attributes"
+                                                    #attributes="ngModel"
+                                                    [ngClass]="{ 'is-invalid': submitted && attributes.errors }"
+                                                    [ngClass]="{'is-valid': !attributes.errors && attributes.valid}"
+                                                    required (change)="storeattributes($event)" [searchable]="false"
+                                                    [closeOnScroll]="false" [clearable]="false">
+                                                </ng-select>
+                                                <div *ngIf="submitted && !attributes.valid">
+                                                    <div class="invalid-feedback"
+                                                        *ngIf="attributesdata.length > 0 && attributes.errors?.required">
+                                                        Variations
+                                                        is required.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group-control" *ngIf="!sizeStatus">
+                                            <label for="product_base_price">Product Base Price <span
+                                                    class="mandatory">*</span></label>
+                                            <input type="number" name="product_base_price" id="product_base_price"
+                                                class="form-control" placeholder="Enter Base Price"
+                                                (input)="validateInput($event)" ngModel #product_base_price="ngModel"
+                                                required
+                                                [ngClass]="{ 'is-invalid': submitted && product_base_price.errors }"
+                                                [ngClass]="{ 'is-valid': !product_base_price.errors && product_base_price.valid}">
+                                            <div *ngIf="submitted && !product_base_price.valid">
+                                                <div class="invalid-feedback"
+                                                    *ngIf="product_base_price.errors?.required">
+                                                    Product
+                                                    Base Price is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group-control" *ngIf="!sizeStatus">
+                                            <label for="product_sale_price">Product Sale Price <span
+                                                    class="mandatory">*</span></label>
+                                            <input type="number" name="product_sale_price" id="product_sale_price"
+                                                placeholder="Enter Sale Price" (input)="validateInput($event)"
+                                                class="form-control" ngModel #product_sale_price="ngModel" required
+                                                [ngClass]="{ 'is-invalid': submitted && product_sale_price.errors }"
+                                                [ngClass]="{ 'is-valid': !product_sale_price.errors && product_sale_price.valid}">
+
+                                            <div *ngIf="submitted && !product_sale_price.valid">
+                                                <div class="invalid-feedback"
+                                                    *ngIf="product_sale_price.errors?.required">
+                                                    Product
+                                                    Sale Price is required.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class=" tile-widget p-20 cash-opt">
+                                            <label for="status">Discount Offer %</label><br>
+                                            <label class="switch">
+                                                <input type="checkbox" ngModel name="offer_status"
+                                                    [(ngModel)]="offer_check"
+                                                    (change)="offer_check= $event.target.checked? 1: 0"
+                                                    id="offer_status" #offer_status="ngModel" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div> -->
+                                        <!-- <div class="offer_percentage" *ngIf="offer_check == 1">
+                                            <label for="offer_amount">Offer Percentage <span
+                                                    class="mandatory">*</span></label>
+                                            <input type="number" name="offer_amount" placeholder="Offer Percentage"
+                                                id="offer_amount" class="form-control" ngModel #offer_amount="ngModel"
+                                                required [ngClass]="{ 'is-invalid': submitted && offer_amount.errors }"
+                                                [ngClass]="{ 'is-valid': !offer_amount.errors && offer_amount.valid}"
+                                                required>
+                                            <div *ngIf="submitted && !offer_amount.valid">
+                                                <div class="invalid-feedback" *ngIf="offer_amount.errors?.required">
+                                                    Offer
+                                                    amount is required.
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+                                    </div>
+                                    <div class="meta mt-4">
+                                        <h2>Meta Details</h2>
+                                        <div class="meta_title mt-4">
+                                            <label for="">Meta Title
+                                                <span class="mandatory">*</span></label>
+                                            <input name="meta_title" id="meta_title" class="form-control" ngModel
+                                                #meta_title="ngModel" required
+                                                placeholder="Recommended title is 55 chars max" required>
+                                            <div *ngIf="submitted && !meta_title.valid">
+                                                <div class="invalid-feedback" *ngIf="meta_title.errors?.required"> Title
+                                                    is
+                                                    required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="meta_keyword mt-4">
+                                            <label for="">Meta Keyword
+                                                <span class="mandatory">*</span></label>
+                                            <!-- <input name="meta_keyword" id="meta_keyword" class="form-control" ngModel
+                                                #meta_keyword="ngModel" required placeholder="Enter Title" required> -->
+                                            <div class="tags-box">
+                                                <input type="text" class="form-control" id="meta_keyword"
+                                                    name="meta_keyword" [(ngModel)]="metakeyname" ngModel
+                                                    #meta_keyword="ngModel" placeholder="Keywords recommended is 4 max"
+                                                    (keypress)="addmetamanage($event)" [required]="metakeyList.length === 0">
+                                                <ul class="tags-box-list">
+                                                    <li *ngFor="let item of metakeyList; let i = index">
+                                                        <span>{{ item }}</span>
+                                                        <i class="fa fa-times" (click)="removemetaTag(i)"></i>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div *ngIf="submitted && metakeyList && metakeyList.length == 0">
+                                                <div class="invalid-feedback" *ngIf="meta_keyword.errors?.required">
+                                                    Keyword
+                                                    is
+                                                    required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="meta_description  mt-4">
+                                            <label for="meta_description">Meta Description&nbsp;<span
+                                                    class="mandatory">*</span></label>
+                                            <textarea class="form-control" rows="7" name="meta_description"
+                                                id="meta_description" ngModel name="meta_description"
+                                                placeholder="Recommended description is 155 chars max"
+                                                #meta_description="ngModel" required></textarea>
+                                            <div *ngIf="submitted &&  !meta_description.valid">
+                                                <div class="invalid-feedback" *ngIf="meta_description.errors?.required">
+                                                    Meta
+                                                    Description is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="active_inactive_ststus mt-4">
+                                        <label for="status">Status <span class="mandatory">*</span></label>
+                                        <ng-select [items]="statusOptions" bindLabel="label" bindValue="id"
+                                            [(ngModel)]="selectedStatus" name="status" id="status" #status="ngModel"
+                                            class="form-control custom-ng-select"
+                                            [ngClass]="{ 'is-invalid': submitted && status?.errors, 'is-valid': !status?.errors && status   ?.valid }"
+                                            [style.border-radius.px]="dropdownBorderRadius" required
+                                            [ngModelOptions]="{standalone: true}" [closeOnScroll]="false"
+                                            [clearable]="false">
+                                        </ng-select>
+                                        <div *ngIf="submitted && status?.invalid">
+                                            <div class="invalid-feedback" *ngIf="status?.errors?.required">Category
+                                                status
+                                                is required.</div>
+                                            <div class="invalid-feedback" *ngIf="status?.errors?.status">Please enter
+                                                valid
+                                                status.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="general">
+                                        <!-- <h2>General</h2> -->
+                                        <div class="form-group grouping-strains row m-0">
+                                            <div class="group-control missed_error">
+                                                <label for="food_name">Product Name&nbsp;
+                                                    <span class="mandatory">*</span></label>
+                                                <input name="food_name" id="food_name" class="form-control" ngModel
+                                                    #food_name="ngModel" [(ngModel)]="productName"
+                                                    (keyup)="changeSlug()" required placeholder="Enter Product Name"
+                                                    [ngClass]="{ 'is-invalid': submitted && food_name.errors }"
+                                                    [ngClass]="{ 'is-valid': !food_name.errors && food_name.valid}"
+                                                    required>
+                                                <span class="input_suggession">A product name is required and
+                                                    recommended to
+                                                    be unique.</span>
+                                                <div *ngIf="submitted && !food_name.valid">
+                                                    <div class="invalid-feedback" *ngIf="food_name.errors?.required">
+                                                        Product
+                                                        name is
+                                                        required.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="combo">
+                                                <label for="food_name">Combo</label>
+                                                <div class="switch">
+                                                    <div class="switch" [class.on]="isOn" (click)="toggleStatus()">
+                                                        <div class="toggle"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="group-control missed_error">
+                                                <label for="image_alt">Image Alt Text&nbsp;
+                                                    <span class="mandatory">*</span></label>
+                                                <input type="text" name="imagealt" id="imagealt" class="form-control"
+                                                    ngModel #imagealt="ngModel" maxlength="60" [(ngModel)]="imageAlt"
+                                                    required placeholder="Enter alternative text for the image"
+                                                    required>
+                                                <div *ngIf="submitted && !imagealt.valid">
+                                                    <div class="invalid-feedback" *ngIf="imagealt.errors?.required">
+                                                        Image alt is
+                                                        required.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- <div class="form-group">
+                                                <label for="imagealt">Image Alt Text:</label>
+                                                <input
+                                                  type="text"
+                                                  id="imagealt"
+                                                  name="imagealt"
+                                                  required
+                                                  placeholder="Enter alternative text for the image"
+                                                  class="form-control"
+                                                />
+                                                <div *ngIf="submitted && !imagealt.valid">
+                                                    <div class="invalid-feedback" *ngIf="imagealt.errors?.required">Image alt is
+                                                        required.
+                                                    </div>
+                                                </div>
+                                              </div> -->
+
+
+
+                                            <div class="veg_nonveg mt-3">
+                                                <label>Veg (or) Non-Veg<span class="color_red"> *</span></label>
+                                                <ng-select class="custom-ng-select" [items]="vegOptions"
+                                                    bindLabel="name" bindValue="id" placeholder="Select Options"
+                                                    [(ngModel)]="selectedVeg" (ngModelChange)="onStatusChange($event)"
+                                                    name="selectedVeg" id="selectedVeg"
+                                                    [ngModelOptions]="{standalone: true}" [searchable]="false"
+                                                    [closeOnScroll]="false" [clearable]="false" required>
+                                                </ng-select>
+                                                <div *ngIf="submitted && selectedVeg?.invalid">
+                                                    <div class="invalid-feedback" *ngIf="selectedVeg?.errors?.required">
+                                                        Status
+                                                        is required.</div>
+                                                    <!-- <div class="invalid-feedback" *ngIf="status?.errors?.status">Please enter
+                                                        valid
+                                                        status.</div> -->
+                                                </div>
+                                            </div>
+
+                                            <!-- <div class=" slug grouping-strains">
+                                            <label for="slug">Slug
+                                                <span class="mandatory">*</span></label>
+                                            <input name="slug" id="slug" class="form-control" ngModel #slug="ngModel"
+                                                required placeholder="Enter Product Name" disabled
+                                                [(ngModel)]="productSlug"
+                                                [ngClass]="{ 'is-invalid': submitted && slug.errors }"
+                                                [ngClass]="{ 'is-valid': !slug.errors && slug.valid}" required>
+                                            <!-- <div *ngIf="submitted && !slug.valid">
+                                                    <div class="invalid-feedback" *ngIf="slug.errors.required"> Product name is
+                                                        required.
+                                                    </div>
+                                                </div>
+                                        </div> -->
+
+                                            <!-- <div class="group-control">
+                                                <label for="food_name">SKU</label>
+                                                <input name="sku" id="sku" class="form-control" ngModel #sku="ngModel"
+                                                    placeholder="Enter SKU"> -->
+                                            <!-- <div *ngIf="submitted && !sku.valid">
+                                                <div class="invalid-feedback" *ngIf="sku.errors.required"> Product
+                                                    name is
+                                                    required.
+                                                </div>
+                                            </div> -->
+                                            <!-- </div> -->
+
+                                            <!-- <div class="group-control information">
+                                                <label for="information">Description&nbsp;<span
+                                                        class="mandatory">*</span></label>
+                                                <textarea type="text" name="information"
+                                                    placeholder="Type your text here...(Max 600 words)" id="information"
+                                                    maxlength="600"
+                                                    class="form-control" ngModel #information="ngModel" required
+                                                    [ngClass]="{ 'is-invalid': submitted && information.errors }"
+                                                    [ngClass]="{ 'is-valid': !information.errors && information.valid}"
+                                                    required>
+
+
+                                                </textarea>
+                                                <span class="input_suggession">Set a description to the product for
+                                                    better
+                                                    visibility.</span>
+                                            </div> -->
+
+
+
+                                            <div class="group-control information">
+                                                <label for="information">Description&nbsp;<span
+                                                        class="mandatory">*</span></label>
+
+                                                <div class="textarea-wrapper">
+                                                    <textarea type="text" name="information"
+                                                        placeholder="Type your text here...(Max 1500 words)"
+                                                        id="information" maxlength="1500" class="form-control"
+                                                        [(ngModel)]="description" #information="ngModel" required
+                                                        [ngClass]="{ 'is-invalid': submitted && information.errors }"
+                                                        [ngClass]="{ 'is-valid': !information.errors && information.valid }"
+                                                        (ngModelChange)="updateCharCount(description)">
+                                                    </textarea>
+
+                                                    <!-- Character count inside the textarea -->
+                                                    <div class="char-count">{{ charCount }}/1500</div>
+                                                </div>
+                                                <div *ngIf="submitted && !information.valid">
+                                                    <div class="invalid-feedback" *ngIf="information.errors?.required">
+                                                        Description is required
+                                                    </div>
+                                                </div>
+                                                <!-- <span class="input_suggestion">Set a description to the product for better visibility.</span> -->
+                                            </div>
+
+
+
+                                            <div class="form-group alternative_name">
+                                                <label class="form-label" for="tags">Alternative Name</label>
+                                                <div class="tags-box">
+                                                    <input type="text" class="form-control" id="alternative"
+                                                        name="alternative" [(ngModel)]="alternativeName" ngModel
+                                                        #alternative="ngModel" placeholder="Alternative Name"
+                                                        (keypress)="addAlternativeTag($event)">
+                                                    <ul class="tags-box-list">
+                                                        <li *ngFor="let item of alternativeList; let i = index">
+                                                            <span>{{ item }}</span>
+                                                            <i class="fa fa-times"
+                                                                (click)="removealternativeTag(i)"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group health_benefits">
+                                                <label class="form-label" for="tags">Health Benefits
+
+                                                </label>
+                                                <div class="tags-box">
+                                                    <input type="text" class="form-control" id="healthBenefit"
+                                                        name="healthBenefit" [(ngModel)]="healthBenefits" ngModel
+                                                        #healthBenefit="ngModel" placeholder="Health Benefits"
+                                                        (keypress)="addHealthTag($event)">
+                                                    <ul class="tags-box-list">
+                                                        <li *ngFor="let item of HealthBenefitList; let i = index">
+                                                            <span>{{ item }}</span>
+                                                            <i class="fa fa-times" (click)="removeHealthTag(i)"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- <div class="group-control information">
+                                                <label for="information">Product Details&nbsp;<span
+                                                        class="mandatory">*</span></label>
+                                                <textarea type="text" name="productDetails" [(ngModel)]='productDesc'
+                                                    placeholder="Type your text here...(Max 600 words)" maxlength="600" id="productDetails"
+                                                    class="form-control" ngModel #productDetails="ngModel" required
+                                                    [ngClass]="{ 'is-invalid': submitted && productDetails.errors }"
+                                                    [ngClass]="{ 'is-valid': !productDetails.errors && productDetails.valid}"
+                                                    required>
+
+
+                                                </textarea>
+
+                                                <div *ngIf="submitted && !productDetails.valid">
+                                                    <div class="invalid-feedback"
+                                                        *ngIf="productDetails.errors?.required">
+                                                        Product details is
+                                                        required.
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+
+
+                                            <div class="group-control information">
+                                                <label for="information">Product Details&nbsp;<span
+                                                        class="mandatory">*</span></label>
+
+                                                <textarea type="text" name="productDetails" [(ngModel)]='productDesc'
+                                                    placeholder="Type your text here...(Max 1500 words)"
+                                                    maxlength="1500" id="productDetails" class="form-control"
+                                                    #productDetails="ngModel" required ngModel
+                                                    [ngClass]="{ 'is-invalid': submitted && productDetails.errors }"
+                                                    [ngClass]="{ 'is-valid': !productDetails.errors && productDetails.valid}"
+                                                    (ngModelChange)="updateCharCountprod(productDesc)">
+                                                </textarea>
+
+                                                <!-- Character count -->
+                                                <div class="char-count">{{ charCountprod }}/1500</div>
+
+                                                <div *ngIf="submitted && !productDetails.valid">
+                                                    <div class="invalid-feedback"
+                                                        *ngIf="productDetails.errors?.required">
+                                                        Product details are required.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group product_ingredients ">
+                                                <label class="form-label" for="tags">Product Ingredients</label>
+                                                <div class="tags-box">
+                                                    <input type="text" class="form-control" id="tags" name="tags"
+                                                        [(ngModel)]="tagname" ngModel #tags="ngModel"
+                                                        placeholder="Product Ingredients" (keypress)="addTag($event)">
+                                                    <ul class="tags-box-list">
+                                                        <li *ngFor="let item of tagsList; let i = index">
+                                                            <span>{{ item }}</span>
+                                                            <i class="fa fa-times" (click)="removeTag(i)"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group recipes_to_cook">
+                                                <label class="form-label" for="tags">Recipes to Cook</label>
+                                                <div class="tags-box">
+                                                    <input type="text" class="form-control" id="receipes"
+                                                        name="receipes" [(ngModel)]="receipesname" ngModel
+                                                        #receipes="ngModel" placeholder="Recipes to Cook"
+                                                        (keypress)="addTagmanage($event)">
+                                                    <ul class="tags-box-list">
+                                                        <li *ngFor="let item of receipeList; let i = index">
+                                                            <span>{{ item }}</span>
+                                                            <i class="fa fa-times" (click)="removereceipeTag(i)"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="war-border mt-4 popular_recipe">
+                                        <div class="accordion accordian_section">
+                                            <div class="accordion-item">
+                                                <input type="checkbox" id="section1" class="accordion-checkbox">
+                                                <label for="section1" class="accordion-header">
+                                                    <h2 class="">Popular Recipe</h2>
+                                                    <span class="icon"></span>
+                                                </label>
+                                                <div class="accordion-content">
+                                                    <div class="form-group recipe_name">
+                                                        <label for="rcatname">Recipe Name
+                                                        </label>
+                                                        <div class="tags-box">
+                                                            <input type="text" class="form-control" id="receipe_name"
+                                                                name="receipe_name" [(ngModel)]="receipeNme" ngModel
+                                                                #receipe_name="ngModel" placeholder="Recipe Name">
+                                                            <div *ngIf="submitted && !receipe_name.valid">
+                                                                <div class="invalid-feedback"
+                                                                    *ngIf="receipe_name.errors?.required">
+                                                                    Recipe name is required.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group product_ingredients">
+                                                        <label class="form-label" for="tags">Recipe
+                                                            Ingredients</label>
+                                                        <div class="tags-box">
+                                                            <input type="text" class="form-control" id="recipe_ing"
+                                                                name="recipe_ing" [(ngModel)]="recipe_ingred" ngModel
+                                                                #recipe_ing="ngModel" placeholder="Recipe Ingredients"
+                                                                (keypress)="addreceipeTag($event)">
+                                                            <ul class="tags-box-list">
+                                                                <li *ngFor="let item of receipeIngList; let i = index">
+                                                                    <span>{{ item }}</span>
+                                                                    <i class="fa fa-times"
+                                                                        (click)="removeReceipeIngTag(i)"></i>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group recipes_to_cook">
+                                                        <label class="form-label" for="tags">Cooking
+                                                            Instructions</label>
+                                                        <div class="tags-box">
+                                                            <input type="text" class="form-control" id="cookingins"
+                                                                name="cookingins" [(ngModel)]="cooking_instruc" ngModel
+                                                                #cookingins="ngModel" placeholder="Cooking Instructions"
+                                                                (keypress)="addCookingmanage($event)">
+                                                            <ul class="tags-box-list">
+                                                                <li *ngFor="let item of cookingInsList; let i = index">
+                                                                    <span>{{ item }}</span>
+                                                                    <i class="fa fa-times"
+                                                                        (click)="removecookingTag(i)"></i>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="additional_thumbnail mt-4">
+                                        <div class="upload_img_cont">
+                                            <label for="Aditional Images">Additional Images</label>
+                                            <div class="additional_thumbnail_limit">
+                                                <input type="file" multiple
+                                                    class="form-control input-file additional_image" #addimg
+                                                    (change)="detectFiles($event)">
+
+                                                <div class="ad_img_center_call" *ngIf="!isImageSelected">
+                                                    <img src="assets/image/upload-file.png" alt="no_images">
+                                                    <div>
+                                                        <h3>Drop files here or click to upload.</h3>
+                                                        <p>Upload up to 10 files</p>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="view-img w-100 d-flex flex-wrap justify-content-start align-items-center gap-2">
+                                                    <span class="multiple-img position-relative"
+                                                        *ngFor="let url of Preview_files; let i = index">
+                                                        <span class="close-icon-multi position-absolute"
+                                                            (click)="closeMultiImage(i, url)">
+                                                            <i class="fa fa-times-circle close-icon"
+                                                                aria-hidden="true"></i>
+                                                        </span>
+                                                        <img [src]="url" onerror="this.src='assets/img/no_img.png'"
+                                                            class="img-view rounded-3">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <p class="image_size_filter">Set the product media gallery.</p>
+                                        </div>
+                                    </div>
+
+
+
+                                    <!-- <div class="form-group grouping-strains mt-4 product_details">
+                                        <h5>Product Details <span class="mandatory">*</span></h5>
+                                        <div class="form-group grouping-strains w-100 enter_title_content"
+                                            *ngFor="let item of product_details; let i=index">
+                                            <input type="text" name="titlepr{{i}}" id="titlepr{{i}}"
+                                                placeholder="Enter Title" class="form-control"
+                                                [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="product_details[i].title" ngModel #titlepr{{i}}="ngModel">
+                                            <input type="text" name="contentpr{{i}}" id="contentpr{{i}}"
+                                                placeholder="Enter Content" class="form-control"
+                                                [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="product_details[i].content" ngModel
+                                                #contentpr{{i}}="ngModel">
+                                            <div class="content-footer">
+                                                <button type="button" class="btn btn-sm btn-danger"
+                                                    *ngIf="product_details.length>1"
+                                                    (click)="removeContent(i)">Delete</button>
+                                                <div *ngIf="i == product_details.length -1">
+                                                    <button type="button" class="btn btn-sm add_btn"
+                                                        (click)="addContent()">Add
+                                                        +</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div> -->
+
+
+                                </div>
+
+                                <div class="hover_crop_img">
+                                    <!-- Product Crop Image -- Start -->
+
+                                    <ng-template #imagecrop>
+                                        <div *ngIf="imageChangedEvent" class="default_crop_image">
+                                            <image-cropper [imageChangedEvent]="imageChangedEvent"
+                                                [maintainAspectRatio]="true" [aspectRatio]="6 / 6" format="png"
+                                                (imageCropped)="imageCropped($event)" output="base64"
+                                                (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
+                                                (loadImageFailed)="loadImageFailed()"></image-cropper>
+                                            <button (click)="closeProductCrop()">Save Changes</button>
+                                        </div>
+                                    </ng-template>
+                                    <!-- Product Crop Image -- End -->
+
+                                    <!-- Product Hover Crop Image -- Start -->
+
+                                    <ng-template #hovercrop>
+                                        <div *ngIf="isImageChangedEvent_hover" class="hover_crop_img">
+                                            <image-cropper [imageChangedEvent]="imageChangedEvent_hover"
+                                                [maintainAspectRatio]="true" [aspectRatio]="498 / 156.77" format="png"
+                                                (imageCropped)="imageCropped_hover($event)" output="base64"
+                                                (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
+                                                (loadImageFailed)="loadImageFailed()"></image-cropper>
+                                            <button (click)="closeHoverCrop()">Save Changes</button>
+                                        </div>
+                                    </ng-template>
+                                    <!-- Product Hover Crop Image -- End -->
+                                </div>
+
+                                <div class="col-md-12 mt-4 add_variation"
+                                    *ngIf=" varienttableshow && selected_size_status == 1 ">
+                                    <button type="button" class="add-vari" style="float:right;"
+                                        (click)="add_variation();">Add Variation</button>
+                                    <div class="table-parts">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>S. No</th>
+                                                    <th *ngFor="let attr of attri">
+                                                        {{attr.name | titlecase}}<button type="button"
+                                                            class="btn cls-table" (click)="remove_attri(attr._id)"><img
+                                                                src="assets/image/minus-square.svg" alt=""></button>
+                                                    </th>
+                                                    <th>Quantity</th>
+                                                    <th>Base Price</th>
+                                                    <th>Sales Price</th>
+                                                    <th>SKU</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="price_details && price_details.length > 0">
+                                                <tr *ngFor="let pricedetail of price_details; let i = index">
+                                                    <td class="add_vari_sno">{{i+1}}</td>
+                                                    <td *ngFor="let attribute of attri; let j = index">
+                                                        <!-- {{price_details[i].attributes[j].chaild_id}} -->
+                                                        <!-- <select class="form-control" ngModel #units="ngModel" id="units{{i}}{{j}}" name="units{{i}}{{j}}" (change)="multiAttributes($event,i,j)"> required>
+                                                            <option value="" >Select {{attribute.name}}</option>
+                                                            <option *ngFor="let attri_vl of attribute.units" name="units{{i}}{{j}}{{attri_vl._id}}" value="{{attri_vl._id}}" [selected]="price_details[i].attribute_ids.indexOf(attri_vl._id) != -1" >{{price_details[i].attribute_ids.indexOf(attri_vl._id)}}{{attri_vl.name}}</option>
+                                                        </select> -->
+                                                        <ng-select [items]="attribute.units" bindLabel="name"
+                                                            placeholder="Select {{attribute.name}}" bindValue="_id"
+                                                            appendTo="body" [multiple]="false" name="units{{i}}{{j}}"
+                                                            [(ngModel)]="price_details[i].attributes[j].chaild_id"
+                                                            id="units{{i}}"
+                                                            [ngClass]="{ 'is-inval  id': submitted && attributes.errors }"
+                                                            ngModel #units="ngModel"
+                                                            [ngClass]="{'is-valid': !attributes.errors && attributes.valid}"
+                                                            (change)="multiAttributes($event,attribute,i,j)"> required >
+                                                        </ng-select>
+                                                        <p class="help-block">
+                                                            <span style="color: red;"
+                                                                *ngIf="submitted && !price_details[i].attributes[j].chaild_name">
+                                                                Variant is required.</span>
+                                                        </p>
+                                                        <!-- <p *ngIf="submitted">{{price_details[i]| json}}</p> -->
+                                                    </td>
+                                                    <td> <input type="number" min="1" name="quantity{{i}}" ngModel
+                                                            #quantity="ngModel" class="form-control col-md-2"
+                                                            string-to-number [(ngModel)]="price_details[i].quantity"
+                                                            id="quantity{{i}}" required>
+                                                        <p class="help-block">
+                                                            <span style="color: red;"
+                                                                *ngIf="submitted && !price_details[i].quantity">Quantity
+                                                                is required.</span>
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="addmprice{{i}}" min="0"
+                                                            ng-change="checkprice(i)" class="form-control col-md-2"
+                                                            ngModel #addmprice="ngModel" ng-value="mprice"
+                                                            [(ngModel)]="price_details[i].mprice" id="addmprice{{i}}"
+                                                            (ngModelChange)="onBasePriceChange(i)" required>
+
+                                                        <p class="help-block">
+                                                            <span
+                                                                *ngIf="submitted && (price_details[i].mprice === null || price_details[i].mprice === undefined || price_details[i].mprice === '')"
+                                                                style="color: red;">
+                                                                Base price is required.
+                                                            </span>
+                                                            <span
+                                                                *ngIf="submitted && price_details[i].mprice !== null && price_details[i].mprice !== undefined && price_details[i].mprice !== '' && price_details[i].mprice <= 0"
+                                                                style="color: red;">
+                                                                Base price must be greater than 0.
+                                                            </span>
+                                                        </p>
+                                                    </td>
+
+                                                    <td>
+                                                        <input type="number" name="addsprice{{i}}"
+                                                            class="form-control col-md-2" min="0" ngModel
+                                                            #addsprice="ngModel" ng-value="EPDC.sprice{{i}}"
+                                                            [(ngModel)]="price_details[i].sprice" id="addsprice{{i}}"
+                                                            [ngClass]="{ 'is-invalid': submitted && (price_details[i].sprice <= 0 || price_details[i].sprice >= price_details[i].mprice) }"
+                                                            (ngModelChange)="onSalePriceChange(i)"
+                                                            ng-required="addsprice{{i}}" required />
+
+                                                        <p class="help-block">
+                                                            <span
+                                                                *ngIf="submitted && price_details[i].sprice !== null && price_details[i].sprice !== undefined && price_details[i].sprice !== '' && price_details[i].sprice === 0"
+                                                                style="color: red;">
+                                                                Sale price must be greater than 0.
+                                                            </span>
+                                                            <span
+                                                                *ngIf="submitted && (price_details[i].sprice >= price_details[i].mprice)"
+                                                                style="color: red;">
+                                                                Sale price must be less than the base price.
+                                                            </span>
+                                                            <span style="color: red;"
+                                                                *ngIf="submitted && (price_details[i].sprice === null || price_details[i].sprice === undefined || price_details[i].sprice === '')">
+                                                                Sale price is required.
+                                                            </span>
+                                                        </p>
+                                                    </td>
+
+
+                                                    <!-- <td><input type="number" name="addmprice{{i}}" min="0"
+                                                            ng-change='checkprice(i)' class="form-control col-md-2"
+                                                            ngModel #addmprice="ngModel" ng-value="mprice"
+                                                            [(ngModel)]="price_details[i].mprice" id="addmprice{{i}}"
+                                                            required>
+                                                        
+                                                        <p class="help-block">
+                                                            <span
+                                                                *ngIf="submitted && (price_details[i].mprice === null || price_details[i].mprice === undefined || price_details[i].mprice === '')"
+                                                                style="color: red;">
+                                                                Base price is required.
+                                                            </span>
+                                                            <span
+                                                                *ngIf="submitted && price_details[i].mprice !== null && price_details[i].mprice !== undefined && price_details[i].mprice !== '' && price_details[i].mprice <= 0"
+                                                                style="color: red;">
+                                                                Base price must be greater than 0.
+                                                            </span>
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" name="addsprice{{i}}"
+                                                            class="form-control col-md-2" min="0" ngModel
+                                                            #addsprice="ngModel" ng-value="EPDC.sprice{{i}}"
+                                                            [(ngModel)]="price_details[i].sprice" id="addsprice{{i}}"
+                                                            [ngClass]="{ 'is-invalid': submitted && (price_details[i].mprice <= 0) }"
+                                                            ng-required="addsprice{{i}}" required />
+                                                        <p class="help-block">
+                                                            <span *ngIf="submitted && isSalePriceGreaterThanMRP(i)"
+                                                                style="color:red">
+                                                                Sale price needs to be Less-than MRP price
+                                                            </span>
+                                                            <span style="color: red;"
+                                                                *ngIf="submitted && price_details[i].sprice !== null && price_details[i].sprice !== undefined && price_details[i].sprice !== '' && price_details[i].sprice === 0">
+                                                                Sale price must be greater than 0.
+                                                            </span>
+                                                            <span style="color: red;"
+                                                                *ngIf="submitted && (price_details[i].sprice === null || price_details[i].sprice === undefined || price_details[i].sprice === '')">Sale
+                                                                price is required </span>
+
+                                                        </p>
+                                                    </td> -->
+                                                    <!-- <td class="add_varient_img_pos">
+                                                        <div class="add_varient_img">
+
+                                                            <input type="file" accept="image/*"
+                                                                ng-class="{ 'has-error' : productForm.addimage1{{i}}.$invalid && !productForm.addimage1{{i}}.$pristine, 'has-success' : productForm.addimage1{{i}}.$valid && !productForm.addimage1{{i}}.$pristine}"
+                                                                class="form-control col-md-2"
+                                                                (change)="fileUploads($event,i)" name="image{{i}}"
+                                                                ngModel #image="ngModel" accept="image/*">
+                                                            <img src="assets/image/upload-file.png" alt="upload-file"
+                                                                class="upload-file">
+
+
+                                                            <div *ngIf="(price_details[i].image)"
+                                                                class="view-img w-100 d-flex flex-wrap justify-content-start align-items-center gap-2">
+                                                                <span class="multiple-img position-relative">
+                                                                    <span class="close-icon-multi position-absolute">
+                                                                        <i class="fa fa-times-circle close-icon"
+                                                                            aria-hidden="true" (click)="removeimage(i)"
+                                                                            *ngIf="(price_details[i].image)!==''"></i>
+                                                                    </span>
+
+
+                                                                    <img [src]="attributimage+price_details[i].image"
+                                                                        *ngIf="!price_details[i].preview"
+                                                                        class="img-view rounded-3 w-100 h-100">
+                                                                    <img [src]="price_details[i].preview" width="30"
+                                                                        height="30" *ngIf="(price_details[i].preview)"
+                                                                        class="img-view rounded-3  w-100 h-100">
+
+                                                                </span>
+                                                            </div>
+
+                                                            <p class="help-block">
+                                                                <span style="color: red;"
+                                                                    *ngIf="submitted && !price_details[i].image && !productForm.value.image">Image
+                                                                    is required.</span>
+                                                            </p>
+                                                        </div>
+                                                    </td> -->
+                                                    <td>
+                                                        <input type="text" name="sku{{ i }}" class="form-control"
+                                                            [(ngModel)]="price_details[i].sku" placeholder="Enter SKU"
+                                                            (ngModelChange)="onSkuChange(price_details[i].sku, i)"
+                                                            required #sku="ngModel">
+                                                        <p class="help-block">
+                                                            <span style="color: red;"
+                                                                *ngIf="submitted && (!price_details[i].sku || price_details[i].sku.trim() === '')">
+                                                                SKU is required.
+                                                            </span>
+                                                            <span style="color: red;" *ngIf="price_details[i].skuError">
+                                                                SKU must be unique.
+                                                            </span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="table_delete">
+                                                        <span (click)="remove(i)"><img src="assets/image/bin.png"
+                                                                alt=""></span>
+                                                    </td>
+
+
+
+
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group grouping-strains faq col-lg-12">
+                                    <h5>FAQ's</h5>
+                                    <div class="form-group grouping-strains w-100 enter_title_content"
+                                        *ngFor="let item of faq_details; let i=index">
+                                        <div class="input_add_delete">
+                                            <input type="text" name="titlepr{{i}}" id="titlepr{{i}}"
+                                                placeholder="Enter Title" class="form-control "
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="faq_details[i].title"
+                                                ngModel #titlepr{{i}}="ngModel">
+
+                                            <div class="content-footer">
+                                                <button type="button" class="btn btn-sm btn-danger"
+                                                    *ngIf="faq_details.length>1"
+                                                    (click)="removefaqContent(i)">Delete</button>
+                                                <div *ngIf="i == faq_details.length -1">
+                                                    <button type="button" class="btn btn-sm add_btn"
+                                                        (click)="addfaqContent()">Add
+                                                        +</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- <input type="text" name="contentpr{{i}}" id="contentpr{{i}}"
+                                            placeholder="Enter Content" class="form-control  faq_dscription"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="product_details[i].content" ngModel #contentpr{{i}}="ngModel"> -->
+                                        <textarea name="contentpr{{i}}" id="contentpr{{i}}" class="faq_dscription mt-3"
+                                            placeholder="Enter Description (Max 500 words)" maxlength="500"
+                                            [(ngModel)]="item.content">
+
+                                            </textarea>
+
+                                    </div>
+                                </div>
+
+                                <div class="card_footer_btn">
+                                    <button type="button" *ngIf="!viewpage" routerLink="/app/products/list"
+                                        class="btn btn-sm">
+                                        Cancel
+                                    </button>
+                                    <button type="button" (click)="onFormSubmit(productForm)" *ngIf="!viewpage && !id"
+                                        class="btn btn-sm ml-4" [disabled]="submitebtn">
+                                        Submit
+                                    </button>
+                                    <button type="button" (click)="onFormSubmit(productForm)" *ngIf="!viewpage &&id"
+                                        class="btn btn-sm ml-4" [disabled]="submitebtn">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group grouping-strains row m-0">
+
+                                <!-- <small>{{all_subcategory|json}}</small> -->
+                                <!-- <div class="col-md-6 " *ngFor="let all_subcategory of all_subcategory; let i = index">
+                                <div *ngIf="id">
+                                     <small>{{all_subcategory|json}}</small> -->
+                                <!-- <ng-container *ngIf="all_subcategory && all_subcategory.length >0"> -->
+
+
+                                <!-- <div class="group-control war-border">
+                                        <label for="rcategory">Select Sub Category level {{i+1}} <span
+                                                class="mandatory">*</span></label> -->
+
+
+                                <!-- <ng-select [items]="all_subcategory" name="scategory" id="scategory"
+                                            bindLabel="scatname" ngModel bindValue="_id" #scategory="ngModel"
+                                            (change)="getsubscategory_edit($event, i+1)">
+                                        </ng-select> -->
+
+                                <!-- <select class="selectpicker form-control" [(ngModel)]="selectedValuesEdit"
+                                            data-live-search="true" [multiple]="false" name="scategory" id="scategory"
+                                            #scategory="ngModel" ngModel (change)="getsubscategory_edit($event, i+1)">
+
+
+                                            <option [value]="" selected disabled>Select category {{i+1}}
+                                            </option>
+                                            <option *ngFor="let subcategory of all_subcategory"
+                                                [selected]="selectedValues[i+1] === subcategory._id"
+                                                [value]="subcategory._id">
+                                                {{subcategory.scatname}}
+                                            </option> -->
+
+                                <!-- </select>
+                                        <div *ngIf="submitted && !scategory.valid">
+                                            <div class="invalid-feedback" *ngIf="scategory.errors?.required"> Sub
+                                                Category level is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                <!-- </ng-container> -->
+                                <!-- </div> -->
+                                <!-- 
+                                <div *ngIf="!id && (all_subcategory && all_subcategory.length > 0)">
+
+                                    <div class="group-control war-border">
+
+                                        <label for="rcategory">Select Sub Category level {{i+1}} <span
+                                                class="mandatory">*</span></label> -->
+                                <!-- Replace the ng-select with Bootstrap Select -->
+                                <!-- <select class="selectpicker form-control" data-live-search="true"
+                                            [multiple]="false" name="scategory" id="scategory" required
+                                            (change)="getsubscategory($event, i+1)">
+                                            <option value="" selected disabled>Select category {{i+1}}</option>
+                                            <option *ngFor="let subcategory of all_subcategory"
+                                                [value]="subcategory._id">
+                                                {{subcategory.scatname}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="submitted && !scategory.valid">
+                                            <div class="invalid-feedback" *ngIf="scategory.errors?.required"> Sub
+                                                Category level is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- </div>  -->
+                            </div>
+                            <!-- <div class="form-group grouping-strains row">
+                            <div class="col-md-6">
+                                <div class="group-control war-border">
+                                    <label for="rcatname">Product Brand Name 
+                                     </label>
+                                    <ng-select [items]="brandsList" bindLabel="brandname" placeholder="Select Brand" appendTo="body" [multiple]="false" name="brandname" ngModel id="brandname" #brandname="ngModel" [ngClass]="{ 'is-invalid': submitted && brandname.errors }" [ngClass]="{'is-valid': !brandname.errors && brandname.valid}"
+                                        >
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="group-control war-border">
+                                    <label for="main_city">Select City <span class="mandatory">*</span> </label>
+                                    <ng-select [items]="cityList" bindLabel="cityname" placeholder="Select City" appendTo="body" [multiple]="true" name="main_city" ngModel id="main_city" #main_city="ngModel" [ngClass]="{ 'is-invalid': submitted && main_city.errors }" [ngClass]="{'is-valid': !main_city.errors && main_city.valid}"
+                                        required>
+                                    </ng-select>
+                                    <div *ngIf="submitted && !main_city.valid">
+                                        <div class="invalid-feedback" *ngIf="main_city.errors.required">City is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        </div>
+                        <div class="form-group grouping-strains row m-0">
+
+
+
+
+
+                            <!-- <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="size">Category Size</label>
+                                    <ng-select ngModel name="size" #size="ngModel" [multiple]="true" required [ngClass]="{ 'is-invalid': submitted && size.errors }" [ngClass]="{ 'is-valid': !size.errors && size.valid}">
+                                        <ng-option *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>
+                                        <ng-option value="">Select Size</ng-option>
+                                        <ng-option value="S">S</ng-option>
+                                        <ng-option value="M">M</ng-option>
+                                        <ng-option value="L">L</ng-option>
+                                        <ng-option value="XL">XL</ng-option>
+                                        <ng-option value="XXL">XXL</ng-option>
+                                     </ng-select>
+                                     <ng-select [items]="sizeCategory" id="size" bindValue="_id" bindLabel="rcatname" [multiple]="true" ngModel name="size" #size="ngModel"  placeholder="Select Your size" [searchable]="true" [clearable]="true" 
+                                        [ngClass]="{ 'is-valid': !size.errors && size.valid}">
+                                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                                            <b>{{ item }}</b>
+                                        </ng-template>
+                                    </ng-select>
+                                    <select name="size" id="size" class="form-control" ngModel name="size" #size="ngModel" required [ngClass]="{ 'is-invalid': submitted && size.errors }" [ngClass]="{ 'is-valid': !size.errors && size.valid}">
+                                        <option value="">Select Size</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                    <div *ngIf="submitted && !size.valid">
+                                        <div class="invalid-feedback" *ngIf="size.errors.required">Category Size is required.
+                                        </div>
+                                        <div class="invalid-feedback" *ngIf="size.errors.size">Please enter valid status
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <small>{{attributesdata|json}}</small> -->
+                            <!-- <div class="form-group grouping-strains row" *ngIf="size_status && size_status.value == 1 "> -->
+
+
+
+
+
+                            <!-- <div class="col-md-4">
+                                <div class="group-control tile-widget p-20 cash-opt">
+                                    <label for="status">Recommended</label>
+                                    <label class="switch">
+                                        <input type="checkbox" ngModel name="recommended" #recommended="ngModel"
+                                            checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div> -->
+
+
+
+
+
+
+                        </div>
+                        <!-- <div class="form-group grouping-strains row m-0" *ngIf="size_status && size_status.value == 1">
+                        <h5><b>Size</b> Quantity</h5>
+                        <div class="form-group grouping-strains w-100 d-flex"
+                            *ngFor="let item of quantity_size; let i=index">
+                            <div class="col-md-4">
+                                <input type="text" readonly name="ngsize{{i}}" id="ngsize{{i}}"
+                                    placeholder="Enter Size" class="form-control"
+                                    [(ngModel)]="item.size" ngModel #ngsize{{i}}="ngModel">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="ngquantity{{i}}" id="ngquantity{{i}}" min="0"
+                                    onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                    placeholder="Enter Quantity" class="form-control"
+                                    [(ngModel)]="item.quantity" ngModel #ngquantity{{i}}="ngModel">
+                            </div>
+                            <div class="col-md-4">
+                                <select name="ngstatus{{i}}" id="ngstatus{{i}}" class="form-control"
+                                    [(ngModel)]="item.status" ngModel #ngstatus{{i}}="ngModel">
+                                    <option value="">--Select--</option>
+                                    <option value=1>Active</option>
+                                    <option value=2>Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> -->
+
+                        <!-- <div class="col-md-12" *ngIf="attri[0]">
+                        <button type="button" class="btn-primary add-vari" style="float:right;" (click)="add_variation();">Add Variation</button>
+                        <div class="table-parts">
+                            <table class="table">
+                                <thead *ngIf="attri">
+                                    <tr>
+                                        <th>S.no</th>
+                                        <th *ngFor="let attr of attri">
+                                            {{attr.name | titlecase}}<button type="button" class="btn cls-table" (click)="remove_attri(attr._id)"> X </button>
+                                        </th>
+                                        <th> Quantity</th>
+                                        <th>MRP Price </th>
+                                        <th> Sales Price</th>
+                                        <th> Image</th>
+                                        <th> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="price_details && price_details.length > 0">
+                                    <tr *ngFor="let pricedetail of price_details; let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td *ngFor="let attribute of attri; let j = index">
+                                            <ng-select [items]="attribute.units" bindLabel="name" placeholder="Select {{attribute.name}}" bindValue="_id" appendTo="body" [multiple]="false" name="units{{i}}{{j}}" [(ngModel)]="price_details[i].attributes[j].chaild_id" id="units{{i}}" [ngClass]="{ 'is-invalid': submitted && attributes.errors }"
+                                                ngModel #units="ngModel" [ngClass]="{'is-valid': !attributes.errors && attributes.valid}" (change)="multiAttributes($event,i,j)"> required >
+                                            </ng-select>
+                                            <p class="help-block">
+                                                <span style="color: red;" *ngIf="submitted && !price_details[i].attributes[j].chaild_id;">
+                                                    variable is required.</span>
+                                            </p>
+                                        </td>
+                                        <td> <input style="width:100px" type="number" min="1" name="quantity{{i}}" ngModel #quantity="ngModel" class="form-control col-md-2" string-to-number [(ngModel)]="price_details[i].quantity" id="quantity{{i}}" required>
+                                            <p class="help-block">
+                                                <span style="color: red;" *ngIf="submitted && !price_details[i].quantity">Quantity
+                                                    is required.</span>
+                                            </p>
+                                        </td>
+                                        <td><input style="width:100px" type="number" name="addmprice{{i}}" min="0" ng-change='checkprice(i)' class="form-control col-md-2" ngModel #addmprice="ngModel" ng-value="mprice" [(ngModel)]="price_details[i].mprice"
+                                                id="addmprice{{i}}" required>
+                                            <p class="help-block">
+                                                <span *ngIf="submitted && !price_details[i].mprice" style="color: red;">MRP price is
+                                                    required.</span>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <input style="width:100px" type="number" name="addsprice{{i}}" class="form-control col-md-2" min="0" ngModel #addsprice="ngModel" ng-value="EPDC.sprice{{i}}" [(ngModel)]="price_details[i].sprice" id="addsprice{{i}}" ng-required="addsprice{{i}}" required
+                                            />
+                                            <p class="help-block">
+                                                <span style="color: red;" *ngIf="submitted && !price_details[i].sprice ">Sale
+                                                    price is required </span>
+                                                <span *ngIf="submitted && price_details[i].sprice && price_details[i].sprice > price_details[i].mprice" style="color:red">Sale price need to be
+                                                    Less-than Mrp price </span>
+                                            </p>
+                                        </td>
+                                        <td><input style="width:200px" type="file"  accept="image/*" ng-class="{ 'has-error' : productForm.addimage1{{i}}.$invalid && !productForm.addimage1{{i}}.$pristine, 'has-success' : productForm.addimage1{{i}}.$valid && !productForm.addimage1{{i}}.$pristine}"
+                                                class="form-control col-md-2" (change)="fileUploads($event,i)" name="image{{i}}" ngModel #image="ngModel" accept="image/*">
+                                            <p class="help-block">
+                                                <span style="color: red;" *ngIf="submitted && !price_details[i].image && !productForm.value.image">Image
+                                                    is required.</span>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <span (click)="remove(i)"><i class="fa fa-trash-o"
+                                                    aria-hidden="true"></i></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

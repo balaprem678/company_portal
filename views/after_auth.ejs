@@ -1,0 +1,38 @@
+<html lang="en">  
+<head>  
+    <title>Single Page Application Authentication - Auth Success</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+</head>  
+<body>  
+<script type="text/javascript">  
+    if (window.opener) {
+        
+        window.opener.focus();
+        var data={};
+
+        <% if(user_name) { %>  data.user_name = <%- JSON.stringify(user_name) %>; <% } %>
+
+        <% if(user_id) { %>  data.user_id = <%- JSON.stringify(user_id) %>; <% } %>
+
+        <% if(role) { %>  data.role = <%- JSON.stringify(role) %>; <% } %>
+
+        <% if(token) { %>  data.token = <%- JSON.stringify(token) %>; <% } %>
+     
+        <% if(country_code) { %> data.country_code = <%- JSON.stringify(country_code) %>; <% } %>
+		
+		<% if(phone_number) { %> data.phone_number = <%- JSON.stringify(phone_number) %>; <% } %>
+
+        <% if(email) {  console.log("sssss",email); %> data.email = <%- JSON.stringify(email) %>; <% } %>
+		
+		 <% if(status) { %> data.status = <%- JSON.stringify(status) %>; <% } %>
+               
+        if (window.opener.app &&
+            window.opener.app.authState) {
+            window.opener.app.authState(data);
+        }
+    }
+    window.close();
+</script>  
+</body>  
+</html>

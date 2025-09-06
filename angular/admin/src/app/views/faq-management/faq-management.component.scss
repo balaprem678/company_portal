@@ -1,0 +1,53 @@
+.faq-form {
+    padding-bottom: 20px;
+    /* Add padding to ensure submit button is not cut off */
+
+    .faq-item {
+        margin-bottom: 20px;
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            input.form-control,
+            .faq-description {
+                padding: 10px;
+                font-size: 14px;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                width: 100%;
+                /* Ensure it takes up full width */
+            }
+
+            .faq-description {
+                resize: none;
+                height: 100px;
+                /* Explicit height */
+            }
+
+            .button-group {
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+                margin-top: 10px;
+
+                .btn {
+                    padding: 6px 12px;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    .faq_submit {
+        display: flex;
+        justify-content: end;
+        font-size: 16px;
+        padding: 10px 20px;
+        margin-top: 10px;
+        align-self: flex-end;
+    }
+}
+
+

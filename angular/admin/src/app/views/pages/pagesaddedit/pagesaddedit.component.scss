@@ -1,0 +1,61 @@
+p.custom-font {
+  font-size: 15px;
+  color: #464545;
+  font-weight: 600;
+}
+p.custom-font a i {
+  font-size: 18px;
+  color: #009688;
+}
+p.custom-font input {
+  border: 1px solid #ddd;
+}
+.color_red {
+  color: red;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container,
+::ng-deep .custom-ng-select .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container .ng-clear-wrapper,
+::ng-deep .custom-ng-select .ng-select-container .ng-clear-wrapper {
+  display: none !important; /* Hide the dropdown arrow */
+}
+
+.layout_ctrl-page_list_add_edit {
+  :where(
+      .page_name,
+      .page_content,
+      .page_title,
+      .focus_keyboard,
+      .description,
+      .status
+    ) {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+    margin-bottom: 20px;
+  }
+  label {
+    text-align: left;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--bs-gray-800);
+    font-size: 15px;
+  }
+}
+::ng-deep ng-select {
+  .ng-input {
+    input {
+      caret-color: transparent !important;
+    }
+  }
+}
+::ng-deep .angular-editor .angular-editor-wrapper .angular-editor-textarea {
+  overflow: auto !important;
+}

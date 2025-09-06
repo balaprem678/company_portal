@@ -1,0 +1,203 @@
+<section class="billing-adddress-page pt_110">
+    <div class="padding-container">
+        <!-- <h2>Welcome back, sathish.kumar-4273</h2> -->
+        <div class="bill-forms">
+            <h3>Shipping address</h3>
+            <form #addressForm="ngForm" class="row" (ngSubmit)="onFormSubmit(addressForm)">
+                <div class="b-group-sec col-lg-6 col-md-6 col-sm-12">
+                    <label>First name<span>*</span></label>
+                    <input type="text" placeholder="First name" name="first_name" ngModel #first_name="ngModel"
+                        id="first_name" required maxlength="40" minlength="1" pattern="^[a-zA-Z]+( [a-zA-Z]+)*$" />
+                    <div *ngIf="submitted && !first_name.valid">
+                        <div *ngIf="first_name.errors?.['required']" class="invalid-feedback d-block">
+                            First name is required
+                        </div>
+                        <div *ngIf="first_name.errors?.['maxlength']">Maximum limit 20
+                            characters</div>
+                        <div *ngIf="first_name.errors?.['minlength']">Minimum limit 1
+                            character</div>
+                        <div *ngIf="first_name.errors?.['pattern']">Only alphabetic characters allow</div>
+                        <div class="invalid-feedback" *ngIf="first_name.errors?.['pattern']">
+                            Enter valid first name</div>
+                    </div>
+                </div>
+                <div class="b-group-sec col-lg-6 col-md-6 col-sm-12">
+                    <label>Last name <span>*</span></label>
+                    <input type="text" placeholder="Last name" name="last_name" ngModel #last_name="ngModel"
+                        id="last_name" required maxlength="40" minlength="1" pattern="^[a-zA-Z]+( [a-zA-Z]+)*$" />
+                    <div *ngIf="submitted && !last_name.valid">
+                        <div *ngIf="last_name.errors?.['required']" class="invalid-feedback d-block">
+                            Last name is required
+                        </div>
+                        <div *ngIf="last_name.errors?.['maxlength']">Maximum limit 20
+                            characters</div>
+                        <div *ngIf="last_name.errors?.['minlength']">Minimum limit 1
+                            character</div>
+                        <div *ngIf="last_name.errors?.['pattern']">Only alphabetic characters allow</div>
+                        <div class="invalid-feedback" *ngIf="last_name.errors?.['pattern']">
+                            Enter valid last name</div>
+                    </div>
+                </div>
+
+                <div class="b-group-sec col-lg-4 col-md-6 col-sm-12">
+                    <label>Email address<span>*</span></label>
+                    <input type="email" id="email" name="email" ngModel #email="ngModel"
+                        pattern="^[a-z0-9.]+@[a-z0-9.-]+\.[a-z]{2,3}$" required maxlength="40" />
+                    <div *ngIf="submitted && !email.valid">
+                        <div *ngIf="email.errors?.['required']" class="invalid-feedback d-block">
+                            Email is required
+                        </div>
+                        <div *ngIf="email.errors?.['maxlength']" class="invalid-feedback d-block">Maximum limit 40
+                            characters</div>
+                        <div *ngIf="email.errors?.['minlength']" class="invalid-feedback d-block">Minimum limit 7
+                            characters</div>
+                        <div *ngIf="email.errors?.['pattern']" class="invalid-feedback d-block">Invalid email</div>
+                    </div>
+                </div>
+                <!-- <div class="b-group-sec col-lg-4 col-md-6 col-sm-12">
+                    <label>Phone number <span>*</span></label>
+                    <input type="text" placeholder="Phone Number" name="phone_number" ngModel #phone_number="ngModel"
+                        id="phone_number" required (input)="limitInputLength($event)" maxlength="15" minlength="7" />
+                    <div *ngIf="submitted && !phone_number.valid">
+                        <div *ngIf="phone_number.errors?.['required']" class="invalid-feedback d-block">
+                            Phone number is required
+                        </div>
+                        <div *ngIf="phone_number.errors?.['maxlength']" class="invalid-feedback d-block">Maximum limit
+                            15
+                            characters</div>
+                        <div *ngIf="phone_number.errors?.['minlength']" class="invalid-feedback d-block">Minimum limit 7
+                            characters</div>
+                    </div>
+                </div> -->
+                <div class="b-group-sec col-lg-4 col-md-6 col-sm-12">
+                    <label>Phone number <span>*</span></label>
+                    <input type="text" placeholder="Phone Number" name="phone_number" ngModel #phone_number="ngModel"
+                        id="phone_number" required (input)="limitInputLength($event)" maxlength="15" minlength="7"
+                        (keypress)="validateNumberInput($event)" />
+                    <div *ngIf="submitted && !phone_number.valid">
+                        <div *ngIf="phone_number.errors?.['required']" class="invalid-feedback d-block">
+                            Phone number is required
+                        </div>
+                        <div *ngIf="phone_number.errors?.['maxlength']" class="invalid-feedback d-block">
+                            Maximum limit 15 characters
+                        </div>
+                        <div *ngIf="phone_number.errors?.['minlength']" class="invalid-feedback d-block">
+                            Minimum limit 7 characters
+                        </div>
+                    </div>
+                </div>
+
+                <div class="b-group-sec col-lg-4 col-md-6 col-sm-12">
+                    <label>Country / Region <span>*</span></label>
+                    <input type="text" placeholder="Country" name="country" ngModel #country="ngModel" id="country"
+                        required maxlength="30" minlength="1" pattern="^[a-zA-Z]+( [a-zA-Z]+)*$" />
+                    <div *ngIf="submitted && !country.valid">
+                        <div *ngIf="country.errors?.['required']" class="invalid-feedback d-block">
+                            Country is required
+                        </div>
+                        <div *ngIf="country.errors?.['pattern']">Only alphabetic characters allow</div>
+                        <div *ngIf="country.errors?.['maxlength']">Maximum limit 20
+                            characters</div>
+                        <div *ngIf="country.errors?.['minlength']">Minimum limit 1
+                            character</div>
+
+                        <div class="invalid-feedback" *ngIf="country.errors?.['pattern']">
+                            Enter valid Country</div>
+                    </div>
+                </div>
+                <div class="b-group-sec col-lg-4 col-md-6 col-sm-12">
+                    <label>Address Line 1<span>*</span></label>
+                    <input type="text" placeholder="Address" name="address" ngModel #address="ngModel" id="address"
+                        required maxlength="80" minlength="5" />
+                    <div *ngIf="submitted && !address.valid">
+                        <div *ngIf="address.errors?.['required']" class="invalid-feedback d-block">
+                            address is required
+                        </div>
+                        <div *ngIf="address.errors?.['maxlength']" class="invalid-feedback d-block">Maximum limit 80
+                            characters</div>
+                        <div *ngIf="address.errors?.['minlength']" class="invalid-feedback d-block">Minimum limit 5
+                            character</div>
+                    </div>
+                    <!-- <input type="text" placeholder="Apartment, suite, unit, etc. (optional)"/> -->
+                </div>
+                <div class="b-group-sec col-lg-4 col-md-6 col-sm-12">
+                    <label>Town / City<span>*</span></label>
+                    <input type="text" placeholder="City" name="city" ngModel #city="ngModel" id="city" required
+                        maxlength="80" />
+                    <div *ngIf="submitted && !city.valid">
+                        <div *ngIf="city.errors?.['required']" class="invalid-feedback d-block">
+                            City is required
+                        </div>
+                        <div *ngIf="city.errors?.['maxlength']" class="invalid-feedback d-block">Maximum limit 80
+                            characters</div>
+                        <div *ngIf="city.errors?.['minlength']" class="invalid-feedback d-block">Minimum limit 5
+                            character</div>
+                    </div>
+                </div>
+                <div class="b-group-sec col-lg-4 col-md-6 col-sm-12">
+                    <label>State<span>*</span></label>
+                    <!-- <select>
+                        <option>Tamilnadu</option>
+                        <option>Kerala</option>
+                    </select> -->
+                    <input type="text" placeholder="State" name="state" ngModel #state="ngModel" id="state" required
+                        maxlength="25" minlength="2" />
+                    <div *ngIf="submitted && !state.valid">
+                        <div *ngIf="state.errors?.['required']" class="invalid-feedback d-block">
+                            State is required
+                        </div>
+                        <div *ngIf="state.errors?.['maxlength']" class="invalid-feedback d-block">Maximum limit 25
+                            characters</div>
+                        <div *ngIf="state.errors?.['minlength']" class="invalid-feedback d-block">Minimum limit 2
+                            character</div>
+                    </div>
+                </div>
+                <div class="b-group-sec col-lg-4 col-md-6 col-sm-12">
+                    <label>PIN Code<span>*</span></label>
+                    <input type="text" placeholder="PIN CODE" name="pincode" ngModel #pincode="ngModel" id="pincode"
+                        required maxlength="10" minlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                        onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" />
+                    <div *ngIf="submitted && !pincode.valid">
+                        <div *ngIf="pincode.errors?.['required']" class="invalid-feedback d-block">
+                            Pincode is required
+                        </div>
+                        <div *ngIf="pincode.errors?.['maxlength']" class="invalid-feedback d-block">Maximum limit 10
+                            characters</div>
+                        <div *ngIf="pincode.errors?.['minlength']" class="invalid-feedback d-block">Minimum limit 4
+                            characters</div>
+                    </div>
+                </div>
+
+                <div class="choose_location col-12">
+                    <label>Choose Location<span>*</span></label>
+                    <div class="df gap-3">
+                        <label>
+                            <input type="radio" name="choose_location" ngModel value="home" required />
+                            Home
+                        </label>
+                        <label>
+                            <input type="radio" name="choose_location" ngModel value="work" />
+                            Work
+                        </label>
+                        <label>
+                            <input type="radio" name="choose_location" ngModel value="other" />
+                            Others
+                        </label>
+                    </div>
+                    <div *ngIf="submitted && !addressForm.controls['choose_location']?.valid">
+                        <div class="invalid-feedback d-block">
+                            You must choose a location
+                        </div>
+                    </div>
+                </div>
+
+                <div class="b-group-but mt-4">
+                    <button type="submit">Save address</button>
+                </div>
+            </form>
+        </div>
+        <div class="back-dash">
+            <a [routerLink]="['/my-account-page']">Back to Dashboard</a>
+        </div>
+    </div>
+</section>

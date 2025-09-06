@@ -1,0 +1,121 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header"><strong>{{pageTitle | titlecase}}</strong></div>
+                <form #subscriptionForm="ngForm" (ngSubmit)="onFormSubmit(subscriptionForm)" autocomplete="off">
+                    <div class="card-body">
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="name">Plan Name <span class="mandatory">*</span> </label>
+                                    <input type="text" id="plan_name" ngModel name="plan_name" #plan_name="ngModel"
+                                        required class="form-control" placeholder="Enter Plan Name"
+                                        [ngClass]="{ 'is-invalid': subscriptionForm.submitted && plan_name.errors }"
+                                        [ngClass]="{ 'is-valid': !plan_name.errors && plan_name.valid}">
+                                    <div *ngIf="subscriptionForm.submitted && !plan_name.valid">
+                                        <div class="invalid-feedback" *ngIf="plan_name.errors.required">Plan Name is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="name">Price <span class="mandatory">*</span> </label>
+                                    <input type="number" id="price" ngModel name="price" #price="ngModel" required
+                                        class="form-control" placeholder="Enter price" min="1"
+                                        [ngClass]="{ 'is-invalid': subscriptionForm.submitted && price.errors }"
+                                        [ngClass]="{ 'is-valid': !price.errors && price.valid}">
+                                    <div *ngIf="subscriptionForm.submitted && !price.valid">
+                                        <div class="invalid-feedback" *ngIf="price.errors.required">Price is required.
+                                        </div>
+                                        <div class="invalid-feedback" *ngIf="price.errors.min">Price greater than 0
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="status">Status <span class="mandatory">*</span></label>
+                                    <select name="status" id="status" class="form-control" ngModel name="status"
+                                        #status="ngModel" required
+                                        [ngClass]="{ 'is-invalid': subscriptionForm.submitted && status.errors }"
+                                        [ngClass]="{ 'is-valid': !status.errors && status.valid}">
+                                        <option value="">--Select--</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Inactive</option>
+                                    </select>
+                                    <div *ngIf="subscriptionForm.submitted && !status.valid">
+                                        <div class="invalid-feedback" *ngIf="status.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="validity">Validity <span class="mandatory">*</span></label>
+                                    <select name="validity" id="validity" class="form-control" ngModel name="validity"
+                                        #validity="ngModel" required (change)="validityChange($event.target.value)"
+                                        [ngClass]="{ 'is-invalid': subscriptionForm.submitted && validity.errors }"
+                                        [ngClass]="{ 'is-valid': !validity.errors && validity.valid}">
+                                        <option value="">--Select--</option>
+                                        <option *ngFor="let item of validityList" [value]="item.value">{{item.name}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="subscriptionForm.submitted && !validity.valid">
+                                        <div class="invalid-feedback" *ngIf="validity.errors.required">Validity is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="days">Days <span class="mandatory">*</span></label>
+                                    <!-- <select name="days" id="days" class="form-control" ngModel name="days" #days="ngModel" required [ngClass]="{ 'is-invalid': subscriptionForm.submitted && days.errors }" [ngClass]="{ 'is-valid': !days.errors && days.valid}">
+                                        <option value="">--Select--</option>
+                                        <option *ngFor="let item of daysList" [value]="item.value">{{item.name}}
+                                        </option>
+                                    </select> -->
+                                    <input type="number" id="days" ngModel name="days" #days="ngModel" required
+                                        class="form-control" placeholder="Enter days" min="1"
+                                        [ngClass]="{ 'is-invalid': subscriptionForm.submitted && days.errors }"
+                                        [ngClass]="{ 'is-valid': !days.errors && days.valid}">
+                                    <div *ngIf="subscriptionForm.submitted && !days.valid">
+                                        <div class="invalid-feedback" *ngIf="days.errors.required">Days is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="group-control">
+                                    <label for="name">Description <span class="mandatory">*</span> </label>
+                                    <textarea id="description" ngModel name="description" #description="ngModel"
+                                        required class="form-control" placeholder="Enter Description"
+                                        [ngClass]="{ 'is-invalid': subscriptionForm.submitted && description.errors }"
+                                        [ngClass]="{ 'is-valid': !description.errors && description.valid}" cols="20"
+                                        rows="5"></textarea>
+                                    <div *ngIf="subscriptionForm.submitted && !description.valid">
+                                        <div class="invalid-feedback" *ngIf="description.errors.required">Description is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" *ngIf="!viewpage" class="btn btn-sm btn-success" [disabled]="submitebtn">
+                            Submit
+                        </button>
+                        <button type="button" *ngIf="!viewpage" routerLink="/app/subscription/list"
+                            class="btn btn-sm btn-danger">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit"
+    [tablename]="'Subscribe User List'" [deleteApis]="deleteApis" [bulk_action]="bulk_action"
+    (onitemsPerPageChange)="onitemsPerPageChange($event)" (onPageChange)="onPageChange($event)" [subscribeMail]="subscribeMail"
+    (onSearchChange)="onSearchChange($event)" (onDeleteChange)="onDeleteChange($event)"
+    (onNotificationAction)="onNotificationAction($event)" (addSubEmail)="addSubEmail($event)">
+</app-common-table>

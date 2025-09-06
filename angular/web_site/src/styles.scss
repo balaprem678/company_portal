@@ -1,0 +1,269 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+// @import '~animate.css/animate.min';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "ngx-toastr/toastr";
+
+html,
+body {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+a {
+  cursor: pointer !important;
+}
+
+.padding-container {
+  max-width: 1340px;
+  padding-inline-start: 50px;
+  padding-inline-end: 50px;
+  margin: 0 auto;
+}
+
+.bg_color_include {
+  padding-top: 40px;
+
+  .padding-container {
+    section {
+      background-image: none !important;
+      background-color: transparent !important;
+
+      .product-list-right {
+        padding-left: 0px !important;
+      }
+
+      .stage_logo {
+        display: none;
+      }
+    }
+  }
+}
+
+.banner_included {
+  .product-list-right {
+    padding-left: 200px !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.inner-padding {
+  padding-inline-start: 30px;
+  padding-inline-end: 30px;
+}
+
+.b-group-but button:hover,
+button.c-ship:hover,
+button.buy-now:hover,
+.move-to-cart button:hover {
+  background: #a8b324 !important;
+  color: #ffffff !important;
+  transition: 0.2s;
+}
+
+@media screen and (max-width: 991px) {
+  .padding-container {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    padding: 0px 10px;
+  }
+}
+
+.price {
+  span {
+    font-weight: 800;
+
+    &:nth-child(1) {
+      color: #bdbdbd;
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+
+    &:nth-child(2) {
+      color: #222;
+    }
+
+    &:nth-child(3) {
+      color: #20825b;
+      background-color: #dcf6eb;
+      padding: 4px 8px 4px 8px;
+      border-radius: 4px 4px 4px 4px;
+      box-shadow: none;
+      font-size: 11.5px !important;
+      font-weight: 500;
+    }
+  }
+}
+
+.cart_add_to_cart {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+
+  a.p-add-cart {
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background: #80891b;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+  }
+
+  .minus_plus_section {
+    display: flex;
+    border: 2px solid #0a4a2d;
+    border-radius: 6px;
+    overflow: hidden;
+
+    button {
+      background: #0a4a2d;
+      color: #fff;
+    }
+
+    .minus_input_plus {
+      width: 30px;
+      height: 24px;
+      border: none;
+      font-size: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    input.minus_input_plus {
+      font-size: 16px;
+      flex: 1;
+      max-width: 60px;
+      text-align: center;
+    }
+  }
+}
+
+.shoping_cart_icon {
+  background-color: #80891b;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+
+  &:hover {
+    background-color: #A8B324;
+  }
+}
+
+.asterisk {
+  color: #e74c3c;
+}
+
+.fa-heart {
+  color: #c0392b;
+  position: absolute;
+  top: 16px;
+  z-index: 1;
+  right: 16px;
+  font-size: 20px;
+}
+
+.cart-wishlist-line {
+  .fa-heart {
+    color: #c0392b;
+    position: unset;
+    z-index: 1;
+    font-size: 20px;
+    padding-right: 10px;
+  }
+}
+
+.pt_110 {
+  padding-top: 110px;
+}
+
+.df {
+  display: flex;
+}
+
+.off_percentage {
+  background-color: #c0392b;
+  color: #ffffff;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-size: 10.5px;
+  font-weight: 600;
+  position: absolute;
+  top: 2%;
+  left: 5%;
+  transform: rotate(-45deg) translate(-33%, -282%);
+}
+
+
+
+@media screen and (min-width: 1518px) {
+  .padding-container {
+    padding: 0 !important;
+    max-width: 1500px !important;
+  }
+
+  .container-fluid,
+  .container {
+    max-width: 1500px !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .cart_add_to_cart {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .cart_add_to_cart .minus_plus_section button.minus_input_plus {
+    width: 26px;
+    max-width: 26px;
+    font-size: 20px;
+    padding: 0;
+  }
+
+  .pt_110 {
+    padding-top: 160px;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .container-fluid,
+  .container {
+    max-width: 100%;
+  }
+
+}
+
+@media (min-width: 768px) and (max-width: 1191px) {
+
+  .container-fluid,
+  .container {
+    max-width: 996px;
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 700px) {
+  app-header {
+    position: unset;
+  }
+
+  .pt_110 {
+    padding-top: 60px;
+  }
+}
+
+.info-t-price {
+  display: flex;
+  justify-content: space-between;
+}

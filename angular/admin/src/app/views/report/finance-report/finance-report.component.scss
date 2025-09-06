@@ -1,0 +1,102 @@
+/* General body and layout styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Title styling */
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+/* Button and selection group */
+.btn-group {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-group .btn {
+    margin-right: 10px;
+    padding: 8px 15px;
+}
+
+/* Styling for select dropdowns */
+select {
+    padding: 8px 15px;
+    font-size: 1rem;
+}
+
+/* Styling for the cards */
+.card {
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card-header {
+    font-size: 1.25rem;
+    padding: 15px;
+    text-align: center;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+/* Colors for different cards */
+.card-header.bg-primary {
+    background-color: #007bff;
+}
+
+.card-header.bg-success {
+    background-color: #28a745;
+}
+
+.card-header.bg-warning {
+    background-color: #ffc107;
+}
+
+/* Shadows for the cards */
+.card.shadow-sm {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-body strong {
+    font-size: 1.1rem;
+}
+
+/* Margin for form elements */
+label {
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .col-md-4 {
+        width: 100%;
+    }
+    .btn-group {
+        flex-direction: column;
+    }
+}

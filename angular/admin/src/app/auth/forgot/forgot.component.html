@@ -1,0 +1,48 @@
+<div class="app-body cus-login">
+    <div class="main d-flex align-items-center login-middle">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 mx-auto midl-spaces">
+                    <div class="card-group">
+                        <div class="card p-4">
+                            <div class="card-body">
+                                <form #forgotForm="ngForm" (ngSubmit)="onFormSubmit(forgotForm)" autocomplete="off">
+                                    <div class="login-logo">
+                                        <img *ngIf="logo" [src]="environment+logo">
+                                        <img *ngIf="!logo" src="../../../assets/image/logo.png">
+                                    </div>
+                                    <p class="text-muted">Please Enter your Email</p>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-user-o"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" ngModel name="email" type="text"
+                                            #email="ngModel"
+                                            pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                                            placeholder="Email" email required
+                                            ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,10})$/">
+                                        <div class="req-content" *ngIf="forgotForm.submitted && !email.valid">
+                                            <div *ngIf="email.errors.required">Email is required.</div>
+                                            <div *ngIf="email.errors.email">Please enter valid Email</div>
+                                            <div *ngIf="!email.errors.email && email.errors.pattern">Please enter valid
+                                                Email</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button type="submit" class="btn login-btns px-4">Submit</button>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <button type="button" class="btn btn-link login-lists px-0"
+                                                routerLink="/auth/login">Login?</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

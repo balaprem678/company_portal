@@ -1,0 +1,78 @@
+<app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit"
+    [tablename]="'Users List'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName" [editUrl]="editUrl"
+    [deleteApis]="deleteApis" (onDeleteChange)="onDeleteChange($event)" [notification_action]="notification_action"
+    (onitemsPerPageChange)="onitemsPerPageChange($event)" [card_details]="card_details"
+    (onPageChange)="onPageChange($event)" (onNotificationAction)="onNotificationAction($event)"
+    (onSearchChange)="onSearchChange($event)">
+</app-common-table>
+
+
+<button type="button" style="display: none;" class="btn btn-primary notification1"
+    (click)="staticModal.show()"></button>
+
+<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-static-name">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-static-name" class="modal-title pull-left">Send Mail</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close"
+                    (click)="staticModal.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Select Need Template to Send as Mail</p>
+                <!-- <br> -->
+
+
+                <ng-select style="width: 40%;" [items]="maildata" [clearable]="false" bindLabel="name" bindValue="_id"
+                    (change)="selectedData(maildata)">
+                    {{maildata}}
+                </ng-select>
+
+                <span>{{message}}</span>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" (click)="sendEmail()"> Send </button>
+                <button class="btn btn-warning notification-modal-close" (click)="staticModal.hide()"> Cancel </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<button type="button" style="display: none;" class="btn btn-primary notification-modal"
+    (click)="staticModal1.show()"></button>
+
+<div class="modal fade" bsModal #staticModal1="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-static-name">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-static-name" class="modal-title pull-left">Send Notification</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close"
+                    (click)="staticModal1.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Select Need Template to Send as Notification</p>
+                <!-- <br> -->
+
+                <ng-select style="width: 40%;" [items]="tempdata" [clearable]="false" bindLabel="name" bindValue="_id"
+                    (change)="selectedData(tempdata)">
+                    {{tempdata}}
+                </ng-select>
+
+                <span>{{message}}</span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" (click)="sendNotification()"> Send </button>
+                <button class="btn btn-warning notification-modal-close1" (click)="staticModal1.hide()"> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

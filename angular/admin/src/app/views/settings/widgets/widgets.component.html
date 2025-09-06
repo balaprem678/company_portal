@@ -1,0 +1,71 @@
+<div class="setting-widgets margin_top">
+    <div class="container">
+        <div class="animated fadeIn ">
+            <div class="row">
+                <div class="col-lg-12 mb-5">
+                    <div class="card">
+                        <div class="full_page_title">
+                            <strong>Widgets</strong>
+                        </div>
+
+                        <form class="widget_textarea" #widgetsform (ngSubmit)="onFormSubmit(widgetsform)"
+                            autocomplete="off">
+                            <tabset>
+                                <tab heading="Widget1">
+                                    <angular-editor id="Widgetid1" [placeholder]="'Enter text here...'"
+                                        [(ngModel)]="Widget1" [ngModelOptions]="{standalone: true}"
+                                        [config]="editorConfig"></angular-editor>
+                                </tab>
+                                <tab heading="Widget2">
+                                    <angular-editor id="Widgetid2" [placeholder]="'Enter text here...'"
+                                        [(ngModel)]="Widget2" [ngModelOptions]="{standalone: true}"
+                                        [config]="editorConfig"></angular-editor>
+                                </tab>
+
+                                <tab heading="Widget3">
+                                    <angular-editor id="Widgetid3" [placeholder]="'Enter text here...'"
+                                        [(ngModel)]="Widget3" [ngModelOptions]="{standalone: true}"
+                                        [config]="editorConfig"></angular-editor>
+                                </tab>
+
+
+                                <tab heading="Widget4">
+                                    <angular-editor id="Widgetid4" [placeholder]="'Enter text here...'"
+                                        [(ngModel)]="Widget4" [ngModelOptions]="{standalone: true}"
+                                        [config]="editorConfig"></angular-editor>
+                                </tab>
+
+                                <tab heading="Widget5">
+                                    <angular-editor id="Widgetid5" [placeholder]="'Enter text here...'"
+                                        [(ngModel)]="Widget5" [ngModelOptions]="{standalone: true}"
+                                        [config]="editorConfig"></angular-editor>
+                                </tab>
+
+                                <tab heading="Widget6">
+                                    <angular-editor id="Widgetid6" [placeholder]="'Enter text here...'"
+                                        [(ngModel)]="Widget6" [ngModelOptions]="{standalone: true}"
+                                        [config]="editorConfig"></angular-editor>
+                                </tab>
+
+                                <tab heading="Widget7">
+                                    <angular-editor id="Widgetid7" [placeholder]="'Enter text here...'"
+                                        [(ngModel)]="Widget7" [ngModelOptions]="{standalone: true}"
+                                        [config]="editorConfig"></angular-editor>
+                                </tab>
+
+                            </tabset>
+
+                            <div class="card_footer_btn_single">
+                                <button (click)="save_widgets()" type="button">Submit</button>
+                            </div>
+                        </form>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

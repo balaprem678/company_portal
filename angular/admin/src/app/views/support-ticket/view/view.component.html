@@ -1,0 +1,76 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="tabls-heading">
+                        <h3>{{pageTitle | titlecase}}</h3>
+                        <button class="btn btn-warning close-btn" (click)="closeSupportData()"
+                            *ngIf="supportData.open_close_status == 1">Close Ticket</button>
+                    </div>
+                </div>
+                <div class="card-body row">
+                    <div class="col-md-8">
+                        <div class="spaces-wisths">
+                            <div class="dash-details">
+                                <span class="heading-pros"> Debate Topic <span class="qus-alg"> : </span> </span>
+                                <span>{{supportData.topic ? supportData.topic
+                                    :'-'}}</span>
+                            </div>
+                            <div class="dash-details">
+                                <span class="heading-pros">User Name <span class="qus-alg"> : </span>
+                                </span>
+                                <span>{{supportData.user_name ?
+                                    supportData.user_name
+                                    :'-'}}</span>
+                            </div>
+                            <div class="dash-details">
+                                <span class="heading-pros">User E-Mail <span class="qus-alg"> : </span> </span>
+                                <span>{{supportData.user_email ?
+                                    supportData.user_email
+                                    :'-'}}</span>
+                            </div>
+                            <div class="dash-details">
+                                <span class="heading-pros">User Mobile Number <span class="qus-alg"> : </span>
+                                </span>
+                                <span>{{supportData.user_phone ?
+                                    (supportData.user_phone.code
+                                    ? supportData.user_phone.code : '')
+                                    :''}}
+                                    {{supportData.user_phone ?
+                                    (supportData.user_phone.number
+                                    ? supportData.user_phone.number : '-')
+                                    :'-'}}</span>
+                            </div>
+                            <div class="dash-details">
+                                <span class="heading-pros">Status <span class="qus-alg"> : </span> </span>
+                                <span *ngIf="supportData.open_close_status == 1"
+                                    class='badge badge-success badge-pill mb-1'>Open</span>
+                                <span *ngIf="supportData.open_close_status == 2"
+                                    class='badge  badge-danger badge-pill  mb-1'>Closed</span>
+                            </div>
+                            <div class="dash-details">
+                                <span class="heading-pros">Description <span class="qus-alg"> : </span>
+                                </span>
+                                <span>{{supportData.description ?
+                                    supportData.description
+                                    :'-'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="avs-details">
+                            <span>Avatar:</span>
+                            <img [src]="usercroppedImage">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" routerLink="/app/support-ticket/list" class="btn back-btns">
+                    Back
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

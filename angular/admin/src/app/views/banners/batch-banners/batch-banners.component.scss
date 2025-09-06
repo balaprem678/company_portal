@@ -1,0 +1,185 @@
+.banner_images {
+    position: relative;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+    min-height: 343px;
+    max-height: 407px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    background-color: #ffffff;
+    background: #fff;
+    padding: 30px;
+  
+    .img_center_call {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 150px;
+      margin: 15px auto;
+      box-shadow: 0 0 80px 0 #dddddd;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+  
+      .preview_sec {
+        position: absolute;
+        top: 85px;
+        left: 42px;
+        width: 73%;
+        height: 148px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+  
+        img {
+          width: unset;
+          height: 100%;
+          background: #fff;
+        }
+      }
+    }
+  }
+  
+  .status label,
+  .specification label,
+  .select_category label,
+  .banner_name label,
+  .banner_images label {
+    text-align: left;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: var(--bs-gray-800);
+    font-size: 16px;
+  }
+  
+  .color_red {
+    color: red;
+  }
+  
+  .banner_images {
+    input {
+      border: none;
+      background-color: transparent;
+      width: 30px;
+      position: absolute;
+      right: 20px;
+      top: 75px;
+      padding: 0;
+  
+      &::-webkit-file-upload-button {
+        width: 28px;
+        height: 28px;
+        border-radius: 15px;
+        border: none;
+        background: #fff;
+        background-image: url("../../../../assets/image/pencil.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        box-shadow: 0px 0 3px 0 #ccc;
+        color: #fff0;
+        z-index: 1;
+        position: relative;
+  
+        &:focus-visible {
+          outline: none;
+        }
+      }
+    }
+  }
+  
+  p.image_size_filter {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 34px;
+    color: #99a1b7;
+  
+    span {
+      color: #37662b;
+      font-weight: 700;
+    }
+  }
+  
+  .preview {
+    position: absolute;
+    top: 85px;
+    left: 42px;
+    width: 73%;
+    height: 148px;
+    display: flex;
+    align-items: center;
+  
+    img {
+      height: 80%;
+      width: 100%;
+      background: #fff;
+    }
+  }
+  
+  .banner_site_url,
+  .status,
+  .specification,
+  .select_category,
+  .banner_name {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  }
+  
+  ::ng-deep
+    .ng-select
+    .ng-select-container
+    .ng-value-container
+    .ng-value
+    .ng-value-label,
+  input::placeholder {
+    font-size: 14px;
+    font-weight: 700;
+    color: #99a1b7;
+  }
+  
+  .specification p,
+  .banner_name p {
+    font-size: 14.35px;
+    color: #99a1b7;
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-weight: 600;
+  }
+  
+  ::ng-deep .ng-select.custom-ng-select .ng-select-container,
+  ::ng-deep .custom-ng-select .ng-select-container {
+    border: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+  }
+  
+  ::ng-deep .custom-ng-select .ng-select-container .ng-clear-wrapper,
+  ::ng-deep .ng-select.custom-ng-select .ng-select-container .ng-clear-wrapper {
+    display: none !important;
+  }
+  
+  .card_footer_btn_single {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 80px;
+    width: 100%;
+  
+    button {
+      background-color: #1b84ff;
+      height: 47px;
+      width: 151px;
+      font-size: 16px;
+      color: #fff;
+      border-radius: 8px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      -ms-border-radius: 8px;
+      -o-border-radius: 8px;
+    }
+  }
+ 

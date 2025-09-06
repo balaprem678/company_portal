@@ -1,0 +1,149 @@
+a {
+  color: #80891b;
+}
+.tac {
+  text-align: center;
+}
+.faq {
+  .faq_title {
+    text-align: center;
+    color: #222222;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1em;
+    margin: 70px 0;
+  }
+  .faq_accordian_sec {
+    background-color: #ddf6ec;
+    padding: 80px 290px;
+    .accordion-item {
+      margin-bottom: 6px;
+      border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      -o-border-radius: 6px;
+      // .accordion-header {
+      //   .accordion-button {
+      //     color: #000000;
+      //     // background-color: #ffffff;
+      //     border-style: solid;
+      //     border-width: 1px 1px 1px 1px;
+      //     border-color: #eeeeee;
+      //     border-radius: 6px 6px 6px 6px;
+      //     overflow: hidden;
+      //     font-family: "Mulish", Sans-serif;
+      //     font-size: 14px;
+      //     font-weight: 800;
+      //     line-height: 1.5em;
+      //     &:focus {
+      //       box-shadow: none;
+      //     }
+      //     &:not(.collapsed) {
+      //       background-color: #000;
+      //       color: #fff;
+      //     }
+      //     &::after {
+      //       color: #ffffff50;
+      //       background-color: #78494930;
+      //       padding: 5px 13px;
+      //       flex-shrink: 0;
+      //       width: 20px;
+      //       height: 20px;
+      //       background-size: 12px;
+      //       border-radius: 30px;
+      //       background-position: 8px 4px;
+      //       -webkit-border-radius: 30px;
+      //       -moz-border-radius: 30px;
+      //       -ms-border-radius: 30px;
+      //       -o-border-radius: 30px;
+      //     }
+      //   }
+      // }
+      .accordion-header {
+        .accordion-button {
+          color: #000000;
+          border-style: solid;
+          border-width: 1px 1px 1px 1px;
+          border-color: #eeeeee;
+          border-radius: 6px 6px 6px 6px;
+          overflow: hidden;
+          font-family: "Mulish", Sans-serif;
+          font-size: 14px;
+          font-weight: 800;
+          line-height: 1.5em;
+          &:focus {
+            box-shadow: none;
+          }
+          &:not(.collapsed) {
+            background-color: #0a472e; // Your new background color
+            color: #fff; // Ensures good contrast
+          }
+          &::after {
+            color: #ffffff50;
+            background-color: #78494930;
+            padding: 5px 13px;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            background-size: 12px;
+            border-radius: 30px;
+            background-position: 8px 4px;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            -ms-border-radius: 30px;
+            -o-border-radius: 30px;
+          }
+        }
+      }
+      
+      .accordion-body {
+        color: #222222;
+        background-color: #ffffff;
+        border-radius: 6px 6px 6px 6px;
+        overflow: hidden;
+        padding: 10px 20px;
+        margin-top: 0px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.8em;
+      }
+    }
+  }
+}
+
+.accordion-button:not(.collapsed)::after {
+  color: #ffffff50;
+  background-color: #78494930;
+}
+
+@media screen and (max-width: 1200px) {
+  .faq {
+    .faq_accordian_sec {
+      padding: 80px 200px;
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .faq {
+    .faq_accordian_sec {
+      padding: 80px 100px;
+    }
+  }
+}
+@media screen and (max-width: 678px) {
+  .faq {
+    .faq_accordian_sec {
+      padding: 80px 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .faq .faq_title {
+    margin: 20px 0;
+  }
+  .faq .faq_accordian_sec {
+    padding: 10px 10px;
+  }
+}

@@ -1,0 +1,68 @@
+.input-group {
+  width: 20%;
+}
+::ng-deep .seen_status {
+  font-size: 22px;
+  color: green;
+}
+::ng-deep .not_seen_status {
+  font-size: 22px;
+  color: red;
+}
+
+.GFG {
+  background-color: white;
+  border: 2px solid black;
+  color: green;
+  padding: 5px 10px;
+  text-align: center;
+  display: inline-block;
+  font-size: 20px;
+  margin: 10px 30px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+::ng-deep .order-packed_order_page {
+  position: relative;
+}
+
+::ng-deep .order-packed_order_page .search-input-tag {
+  position: absolute;
+  right: 228px;
+}
+
+::ng-deep .order-packed_order_page .product_list_filter {
+  right: 118px !important;
+}
+::ng-deep .order-packed_order_page .export-lists:focus {
+  box-shadow: none !important;
+}
+::ng-deep .order-packed_order_page .export-lists {
+  position: absolute;
+  right: 0;
+  top: 68px;
+  z-index: 1;
+}
+::ng-deep .order-packed_order_page {
+  table {
+    thead {
+      tr {
+        th {
+          border: none;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td:nth-child(1),
+        td:nth-child(2),
+        td:nth-child(3),
+        td:nth-child(4),
+        td:nth-child(7) {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}

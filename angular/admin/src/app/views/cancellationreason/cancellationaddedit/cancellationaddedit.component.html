@@ -1,0 +1,48 @@
+<div class="container">
+    <form #userAddEditForm="ngForm" (ngSubmit)="onFormSubmit(userAddEditForm)">
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="rcategory"><strong>Reason</strong><span class="color_red">*</span></label>
+                <input type="text" ngModel name="reason" #reason="ngModel" required
+                class="form-control">
+                <div *ngIf="userAddEditForm.submitted && !reason.valid">
+                    <div class="invalid-feedback" *ngIf="reason.errors.required">Reason is required.
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label for="rcategory"><strong>Cancellation For</strong><span class="color_red">*</span></label>
+                <select type="text" ngModel name="cancellation" #cancellation="ngModel" id="cancellation" required
+              class="form-control">
+                    <option disabled selected value="">Select</option>
+                    <option value="user">User</option>
+                </select>
+                <div *ngIf="userAddEditForm.submitted && !cancellation.valid">
+                    <div class="invalid-feedback" *ngIf="cancellation.errors.required">Cancellation Type is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <label for="rcategory"><strong>Status</strong><span class="color_red">*</span></label>
+                <select type="text" ngModel name="status" #status="ngModel" required
+                  class="form-control">
+                    <option disabled selected value="">Select</option>
+                    <option value="1">Active</option>
+                    <option value="2">Inactive</option>
+                </select>
+                <div *ngIf="userAddEditForm.submitted && !status.valid">
+                    <div class="invalid-feedback" *ngIf="status.errors.required">Status is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <button type="submit" style="margin-top: 30px;" class="btn btn-sm btn-success">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

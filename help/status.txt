@@ -1,0 +1,68 @@
+Driver
+------
+
+0-delete
+1-active
+2-in-active
+3-new
+
+
+User
+------
+
+0-delete
+1-active
+2-in-active
+
+
+
+restaurant
+------
+
+0-delete
+1-active
+2-in-active
+3-new
+
+
+orders
+------
+0-Deleted
+1-order received
+2-restaurant rejected
+3-restaurant acepted
+4-driver rejected
+5-driver acepted
+6-driver pickedup
+7-deliverd
+8-payment completed
+9-cancelled by user
+10-admin cancelled order
+
+history in order table
+------------
+order_time
+restaurant_accepted
+restaurant_rejected
+driver_accepted
+driver_pikedup
+driver_arrived
+food_delivered
+payment_completed
+
+
+Food
+------
+
+0-delete
+1-active
+2-in-active(for admin activation)
+
+
+visibility-1-user can pick food
+
+visibility-0 - user cant pick food
+
+
+
+

@@ -1,0 +1,22 @@
+::ng-deep .payment_gatway-payment_gateway_list {
+  table {
+    thead {
+      tr {
+        th {
+          border: none;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td:nth-child(1),
+        td:nth-child(2) {
+          font-weight: 700;
+        }
+        td:nth-child(3) span {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

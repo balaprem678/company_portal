@@ -1,0 +1,100 @@
+.ng2-smart-pagination {
+  display: inline-flex;
+  font-size: 0.875em;
+  padding: 0;
+  gap: 12px;
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .ng2-smart-page-item {
+    display: inline;
+  }
+
+  // .page-link-next, .page-link-prev {
+  //   font-size: 10px;
+  // }
+}
+
+:host {
+  display: flex;
+  justify-content: space-between;
+
+  select {
+    margin: 1rem 0 1rem 1rem;
+  }
+  label {
+    margin: 1rem 0 1rem 1rem;
+    line-height: 2.5rem;
+  }
+}
+
+// :where(.last_page_double_arror, .first_page_double_arror) {
+//   display: none !important;
+// }
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #20a8d8;
+  background-color: #fff;
+  border: 1px solid #c8ced300;
+}
+
+::ng-deep .page-item .page-link,
+::ng-deep .page-item.disabled .page-link {
+  color: #73818f;
+  // pointer-events: none;
+  cursor: pointer;
+  background-color: #fff0;
+  border-color: #c8ced300;
+  border: none;
+  border: 1px solid #ecf0f4;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 50%;
+  z-index: 3;
+  text-decoration: none;
+}
+
+.page-item .page-link:hover {
+  color: #fb4a04;
+  border: 1px solid #fb4a04;
+}
+.page-item .page-link {
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+.page-item.active .page-link {
+  background-color: #fb4a04;
+  border-color: #fb4a04;
+  color: #fff;
+}
+
+.next_page_single_arrow a {
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+.next_page_single_arrow a:hover img {
+  filter: brightness(0) saturate(100%) invert(36%) sepia(42%) saturate(7038%)
+    hue-rotate(2deg) brightness(105%) contrast(97%);
+}

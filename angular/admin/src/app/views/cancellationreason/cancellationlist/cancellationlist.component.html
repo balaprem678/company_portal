@@ -1,0 +1,7 @@
+<app-common-table [settings]="settings" [source]="source" [count]="totalItems" [itemsPerPage]="limit"
+    [tablename]="'Cancellation reason list'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName"
+    [editUrl]="editUrl" (onDeleteChange)="onDeleteChange($event)" [deleteApis]="deleteApis"
+    (onDeleteChange)="onDeleteChange($event)" (onitemsPerPageChange)="onitemsPerPageChange($event)" [viewUrl]="viewUrl"
+    [card_details]="card_details" (onPageChange)="onPageChange($event)" [bulk_action]="bulk_action"
+    (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)">
+</app-common-table>

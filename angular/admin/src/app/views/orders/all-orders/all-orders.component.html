@@ -1,0 +1,12 @@
+<div class="order-all_orders_page">
+     <app-common-table [settings]="settings" [source]="source" [count]="totalItems" [itemsPerPage]="limit"
+          [tablename]="'All Orders'" [add_btn]="add_btn" [deleteApis]="deleteApis" [addBtnUrl]="addBtnUrl"
+          [addBtnName]="addBtnName" [editUrl]="editUrl" [viewUrl]="viewUrl"
+          (onitemsPerPageChange)="onitemsPerPageChange($event)" [card_details]="card_details"
+          (onDeleteChange)="onDeleteChange($event)" (onPageChange)="onPageChange($event)" [bulk_action]="bulk_action"
+          (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)"
+          [filter_action]="filter_action" [filter_action_list]="filter_action_list"
+          (onFilterAction)="onFilterAction($event)" [export_btn]="export_btn" [exportApis]="exportApis"
+          (onexportChange)="onexportChange($event)">
+     </app-common-table>
+</div>

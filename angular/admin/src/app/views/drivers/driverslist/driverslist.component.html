@@ -1,0 +1,7 @@
+<app-common-table [settings]="settings" [source]="source" [count]="totalItems" [itemsPerPage]="limit"
+    [tablename]="'Driver List'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName"
+    [editUrl]="editUrl" (onitemsPerPageChange)="onitemsPerPageChange($event)" [card_details]="card_details"
+    [viewUrl]="viewUrl" [restoreApis]="restoreApis" [deleteApis]="deleteApis" (onPageChange)="onPageChange($event)"
+    (onDeleteChange)="onDeleteChange($event)" [bulk_action]="bulk_action"
+    (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)">
+</app-common-table>

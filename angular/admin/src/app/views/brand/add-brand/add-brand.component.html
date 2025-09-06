@@ -1,0 +1,80 @@
+<h4>
+    <label class="ng-binding">
+        <h3>{{pageTitle}}</h3>
+        <h3 *ngIf="!id">Add Brand</h3>
+    </label>
+</h4>
+<label>Brand details</label>
+<div class="container">
+    <form name="nameDetails" [formGroup]="brandFrom" (ngSubmit)="onSubmit()">
+        <div class="form-group col-md-12 legend">
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="rcategory">Select Category <span class="color_red">*</span></label>
+                <ng-select style="width: 100%;" [items]="categorylist" [clearable]="false" bindLabel="rcatname"
+                    bindValue="_id" [(ngModel)]="category_name" placeholder="Select category"
+                    formControlName="category_names" (change)='onFilterData($event)' required>
+                </ng-select>
+                <div *ngIf="submitted && f.category_names.errors && f.category_names.errors.required" style="color:red">
+                    Categorynames is required!
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="rcategory">Select SubCategory <span class="color_red">*</span></label>
+                <ng-select style="width: 100%;" [items]="subcategorylist" [(ngModel)]="sub_category_name"
+                    [clearable]="false" bindLabel="scatname" placeholder="Select subcategory" bindValue="_id"
+                    formControlName="sub_category_names">
+                </ng-select>
+                <div *ngIf="submitted && f.sub_category_names.errors && f.sub_category_names.errors.required"
+                    style="color:red">
+                    Sub category names is required!
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="rcategory">Brand Name <span class="color_red">*</span></label>
+                <input type="text" formControlName="brandname" class="form-control" placeholder="brandname" required>
+                <div *ngIf="submitted && f.brandname.errors && f.brandname.errors.required" style="color:red">Brandname
+                    is
+                    required!
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="rcategory">Image <span class="color_red">*</span></label>
+                <div class="form-group">
+                    <input class="form-control" type="file" formControlName="image" [required]="!preview"
+                        accept="image/*" (change)="onSelectedFile($event)">
+                </div>
+                <div *ngIf="submitted && f.image.errors && f.image.errors.required" style="color:red">Image is required!
+                </div>
+                <span class="restaurant-img-error">Allowed files: png, jpg. Max file size 1Mb</span>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="rcategory">Status <span class="color_red">*</span></label>
+                <select type="text" name="status" id="status" class="form-control" [(ngModel)]="status"
+                    formControlName="status" convert-to-number required>
+                    <option disabled selected value="">Select</option>
+                    <option value="1">Active</option>
+                    <option value="2">In-Active</option>
+                </select>
+                <div *ngIf="submitted && f.status.errors && f.status.errors.required" style="color:red">Status is
+                    required!
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="preview">
+                        <img class="ng-scope" style="width: 200px;" [src]="preview" width="50px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

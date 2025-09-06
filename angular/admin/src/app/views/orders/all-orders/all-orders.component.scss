@@ -1,0 +1,132 @@
+.order-all_orders_page {
+  position: relative;
+}
+
+::ng-deep .order-all_orders_page .search-input-tag {
+  position: absolute;
+  right: 100px;
+}
+
+::ng-deep .order-all_orders_page .product_list_filter {
+  right: 118px !important;
+}
+
+::ng-deep .order-all_orders_page .export-lists:focus {
+  box-shadow: none !important;
+}
+
+::ng-deep .order-all_orders_page .export-lists {
+  position: absolute;
+  right: 0;
+  top: 51px;
+  z-index: 1;
+}
+
+::ng-deep .order-all_orders_page {
+  .customtable-design {
+    &::-webkit-scrollbar {
+      width: 2px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #202b46;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    table {
+      tbody {
+        tr {
+          td {
+            font-size: 14px;
+            font-weight: 700;
+          }
+        }
+      }
+
+      thead {
+        tr {
+          th {
+            border: none;
+          }
+
+          th {
+            font-weight: 700;
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .order-all_orders_page {
+  #exampleModalCenter {
+    .modal-header {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .order_details {
+      table {
+        thead {
+          tr {
+            th {
+              border: none;
+              border-bottom: 1px dashed #ccc;
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            // border-bottom: 1px dashed #ccc;
+
+            td {
+              vertical-align: middle;
+            }
+          }
+        }
+      }
+
+      .product_details {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+
+        img {
+          background-color: #ececec;
+          padding: 5px;
+          border-radius: 6px;
+        }
+
+        .product_name_size {
+          text-align: left;
+
+          .product_name {
+            font-size: 16px;
+            font-weight: 700;
+            display: block;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            word-wrap: break-word;
+            overflow: hidden;
+            width: 280px;
+          }
+
+          .size {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+  }
+}

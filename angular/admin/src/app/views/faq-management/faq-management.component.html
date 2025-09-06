@@ -1,0 +1,25 @@
+<form #faqForm="ngForm" (ngSubmit)="onsubmitform(faqForm)" class="faq-form mt-4">
+    <h5>FAQ's</h5>
+    <div class="faq-item" *ngFor="let item of faq_details; let i = index">
+        <div class="input-group">
+            <input type="text" name="titlepr{{i}}" id="titlepr{{i}}"
+                placeholder="Enter Title" class="form-control"
+                [(ngModel)]="faq_details[i].title" required>
+
+            <textarea name="contentpr{{i}}" id="contentpr{{i}}"
+                placeholder="Enter Description (Max 500 words)"  maxlength="500" class="form-control faq-description mt-3"
+                [(ngModel)]="item.content" required></textarea>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-danger"
+                    *ngIf="faq_details.length > 1"
+                    (click)="removefaqContent(i)">Delete</button>
+
+                <button type="button" class="btn btn-success"
+                    *ngIf="i === faq_details.length - 1"
+                    (click)="addfaqContent()">Add +</button>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="faq_submit btn btn-primary mt-3 mb-5">Submit</button>
+</form>

@@ -1,0 +1,217 @@
+<div class="banner-add_web_banner margin_top">
+    <div class="container">
+        <h4 class="full_page_title">
+            <strong>Add Banner</strong>
+        </h4>
+        <form #bannerstypes="ngForm" (ngSubmit)="submitForm(bannerstypes)">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="banner_images" *ngIf="url != 'header-2'">
+                        <label for="rcategory">Banner Image <span class="color_red">*</span></label>
+                        <div class="form-group">
+                            <input class="form-control" type="file" accept="image/*" (change)="onSelectedFile($event)"
+                                name="image" id="image" [required]="!preview">
+                        </div>
+                        <div class="img_center_call">
+                            <img src="assets/image/no_images.png" alt="no_images">
+                        </div>
+                        <div class="preview" *ngIf="preview">
+                            <img class="ng-scope" [src]="preview">
+                        </div>
+                        <!-- <p class="image_size_filter"> Set the banner thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted.<br></p> -->
+                        <p class="image_size_filter" *ngIf="url == 'header-1'">Set the banner thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1280x720</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'header-2'">Set the banner thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1080x1920</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'post-header-1'">Set the banner thumbnail image. Only
+                            <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1440x314</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'post-header-2'">Set the banner thumbnail image. Only
+                            <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1536x200</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'post-category-3'">Set the banner thumbnail image.
+                            Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1310x460</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'post-category-6'">Set the banner thumbnail image.
+                            Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>768x768</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'pre-footer'">Set the banner thumbnail image. Only
+                            <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1080x380</span> pixels.
+                        </p>
+                        <!-- <div *ngIf="submitted && bannerstypes.image.errors?.['required']" style="color:red">Image is
+                                required!
+                            </div> -->
+                        <!-- <div style="color:red" *ngIf="submitted && !image.valid">
+                            <div *ngIf="image.errors?.['required']">Image is required!</div>
+                        </div> -->
+                        <!-- <div style="color:red" *ngIf="submitted && !image.valid">
+                            <div  style="color:red" *ngIf="image.errors?.['required']">Image is required!</div>
+                        </div> -->
+                    </div>
+
+                    <div class="banner_images" *ngIf="url == 'header-2'">
+                        <label for="rcategory">Banner Image <span class="color_red">*</span></label>
+                        <div class="form-group">
+                            <input class="form-control" type="file" accept="image/*" (change)="onSelectedFile($event)"
+                                name="image" id="image" [required]="!preview">
+                        </div>
+                        <div class="img_center_call">
+                            <img src="assets/image/no_images.png" alt="no_images">
+                            <div class="preview_sec">
+                                <img class="ng-scope" [src]="preview">
+                            </div>
+                        </div>
+
+                        <!-- <p class="image_size_filter"> Set the banner thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted.<br></p> -->
+                        <p class="image_size_filter" *ngIf="url == 'header-1'">Set the banner thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1280x720</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'header-2'">Set the banner thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1080x1920</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'post-header-1'">Set the banner thumbnail image. Only
+                            <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1440x314</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'post-header-2'">Set the banner thumbnail image. Only
+                            <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1536x200</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'post-category-3'">Set the banner thumbnail image.
+                            Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1310x460</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'post-category-6'">Set the banner thumbnail image.
+                            Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>768x768</span> pixels.
+                        </p>
+                        <p class="image_size_filter" *ngIf="url == 'pre-footer'">Set the banner thumbnail image. Only
+                            <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>1080x380</span> pixels.
+                        </p>
+                        <!-- <div *ngIf="submitted && bannerstypes.image.errors?.['required']" style="color:red">Image is
+                                required!
+                            </div> -->
+                        <!-- <div style="color:red" *ngIf="submitted && !image.valid">
+                            <div *ngIf="image.errors?.['required']">Image is required!</div>
+                        </div> -->
+                        <!-- <div style="color:red" *ngIf="submitted && !image.valid">
+                            <div  style="color:red" *ngIf="image.errors?.['required']">Image is required!</div>
+                        </div> -->
+                    </div>
+
+                    <div class="status mt-4">
+                        <label>Select Status<span class="color_red">*</span></label>
+                        <!-- <ng-select bindLabel="label" bindValue="value" formControlName="status" class="custom-ng-select"
+                            name="status" id="status" placeholder="Select">
+                        </ng-select> -->
+                        <!-- <ng-select [(ngModel)]="selectedCar">
+                            @for (car of cars; track car.id) {
+                                <ng-option [value]="car.id">{{car.name}}</ng-option>
+                            }
+                        </ng-select> -->
+                        <!-- <ng-select [(ngModel)]="selectedStatus">
+                            @for (status of statusOptions; track car.value) {
+                                <ng-option [value]="status.value">{{status.label}}</ng-option>
+                            }
+                        </ng-select> -->
+                        <ng-select class="custom-ng-select" [items]="statusOptions" bindLabel="name" bindValue="id"
+                            placeholder="Select Status" [(ngModel)]="selectedStatus"
+                            (ngModelChange)="onStatusChange($event)" name="selectedStatus" id="selectedStatus"
+                            [ngModelOptions]="{standalone: true}">
+                        </ng-select>
+                        <!-- <div *ngIf="submitted && selectedStatus.errors?.required" style="color:red">
+                            Status is required!
+                        </div> -->
+
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="banner_name">
+                        <label for="rcategory">Banner Name<span class="color_red">*</span></label>
+                        <input type="text" class="form-control" placeholder="Banner Name" id="banner_name"
+                            name="banner_name" ngModel #banner_name="ngModel" required maxlength="50">
+                        <div style="color:red" *ngIf="submitted && !banner_name.valid">
+                            <div style="color:red" *ngIf="banner_name.errors?.['required']">Banner name is required!
+                            </div>
+                            <!-- <div style="color:red" *ngIf="banner_name.errors?.['pattern']">
+                                Only alphabetic characters and numbers are allowed!
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- <div class="banner_site_url mt-4">
+                        <label for="rcategory">Banner URL <span class="color_red">*</span></label>
+                        <input type="text" class="form-control" placeholder="Banner URL" id="banner_url"
+                            name="banner_url" ngModel #banner_url="ngModel" required maxlength="40">
+                        <div style="color:red" *ngIf="submitted && !banner_url.valid">
+                            <div  style="color:red" *ngIf="banner_url.errors?.['required']">Banner url is required!</div>
+                        </div>
+
+                    </div> -->
+
+                    <div class="banner_site_url mt-4">
+                        <label for="banner_url">Banner URL <span class="color_red">*</span></label>
+                        <input type="text" class="form-control" placeholder="Banner URL" id="banner_url"
+                            name="banner_url" ngModel #banner_url="ngModel" required maxlength="50"
+                            pattern="^(http|https):\/\/[^.\s]+(?:\.[^.\s]+){1,2}(\/.*)?$" />
+                        <div *ngIf="submitted && banner_url.invalid" style="color: red">
+                            <div *ngIf="banner_url.errors?.required">Banner URL is required!</div>
+                            <div *ngIf="banner_url.errors?.pattern">
+                                Invalid banner url!
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="select_category mt-4">
+                        <label for="status">Select Category <span class="mandatory">*</span></label>
+
+                        <ng-select bindLabel="rcatname" bindValue="rcatname" formControlName="banner_category"
+                            class="custom-ng-select" placeholder="Select" required>
+                        </ng-select>
+                        <div style="color:red">
+                            Category
+                            is
+                            required!
+                        </div>
+
+                    </div> -->
+
+                    <!-- <div class="specification mt-4">
+                        <label for="rcategory">Specification</label>
+                        <input type="text" class="form-control" placeholder="Specification" id="specification"
+                            name="specification" ngModel #specification="ngModel"  maxlength="60">
+                    </div> -->
+                </div>
+                <div class="col-lg-12 card_footer_btn_single">
+                    <button type="submit" *ngIf="!id" class="btn">Submit</button>
+                    <button type="submit" *ngIf="id" class="btn">Save Changes</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>

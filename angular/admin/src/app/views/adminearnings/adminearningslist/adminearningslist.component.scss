@@ -1,0 +1,27 @@
+.input-group {
+  width: 20%;
+}
+::ng-deep .site_earning_page {
+  .product_list_filter {
+    right: 0 !important;
+  }
+  table {
+    thead {
+      tr {
+        th {
+          border: none;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td:nth-child(-n+8) {
+          font-weight: 700;
+        }
+        td:nth-child(7) span {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

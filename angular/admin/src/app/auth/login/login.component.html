@@ -1,0 +1,79 @@
+<div class="app-body cus-login">
+    <div class="main d-flex align-items-center login-middle">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 mx-auto midl-spaces">
+                    <div class="card-group">
+                        <div class="card p-4">
+                            <div class="card-body">
+                                <form [formGroup]="loginform" (ngSubmit)="onFormSubmit()" autocomplete="off">
+                                    <div class="login-logo">
+                                        <img *ngIf="logo" [src]='environment+logo'>
+                                        <img *ngIf="!logo" src='../../../assets/image/logo.png'>
+                                    </div>
+                                    <p class="text-muted">Sign In to your account</p>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-user-o"></i></span>
+                                        </div>
+                                        <input type="text" formControlName="username" class="form-control"
+                                            placeholder="Username" required>
+                                        <div class="req-content" *ngIf="from.username.errors && formsubmite">
+                                            <div *ngIf="from.username.errors.required && formsubmite">
+                                                User name is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                        </div>
+                                        <input type="password" formControlName="password" class="form-control"
+                                            placeholder="Password" required>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-eye"
+                                                    aria-hidden="true"></i></span>
+                                            <span class="input-group-text d-none"><i class="fa fa-eye-slash"
+                                                    aria-hidden="true"></i></span>
+                                        </div>
+                                        <div class="req-content" *ngIf="from.password.errors && formsubmite">
+                                            <div *ngIf="from.password.errors.required && formsubmite">
+                                                Password is required.
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                        </div>
+                                        <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password" required>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" (click)="togglePasswordVisibility()">
+                                                <i class="fa" [ngClass]="{'fa-eye': !passwordVisible, 'fa-eye-slash': passwordVisible}" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <div class="req-content" *ngIf="from.password.errors && formsubmite">
+                                            <div *ngIf="from.password.errors.required && formsubmite">
+                                                Password is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button type="submit" class="btn login-btns px-4">Login</button>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <button type="button" class="btn btn-link password-links px-0"
+                                                routerLink="/auth/forgot">Forgot
+                                                password?</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,521 @@
+::ng-deep .is-invalid .ng-select-container {
+  border: 1px solid red !important;
+}
+
+::ng-deep .is-valid .ng-select-container {
+  border-color: #4dbd74 !important;
+}
+
+::ng-deep .verifyotp-model.modal-dialog {
+  max-width: 700px;
+  width: 700px;
+  min-width: 500px;
+}
+
+::ng-deep .changepass-model.modal-dialog {
+  max-width: 700px;
+  width: 700px;
+  min-width: 500px;
+}
+
+.my-account-page {
+  padding-top: 100px;
+}
+
+.bread-crumb {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.bread-crumb p {
+  margin: 0;
+}
+
+.bread-crumb a {
+  color: #4a4a4a;
+  text-decoration: none;
+}
+
+.bread-crumb p {
+  margin: 0 13px;
+}
+
+.pforile-form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 74%;
+  justify-content: space-between;
+}
+
+.my-profile-sec h3 {
+  font-size: 22px;
+  margin-bottom: 25px;
+}
+
+.my-profile-sec {
+  position: relative;
+  margin-bottom: 0px;
+
+  align-items: end;
+}
+
+.my-profile-button button {
+  border: 1px solid #bebebe;
+  background: transparent;
+  font-size: 15px;
+  padding: 8px 30px;
+  border-radius: 4px;
+  color: #ff0000;
+}
+
+.pro-form-group {
+  width: 48%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  margin-bottom: 30px;
+}
+
+.pro-form-group label .pro-form-group label {
+  width: 100%;
+  color: #4a4a4a;
+  font-size: 16px;
+  margin-bottom: 0;
+  font-weight: 600;
+  margin-top: 30px;
+}
+::file-selector-button {
+  height: 40px;
+}
+
+.pro-form-group label:nth-child(2),
+.pro-form-group input {
+  border: 1px solid #cdcfd1;
+  width: 100%;
+  height: 36px;
+  outline: none;
+  padding: 2px 10px;
+  color: #252525;
+  font-size: 14px;
+  border-radius: 4px;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+}
+
+.pro-form-group input:invalid,
+.pro-form-group input.is-invalid {
+  border-color: 1px solid #f86c6b;
+}
+
+.pro-form-group span {
+  width: auto;
+  margin-right: 20px;
+  font-size: 14px;
+  position: relative;
+  padding-left: 21px;
+}
+
+.pro-form-group span input {
+  width: auto;
+  margin-right: 10px;
+  height: auto;
+}
+
+.pro-form-group span .check-box {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 13px;
+  width: 13px;
+  background-color: #ffe5e5;
+  border-radius: 50%;
+  margin: 0;
+}
+
+.pro-form-group span .check-box:after {
+  content: "";
+  position: absolute;
+  display: none;
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.pro-form-group span input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  padding: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.pro-form-group span input:checked + p {
+  background: #ff0000;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@media screen and (max-width: 767px) {
+  .pforile-form {
+    width: 100%;
+  }
+
+  .pro-form-group {
+    width: 100%;
+  }
+
+  .pro-form-group span .check-box {
+    top: 4px;
+  }
+
+  .my-account-page {
+    padding-top: 190px;
+  }
+}
+
+@media only screen and (min-width: 767px) and (max-width: 991px) {
+  .pforile-form {
+    width: 90%;
+  }
+
+  .my-account-page {
+    padding-top: 150px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .my-account-page {
+    padding-top: 120px;
+  }
+}
+
+button.btn.pass-btn {
+  border: 1px solid #bebebe;
+  padding: 5px 0px;
+  background: transparent;
+  width: 160px;
+  color: #ff0000;
+}
+.update-data {
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+}
+
+/* change pass modal*/
+
+.change-grp {
+  width: 100%;
+  min-height: 100px;
+}
+
+div#passModal h6.modal-title {
+  font-size: 20px;
+  width: 39%;
+  padding-bottom: 20px;
+}
+
+div#passModal .modal-body {
+  padding: 30px 25px 0px 25px;
+}
+
+.cancel-btn {
+  width: 45%;
+  border: none;
+  color: #8b8b8b;
+  padding: 10px;
+  border: 1px solid transparent;
+}
+
+.cancel-btn:hover {
+  border: 1px solid #8b8b8b;
+}
+
+.out-bnt {
+  width: 50%;
+  background: #ff0000;
+  border: 1px solid #ff0000;
+  color: #fff;
+  padding: 10px;
+}
+
+.out-bnt:hover {
+  background: transparent;
+  color: #8b8b8b;
+}
+
+.pass-p {
+  color: #8b8b8b;
+  font-size: 14px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 567px) {
+  .out-bnt {
+    width: 100%;
+  }
+
+  .cancel-btn {
+    width: 100%;
+  }
+}
+
+div#confirmpassModal h6.modal-title {
+  font-size: 20px;
+  width: 39%;
+  padding-bottom: 20px;
+  font-weight: 700;
+}
+
+.userInput {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  gap: 10px;
+}
+
+.userInput input {
+  width: 70px;
+  height: 70px;
+  border-bottom: 3px solid #cdcfd1 !important;
+  border: 0;
+  border-radius: 0;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.verify-bnt {
+  width: 100%;
+  background: #ff0000;
+  border: 1px solid #ff0000;
+  color: #fff;
+  padding: 10px;
+}
+
+.verify-bnt_disable {
+  width: 100%;
+  background: #a3a3a3;
+  border: 1px solid #d4d2d2;
+  color: #0a0909;
+  padding: 10px;
+}
+
+.code-p strong {
+  color: #252525;
+}
+
+.code-p {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.codedisap-p strong {
+  color: #252525;
+}
+
+.codedisap-p {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+div#confirmpassModal .modal-body {
+  padding: 30px 15px 0px 15px;
+}
+
+div#confirmpassModal .pass-p {
+  font-size: 16px;
+}
+
+.pass-p i {
+  color: #252525;
+}
+
+@media screen and (max-width: 767px) {
+  .userInput input {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.code-p a {
+  text-decoration: none;
+  color: #f02828;
+}
+
+.codedisap-p a {
+  text-decoration: none;
+  color: #b3b3b3;
+}
+
+.login-value .form-control {
+  width: 70px;
+  height: 51px;
+  border-bottom: 3px solid #cdcfd1 !important;
+  border: 0;
+  border-radius: 0;
+  font-size: 48px;
+  font-weight: 700;
+  outline: none;
+  box-shadow: unset;
+  text-align: center;
+  padding: 16px 10px;
+}
+
+button.btn.verify-bnt {
+  width: 100%;
+  background: #ff0000;
+  border: 1px solid #ff0000;
+  color: #fff;
+  padding: 10px;
+}
+
+button.change-password {
+  width: 58%;
+  background: #ff0000;
+  border: 1px solid #ff0000;
+  color: #fff;
+  padding: 10px;
+}
+
+button.cancel-pass {
+  border-radius: 5px !important;
+  border: 1px solid #f02828;
+  background: transparent;
+  margin-top: 27px;
+}
+
+.code-p strong {
+  width: 25px;
+  display: inline-block;
+}
+
+.code-p:hover a {
+  cursor: pointer;
+  color: #f14848 !important;
+}
+
+.codedisap-p strong {
+  width: 25px;
+  display: inline-block;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+.change-pass {
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px !important;
+}
+
+.change-pass span {
+  position: absolute;
+  right: 13px;
+  top: 33px;
+}
+
+.userprofile-detail {
+  background: #f02828;
+  border: 1px solid transparent;
+  color: #fff;
+  font-size: 16px;
+  padding: 5px 15px;
+  transition: 0.8s;
+}
+
+.userprofile-detail:hover {
+  background: transparent;
+  border: 1px solid #f02828;
+  color: #f02828;
+}
+
+::ng-deep ngx-intl-tel-input#phone {
+  width: 100%;
+}
+
+::ng-deep .iti.iti--allow-dropdown {
+  width: 100%;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 567px) {
+  ::ng-deep .verifyotp-model.modal-dialog {
+    max-width: 100% !important;
+    min-width: 100% !important;
+    margin: 0 auto;
+  }
+
+  .login-value .form-control {
+    width: 51px;
+    height: 51px;
+    padding: 0;
+    max-height: 51px;
+    font-size: 30px;
+    min-height: 51px;
+  }
+}
+
+.pro-form-group.gender {
+  display: block;
+}
+
+.pro-form-group.profile_img.after_saves {
+  position: absolute;
+  top: 40px;
+  right: 70px;
+  width: 100px;
+  margin: auto;
+  border-radius: 100px;
+  height: 100px;
+  justify-content: center;
+}
+.my-profile-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.profile-view {
+  border: 1px solid #ccc;
+  position: absolute;
+  top: 40px;
+  right: 305px;
+  border-radius: 260px;
+}
+
+.saved_profile .pro-form-group span {
+  border: 1px solid #cdcfd1;
+  width: 100%;
+  height: 36px;
+  padding: 2px 10px;
+  color: #252525;
+  font-size: 14px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+}

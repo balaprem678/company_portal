@@ -1,0 +1,520 @@
+<div class="product-list container pt_110">
+  <div class="bread-crumb">
+    <a [routerLink]="['']">Home</a>
+    <p> <i class="fa fa-angle-right" aria-hidden="true"></i> </p>
+    <a *ngIf="category_name && category_name.length == 1" class="category_names">{{category_name[0]}}</a>
+    <a *ngIf="!category_name">Search</a>
+  </div>
+  <p class="mt-3 items_length">Mens Casual Trousers - <span>20994 items</span></p>
+</div>
+<section class="product-list-page">
+  <div class="container">
+    <div class="product-filter-sec active" id="product-filter-sec">
+      <div class="filter-left">
+        <div class="filter_scroll">
+          <div class="filter-head">
+            <h2>FILTERS</h2>
+            <a class="clear_all" (click)="clearFilter()">CLEAR ALL</a>
+          </div>
+          <div class="parts_reviews">
+            <div class="filter-parts">
+              <h3>Categories</h3>
+              <div class="filter_accordian">
+                <div ngbAccordion [closeOthers]="true">
+                  <div ngbAccordionItem [collapsed] *ngFor="let mcat of category_sub let i = index">
+                    <h2 ngbAccordionHeader>
+                      <button ngbAccordionButton> {{ mcat.rcatname }} </button>
+                    </h2>
+                    <div ngbAccordionCollapse>
+                      <div ngbAccordionBody>
+                        <ul class="category-listed m-0" *ngIf="checkobx[mcat._id] == true">
+                          <ng-container *ngIf="mcat.subcategory.length > 0">
+                            <li class="check-box" *ngFor="let scat of mcat.subcategory; let j = index">
+                              <div class="df_aic">
+                                <input type="checkbox"
+                                  (change)="getproductfilters(mcat._id,scat._id,subcheckbox[scat._id],true);buildTree(scat._id, i,true)"
+                                  [(ngModel)]="subcheckbox[scat._id]"
+                                  [checked]="mcat.subcategory.indexOf(scat['_id']) != -1 ? true:false" name="scat{{j}}"
+                                  id="scat{{j}}">
+                                <span class="checkmark">{{scat.scatname}}</span>
+                              </div>
+                              <!-- child categories in static -->
+                              <ul class="submenu"
+                                *ngIf="selectedCategory[scat._id] && selectedCategory[scat._id].length ">
+                                <ng-container
+                                  *ngTemplateOutlet="subCategoryTemplate; context:{ $implicit: selectedCategory[scat._id], parentId: scat._id, grandParentId: mcat[i]}"></ng-container>
+                              </ul>
+                            </li>
+                          </ng-container>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div *ngFor="let mcat of category_sub let i = index">
+
+                <input type="radio" name="radioOptions" [checked]="checkobx[mcat._id]" [value]="mcat.rcatname"
+                  (change)="getproductfilter(mcat._id);un_check(mcat._id)" />&nbsp;&nbsp;
+                <span>
+                  {{ mcat.rcatname }}
+                </span>
+                <ul class="category-listed m-0" *ngIf="checkobx[mcat._id] == true">
+                  <ng-container *ngIf="mcat.subcategory.length > 0">
+                    <li class="check-box" *ngFor="let scat of mcat.subcategory; let j = index">
+                      <div class="df_aic">
+                        <input type="checkbox"
+                          (change)="getproductfilters(mcat._id,scat._id,subcheckbox[scat._id],true);buildTree(scat._id, i,true)"
+                          [(ngModel)]="subcheckbox[scat._id]"
+                          [checked]="mcat.subcategory.indexOf(scat['_id']) != -1 ? true:false" name="scat{{j}}"
+                          id="scat{{j}}">
+                        <span class="checkmark">{{scat.scatname}}</span>
+                      </div>
+                      
+                      <ul class="submenu" *ngIf="selectedCategory[scat._id] && selectedCategory[scat._id].length "> <!-- <div *ngFor="let scat_one of selectedCategory[scat._id]">
+                      <input type="checkbox" [(ngModel)]="childcheckbox[scat_one._id]"
+                        (change)="getproductfilters(mcat._id,scat_one._id);buildTree(scat_one._id, mcat._id)">{{scat_one.scatname}} {}
+                      <ng-container *ngIf="scat_one.children && scat_one.children.length > 0 ">
+                        <div *ngFor="let scat_two of scat_one.children">
+                          <input type="checkbox" [(ngModel)]="childcheckbox[scat_two._id]"
+                            (change)="getproductfilters(mcat._id,scat_two._id);buildTree(scat_two._id, mcat._id)">{{scat_two.scatname}}
+                          {{childcheckbox[scat_two._id]}}                          <ng-container *ngIf="scat_two.children && scat_two.children.length > 0">                            <div *ngFor="let scat_three of  scat_two.children">
+                              <input type="checkbox" [(ngModel)]="childcheckbox[scat_three._id]"
+                                (change)="getproductfilters(mcat._id,scat_three._id);buildTree(scat_three._id, mcat._id)">{{scat_three.scatname}}
+                              {{childcheckbox[scat_three._id]}}                            </div>                          </ng-container>
+                        </div>
+                      </ng-container>                    </div>
+                      <ng-container
+                          *ngTemplateOutlet="subCategoryTemplate; context:{ $implicit: selectedCategory[scat._id], parentId: scat._id, grandParentId: mcat[i]}"></ng-container>
+                      </ul>
+                    </li>
+                  </ng-container>
+                </ul>
+              </div> -->
+              <!-- template --> <ng-template #subCategoryTemplate let-subcategories let-parentId let-grandParentId>
+                <li *ngFor="let subcat of subcategories; let k=index">
+                  <input type="checkbox" [(ngModel)]="childcheckbox[subcat._id]"
+                    (change)="getproductfilters(grandParentId._id ? grandParentId._id:grandParentId[0].rcategory,subcat._id,childcheckbox[subcat._id],false);buildTree(subcat._id, grandParentId._id ? grandParentId._id:grandParentId[0].rcategory,false)"><span>{{subcat.scatname}}</span>
+                  <ul class="submenu" *ngIf="selectedCategory[subcat._id] && selectedCategory[subcat._id].length ">
+                    <ng-container
+                      *ngTemplateOutlet="subCategoryTemplate; context:{ $implicit: selectedCategory[subcat._id], parentId: subcat._id, grandParentId: grandParentId }">
+                      <!-- *ngTemplateOutlet="subCategoryTemplate; context:{ $implicit: subcat.children, parentId: subcat._id, grandParentId: grandParentId }"> -->
+                    </ng-container>
+                  </ul>
+                </li>
+              </ng-template>
+              <div class="filter-parts volume" *ngFor="let variant of variance">
+                <h3>{{variant.name}}</h3>
+                <div class="size-list" *ngFor="let checks of variant.units">
+                  <input type="checkbox" [(ngModel)]="variance_checkbox[checks._id]"
+                    (change)="variance_filter(checks._id)">{{checks.name}}
+                </div>
+              </div>
+              <!-- <p>Selected option: {{ selectedOption|json }}</p> --> <!-- <div class="" *ngFor="let mcat of category_sub; let i = index">
+            <div class="head-prod check-box">
+              <input type="radio" (click)="getproductfilter(mcat._id)" [(ngModel)]="checkobx[mcat._id]"
+                [checked]="category_sub.indexOf(mcat['_id']) != -1 ? true:false" name="rcat{{i}}" id="rcat{{i}}">
+              <span class="checkmark"></span>
+              <label>{{mcat.rcatname}} ({{mcat.rfood || 0}})</label>
+              <ul class="category-listed" *ngIf="checkobx[mcat._id] == true">
+                <ng-container *ngIf="mcat.subcategory.length > 0">
+                  <li class="check-box" *ngFor="let scat of mcat.subcategory; let j = index">
+                    <input type="checkbox" (click)="getproductfilters(mcat._id,scat._id)"
+                      [(ngModel)]="subcheckbox[scat._id]"
+                      [checked]="mcat.subcategory.indexOf(scat['_id']) != -1 ? true:false" name="scat{{j}}"
+                      id="scat{{j}}">
+                    <span class="checkmark"></span>
+                    <label>{{scat.scatname}}</label>
+                  </li>                </ng-container>              </ul>
+            </div>          </div> --> <!-- <ul class="categories-list" *ngFor="let item of category_sub | categoryPipe : id">
+            <li *ngFor="let scat of item.subcategory; let i = index">
+              <label>{{scat.scatname}}</label>
+              <input type="checkbox" (click)="getproductfilters(item._id,scat._id)" [(ngModel)]="subcheckbox[scat._id]"
+                [checked]="item.subcategory.indexOf(scat['_id']) != -1 ? true:false" name="rcat{{i}}" id="rcat{{i}}">
+              <span class="checkmark"></span>
+            </li>
+          </ul> -->
+            </div>
+            <!-- <div class="filter-parts" *ngIf="category_name && category_name[0] != 'Saree'">
+          <h3>Size</h3>
+          <ul class="size-list">
+            <li>
+              S
+              <input type="checkbox" [checked]="filterSize.indexOf('S') !=-1? true : false"
+                (click)="getFilterSize('S')">
+              <span class="checkmark"></span>
+            </li>
+            <li>
+              L
+              <input type="checkbox" [checked]="filterSize.indexOf('L') !=-1? true : false"
+                (click)="getFilterSize('L')">
+              <span class="checkmark"></span>
+            </li>
+            <li>
+              M
+              <input type="checkbox" [checked]="filterSize.indexOf('M') !=-1? true : false"
+                (click)="getFilterSize('M')">
+              <span class="checkmark"></span>
+            </li>
+            <li>
+              XL
+              <input type="checkbox" [checked]="filterSize.indexOf('XL') !=-1? true : false"
+                (click)="getFilterSize('XL')">
+              <span class="checkmark"></span>
+            </li>
+            <li>
+              XXL
+              <input type="checkbox" [checked]="filterSize.indexOf('XXL') !=-1? true : false"
+                (click)="getFilterSize('XXL')">
+              <span class="checkmark"></span>
+            </li>
+            <li>
+              XXXL
+              <input type="checkbox" [checked]="filterSize.indexOf('XXXL') !=-1? true : false"
+                (click)="getFilterSize('XXXL')">
+              <span class="checkmark"></span>
+            </li>
+          </ul>
+        </div> -->
+            <div class="filter-parts">
+              <h3>Price</h3>
+              <div class="price-range filter_price_range">
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(100,3000)" [(ngModel)]="pricebox[1031]" name="rcat"
+                    id="rcat" value="">
+                  <span class="checkmark"></span>
+                  <label><i>₹ 100</i>to
+                    <i>₹ 3000</i> </label>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(3000,10000)" [(ngModel)]="pricebox[2051]" name="rcat"
+                    id="rcat" value="">
+                  <span class="checkmark"></span>
+                  <label> <i>₹ 3000</i> to
+                    <i>₹ 10000</i> </label>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(10000,25000)" [(ngModel)]="pricebox[51101]"
+                    name="price" id="price" value="">
+                  <span class="checkmark"></span>
+                  <label> <i>₹ 10000</i> to
+                    <i>₹ 25000</i> </label>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(25000,40000)" [(ngModel)]="pricebox[101201]"
+                    name="price" id="price" value="">
+                  <span class="checkmark"></span>
+                  <label><i>₹ 30000</i> to
+                    <i>₹ 45000</i> </label>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(35000,50000)" [(ngModel)]="pricebox[201501]"
+                    name="price" id="price" value="">
+                  <span class="checkmark"></span>
+                  <label><i>₹ 50000</i> to
+                    <i>₹ 60000</i> </label>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(50000,1000000)" [(ngModel)]="pricebox[5011000000]"
+                    name="price" id="price">
+                  <span class="checkmark"></span>
+                  <label>More than <i>₹ 50000</i>
+                  </label>
+                </div>
+              </div>
+              <!-- <app-slide-amount (onSliderChange)="onSliderChange($event)"></app-slide-amount> -->
+              <!-- <ngx-slider [(value)]="minValue" (onFinish)="onSliderChange($event)" [(highValue)]="maxValue" [options]="options"></ngx-slider> -->
+            </div>
+            <div *ngIf="settings.review_rating " class="filter-reviews filter-parts">
+              <h3>Reviews & Ratings</h3>
+              <div class="price-range">
+                <div class="head-prod check-box">
+                  <input type="radio" [checked]="rating_filter === 5" (click)="ratingFilterUpdate(5)" name="ratingRadio"
+                    id="ratingRadio" value="5">
+                  <span class="checkmark"></span>
+                  <ngb-rating class="review-star-small" [rate]="5" [disabled]="true" [readonly]="false"></ngb-rating>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="radio" [checked]="rating_filter === 4" (click)="ratingFilterUpdate(4)" name="ratingRadio"
+                    id="ratingRadio" value="4">
+                  <span class="checkmark"></span>
+                  <ngb-rating class="review-star-small" [rate]="4" [disabled]="true"
+                    [readonly]="false"></ngb-rating><span>
+                    & up</span>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="radio" [checked]="rating_filter === 3" (click)="ratingFilterUpdate(3)" name="ratingRadio"
+                    id="ratingRadio" value="3">
+                  <span class="checkmark"></span>
+                  <ngb-rating class="review-star-small" [rate]="3" [disabled]="true"
+                    [readonly]="false"></ngb-rating><span>
+                    & up</span>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="radio" [checked]="rating_filter === 2" (click)="ratingFilterUpdate(2)" name="ratingRadio"
+                    id="ratingRadio" value="2">
+                  <span class="checkmark"></span>
+                  <ngb-rating class="review-star-small" [rate]="2" [disabled]="true"
+                    [readonly]="false"></ngb-rating><span>
+                    & up</span>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="radio" [checked]="rating_filter === 1" (click)="ratingFilterUpdate(1)" name="ratingRadio"
+                    id="ratingRadio" value="1">
+                  <span class="checkmark"></span>
+                  <ngb-rating class="review-star-small" [rate]="1" [disabled]="true"
+                    [readonly]="false"></ngb-rating><span>
+                    & up</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-list">
+        <div class="product_pagination">
+
+          <div class="fillter-top">
+            <div class="icon_all_product"> <button (click)='menu_click("add")'><img
+                  src="../../../assets/image/new_images/filter.svg" /></button> <button (click)='menu_click("remove")'
+                class="back_arrow">
+                <!-- <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> -->
+                &#x2190;
+              </button>
+              <!-- <ng-container *ngIf="category_name && category_name.length == 1">
+              <h3>{{category_name[0]}}</h3>
+            </ng-container> -->
+              <ng-container *ngIf="category_name && category_name.length >0 && category_name.length != 1">
+                <h3>All</h3>
+              </ng-container> <ng-container *ngIf="category_name.length == 0">
+                <h3 class="product_title_name">All Category</h3>
+              </ng-container>
+              <!-- <p>(Showing {{totalItems>0?skip+1:0}} – {{totalItems}} products of {{pro_count}} products)</p> -->
+            </div>
+            <div class="short_by_select">
+              <p for="sortFilter" class="sort_by">Sort by : </p>
+              <ng-select [items]="sort_arr" bindLabel="label" bindValue="value" (change)="changeSort(sort_filter)"
+                [searchable]="false" [(ngModel)]="sort_filter" dropdownPosition="bottom" [clearable]="false">
+                <ng-template ng-optgroup-tmp let-item="item">
+                  {{item.label }}
+                </ng-template>
+              </ng-select>
+              <!-- <select class="select_sort" [(ngModel)]="sort_filter " (ngModelChange)="changeSort(sort_filter)">
+              <option value="latest"> New arrivals</option>
+              <option value="lowtohigh">Price: Low to High</option>
+              <option value="hightolow">Price: High to Low</option>
+              <option *ngIf="settings.review_rating" value="rathightolow">Ratings: High to Low</option>
+              <option *ngIf="settings.review_rating" value="ratlowtohigh">Ratings: Low to High</option>
+            </select> -->
+            </div>
+
+            <!-- New Drop Down -->
+            <!-- <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                  Toggle dropdown
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button ngbDropdownItem>Action - 1</button>
+                  <button ngbDropdownItem>Another Action</button>
+                  <button ngbDropdownItem>Something else is here</button>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          </div>
+          <div class="filter-result box-scroll">
+            <div class="card_box" *ngFor="let item of productList">
+              <!-- <p class="offer" *ngIf="item.offer_status == 1">{{item.offer_amount}}% off</p> -->
+              <span (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                <img src="{{item.avatar}}" class="" onerror="this.src='assets/image/no_img.png'" />
+                <img src="{{item.hover_image}}" class="hover_img" onerror="this.src='assets/image/no_img.png'" />
+                <p class="like" (click)="addFavourite(item._id, loginPopup)">
+                  <i class="fa fa-heart-o" aria-hidden="true" *ngIf="faviroitList.indexOf(item['_id']) == -1"></i>
+                  <i class="fa fa-heart" aria-hidden="true" *ngIf="faviroitList.indexOf(item['_id']) != -1"></i>
+                </p>
+                <p class="xcelerator-pdpXceleratorImageTag" *ngIf="item.offer_status == 1">Special Offer</p>
+              </span>
+              <div class="card_box_details">
+
+                <!-- <p class="deal-outofstock"><span *ngIf="item.size_status == 1 && item.in_size == 0"><i></i> Out of
+                  stock</span> </p> -->
+                <!-- <p class="deal" *ngIf="item.offer_status == 1">Special Offer <span *ngIf="item.quantity == 0"><i></i> Out of stock</span>  </p>
+              <p class="deal" *ngIf="item.offer_status == 0"><span *ngIf="item.quantity == 0"><i></i> Out of stock</span>  </p> -->
+                <p class="cart_cnt" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                  <span>{{item.name}}</span>
+
+                </p>
+                <p class="price" *ngIf="item.offer_status == 0">
+                  ₹ {{item.sale_price | number}}
+                  <i class="fst-normal text-decoration-line-through" *ngIf="item.base_price > item.sale_price">₹
+                    {{item.base_price | number}}</i>
+
+                </p>
+                <p class="price" *ngIf="item.offer_status == 1">₹ {{item.offer_sale | number}} <i
+                    class="fst-normal text-decoration-line-through" *ngIf="item.offer_base > item.offer_sale">₹
+                    {{item.offer_base | number}}</i>
+                  <i class="price__dis_offer offer" *ngIf="item.offer_status == 1">({{item.offer_amount}} % OFF)</i>
+                </p>
+
+                <p class="deal-outofstock"><span *ngIf="item.size_status == 2 && item.product_avail == false"><i></i>
+                    Out
+                    of
+                    stock</span> </p>
+                <!-- <div *ngIf="settings.review_rating" class="review_rating">
+                <ngb-rating class="review-star-small" [(rate)]="item.rating" [disabled]="true"
+                  [readonly]="false"></ngb-rating>
+                <label>{{item.total_rating_users ? item.total_rating_users : 0}} reviews</label>
+              </div> -->
+                <div *ngIf="settings.review_rating && item.total_rating_users>0" class="review_rating">
+                  <div class="_3LWZlK">{{item.rating}}&nbsp;
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  </div>&nbsp;|
+                  <label>{{item.total_rating_users ? item.total_rating_users : 0}}</label>
+                </div>
+                <button *ngIf="cart_details.indexOf(item['_id'])!=-1 && item.size_status == 2 "
+                  [routerLink]="['/cart']">
+                  <img src="../../../assets/image/pillais/cart.png" alt="">
+                </button>
+                <button
+                  *ngIf="cart_details.indexOf(item['_id'])==-1 && item.size_status == 2 && item.product_avail == true "
+                  (click)="preAddCart(item,'add')">
+                  <img src="../../../assets/image/pillais/cart.png" alt="">
+                </button>
+                <button *ngIf="cart_details.indexOf(item['_id'])!=-1 && item.size_status == 1 "
+                  [routerLink]="['/cart']">
+                  <img src="../../../assets/image/pillais/cart.png" alt="">
+                </button>
+                <button *ngIf="cart_details.indexOf(item['_id'])==-1 && item.size_status == 1 "
+                  (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+                  <img src="../../../assets/image/pillais/cart.png" alt="">
+                </button>
+              </div>
+              <i class="fa-regular fa-heart"></i>
+              <i class="fa-solid fa-heart"></i>
+            </div>
+
+            <!-- <app-pagination *ngIf="productList.length != 0" [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="onPageChange($event)"></app-pagination> -->
+            <div class="no-order d-flex flex-wrap justify-content-center"
+              *ngIf="showproduct && productList.length == 0">
+              <span>
+                <img src="assets/image/no-product.png" alt="" width="100%" height="100%">
+              </span>
+              <p class="empty-p mt-2"><span>Product is not available</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="pagination-sec" *ngIf="productList.length != 0">
+          <span class="page-number">Page {{currentPage}} of {{totalPages}}</span>
+          <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+                <a class="page-link" (click)="setPage(currentPage - 1)" aria-label="Previous">
+                  Previous
+                </a>
+              </li>
+              <li class="page-item" *ngFor="let page of getVisiblePageNumbers()"
+                [ngClass]="{'active': currentPage === page}">
+                <a class="page-link" (click)="setPage(page)">{{ page }}</a>
+              </li>
+              <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+                <a class="page-link" (click)="setPage(currentPage + 1)" aria-label="Next">
+                  Next
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <section class="related-products" *ngIf="recentlyVistProd.length > 0">
+  <div class="container">
+    <h3>Recently Viewed</h3>
+    <div class="related-product-slider">
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
+        (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+        (beforeChange)="beforeChange($event)">
+        <div ngxSlickItem class="slide" *ngFor="let item of recentlyVistProd">
+          <div class="card_box">
+            COMMENT-S
+            <p class="offer" *ngIf="item.offer_status == 1">{{item.offer_amount}}% off</p>
+            COMMENT-E
+            <span>
+              <img src="{{item.avatar}}" class="" onerror="this.src='assets/image/no_img.png'" />
+              <img src="{{item.hover_image}}" class="hover_img" onerror="this.src='assets/image/no_img.png'" />
+              <p class="like" (click)="addFavourite(item._id, loginPopup)">
+                <i class="fa fa-heart-o" aria-hidden="true" *ngIf="faviroitList.indexOf(item['_id']) == -1"></i>
+                <i class="fa fa-heart" aria-hidden="true" *ngIf="faviroitList.indexOf(item['_id']) != -1"></i>
+              </p>
+              <a style="cursor: pointer ;" (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">Detail
+                view <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+              <p class="xcelerator-pdpXceleratorImageTag" *ngIf="item.offer_status == 1">Special Offer</p>
+            </span>
+            <div class="card_box_details">
+
+              COMMENT-S
+              <p class="deal" *ngIf="item.offer_status == 1">Special Offer <span *ngIf="item.quantity == 0"><i></i> Out
+                  of stock</span> </p>
+              <p class="deal" *ngIf="item.offer_status == 0"><span *ngIf="item.quantity == 0"><i></i> Out of
+                  stock</span> </p>
+              COMMENT-E
+              <p class="cart_cnt" (click)="productDetails(item.slug,item.product_id,item.rcategory,item.scategory)">
+                {{item.name}}</p>
+              <p class="price" *ngIf="item.offer_status == 0">₹  {{item.sale_price | number}} <i
+                  class="fst-normal text-decoration-line-through" *ngIf="item.base_price > item.sale_price">₹ 
+                  {{item.base_price | number}}</i></p>
+              <p class="price" *ngIf="item.offer_status == 1">₹  {{item.offer_sale | number}} <i
+                  class="fst-normal text-decoration-line-through" *ngIf="item.offer_base > item.offer_sale">₹ 
+                  {{item.offer_base | number}}</i><i class="price__dis_offer offer"
+                  *ngIf="item.offer_status == 1">({{item.offer_amount}} % OFF)</i></p>
+              COMMENT-S
+              <div *ngIf="settings.review_rating" class="review_rating">
+                <ngb-rating class="review-star-small" [(rate)]="item.rating" [disabled]="true"
+                  [readonly]="false"></ngb-rating>
+                <label>{{item.total_rating_users ? item.total_rating_users : 0}} reviews</label>
+              </div>
+              COMMENT-e
+
+              <div *ngIf="settings.review_rating" class="review_rating">
+                <div class="_3LWZlK">4.4&nbsp;
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                </div>&nbsp;|
+                <label>{{item.total_rating_users ? item.total_rating_users : 0}}</label>
+              </div>
+              <p class="deal-outofstock"><span *ngIf="item.size_status == 2 && item.no_size == 0"><img
+                    src="assets/image/stock_cross.png" alt="Out Of Order"> Out Of
+                  Stock</span> </p>
+              <p class="deal-outofstock"><span *ngIf="item.size_status == 1 && item.in_size == 0"><img
+                    src="assets/image/stock_cross.png" alt="Out Of Order"> Out Of
+                  Stock</span> </p>
+              <button *ngIf="cart_details.indexOf(item['product_id'])!=-1 && item.size_status == 2 && item.no_size == 1"
+                [routerLink]="['/cart']">
+                Go To Cart <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </button>
+              <button *ngIf="cart_details.indexOf(item['product_id'])==-1 && item.size_status == 2 && item.no_size == 1"
+                (click)="preAddCart(item,'add')">
+                Add To Cart <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </button>
+              <button *ngIf="cart_details.indexOf(item['product_id'])!=-1 && item.size_status == 1 && item.in_size == 1"
+                [routerLink]="['/cart']">
+                Go To Cart <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </button>
+              <button *ngIf="cart_details.indexOf(item['product_id'])==-1 && item.size_status == 1 && item.in_size == 1"
+                (click)="preAddCart(item,'add')">
+                Add To Cart <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ngx-slick-carousel>
+    </div>
+  </div>
+</section> -->
+<ng-template #loginPopup>
+  <app-login [modalRef]="modalRef"> </app-login>
+</ng-template>

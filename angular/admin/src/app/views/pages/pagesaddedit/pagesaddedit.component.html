@@ -1,0 +1,141 @@
+<div class="layout_ctrl-page_list_add_edit margin_top">
+    <div class="container">
+        <div class="animated fadeIn">
+            <form #pagesForm="ngForm" (ngSubmit)="onFormSubmit(pagesForm)" autocomplete="off">
+                <!-- <div class="full_page_title"><strong>{{pageTitle | titlecase}}</strong></div> -->
+                <div class="full_page_title"><strong>{{pageTitle}}</strong></div>
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="page_name">
+                            <label for="name">Page Name <span class="mandatory">*</span> </label>
+                            <input type="text" id="name" ngModel minlength="3" maxlength="30" name="name"
+                                #name="ngModel" required class="form-control" placeholder="Enter Page Name"
+                                [ngClass]="{ 'is-invalid': pagesForm.submitted && name.errors }"
+                                [ngClass]="{ 'is-valid': !name.errors && name.valid}">
+                            <div *ngIf="pagesForm.submitted && !name.valid">
+                                <div class="invalid-feedback" *ngIf="name.errors.required">Page Name is
+                                    required.
+                                </div>
+                                <div class="invalid-feedback" *ngIf="name.errors.minlength">Page Name Must Be
+                                    Minimum Of 3 characters.</div>
+                                <div class="invalid-feedback" *ngIf="name.errors.maxlength">Page Name Must Be
+                                    Minimum Of 30 characters.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="page_slug">
+                    <label for="slug">Page Slug <span class="color_red">*</span></label>
+                    <p class="mb-10 custom-font">
+                        <input type="text" name="slug" id="slug" [disabled]="showinputTag" ngModel
+                            #slug="ngModel" required>
+                        <a href="javascript:void(0);"
+                            class="btn btn-default btn-rounded-20 btn-xs pull-right"
+                            (click)="showinputTag = !showinputTag"><i class="fa fa-pencil"></i></a>
+                    </p>
+                    <div *ngIf="pagesForm.submitted && !slug.valid">
+                        <div class="invalid-feedback" *ngIf="slug.errors && slug.errors.required">Page
+                            Slug is required.
+                        </div>
+                    </div>
+                </div> -->
+
+                        <div class="page_content">
+                            <label for="page_content">Page Content <span class="mandatory">*</span></label>
+                            <angular-editor [disabled]="viewpage" id="page_content" name="page_content" required ngModel
+                                [placeholder]="'Enter text here...'" #page_content="ngModel"
+                                [config]="editorConfig"></angular-editor>
+                            <!-- <editor [disabled]="viewpage" apiKey="wqel19pklihbenult7fuqsssltcd8vup4cl0n33y6m3hzghx" id="page_content" ngModel name="page_content" required #page_content="ngModel" [init]="{
+                        height: 300,
+                        menubar: false,
+                        plugins: [
+                          'advlist autolink lists link image charmap print preview anchor',
+                          'searchreplace visualblocks code fullscreen',
+                          'insertdatetime media table paste code wordcount'
+                        ],
+                        toolbar:
+                          'undo redo | formatselect | bold italic backcolor | \
+                          alignleft aligncenter alignright alignjustify | \
+                          bullist numlist outdent indent | removeformat | code'
+                      }">
+                    </editor> -->
+                            <div *ngIf="pagesForm.submitted && !page_content.valid">
+                                <div class="invalid-feedback" *ngIf="page_content.errors.required">Page Content
+                                    is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="full_page_title"><strong>SEO Details</strong> </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page_title">
+                            <label for="page_title">Page Title <span class="color_red">*</span></label>
+                            <input type="text" name="page_title" id="page_title" ngModel #page_title="ngModel"
+                                [ngClass]="{ 'is-invalid': pagesForm.submitted && page_title.errors }"
+                                [ngClass]="{ 'is-valid': !page_title.errors && page_title.valid}" class="form-control"
+                                required>
+                            <p class="help-block" *ngIf="pagesForm.submitted && !page_title.valid">
+                                <span class="invalid-feedback" *ngIf="page_title.errors.required">Page Title
+                                    is required.</span>
+                            </p>
+                        </div>
+
+                        <div class="focus_keyboard">
+                            <label for="focusKeyword">Focus Keyword <span class="color_red">*</span></label>
+                            <input type="text" ngModel #focusKeyword="ngModel" name="focusKeyword" id="focusKeyword"
+                                class="form-control"
+                                [ngClass]="{ 'is-invalid': pagesForm.submitted && focusKeyword.errors }"
+                                [ngClass]="{ 'is-valid': !focusKeyword.errors && focusKeyword.valid}" required>
+                            <p class="help-block" *ngIf="pagesForm.submitted && !focusKeyword.valid">
+                                <span class="invalid-feedback" *ngIf="focusKeyword.errors.required">Focus
+                                    Keyword is required.</span>
+                            </p>
+                        </div>
+
+                        <div class="description">
+                            <label for="description">Description <span class="color_red">*</span></label>
+                            <textarea class="form-control" rows="7" name="description" id="description" ngModel
+                                maxlength="500" #description="ngModel"
+                                placeholder="Copy and Paste your Description Here (Max 500 words)" aria-multiline="true"
+                                aria-required="true"
+                                [ngClass]="{ 'is-invalid': pagesForm.submitted && description.errors }"
+                                [ngClass]="{ 'is-valid': !description.errors && description.valid}" aria-invalid="true"
+                                required></textarea>
+                            <p class="help-block" *ngIf="pagesForm.submitted && !description.valid">
+                                <span class="invalid-feedback" *ngIf="description.errors.required">Description
+                                    required.</span>
+                            </p>
+                        </div>
+
+                        <div class="status">
+                            <label for="status">Status <span class="mandatory">*</span></label>
+                            <ng-select [items]="statusOptions" bindLabel="label" bindValue="value"
+                                [(ngModel)]="selectedStatus" name="status" id="status" #status="ngModel"
+                                class="form-control custom-ng-select"
+                                [ngClass]="{ 'is-invalid': pagesForm.submitted && status.errors, 'is-valid': !status.errors && status.valid }"
+                                placeholder="--Select--" required>
+                            </ng-select>
+                            <div *ngIf="pagesForm.submitted && !status.valid">
+                                <div class="invalid-feedback" *ngIf="status.errors.required">Status is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card_footer_btn">
+                            <button type="button" *ngIf="!viewpage" routerLink="/app/pages/list" class="btn btn-sm">
+                                Cancel
+                            </button>
+                            <button type="submit" *ngIf="!viewpage" class="btn btn-sm" [disabled]="submitebtn">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header"><strong>{{pageTitle | titlecase}}</strong></div>
+                <form #reporttempleteForm="ngForm" (ngSubmit)="onFormSubmit(reporttempleteForm)" autocomplete="off">
+                    <div class="card-body">
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="name">Template Name <span class="mandatory">*</span> </label>
+                                    <input type="text" id="name" ngModel name="name" #name="ngModel" required
+                                        class="form-control" placeholder="Enter Name"
+                                        [ngClass]="{ 'is-invalid': reporttempleteForm.submitted && name.errors }"
+                                        [ngClass]="{ 'is-valid': !name.errors && name.valid}">
+                                    <div *ngIf="reporttempleteForm.submitted && !name.valid">
+                                        <div class="invalid-feedback" *ngIf="name.errors.required">Template Name is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="status">Status <span class="mandatory">*</span></label>
+                                    <select name="status" id="status" class="form-control" ngModel name="status"
+                                        #status="ngModel" required
+                                        [ngClass]="{ 'is-invalid': reporttempleteForm.submitted && status.errors }"
+                                        [ngClass]="{ 'is-valid': !status.errors && status.valid}">
+                                        <option value="">--Select--</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Inactive</option>
+                                    </select>
+                                    <div *ngIf="reporttempleteForm.submitted && !status.valid">
+                                        <div class="invalid-feedback" *ngIf="status.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="group-control">
+                                    <label for="contant">Template Content <span class="mandatory">*</span></label>
+                                    <editor [disabled]="viewpage"
+                                        apiKey="wqel19pklihbenult7fuqsssltcd8vup4cl0n33y6m3hzghx" id="contant" ngModel
+                                        name="contant" required #contant="ngModel" [init]="{
+                                        height: 300,
+                                        menubar: false,
+                                        plugins: [
+                                          'advlist autolink lists link image charmap print preview anchor',
+                                          'searchreplace visualblocks code fullscreen',
+                                          'insertdatetime media table paste code wordcount'
+                                        ],
+                                        toolbar:
+                                          'undo redo | formatselect | bold italic backcolor | \
+                                          alignleft aligncenter alignright alignjustify | \
+                                          bullist numlist outdent indent | removeformat | code'
+                                      }">
+                                    </editor>
+                                    <div *ngIf="reporttempleteForm.submitted && !contant.valid">
+                                        <div class="invalid-feedback" *ngIf="contant.errors.required">Email Сontent is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" *ngIf="!viewpage" class="btn btn-sm btn-success" [disabled]="submitebtn">
+                            Submit
+                        </button>
+                        <button type="button" *ngIf="!viewpage" routerLink="/app/report/report-list"
+                            class="btn btn-sm btn-danger">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

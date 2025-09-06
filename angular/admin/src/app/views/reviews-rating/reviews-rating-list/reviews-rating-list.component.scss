@@ -1,0 +1,35 @@
+::ng-deep .reviews_and_rating {
+  position: relative;
+  .product_list_filter {
+    right: 0 !important;
+  }
+  .customtable-design {
+    table {
+      thead {
+        tr {
+        
+
+          th {
+            border: none;
+          }
+        }
+      }
+      tbody {
+        tr {
+          td {
+            font-weight: 700;
+          }
+
+          td:nth-child(4) div {
+            display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 300px;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+}

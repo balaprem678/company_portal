@@ -1,0 +1,308 @@
+<div class="category-add_category margin_top">
+    <div class="container">
+        <form #categoryForm="ngForm"  autocomplete="off">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="full_page_title "><strong>{{pageTitle | titlecase}}</strong></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="category_image">
+                        <label for="cimage">Category Image <span class="mandatory">*</span> </label>
+                        <span *ngIf="!id" class="inline_cat_image">
+                            <input [disabled]="disableview" type="file" id="cimage" ngModel name="cimage" required
+                                #cimage="ngModel" class="form-control input_pencil" placeholder="Enter Name"
+                                (change)="fileUpload($event);imageCropPopout(imagecrop)">
+                            <div class="preview" *ngIf="previewImage">
+                                <img class="" [src]="previewImage">
+                            </div>
+                            <div class="img_center_call" *ngIf="!previewImage">
+                                <img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+                            <div *ngIf="submitebtn && !cimage.valid">
+                                <div class="invalid-feedback" *ngIf="cimage.errors.required">Category
+                                    image
+                                    is
+                                    required.
+                                </div>
+                            </div>
+                        </span>
+                        <span *ngIf="id" class="inline_cat_image">
+                            <input [disabled]="disableview" accept="image/*" type="file" id="cimage" ngModel
+                                name="cimage" #cimage="ngModel" class="form-control input_pencil"
+                                placeholder="Enter Name" (change)="fileUpload($event);imageCropPopout(imagecrop)">
+                            <div class="preview" *ngIf="previewImage">
+                                <img class="" [src]="previewImage">
+                            </div>
+                            <div class="img_center_call" *ngIf="!previewImage">
+                                <img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+                        </span>
+
+                        <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                            *.png, *.jpg and *.jpeg image files are
+                            accepted</p>
+
+                        <!-- <span class="restaurant-img-error">Allowed files: png, jpg. Max file size
+                                2Mb</span> -->
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+                    <div class="icon_image ">
+                        <label for="iconimage">Icon Image <span class="mandatory">*</span> </label>
+                        <span *ngIf="!id" class="inline_cat_image">
+                            <input [disabled]="disableview" type="file" id="iconimage" ngModel name="iconimage" required
+                                #iconimage="ngModel" class="form-control input_pencil" placeholder="Enter Name"
+                                (change)="icon_fileUpload($event);imageCropPopouts(iconcrop)">
+                            <div class="preview" *ngIf="iconpreviewImage">
+                                <img class="" [src]="iconpreviewImage">
+                            </div>
+                            <div class="img_center_call" *ngIf="!iconpreviewImage">
+                                <img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+                            <div *ngIf="submitebtn && !iconimage.valid">
+                                <div class="invalid-feedback" *ngIf="iconimage.errors.required">Icon
+                                    image
+                                    is
+                                    required.
+                                </div>
+                            </div>
+
+                        </span>
+                        <span *ngIf="id" class="inline_cat_image">
+                            <input [disabled]="disableview" accept="image/*" type="file" id="iconimage" ngModel
+                                name="iconimage" #iconimage="ngModel" class="form-control input_pencil"
+                                placeholder="Enter Name" (change)="icon_fileUpload($event);imageCropPopouts(iconcrop)">
+
+                            <div class="preview">
+                                <img class="" [src]="iconpreviewImage">
+                            </div>
+                            <div class="img_center_call">
+                                <img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+                        </span>
+                        <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                            *.png, *.jpg and *.jpeg image files are
+                            accepted</p>
+                    </div>
+
+
+
+                </div>
+                <div class="col-md-4">
+
+
+                    <div class="icon_image  ">
+                        <label for="iconimage">Category Banner <span class="mandatory">*</span> </label>
+                        <span *ngIf="!id" class="inline_cat_image">
+                            <input [disabled]="disableview" type="file" id="categorybanner" ngModel
+                                name="categorybanner" required #categorybanner="ngModel"
+                                class="form-control input_pencil" placeholder="Enter Name"
+                                (change)="categoryBanner($event);imageCropPopbanner(bannercrop)">
+                            <div class="preview" *ngIf="bannerImage">
+                                <img class="" [src]="bannerImage">
+                            </div>
+                            <div class="img_center_call" *ngIf="!bannerImage">
+                                <img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+                            <div *ngIf="submitebtn && !categorybanner.valid">
+                                <div class="invalid-feedback" *ngIf="categorybanner.errors.required">Banner
+                                    image
+                                    is
+                                    required.
+                                </div>
+                            </div>
+
+                        </span>
+                        <span *ngIf="id" class="inline_cat_image">
+                            <input [disabled]="disableview" accept="image/*" type="file" id="categorybanner" ngModel
+                                name="categorybanner" #categorybanner="ngModel" class="form-control input_pencil"
+                                placeholder="Enter Name"
+                                (change)="categoryBanner($event);imageCropPopbanner(bannercrop)">
+
+                            <div class="preview" *ngIf="bannerImage">
+                                <img class="" [src]="bannerImage">
+                            </div>
+                            <div class="img_center_call" *ngIf="!bannerImage">
+                                <img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+                        </span>
+                        <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                            *.png, *.jpg and *.jpeg image files are
+                            accepted</p>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 mt-4">
+                    <div class="category_name">
+                        <label for="rcatname">Category Name <span class="mandatory">*</span> </label>
+                        <input [disabled]="disableview" type="text" id="rcatname" ngModel name="rcatname"
+                            #rcatname="ngModel" [(ngModel)]="cateory_name" (keyup)="changeSlug()" required
+                            maxlength="60" class="form-control" placeholder="Enter category name">
+                        <div *ngIf="submitebtn && !rcatname.valid">
+                            <div class="invalid-feedback" *ngIf="rcatname.errors.required">Category is
+                                required.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="rcatname.errors.maxlength">Maximum
+                                character limit exceeded.</div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="category_name mt-4">
+                        <label for="Tax">Tax % <span class="mandatory">*</span> </label>
+                            <input 
+                            [disabled]="disableview" 
+                            type="text" 
+                            id="Taxs" 
+                            ngModel 
+                            name="Taxs" 
+                            #Taxs="ngModel" 
+                            required 
+                            minlength="1" 
+                            maxlength="3" 
+                            class="form-control" 
+                            placeholder="(Ex: 18)"
+                            (input)="validateTaxValue($event)"   (keypress)="allowOnlyNumbers($event)" />
+                        
+                        <div *ngIf="submitebtn">
+                            <div class="invalid-feedback" *ngIf="Taxs.errors?.required  && !Taxs.valid">Tax is required.</div>
+                            <div class="invalid-feedback" *ngIf="Taxs.errors?.maxlength  && !Taxs.valid">Maximum character limit exceeded.</div>
+                            <div class="invalid-feedback" *ngIf="taxError">Tax percentage cannot exceed 100.</div>
+                        </div>
+                    </div> -->
+
+                    <div class="meta mt-4">
+                        <h2 class="full_page_title"><strong>Meta Details</strong></h2>
+                            <div class="meta_title mt-4">
+                                <label for="">Meta Title
+                                    <span class="mandatory">*</span></label>
+                                <input  name="meta_title" id="meta_title" class="form-control" ngModel
+                                    #meta_title="ngModel" required placeholder="Enter Title" required>
+                                <div *ngIf="submitebtn && !meta_title.valid">
+                                    <div class="invalid-feedback" *ngIf="meta_title.errors?.required"> Title
+                                        is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="meta_keyword mt-4">
+                                <label for="">Meta Keyword
+                                    <span class="mandatory">*</span></label>
+                                <!-- <input disabled name="meta_keyword" id="meta_keyword" class="form-control" ngModel
+                                #meta_keyword="ngModel" required placeholder="Enter Title" required> -->
+                                <div class="tags-box">
+                                    <input type="text" class="form-control" id="meta_keyword" name="meta_keyword"
+                                        [(ngModel)]="metakeyname" ngModel #meta_keyword="ngModel"
+                                        placeholder="#meta keyword" (keypress)="addmetamanage($event)">
+                                    <ul class="tags-box-list">
+                                        <li *ngFor="let item of metakeyList; let i = index">
+                                            <span>{{ item }}</span>
+                                            <i class="fa fa-times" (click)="removemetaTag(i)" *ngIf="!view"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div *ngIf="submitebtn && (metakeyList && metakeyList.length) == 0">
+                                    <div class="invalid-feedback" *ngIf="meta_keyword.errors?.required">
+                                        Keyword
+                                        is
+                                        required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="meta_description  mt-4">
+                                <label for="meta_description">Meta Description&nbsp;<span class="mandatory">*</span></label>
+                                <textarea class="form-control" rows="7" name="meta_description"
+                                    id="meta_description" ngModel name="meta_description" placeholder="Enter Description..."
+                                    #meta_description="ngModel" required></textarea>
+                                <div *ngIf="submitebtn && !meta_description.valid">
+                                    <div class="invalid-feedback" *ngIf="meta_description.errors?.required">
+                                        Meta
+                                        Description is required.
+                                    </div>
+                                </div>
+                            </div>
+    
+                    </div>
+                    <div class="status mt-4">
+                        <label for="status">Status<span class="mandatory">*</span></label>
+
+                        <ng-select [disabled]="disableview" [items]="statusOptions" bindLabel="label" bindValue="value"
+                            [(ngModel)]="selectedStatus" name="status" id="status" #status="ngModel"
+                            class="custom-ng-select" [style.border-radius.px]="dropdownBorderRadius1"
+                            [ngClass]="{ 'is-valid': !status.errors && status.valid }" [placeholder]="'Select'"
+                            required>
+                        </ng-select>
+
+
+                        <div *ngIf="submitebtn && !status.valid">
+                            <div class="invalid-feedback" *ngIf="status.errors.required">Category status
+                                is
+                                required.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="status.errors.status">Please enter
+                                valid
+                                status
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hover_crop_img">
+                    <!-- Product Crop Image -- Start -->
+
+                    <ng-template #imagecrop>
+                        <div class="default_crop_image">
+                            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                                [aspectRatio]="4 / 4" format="png" (imageCropped)="imageCropped($event)" output="base64"
+                                (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
+                                (loadImageFailed)="loadImageFailed()"></image-cropper>
+
+                            <button (click)="closeProductCrop()">Save Changes</button>
+                        </div>
+                    </ng-template>
+                    <!-- Product Crop Image -- End -->
+
+                    <!-- Product Hover Crop Image -- Start -->
+
+                    <ng-template #iconcrop>
+                        <div class="hover_crop_img">
+                            <image-cropper [imageChangedEvent]="imageChangedEvent_hover" [maintainAspectRatio]="true"
+                                [aspectRatio]="123 / 70" format="png" (imageCropped)="imageCropped_hover($event)"
+                                output="base64" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
+                                (loadImageFailed)="loadImageFailed()"></image-cropper>
+                            <button (click)="closeiconcrop()">Save Changes</button>
+                        </div>
+                    </ng-template>
+                    <ng-template #bannercrop>
+                        <div class="hover_crop_img">
+                            <image-cropper [imageChangedEvent]="imageChangedEvent_banner" [maintainAspectRatio]="true"
+                                [aspectRatio]="123 / 70" format="png" (imageCropped)="imageCropped_banner($event)"
+                                output="base64" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
+                                (loadImageFailed)="loadImageFailed()"></image-cropper>
+                            <button (click)="closeiconcrop()">Save Changes</button>
+                        </div>
+                    </ng-template>
+                    <!-- Product Hover Crop Image -- End -->
+                </div>
+          
+
+
+                <div class="card-body col-lg-12">
+
+                    <div class="card_footer_btn">
+                        <button type="button"  routerLink="/app/category/category-list"
+                            class="btn btn-sm ">
+                            Cancel
+                        </button>
+                        <button type="button" (click)="onFormSubmit(categoryForm)"  class="btn btn-sm " >
+                            {{buttonContent}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

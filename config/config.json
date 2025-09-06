@@ -1,0 +1,14 @@
+{
+    "port": "2023",
+    "mongodb": {
+        "host": "127.0.0.1",
+        "port": "27017",
+        "database": "pillais"
+    },
+    "directory": {
+        "users": "./uploads/images/users/"
+    },
+    "default_image": {
+        "users": ""
+    }
+  }

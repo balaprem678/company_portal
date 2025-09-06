@@ -1,0 +1,374 @@
+<div class="dashboard_page margin_top mb-5">
+
+    <div class="full_page_title">
+        <strong> Dashboard</strong>
+    </div>
+    <div class="animated fadeIn ">
+        <div class="dashboard_chart">
+            <div id="widget1">
+                <div class="total_earnings">
+                    <div class="dash_title_number">
+                        <h6> Total Earnings </h6>
+
+                    </div>
+                    <div class="dash_title" id="total_users">{{curreny_symbol}} {{dashBoardDetails.totalAmount || 0}}</div>
+
+                    <!-- <div id="totalamntchart">
+                        <apx-chart [series]="chartOptionsTotalamount.series" [chart]="chartOptionsTotalamount.chart"
+                            [xaxis]="chartOptionsTotalamount.xaxis" [dataLabels]="chartOptionsTotalamount.dataLabels"
+                            [grid]="chartOptionsTotalamount.grid" [stroke]="chartOptionsTotalamount.stroke"
+                            [title]="chartOptionsTotalamount.title" [markers]="chartOptionsTotalamount.markers"
+                            [yaxis]="chartOptionsTotalamount.yaxis" [fill]="chartOptionsTotalamount.fill"></apx-chart>
+                    </div> -->
+                    <div class="abs_links">
+                        <a routerLink="/app/orders/neworders">View Total Earnings</a>
+                        <img src="assets/image/earning.png" alt="">
+                    </div>
+                </div>
+                <div class="order_user">
+                    <div class="dash_title_number">
+                        <h6> Orders </h6>
+                        <!-- <div class="progress_data">
+                            <p id="total_users">
+                                <span>Completed</span>: <span>{{dashBoardDetails.completedOrders||0}}</span>
+                            </p>
+                            <p id="total_users"><span>Inprogress</span>:<span>{{dashBoardDetails.inprogressOrders
+                                    ||0}}</span></p>
+                        </div> -->
+                    </div>
+                    <div class="dash_title" id="total_users">{{dashBoardDetails.orders || 0}}</div>
+
+
+                    <!-- <div id="chartcard">
+                        <apx-chart [series]="chartOptionschart.series" [chart]="chartOptionschart.chart"
+                            [xaxis]="chartOptionschart.xaxis" [dataLabels]="chartOptionschart.dataLabels"
+                            [grid]="chartOptionschart.grid" [stroke]="chartOptionschart.stroke"
+                            [title]="chartOptionschart.title" [markers]="chartOptionschart.markers"
+                            [yaxis]="chartOptionschart.yaxis" [fill]="chartOptionschart.fill"></apx-chart>
+                    </div> -->
+                    <div class="abs_links">
+                        <a routerLink="/app/orders/allorders">View Total Orders</a>
+                        <img src="assets/image/order.png" alt="">
+                    </div>
+                </div>
+                <div class="customers">
+                    <div class="dash_title_number">
+                        <h6> Customers </h6>
+                        <!-- <div class="progress_data">
+                            <p id="total_drivers"><span>Active</span>:<span>{{dashBoardDetails.activeUsers||0}}</span>
+                            </p>
+                            <p id="total_drivers"><span>Inactive</span>:<span>{{dashBoardDetails.inactiveUsers
+                                    ||0}}</span></p>
+                        </div> -->
+                    </div>
+                    <div class="dash_title"> {{dashBoardDetails.users || 0}} </div>
+
+                    <!-- <div id="usercharts">
+                        <apx-chart [series]="chartOptionsUsers.series" [chart]="chartOptionsUsers.chart"
+                            [xaxis]="chartOptionsUsers.xaxis" [dataLabels]="chartOptionsUsers.dataLabels"
+                            [grid]="chartOptionsUsers.grid" [stroke]="chartOptionsUsers.stroke"
+                            [title]="chartOptionsUsers.title" [markers]="chartOptionsUsers.markers"
+                            [yaxis]="chartOptionsUsers.yaxis" [fill]="chartOptionsUsers.fill"></apx-chart>
+                    </div> -->
+                    <div class="abs_links">
+                        <a routerLink="/app/users/list">View Customer</a>
+                        <img src="assets/image/customer.png" alt="">
+                    </div>
+                </div>
+                <div class="products">
+                    <div class="dash_title_number">
+                        <h6> Products </h6>
+                        <!-- <div class="progress_data">
+                            <p id="total_rides"><span>Active</span>:<span>{{dashBoardDetails.activeproducts ||0}}</span>
+                            </p>
+                            <p id="total_rides"><span>Inactive</span>:<span>{{dashBoardDetails.inactiveproducts
+                                    ||0}}</span></p>
+                        </div> -->
+                    </div>
+                    <div class="dash_title"> {{dashBoardDetails.products || 0}} </div>
+
+
+                    <!-- <div id="productcharts">
+                        <apx-chart [series]="chartOptionsProduct.series" [chart]="chartOptionsProduct.chart"
+                            [xaxis]="chartOptionsProduct.xaxis" [dataLabels]="chartOptionsProduct.dataLabels"
+                            [grid]="chartOptionsProduct.grid" [stroke]="chartOptionsProduct.stroke"
+                            [title]="chartOptionsProduct.title" [markers]="chartOptionsProduct.markers"
+                            [yaxis]="chartOptionsProduct.yaxis" [fill]="chartOptionsProduct.fill"></apx-chart>
+                    </div> -->
+                    <div class="abs_links">
+                        <a routerLink="/app/products/list">View Product</a>
+                        <img src="assets/image/product.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div id="chart">
+                <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+                    [responsive]="chartOptions.responsive"></apx-chart>
+                <!-- <span>
+                    Sale % By Categories
+                </span> -->
+            </div>
+        </div>
+    </div>
+
+
+    <div class="earning_chart_select_opt mt-4 mb-5">
+        <div class="earning_e_m_d">
+            <div class="full_page_title">
+                <strong>Earnings </strong>
+            </div>
+            <!-- <div>
+                <p>Orders : {{}}</p>
+            </div> -->
+            <!-- <select class="select" name="earningyear" id="earningyear" [(ngModel)]="orderstatics"
+                (ngModelChange)="onChangeOrderStatics($event)">
+                <option value="7">Last 7 days</option>
+                <option value="30">Last 1 month</option>
+                <option value="180">Last 6 month</option>
+                <option value="365">Last 1 year</option>
+            </select>
+        </div>
+        <div id="earningCharts">
+            <apx-chart [series]="chartOptionsEarnings.series" [chart]="chartOptionsEarnings.chart"
+                [xaxis]="chartOptionsEarnings.xaxis" [dataLabels]="chartOptionsEarnings.dataLabels"
+                [stroke]="chartOptionsEarnings.stroke" [title]="chartOptionsEarnings.title"
+                [yaxis]="chartOptionsEarnings.yaxis"></apx-chart>
+        </div> -->
+            <div class="month_year">
+                <div class="month_select">
+                    <label for="monthSelect">Month:</label>
+                    <select id="monthSelect" [(ngModel)]="selectedMonth" (change)="onMonthChange()">
+                        <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+                    </select>
+                </div>
+
+                <div class="year_select">
+                    <label for="yearSelect">Year:</label>
+                    <select id="yearSelect" [(ngModel)]="selectedYear" (change)="onYearChange()">
+                        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <div id="earningCharts">
+            <apx-chart [series]="chartOptionsEarnings.series" [chart]="chartOptionsEarnings.chart"
+                [xaxis]="chartOptionsEarnings.xaxis" [dataLabels]="chartOptionsEarnings.dataLabels"
+                [stroke]="chartOptionsEarnings.stroke" [title]="chartOptionsEarnings.title"
+                [yaxis]="chartOptionsEarnings.yaxis"></apx-chart>
+        </div>
+    </div>
+
+    <!-- <div class="listmain-dash">
+                    <div class="histmain-dash clr-ancblue">
+                        <div class="shape-handle">
+                            <div class="main-middle">
+                                <div class="left-counter">
+                                    <span> <i class="fi fi-rr-steering-wheel"></i> </span>
+                                </div>
+                                <div class="right-counter">
+                                    <h6> Drivers </h6>
+                                    <h5> {{dashBoardDetails.drivers || 0}} </h5>
+                                </div>
+                            </div>
+                            <div class="common-shifts">
+                                <h5>Approved <span id="overdue_drivers">{{dashBoardDetails.approvedDrivers || 0}}</span>
+                                </h5>
+
+                                <h5>Unapproved <span id="overdue_drivers">{{dashBoardDetails.unapprovedDrivers ||
+                                        0}}</span>
+                                </h5>
+
+                                <h5>Online <span id="overdue_drivers">{{dashBoardDetails.onlineDrivers || 0}}</span>
+                                </h5>
+
+                                <h5>Offline <span id="overdue_drivers">{{dashBoardDetails.oflineDrivers || 0}}</span>
+                                </h5>
+                            </div>
+                            <p class="abs-links">
+                                <a [routerLink]="['/app/drivers/driverslist']" [queryParams]="{selected: 'feed'}"><img
+                                        src="assets/image/arrow.svg"></a>
+                            </p>
+                        </div>
+                        <div class="box-top">
+                            <h5>DRIVERS </h5>
+                            <h4 id="overdue_drivers">{{dashBoardDetails.drivers || 0}}</h4>
+                        </div>
+                        <div class="box-left">
+                            <h5>Approved </h5>
+                            <h4 id="overdue_drivers">{{dashBoardDetails.approvedDrivers || 0}}</h4>
+                        </div>
+                        <div class="box-right">    
+                            <h5>Unapproved </h5>
+                            <h4 id="overdue_drivers">{{dashBoardDetails.unapprovedDrivers || 0}}</h4>
+                        </div>
+                        <div class="box-left">    
+                            <h5>Online </h5>
+                            <h4 id="overdue_drivers">{{dashBoardDetails.onlineDrivers || 0}}</h4>
+                        </div>
+                        <div class="box-right">    
+                            <h5>Offline </h5>
+                            <h4 id="overdue_drivers">{{dashBoardDetails.oflineDrivers || 0}}</h4>
+                        </div>
+                        <p>
+                            <a [routerLink]="['/app/drivers/driverslist']" [queryParams]="{selected: 'feed'}" class="view-detail"><img src="assets/image/arrow.svg"></a>
+                        </p>
+                    </div>
+                </div> -->
+
+
+    <!-- <div class="tile-header dvd dvd-btm">
+                <h3 class="custom-font"> Today's Statistics </h3>
+            </div> -->
+    <!-- <section class="dashboard-structure" id="widget1">
+                <div class="listmain-dash">
+                    <div class="histmain-dash clr-green">
+                        <div class="medium-sta">
+                            <div class="counting-order">
+                                <i class="fi fi-rr-shopping-cart"></i>
+                            </div>
+
+                            <div class="order-lines">
+                                <h5>Orders </h5>
+                                <h6 id="total_users">{{todayOrder.total_orders || 0}}</h6>
+                            </div>
+                            <div class="common-shifts">
+                                <h5>Completed Orders <span id="total_users"> {{todayOrder.completedOrderDetails.count ||
+                                        0}}</span></h5>
+
+                                <h5>New Orders <span id="total_users">{{todayOrder.newOrderDetails.count || 0}}</span>
+                                </h5>
+
+                                <p class="abs-links">
+                                    <a routerLink="/app/orders/neworders"><img src="assets/image/arrow.svg"></a>
+                                </p>
+                            </div>
+
+                        </div>
+                      
+                    </div>
+                </div>
+
+                <div class="listmain-dash">
+                    <div class="histmain-dash clr-accepted">
+                        <div class="medium-sta">
+                            <div class="counting-order">
+                                <i class="fi fi-rr-shopping-cart-check"></i>
+                            </div>
+
+                            <div class="order-lines">
+                                <h5>Accepted Orders</h5>
+                                <h6> </h6>
+                            </div>
+                            <div class="common-shifts">
+                                <h5>Packed Orders <span
+                                        id="total_drivers">{{todayOrder.restaurantAcceptOrderDetails.count || 0}}</span>
+                                </h5>
+
+                          
+
+                                <p class="abs-links">
+                                    <a routerLink="/app/orders/packedorders"><img src="assets/image/arrow.svg"></a>
+                                </p>
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+
+                <div class="listmain-dash">
+                    <div class="histmain-dash clr-reject">
+                        <div class="medium-sta">
+                            <div class="counting-order">
+                                <i class="fi fi-rr-delete document"></i>
+                            </div>
+                            <div class="order-lines">
+                                <h5>Rejected Orders</h5>
+                                <h6> </h6>
+                            </div>
+                            <div class="common-shifts">
+                                <h5>User <span id="overdue_drivers">{{todayOrder.userRejectedOrderDetails.count ||
+                                        0}}</span> </h5>
+
+                                <h5>Admin <span id="overdue_drivers">{{todayOrder.adminRejectedOrderDetails.count ||
+                                        0}}</span> </h5>
+
+                                <p class="abs-links">
+                                    <a [routerLink]="['/app/orders/usercancelledorders']"
+                                        [queryParams]="{selected: 'feed'}"><img src="assets/image/arrow.svg"></a>
+                                </p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+
+                <div class="listmain-dash">
+                    <div class="histmain-dash clr-earning">
+                        <div class="medium-sta">
+                            <div class="counting-order">
+                                <i class="fi fi-rr-money"></i>
+                            </div>
+                            <div class="order-lines">
+                                <h5> Earnings </h5>
+                                <h6> </h6>
+                            </div>
+
+                            <div class="common-shifts">
+                                <h5> Grand Total <span id="total_rides">{{grand_total || 0}}</span> </h5>
+
+                                <h5> Product Total <span id="total_rides">{{restaurant_total || 0}}</span> </h5>
+
+                               
+
+                                <p class="abs-links">
+                                    <a routerLink="/app/adminearnings/adminearningslist"><img
+                                            src="assets/image/arrow.svg"></a>
+                                </p>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </section> -->
+
+    <!-- <div class="tile-header">
+                <h3> Order Statistics </h3>
+            </div> -->
+
+    <!-- <div class="shift-graphs">
+    <div class="ranges-methods">
+        <select class="select" name="earningyear" id="earningyear" [(ngModel)]="orderstatics"
+            (ngModelChange)="onChangeOrderStatics($event)">
+            <option value="7">Last 7 days</option>
+            <option value="30">Last 1 month</option>
+            <option value="180">Last 6 month</option>
+            <option value="365">Last 1 year</option>
+        </select>
+        <div class="eargraph animation-loader">
+            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                [legend]="barChartLegend">
+            </canvas>
+
+
+
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                            [options]="barChartOptions" [legend]="barChartLegend">
+                        </canvas>
+
+                    </div>
+                </div>
+            </div> -->
+    <!-- <div>
+                <select class="select" name="earningyear" id="earningyear" [(ngModel)]="orderstatics"
+                (ngModelChange)="onChangeOrderStatics($event)">
+                <option value="7">Last 7 days</option>
+                <option value="30">Last 1 month</option>
+                <option value="180">Last 6 month</option>
+                <option value="365">Last 1 year</option>
+            </select>
+            </div> -->

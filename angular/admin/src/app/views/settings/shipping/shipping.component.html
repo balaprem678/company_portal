@@ -1,0 +1,133 @@
+<div class="setting_shipping_page margin_top">
+  <div class="full_page_title df jcsb">
+    <strong>Shipping</strong>
+    <div class="kg_add">
+      <h6>Max Weight</h6>
+      <input type="text" maxlength="6" id="kilo" [(ngModel)]="kilos" name="kilo"  pattern="[0-9]*" 
+      (keypress)="validateNumberInput($event)" [disabled]="viewOnly"
+      placeholder="Enter Kilograms" ngModel>
+      <span>KG</span>
+    </div>
+    <div class="kg_add">
+      <h6>Amount</h6>
+      <input type="text" maxlength="6" id="cweight" [(ngModel)]="constAmount" name="cweight"  pattern="[0-9]*" 
+      (keypress)="validateNumberInput($event)"
+      placeholder="Enter Amount" ngModel>
+      <!-- <span>KG</span> -->
+    </div>
+  </div>
+  <div id="priceDetails" class="msg-box price-detailBox">
+    <form #tableForm="ngForm">
+      <div class="table price-table box-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 25%;">Minimum <span>(Amount)</span></th>
+              <th style="width: 25%;">Maximum <span>(Amount)</span></th>
+              <th style="width: 20%;">Shipping Amount <span></span></th>
+              <th *ngIf="!viewOnly" style="width: 25%;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of profPrice; let i = index">
+              <td>
+                <input type="text" name="min{{i}}" id="min{{i}}" ngModel #min{{i}}="ngModel" [(ngModel)]="list.min"
+                  onkeypress="return isNumberKey($event)" required (blur)="validateMinMax(i)" [disabled]="viewOnly">
+              </td>
+              <td>
+                <input type="text" name="max{{i}}" id="max{{i}}" ngModel #max{{i}}="ngModel" [(ngModel)]="list.max"
+                  onkeypress="return isNumberKey($event)" required (blur)="validateMinMax(i)" [disabled]="viewOnly">
+              </td>
+              <td>
+                <input type="text" name="amount{{i}}" id="amount{{i}}" ngModel maxlength="5" #amount{{i}}="ngModel"
+                  [(ngModel)]="list.amount" onkeypress="return isNumberKey($event)" required [disabled]="viewOnly">
+              </td>
+              <td  *ngIf="!viewOnly" style="width: 10%;">
+                <div class="table_action">
+                  <span class="p-0 bg-transparent" (click)="deleteRow(i)">
+                    <img src="assets/image/delete.png" alt="delete">
+                  </span>
+                  <span *ngIf="i === profPrice.length - 1" type="button" tabindex="-1" class="outline-btn" (click)="addRow()">
+                    <img src="assets/image/plus.png" alt="add">
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card_footer_btn_single">
+        <button  *ngIf="!viewOnly" type="button" tabindex="-1" (click)="onSubmitForm(tableForm)" class="">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- <div class="setting_shipping_page margin_top">
+
+  <div class="full_page_title">
+      <strong>
+          Shipping
+      </strong>
+  </div>
+  <div #priceDetails class="msg-box price-detailBox">
+      <form #tableForm="ngForm">
+          <div class="table price-table box-scroll">
+              <table>
+                  <thead>
+                      <tr>
+                          <th style="width: 25%;">Minimum <span>(Amount)</span></th>
+                          <th style="width: 25%;">Maximum <span>(Amount)</span></th>
+                          <th style="width: 20%;">Shipping Amount <span></span></th>
+                          <th style="width: 25%;">Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let list of profPrice; let i = index">
+                          <td *ngIf="!list.edit">{{list.min}}</td>
+                          <td *ngIf="list.edit">
+                              <input type="text" [readOnly]="profPrice.length > 1 && list.min != '' && list.edit"
+                                  name="min{{i}}" id="min{{i}}" ngModel #min{{i}}="ngModel" [(ngModel)]="list.min"
+                                  onkeypress="return isNumberKey($event)" required>
+                          </td>
+                          <td *ngIf="!list.edit">{{list.max}}</td>
+                          <td *ngIf="list.edit">
+                              <input type="text" name="max{{i}}" id="max{{i}}" ngModel
+                                  [readOnly]='profPrice.length > 1 && list.edit && list.max != "" && list.max > list.min'
+                                  #max{{i}}="ngModel" [(ngModel)]="list.max" onkeypress="return isNumberKey($event)"
+                                  required>
+                          </td>
+                          <td *ngIf="!list.edit">{{list.amount}}</td>
+                          <td *ngIf="list.edit">
+                              <input type="text" name="amount{{i}}" id="amount{{i}}" ngModel maxlength="5"
+                                  #amount{{i}}="ngModel" [(ngModel)]="list.amount"
+                                  onkeypress="return isNumberKey($event)" required>
+
+                          </td>
+                          <td style="width: 10%;" >
+                              <div class="table_action">
+                                  <span class="p-0 bg-transparent" (click)="editPrice(list, i)">
+                                      <img src="assets/image/green_pencil.png" alt="Edit">
+                                  </span>
+                                  <span *ngIf="profPrice && profPrice.length > 0" type="button" tabindex="-1"
+                                      class="outline-btn" (click)="deleteLastRow()">
+                                      <img src="assets/image/delete.png" alt="delete">
+                                  </span>
+                                  <span type="button" tabindex="-1" class="outline-btn" (click)="addRow()">
+                                      <img src="assets/image/plus.png" alt="delete">
+                                  </span>
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+
+          <div class="card_footer_btn_single">
+              <button type="button" tabindex="-1" (click)="onSubmitForm(tableForm)"
+                  class="">Save</button>
+          </div>
+      </form>
+  </div>
+</div> -->

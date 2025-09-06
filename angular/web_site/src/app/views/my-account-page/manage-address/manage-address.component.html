@@ -1,0 +1,79 @@
+<section class="bill-and-ship pt_110">
+    <div class="padding-container">
+        <!-- <h2>Welcome back, sathish.kumar-4273</h2> -->
+        <!-- <h2>Welcome back, Guest</h2> -->
+        <div class="bill-ship-add">
+            <div class="billing-address left">
+                <h3>Billing address</h3>
+                <div class="bill-ad" *ngIf="BillingBoolean">
+                    <a href="" [routerLink]="['../billing-address']"><i
+                            class="fa-regular fa-pen-to-square"></i>&nbsp;Edit</a>
+                    <p>
+                        {{billingAddress && billingAddress.username}}
+                        <br />
+                        {{billingAddress && billingAddress.line1}}
+                        <br />
+                        {{billingAddress && billingAddress.city}} {{billingAddress && billingAddress.zipcode}}
+                        <br />
+                        {{billingAddress && billingAddress.state}}
+                    </p>
+                </div>
+                <div class="bill-ad" *ngIf="!BillingBoolean">
+                    <a href="" [routerLink]="['../billing-address']"><i class="fa-solid fa-plus"></i>&nbsp;Add</a>
+                    <p>You have not set up this type of address yet.</p>
+                </div>
+            </div>
+            <div class="billing-address right">
+                <div class="df gap-3">
+                    <h3>Shipping Addresses</h3>
+                    <span [routerLink]="['../shipping-address', '']">
+                        <img src="/assets/pillai_images/plus.png" alt="">
+                    </span>
+                </div>
+                <div class="shipping_address_child" *ngIf="shippingAddress && shippingAddress.addressList.length > 0; else noAddresses">
+                    <div *ngFor="let address of shippingAddress.addressList">
+                        <div class="bill-ad">
+
+                            <div class="address_edit_delete">
+                                <div class="input_label">
+                                    <input type="radio" [value]="address._id" name="defaultAddress"
+                                        [(ngModel)]="selectedAddressId" [checked]="address.isDefault == 2"
+                                        (change)="setDefaultAddress(address._id)">
+                                        <!-- <label style="color: aquamarine;">Home</label><br /> -->
+                                    <label>
+                                        {{ address.username }},
+                                        <br />
+                                        {{ address.line1 }},
+                                        <br />
+                                        {{ address.city }} {{ address.zipcode }},
+                                        <br />
+                                        {{ address.state }}
+                                    </label>
+                                </div>
+                                <div class="edit_delete">
+                                    <label style="color: #0a472e;">{{address.choose_location ? (address.choose_location | uppercase) : 'HOME' | uppercase}}</label><br>
+                                    <a [routerLink]="['../shipping-address', address._id]" class="edit-button"><i
+                                            class="fa-regular fa-pen-to-square"></i>&nbsp;Edit</a>
+                                    <button class="btn btn-danger delete-button"
+                                        (click)="deleteAddress(address._id)">Delete</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <ng-template #noAddresses>
+                    <div class="bill-ad">
+                        <p>You have not set up any addresses yet.</p>
+                        <button class="btn btn-primary add-new-button" [routerLink]="['../shipping-address', '']">Add
+                            New Address&nbsp;<i class="fa-solid fa-circle-plus"></i></button>
+                    </div>
+                </ng-template>
+            </div>
+
+        </div>
+        <div class="back-dash">
+            <a [routerLink]="['/my-account-page']">Back to Dashboard</a>
+        </div>
+    </div>
+</section>

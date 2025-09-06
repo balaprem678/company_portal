@@ -1,0 +1,1109 @@
+<!-- <section class="header header1">
+  <div class="container">
+    <div class="nav_head_1">
+      <div class="head-menu">
+        <div class="header-logo" [routerLink]="['']" routerLinkActive="router-link-active">
+          <img src="assets/image/Pillais-Foods-logo.png" width="150px" />
+        </div>
+      </div>
+
+      <div class="header-card">
+        <div class="search-sec">
+          <div class="search-box">
+            <div class="search">
+              <input type="text" id="search" minlength="3" autocomplete="off" required="true" name="search"
+                [(ngModel)]="search" (ngModelChange)="searchProduct(search)" (blur)="closeDropDown()"
+                placeholder="Search for products, brands and more" />
+              <div class="dropdown-content" *ngIf="hidelist">
+                <div *ngIf="search && search.length >0"><a href="search?se={{search}}" style="color: black;">Search as
+                    {{search}}</a></div>
+                <div *ngFor="let psearch of headerSearch; let i = index">
+                  <a routerLink="/products/{{psearch.slug}}" style="color: black;">{{ psearch.name }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul>
+          <li (click)="goWishList(loginPopup)">
+            <i class="fa fa-heart" aria-hidden="true" style="display: none;"></i>
+            <div>
+              <img src="../../../assets/image/new_images/like1.svg" />
+            </div>
+            <p class="m-0">
+              Wishlist
+            </p>
+          </li> 
+          <li class="nav-item dropdown user_profile" (click)="loginUser(loginPopup)" *ngIf="firstAndLastname == ''">
+            <div>
+              <img src="../../../assets/image/new_images/login.svg" />
+            </div>
+            <button type="button" class="m-0 head_wlc p-0">Login</button>
+          </li>
+          <li [routerLink]="['/cart']" routerLinkActive="router-link-active">
+            <img src="../../../assets/image/new_images/cart.svg" class="card_img" />
+            <span class="cart-data position-relative">
+              <i class="card-list fst-normal position-absolute">{{cartCount || 0}}</i>
+            </span>
+            <p class="m-0">Cart</p>
+          </li>
+          <li class="nav-item dropdown user_profile" *ngIf="firstAndLastname != ''">
+
+            <button class="nav-link dropdown-toggle user_name profile_user" href="#" role="button">
+              <span>
+                <span class="profile_size">
+                  <img [src]="apirUrl+ user_image+'?cb=' + cacheBuster"
+                    onerror="this.src='assets/image/emptyuser.svg'" />
+                </span>
+                <p class="m-0 head_user">{{firstAndLastname}}</p>
+              </span>
+            </button>
+
+            <ul #personalDropdwn class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="goMyAccountPage()">Profile</a></li>
+              <li><a class="dropdown-item" (click)="orderPage()">Orders</a></li>
+              <li><a class="dropdown-item" (click)="addressPage()">Manage Address</a></li>
+              <li><a class="dropdown-item" (click)="wishlistPage()">Wishlist</a></li>
+              <li><a class="dropdown-item" (click)="logOutPop(logOutPopup)">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="header header2">
+  <div class="container">
+    <div class="nav_head_2">
+      <nav class="navbar navbar-expand-lg p-0">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div #categoryDropdown class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+          <button class="navbar-toggler res-nav" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown" aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span><i class="fa fa-times" aria-hidden="true"></i></span>
+          </button>
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown" [ngClass]="{ 'active': isActive('search') }">
+              <a class="nav-link dropdown-toggle" routerLink="search" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                All Categories
+              </a>
+              <ul class="dropdown-menu">
+                <li *ngFor="let allcat of fcategory">
+                  <a class="dropdown-item submenu_items" [routerLink]="['/category', allcat.slug]"
+                    (click)="getproduct(allcat.slug, allcat._id)">
+                    <span class="allcat_icons"><img [src]="apirUrl + allcat.iconimage" alt=""></span>&nbsp;{{
+                    allcat.rcatname }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Mens Wear
+
+              </a>
+              <ul class="dropdown-menu">
+
+                <div class="header_ul_li_big">
+                  <div>
+                    <h6>Topwear</h6>
+                    <a href="" class="submenu_items">T-Shirts</a>
+                    <a href="" class="submenu_items">Casual Shirts</a>
+                    <a href="" class="submenu_items">Formal Shirts</a>
+                    <a href="" class="submenu_items">Sweatshirts</a>
+                    <a href="" class="submenu_items">Sweaters</a>
+                  </div>
+                  <div>
+                    <h6>Bottomwear</h6>
+                    <a href="" class="submenu_items">Jeans</a>
+                    <a href="" class="submenu_items">Formal Trousers</a>
+                    <a href="" class="submenu_items">Casual Trousers</a>
+                    <a href="" class="submenu_items">Shorts</a>
+                    <a href="" class="submenu_items">Track Pants & Joggers</a>
+                  </div>
+                  <div>
+                    <h6>Topwear</h6>
+                    <a href="" class="submenu_items">T-Shirts</a>
+                    <a href="" class="submenu_items">Casual Shirts</a>
+                    <a href="" class="submenu_items">Formal Shirts</a>
+                    <a href="" class="submenu_items">Sweatshirts</a>
+                    <a href="" class="submenu_items">Sweaters</a>
+                  </div>
+                  <div>
+                    <h6>Bottomwear</h6>
+                    <a href="" class="submenu_items">Jeans</a>
+                    <a href="" class="submenu_items">Formal Trousers</a>
+                    <a href="" class="submenu_items">Casual Trousers</a>
+                    <a href="" class="submenu_items">Shorts</a>
+                    <a href="" class="submenu_items">Track Pants & Joggers</a>
+                  </div>
+                  <div>
+                    <h6>Topwear</h6>
+                    <a href="" class="submenu_items">T-Shirts</a>
+                    <a href="" class="submenu_items">Casual Shirts</a>
+                    <a href="" class="submenu_items">Formal Shirts</a>
+                    <a href="" class="submenu_items">Sweatshirts</a>
+                    <a href="" class="submenu_items">Sweaters</a>
+                  </div>
+                  <div>
+                    <h6>Bottomwear</h6>
+                    <a href="" class="submenu_items">Jeans</a>
+                    <a href="" class="submenu_items">Formal Trousers</a>
+                    <a href="" class="submenu_items">Casual Trousers</a>
+                    <a href="" class="submenu_items">Shorts</a>
+                    <a href="" class="submenu_items">Track Pants & Joggers</a>
+                  </div>
+                  <div>
+                    <h6>Topwear</h6>
+                    <a href="" class="submenu_items">T-Shirts</a>
+                    <a href="" class="submenu_items">Casual Shirts</a>
+                    <a href="" class="submenu_items">Formal Shirts</a>
+                    <a href="" class="submenu_items">Sweatshirts</a>
+                    <a href="" class="submenu_items">Sweaters</a>
+                  </div>
+                  <div>
+                    <h6>Bottomwear</h6>
+                    <a href="" class="submenu_items">Jeans</a>
+                    <a href="" class="submenu_items">Formal Trousers</a>
+                    <a href="" class="submenu_items">Casual Trousers</a>
+                    <a href="" class="submenu_items">Shorts</a>
+                    <a href="" class="submenu_items">Track Pants & Joggers</a>
+                  </div>
+                </div>
+              </ul>
+            </li>
+            <li class="nav-item dropdown" *ngFor="let item of fcategory | slice:0:7; let i=index"
+              [ngClass]="{ 'active': isActive('/category/' + item.slug) }">
+              <a class="nav-link dropdown-toggle" [routerLink]="['/category', item.slug]"
+                (click)="getproduct(item.slug, item._id)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ item.rcatname }}
+                <i *ngIf="item.subcategory.length > 0" class="fa fa-angle-down" aria-hidden="true"></i>
+              </a>
+              <ul #categoryDropdown class="dropdown-menu" *ngIf="item.subcategory.length > 0">
+                <li *ngFor="let scat of item.subcategory; let j=index" (mouseenter)="buildTree(scat._id, i)">
+                  <a class="dropdown-item submenu_items" [routerLink]="['/category', scat.slug]"
+                    (click)="getsubProduct(scat.slug, item._id, scat._id)">{{ scat.scatname }}</a>
+                  <ul class="submenu" *ngIf="selectedCategory[scat._id] && selectedCategory[scat._id].length">
+                    <ng-container
+                      *ngTemplateOutlet="subCategoryTemplate; context: { $implicit: selectedCategory[scat._id], parentId: scat._id, grandParentId: item[i] }"></ng-container>
+                  </ul>
+                </li>
+              </ul>
+            </li> 
+            <ng-template #subCategoryTemplate let-subcategories let-parentId let-grandParentId="grandParentId">
+              <li *ngFor="let subcat of subcategories; let k=index" (mouseenter)="buildTree(subcat._id, grandParentId)">
+                <a class="dropdown-item submenu_items" routerLink="category/{{subcat.slug}}"
+                  (click)="getsubProduct(subcat.slug, subcat.rcategory, subcat._id)">{{subcat.scatname}}
+                </a>
+                <ul class="submenu" *ngIf="selectedCategory[subcat._id] && selectedCategory[subcat._id].length">
+                  <ng-container
+                    *ngTemplateOutlet="subCategoryTemplate; context:{ $implicit: subcat.children, parentId: subcat._id, grandParentId: grandParentId }">
+                  </ng-container>
+                </ul>
+              </li>
+            </ng-template>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</section>
+<ng-template #loginPopup>
+  <app-login [modalRef]="modalRef"> </app-login>
+</ng-template>
+
+<div class="modal fade" id="logutpopup" tabindex="-1" aria-labelledby="logutpopupLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h6 class="modal-title">You are attempting to logout</h6>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn cancel-btn">Cancel</button>
+        <button type="button" (click)="logout()" class="btn out-bnt">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #logOutPopup>
+  <div class="modal-header">
+    <h4>Logout</h4>
+    <div (click)="destroyPopup()" style="cursor: pointer;" title="close the popup" class="pop_cls_btn">
+      &#10006;
+    </div>
+  </div>
+  <div class="modal-body login-body">
+    <h6 class="modal-title">You are attempting to logout</h6>
+  </div>
+  <div class="modal-footer border-0">
+    <button type="button" (click)="destroyPopup()" class="btn cancel-btn">Cancel</button>
+    <button type="button" (click)="logout()" class="btn out-bnt">Logout</button>
+  </div>
+</ng-template> -->
+
+
+
+
+<!-- -------------- New Header ------------- -->
+
+
+
+<!-- <div class="shipping-amount-top">
+  <p><span>For Phone Orders & Support Please Call</span><a href="tel:+919566032510"><i aria-hidden="true"
+        class="fas fa-phone"></i>&nbsp;+91 95660 32510 </a><span><i aria-hidden="true"
+        class="fas fa-clock"></i>&nbsp;Support Time 9.00 AM to 6.00
+      PM</span></p>
+</div> -->
+
+
+
+
+
+<section class="header__section">
+  <div class="container-fluid">
+    <div class="nav-header d-flex flex-wrap">
+      <div class="p-header-left">
+        <div class="df gap-3">
+          <div>
+            <a href=""><img src="../../../assets/image/pillais/home.png" width="44px" height="44px" alt="" /></a>
+            <p>Home</p>
+          </div>
+          <div class="p-menu-button">
+            <button (click)="allCategory()"><img src="../../../assets/image/pillais/menu-button.svg" width="19px"
+                height="19px" alt="" /></button>
+            <p>Shop</p>
+          </div>
+        </div>
+        <div class="p-menu-search site_search_bar">
+          <div class="p-menu-input">
+            <span><img src="../../../assets/image/pillais/search.png" width="20px" height="20px" alt="" /></span>
+            <input type="text" id="search" minlength="3" autocomplete="off" required="true" name="search"
+              [(ngModel)]="search" (ngModelChange)="searchProduct(search)" (blur)="closeDropDown()"
+              (keydown.enter)="onSearchEnter(search)"
+              placeholder="Search for dal, traditional rice, easy to cook, gluten free" />
+            <div class="dropdown-content" *ngIf="hidelist">
+              <div class="product_img_pdtname" *ngFor="let psearch of headerSearch; let i = index">
+                <div class="product_img">
+
+                  <picture class="home_traditional_form" *ngIf="psearch.productImage">
+                    <source *ngIf="psearch.productImage?.webpImg" [srcset]="apirUrl  + psearch.productImage?.webpImg"
+                      type="image/webp">
+                    <img [src]="apirUrl +psearch.productImage?.fallback || apirUrl + psearch.productImage"
+                      onerror="this.src='assets/image/no_img.png'" alt="Trade Mark Image">
+
+                  </picture>
+                  <!-- <img src="{{apirUrl + psearch.productImage}}" alt=""> -->
+                </div>
+                <a (click)="getProductWithslug(psearch.slug)">{{ psearch.name }} -
+                  {{psearch.quantity}} <br> ₹ {{ psearch.sPrice }}</a>
+              </div>
+              <!-- <div *ngFor="let item of categoryList">
+                <p class="nav_search_dd" (click)="getproducts(item._id,item.rcatname)">Show all result</p>
+              </div> -->
+              <!-- <div *ngFor="let item of categoryList"> -->
+              <p class="nav_search_dd" *ngIf="headerSearch.length > 5" [routerLink]="['/search']"
+                [queryParams]="{ se: search }">Show all results</p> <!-- </div> -->
+            </div>
+
+            <!-- 
+                  <div class="search-sec">
+                    <div class="search-box">
+                      <div class="search">
+                        <input type="text" id="search" minlength="3" autocomplete="off" required="true" name="search"
+                          [(ngModel)]="search" (ngModelChange)="searchProduct(search)" (blur)="closeDropDown()"
+                          placeholder="Search for products, brands and more" />
+                        <div class="dropdown-content" *ngIf="hidelist">
+                          <div *ngIf="search && search.length >0"><a href="search?se={{search}}" style="color: black;">Search as
+                              {{search}}</a></div>
+                          <div *ngFor="let psearch of headerSearch; let i = index">
+                            <a routerLink="/products/{{psearch.slug}}" style="color: black;">{{ psearch.name }}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+
+            <!-- <div class="p-menu-dropdown">
+                    <h6>Trending Products</h6>
+                    <ul>
+                      <li>
+                        <a href="">
+                          <span><img src="../../../assets/image/pillais/product-img/d-product-1.jpg" alt="" /></span>
+                          <div class="search-box-cnt">
+                            <h5>Urad Dal Black (Split) </h5>
+                            <p>£0.76</p>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="">
+                          <span><img src="../../../assets/image/pillais/product-img/d-product-1.jpg" alt="" /></span>
+                          <div class="search-box-cnt">
+                            <h5>Kashmiri Chilli (Byadagi) </h5>
+                            <p>£324</p>
+                          </div>
+                        </a>	
+                      </li>
+                    </ul>
+                  </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="p-logo">
+        <!-- <a href=""><img  src="../../../assets/image/pillais/logo.png" alt="" /></a> -->
+        <a href=""><img src="{{apirUrl}}{{site_logo}}" /></a>
+        <!-- <p>{{apirUrl}}{{site_logo}}</p> -->
+      </div>
+      <!-- <div class="p-right-menu">
+        <ul>
+          <li>
+            <div class="tooltip-container">
+              <a href="" [routerLink]="['./offers']" title="Offers">
+                <span><img src="../../../assets/image/pillais/offer.png" alt="" /></span>
+              </a>
+              <span class="tooltip-text">Offers</span>
+            </div>
+            
+            <p>Offers</p>
+          </li>
+          <li>
+            <a href="" [routerLink]="['./offers']" title="combo">
+              <span><img src="../../../assets/image/pillais/combo.png" alt="" /></span>
+            </a>
+            <p>Combo</p>
+          </li>
+          <li>
+            <a href="" title="Favourite">
+              <span><img src="../../../assets/image/pillais/fav.png" alt="" /></span>
+            </a>
+            <p>Favourite</p>
+          </li>
+          <li>
+            <a href="" [routerLink]="['./my-account-page']" title="Account">
+              <span><img src="../../../assets/image/pillais/account.png" alt="" /></span>
+            </a>
+            <p>Account</p>
+          </li>
+        </ul>
+        <div class="p-cart-total">
+          <a href="/cart"> ₹ {{cartDetails && cartDetails.total ? cartDetails.total : 0}} <img
+              src="../../../assets/image/pillais/cart-icon.svg" alt=""><span
+              *ngIf="cartDetails && cartDetails.cart_details && cartDetails.cart_details.length>0">{{cartDetails &&
+              cartDetails.cart_details && cartDetails.cart_details.length }}</span></a>
+          <p>Cart Total</p>
+        </div>
+      </div> -->
+
+      <div class="p-right-menu">
+        <ul>
+          <li>
+            <div class="tooltip-container">
+              <a href="" [routerLink]="['./offers']">
+                <span><img src="../../../assets/image/pillais/offer.webp" width="22px" height="22px" alt="" /></span>
+              </a>
+              <span class="tooltip-text">Offers</span>
+            </div>
+            <p>Offers</p>
+          </li>
+          <li>
+            <div class="tooltip-container">
+              <!-- [routerLink]="['./combo-offer']" -->
+              <a [routerLink]="['./combo-offer']">
+                <span><img src="../../../assets/image/pillais/combo.webp" width="22px" height="22px" alt="" /></span>
+              </a>
+              <span class="tooltip-text">Combo</span>
+            </div>
+            <p>Combo</p>
+          </li>
+          <li>
+            <div class="tooltip-container">
+              <a [routerLink]="['./my-wishlist']">
+                <span><img src="../../../assets/image/pillais/fav.webp" width="22px" height="22px" alt="" /></span>
+              </a>
+              <span class="tooltip-text">Favourites</span>
+            </div>
+            <p>Favourites</p>
+          </li>
+          <li *ngIf="user_in">
+            <div class="tooltip-container">
+              <a href="" [routerLink]="['./my-account-page']">
+                <span><img src="../../../assets/image/pillais/account.png" alt="" /></span>
+              </a>
+              <span class="tooltip-text">Account</span>
+            </div>
+            <p>Account</p>
+          </li>
+          <li *ngIf="!user_in">
+            <div class="before_login">
+              <button (click)="openLoginModal()">Login/ Sign up</button>
+            </div>
+            <!-- <div class="tooltip-container">
+              <a href="" [routerLink]="['./my-account-page']">
+                <span><img src="../../../assets/image/pillais/account.png" alt="" /></span>
+              </a>
+              <span class="tooltip-text">Account</span>
+            </div>
+            <p>Account</p> -->
+          </li>
+        </ul>
+        <div class="p-cart-total">
+          <a href="/cart"> ₹ {{cartDetails && cartDetails.total ? cartDetails.total : 0}}
+            <img height="22px" src="../../../assets/image/pillais/cart-icon.webp" width="22px" height="22px" alt="">
+            <span *ngIf="cartDetails && cartDetails.cart_details && cartDetails.cart_details.length>0">
+              {{cartDetails && cartDetails.cart_details && cartDetails.cart_details.length }}
+            </span>
+          </a>
+          <p>Cart Total</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="header__section mobile-header">
+  <div class="container">
+    <div class="nav-header d-flex flex-wrap">
+      <div class="p-header-left">
+        <div class="nav_home">
+
+          <a href=""><img src="../../../assets/image/pillais/home.png" alt="" /></a>
+          <!-- <p>Home</p> -->
+        </div>
+        <div class="p-menu-button">
+          <button data-bs-toggle="modal" data-bs-target="#menuModel"><img
+              src="../../../assets/image/pillais/menu-button.svg" alt="" /></button>
+          <!-- <p>Shop</p> -->
+        </div>
+
+      </div>
+      <div class="p-logo">
+        <!-- <img src="../../../assets/image/pillais/logo.png" alt="" /> -->
+        <a href=""><img src="{{apirUrl}}{{site_logo}}" /></a>
+      </div>
+      <div class="p-right-menu">
+        <ul>
+          <li class="nav_fav">
+            <a href="">
+              <span><img src="../../../assets/image/pillais/fav.png" alt="" /></span>
+            </a>
+          </li>
+          <li class="p-cart-total df gap-2">
+            <a [routerLink]="['./my-wishlist']">
+              <img src="../../../assets/image/pillais/fav.webp" alt="" />
+            </a>
+            <a href="/cart">
+              <img src="../../../assets/image/pillais/cart-icon.png" alt="" />
+              <span *ngIf="cartDetails && cartDetails.cart_details && cartDetails.cart_details.length>0">
+                {{cartDetails && cartDetails.cart_details && cartDetails.cart_details.length }}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container m-container">
+    <div class="p-menu-search">
+      <div class="p-menu-input">
+        <span><img src="../../../assets/image/pillais/search.png" alt="" /></span>
+        <!-- <input type="text" name="" placeholder="Search for dal, traditional rice, easy to cook, gluten free" /> -->
+        <input type="text" id="search" minlength="3" autocomplete="off" required="true" name="search"
+          [(ngModel)]="search" (ngModelChange)="searchProduct(search)" (blur)="closeDropDown()"
+          (keydown.enter)="onSearchEnter(search)"
+          placeholder="Search for dal, traditional rice, easy to cook, gluten free" />
+        <div class="dropdown-content" *ngIf="hidelist">
+          <div class="product_img_pdtname" *ngFor="let psearch of headerSearch; let i = index">
+            <picture class="home_traditional_form" *ngIf="psearch.productImage">
+              <source *ngIf="psearch.productImage?.webpImg" [srcset]="apirUrl  + psearch.productImage?.webpImg"
+                type="image/webp">
+              <img [src]="apirUrl +psearch.productImage?.fallback || apirUrl + psearch.productImage"
+                onerror="this.src='assets/image/no_img.png'" alt="Trade Mark Image">
+            </picture>
+            <div class="search-box-cnt">
+              <h5 (click)="getProductWithslug(psearch.slug)">{{ psearch.name }} -
+                {{psearch.quantity}} <br> ₹ {{ psearch.sPrice }}</h5>
+            </div>
+          </div>
+          <p class="nav_search_dd" *ngIf="headerSearch.length > 10" [routerLink]="['/search']"
+            [queryParams]="{ se: search }">Show all results</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="modal fade" id="menuModel" tabindex="-1" aria-labelledby="menu-tab" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="department-tab" data-bs-toggle="tab" data-bs-target="#department"
+            type="button" role="tab" aria-controls="department" aria-selected="true">Department</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="menus-tab" data-bs-toggle="tab" data-bs-target="#menus" type="button" role="tab"
+            aria-controls="menus" aria-selected="false">Menu</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="department" role="tabpanel" aria-labelledby="department-tab">
+          <div class="model-catagory-list">
+            <a *ngFor="let cat of fcategory" (click)="categoryLink(cat)"><img src="{{apirUrl + cat.img}}" alt="" /></a>
+            <!-- <a href=""><img src="../../../assets/image/pillais/category/Dals_Beans_Peas.png" alt="" /></a>
+		 		<a href=""><img src="../../../assets/image/pillais/category/Edible_Seeds_Dry_Fruits_Nuts.png" alt="" /></a>
+		 		<a href=""><img src="../../../assets/image/pillais/category/Flakes_Rava.png" alt="" /></a>
+		 		<a href=""><img src="../../../assets/image/pillais/category/Masala_Podis_Instant_Mix.png" alt="" /></a>
+		 		<a href=""><img src="../../../assets/image/pillais/category/Noodles_Pasta_Vermicelli.png" alt="" /></a>
+		 		<a href=""><img src="../../../assets/image/pillais/category/Oil_Butter_Ghee.png" alt="" /></a>
+		 		<a href=""><img src="../../../assets/image/pillais/category/Pastes_Sauces.png" alt="" /></a>
+		 		<a href=""><img src="../../../assets/image/pillais/category/Pickles_Appalams_Fryums.png" alt="" /></a>
+		 		<a href=""><img src="../../../assets/image/pillais/category/Rice_Wheat_Millet_Grains.png" alt="" /></a>
+		 		<a href=""><img src="../../../assets/image/pillais/category/Salt_Sugar_Jaggery_Honey.png" alt="" /></a>
+		 		<a href=""><img src="../../../assets/image/pillais/category/Spices.png" alt="" /></a> -->
+          </div>
+        </div>
+        <div class="tab-pane fade" id="menus" role="tabpanel" aria-labelledby="menus-tab">
+          <ul>
+            <li><a [routerLink]="['']">Home</a></li>
+            <li><a [routerLink]="['/search']">Shop</a></li>
+            <li><a (click)="combo()">Combo</a></li>
+            <!-- <li><a href="">Combo</a></li> -->
+            <li><a [routerLink]="['/my-wishlist']">Favourite</a></li>
+            <li><a [routerLink]="['/page/our-story']">Our Story</a></li>
+            <li><a [routerLink]="['/contact-us']">Contact us</a></li>
+            <li><a [routerLink]="['/faq']">FAQ</a></li>
+            <li><a [routerLink]="['/my-account-page']">My account</a></li>
+            <li><a [routerLink]="['/page/shipping-policy']">Shipping Policy</a></li>
+            <li><a [routerLink]="['/page/cancellation-policy']">Cancellation Policy</a></li>
+            <li><a [routerLink]="['/page/privacy-policy']">Privacy Policy</a></li>
+            <li><a [routerLink]="['/page/terms-and-conditions']">Terms & Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Login -- Signup -- Modal -- Start -->
+
+<!-- <ng-template #articleDeleteTemplate>
+  <div class="modal-content">
+    <section class="login-signup-page">
+      <div class="padding-container">
+        <h2>Welcome back, Guest</h2>
+        <div class="login-sec">
+          <h3>Login</h3>
+          <form #loginForm="ngForm" (ngSubmit)="onFormSubmit(loginForm, otpModel)">
+            <div class="l-form-group login_ph">
+              <label>Phone Number<span> *</span></label>
+              <div class="input_btn">
+                <ngx-intl-tel-input cssClass="form-control" id="phoneNum" [preferredCountries]="preferredCountries"
+                  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="true"
+                  [selectedCountryISO]="selectedCountryISO" [phoneValidation]="true"
+                  [separateDialCode]="separateDialCode" [maxLength]="15" #phoneNum="ngModel"
+                  (keyup)="phoneNumber($event)" name="phoneNum" required ngModel>
+                </ngx-intl-tel-input>
+                <button type="button" class="btn btn-primary ml-2" (click)="loginitiateOTPRequest()"
+                  [disabled]="logotpRequested">
+                  {{ logotpRequested ? 'OTP Sent' : 'Verify' }}
+                </button>
+              </div>
+              <div *ngIf="loginsubmitted && !phoneNum.valid">
+                <div class="invalid-feedback d-block text-left" *ngIf="phoneNum.errors?.['required']">
+                  Telephone number is required
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="logotpRequested" class="l-form-group otp_form">
+              <label>Enter OTP<span> *</span></label>
+              <div class="d-flex">
+                <input type="text" maxlength="1" class="otp-input" name="loginotp1" id="loginotp1" ngModel
+                  #loginotp1="ngModel" (input)="logonOtpInput($event, 1)" required>
+                <input type="text" maxlength="1" class="otp-input" name="loginotp2" id="loginotp2" ngModel
+                  #loginotp2="ngModel" (input)="logonOtpInput($event, 2)" required>
+                <input type="text" maxlength="1" class="otp-input" name="loginotp3" id="loginotp3" ngModel
+                  #loginotp3="ngModel" (input)="logonOtpInput($event, 3)" required>
+                <input type="text" maxlength="1" class="otp-input" name="loginotp4" id="loginotp4" ngModel
+                  #loginotp4="ngModel" (input)="logonOtpInput($event, 4)" required>
+              </div>
+              <div
+                *ngIf="loginsubmitted && phoneNum.valid && (!loginotp1.valid || !loginotp2.valid || !loginotp3.valid || !loginotp4.valid)">
+                <div class="invalid-feedback d-block text-left"
+                  *ngIf="loginotp1.errors?.['required'] || loginotp2.errors?.['required'] || loginotp3.errors?.['required'] || loginotp4.errors?.['required']">
+                  OTP is required.
+                </div>
+              </div>
+              <div class="d-flex align-items-center mt-2 resenOtp">
+                <button type="button" class="btn btn-secondary" (click)="logrestartOTPRequest()"
+                  [disabled]="logincountdown > 0">
+                  Resend OTP
+                </button>
+                <p class="ml-3 mb-0" *ngIf="logincountdown > 0">Resend OTP in {{ logincountdown }} seconds</p>
+              </div>
+            </div>
+            <div class="l-form-submit">
+              <button type="submit">Log in</button>
+
+            </div>
+          </form>
+        </div>
+
+        <div class="signup-sec">
+          <h3>Register</h3>
+          <form [formGroup]="registerForm" (ngSubmit)="onregFormSubmit()">
+            <div class="l-form-group">
+              <label>First name<span> *</span></label>
+              <input type="text" id="first_name" formControlName="first_name" maxlength="40"
+                placeholder="Enter first name" />
+              <div *ngIf="submitted && registerForm.controls['first_name'].invalid">
+                <div *ngIf="registerForm.controls['first_name'].errors?.['required']" class="invalid-feedback d-block">
+                  First name is required.
+                </div>
+                <div *ngIf="registerForm.controls['first_name'].errors?.['pattern']" class="invalid-feedback d-block">
+                  Invalid first name
+                </div>
+              </div>
+            </div>
+            <div class="l-form-group">
+              <label>Last name<span> *</span></label>
+              <input type="text" id="last_name" formControlName="last_name" maxlength="40"
+                placeholder="Enter last name" />
+              <div *ngIf="submitted && registerForm.controls['last_name'].invalid">
+                <div *ngIf="registerForm.controls['last_name'].errors?.['required']" class="invalid-feedback d-block">
+                  Last name is required.
+                </div>
+                <div *ngIf="registerForm.controls['last_name'].errors?.['pattern']" class="invalid-feedback d-block">
+                  Invalid last name
+                </div>
+              </div>
+            </div>
+            <div class="l-form-group">
+              <label>E-mail address <span>*</span></label>
+              <input type="email" id="email" formControlName="email" maxlength="40" required
+                placeholder="Enter your email" />
+              <div *ngIf="submitted && registerForm.controls['email'].invalid">
+                <div *ngIf="registerForm.controls['email'].errors?.['required']" class="invalid-feedback d-block">
+                  E-mail is required
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors?.['maxlength']" class="invalid-feedback d-block">
+                  Maximum limit 40 characters
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors?.['minlength']" class="invalid-feedback d-block">
+                  Minimum limit 7 characters
+                </div>
+                <div *ngIf="registerForm.controls['email'].errors?.['pattern']" class="invalid-feedback d-block">
+                  Invalid email
+                </div>
+              </div>
+            </div>
+
+
+            <div class="l-form-group signup_ph">
+              <label>Phone Number<span> *</span></label>
+              <div class="input_btn">
+                <ngx-intl-tel-input [cssClass]="'form-control'" id="phone" [preferredCountries]="preferredCountries"
+                  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                  [selectedCountryISO]="selectedCountryISO" [phoneValidation]="true"
+                  [separateDialCode]="separateDialCode" name="phone" formControlName="phone" [maxLength]="15"
+                  (keyup)="phoneNumberChange($event)">
+                </ngx-intl-tel-input>
+                <button type="button" class="btn btn-primary ml-2" (click)="initiateOTPRequest()"
+                  [disabled]="otpRequested">
+                  {{ otpRequested ? 'OTP Sent' : 'Verify' }}
+                </button>
+              </div>
+              <div *ngIf="submitted && !registerForm.controls['phone'].valid">
+                <div class="invalid-feedback d-block text-left"
+                  *ngIf="registerForm.controls['phone'].errors?.['required']">
+                  Telephone number is required
+                </div>
+              </div>
+              <div
+                *ngIf="registerForm.controls['phone'].errors && registerForm.controls['phone'].errors['validatePhoneNumber']"
+                class="invalid-feedback d-block text-left">
+                Invalid phone number
+              </div>
+
+            </div>
+
+            <div *ngIf="otpRequested" class="l-form-group otp_form">
+              <label>Enter OTP<span> *</span></label>
+              <div class="d-flex">
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp1"
+                  (input)="onOtpInput($event, 1)" #otp1>
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp2"
+                  (input)="onOtpInput($event, 2)" #otp2>
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp3"
+                  (input)="onOtpInput($event, 3)" #otp3>
+                <input type="text" maxlength="1" class="otp-input" formControlName="otp4"
+                  (input)="onOtpInput($event, 4)" #otp4>
+              </div>
+              <div
+                *ngIf="submitted && (registerForm.controls['otp1'].invalid || registerForm.controls['otp2'].invalid || registerForm.controls['otp3'].invalid || registerForm.controls['otp4'].invalid)">
+                <div class="invalid-feedback d-block">
+                  OTP is required.
+                </div>
+              </div>
+              <div class="d-flex align-items-center mt-2 resenOtp">
+                <button type="button" class="btn btn-secondary" (click)="restartOTPRequest()"
+                  [disabled]="countdown > 0">
+                  Resend OTP
+                </button>
+                <p class="ml-3 mb-0" *ngIf="countdown > 0">Resend OTP in {{ countdown }} seconds</p>
+              </div>
+            </div>
+            <div class="l-form-submit">
+              <p>Your data helps us improve your experience on this website and manage your account. For more
+                details, see our <span style="color: #0a472e;"><a (click)="footerRouter()">privacy policy.</a></span>
+              </p>
+              <button type="submit">Register</button>
+            </div>
+          </form>
+        </div>
+
+
+
+      </div>
+      <div class="back-dash">
+        <a href="">Back to Dashboard</a>
+      </div>
+    </section>
+  </div>
+</ng-template>
+
+
+<ng-template #otpModel>
+  <div class="modal-header">
+      <h4 class="m-0">Verify Account</h4>
+      <div (click)="destroyOtpModel()" title="close the popup" class="pop_cls_btn">
+          &#10006;
+      </div>
+  </div>
+  <div class="modal-body login-body">
+      <div class="container-fluid p-0">
+          <form (ngSubmit)="onSubmit(otpform, changePasswordPop)" #otpform="ngForm">
+              <p>Enter 4 digit code sent to your email</p>
+              <div class="row d-flex">
+                  <div
+                      class="form-group d-flex flex-wrap align-items-center justify-content-between gap-2 login-value mb-5">
+                      <input type="number" name="num1" autocomplete="off" id="num1" [(ngModel)]="num1"
+                          [ngModelOptions]=" 
+                      {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                          #digit1="ngModel" (keyup)="onDigitInput(1,$event)">
+                      <input type="number" name="num2" autocomplete="off" id="num2" [(ngModel)]="num2"
+                          [ngModelOptions]=" 
+                      {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                          #digit2="ngModel" (keyup)="onDigitInput(2,$event)">
+                      <input type="number" name="num3" autocomplete="off" id="num3" [(ngModel)]="num3"
+                          [ngModelOptions]=" 
+                      {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                          #digit3="ngModel" (keyup)="onDigitInput(3,$event)">
+                      <input type="number" name="num4" autocomplete="off" id="num4" [(ngModel)]="num4"
+                          [ngModelOptions]=" 
+                      {standalone: true}" class="form-control" maxlength="1" (keydown)="digitKeyOnly($event)" ngModel
+                          #digit4="ngModel" (keyup)="onDigitInput(4,$event)">
+                  </div>
+              </div>
+              <button type="submit" class="btn verify-bnt">Verify</button>
+          </form>
+      </div>
+      <p *ngIf="remainingTime > 0" class="pass-p codedisap-p  text-center mt-3"><a>Resend Code in</a> <strong>{{
+              remainingTime >
+              0? remainingTime : 00 }}</strong> seconds &nbsp;</p>
+      <p *ngIf="remainingTime == 0" class="pass-p code-p text-center mt-3"><a (click)="resenOtp()">Resend Code in</a>
+          <strong>{{ remainingTime >
+              0? remainingTime : 00 }}</strong> seconds &nbsp;
+      </p>
+  </div>
+
+
+</ng-template>
+
+<ng-template #changePasswordPop>
+  <div class="modal-header">
+      <h4 class="m-0">Change Password</h4>
+      <div (click)="destroyPassModel()" title="close the popup" class="pop_cls_btn">
+          &#10006;
+      </div>
+  </div>
+  <div class="modal-body login-body">
+      <div class="container-fluid">
+          <form #changeForm="ngForm" (ngSubmit)="onChangeFormSubmit(changeForm)">
+              <div class="form-group change-pass mb-3">
+                  <label for="newpassword">New Password</label>
+                  <input required name="newpassword"
+                      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])(?!.*\s).{8,}$"
+                      type="{{passtypenp}}" #newpassword="ngModel" minlength="6" maxlength="100" ngModel
+                      class="form-control" placeholder="Enter Password" id="newpassword" required>
+                
+                  <span><i class="{{nppassicon}} password-icon" (click)="hideShowPassword('np')"></i></span>
+                  <div *ngIf="changeForm.submitted && !newpassword.valid" class="invalid-feedback">
+                    
+                      <div *ngIf="newpassword.errors && newpassword.errors['pattern']">
+                          Confirm Password Must
+                          Contain Atleast One uppercase,One lower case,One Numeric,One Special Character.
+                      </div>
+                      <div *ngIf="newpassword.errors && newpassword.errors['maxlength']">Password must be maximum of
+                          100 characters.</div>
+                      <div *ngIf="newpassword.errors && newpassword.errors['required']">Password is required</div>
+                  </div>
+              </div>
+              <div class="form-group change-pass mb-3">
+                  <label for="confirmpassword">Confirm Password</label>
+                  <input required name="confirmpassword"
+                      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])(?!.*\s).{8,}$"
+                      type="{{passtypecnp}}" #confirmpassword="ngModel" minlength="6" maxlength="100" ngModel
+                      class="form-control" placeholder="Enter Confirm Password" id="confirmpassword" required>
+                  <span><i class="{{cnppassicon}} password-icon" (click)="hideShowPassword('cnp')"></i></span>
+                  <div *ngIf="confirmpassword.touched && !confirmpassword.valid" class="invalid-feedback">
+                      <div *ngIf="newpassword.value != confirmpassword.value">Password and Confirm Password is not
+                          matching.</div>
+                  </div>
+                  <div *ngIf="changeForm.submitted && !confirmpassword.valid" class="invalid-feedback">
+                      <div *ngIf="confirmpassword.errors && confirmpassword.errors['pattern']">
+                          Confirm Password Must
+                          Contain Atleast One uppercase,One lower case,One Numeric,One Special Character.
+                      </div>
+                      <div *ngIf="confirmpassword.errors && confirmpassword.errors['maxlength']">Confirm Password must
+                          be maximum of 100 characters.</div>
+                      <div *ngIf="confirmpassword.errors && confirmpassword.errors['required']">Confirm Password is
+                          required</div>
+                  </div>
+              </div>
+              <div class="sumbit-btn d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                  <button type="button" class="cancel-pass rounded text-center  py-2 px-4 m-0"
+                      (click)="destroyPassModel()">Cancel</button>
+                  <button type="submit"
+                      class="link-border link-color change-password rounded text-center  py-2 px-4 m-0">Save
+                      Changes</button>
+              </div>
+          </form>
+      </div>
+  </div>
+</ng-template> -->
+
+<!-- Login -- Signup -- Modal -- End -->
+
+
+
+
+<ng-template #loginSignupTemplate>
+  <section class="login-signup-page">
+    <!-- <div class="padding-container"> -->
+    <div class="login-sec" *ngIf="!showOtpForm">
+      <h3 class="login_label_head">Login/ Sign up</h3>
+      <p class="using_otp">Using OTP</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+        <div class="l-form-group login_ph">
+          <div class="input_btn">
+            <ngx-intl-tel-input cssClass="form-control" id="phoneNum" [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+              [customPlaceholder]="'Enter phone number'"
+              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="true"
+              [selectedCountryISO]="selectedCountryISO" formControlName="phoneNum" [phoneValidation]="true"
+              [separateDialCode]="false" [maxLength]="15" (keyup)="phoneNumber($event)">
+            </ngx-intl-tel-input>
+          </div>
+          <button type="button" class="btn btn-primary ml-2 otpverify_btn bef_enter" (click)="loginitiateOTPRequest()"
+            [disabled]="logotpRequested">
+            {{ logotpRequested ? 'OTP Sent' : 'Continue' }}
+          </button>
+          <p class="or" *ngIf="cartDetails && cartDetails.cart_details && cartDetails.cart_details.length>0">OR</p>
+          <button *ngIf="cartDetails && cartDetails.cart_details && cartDetails.cart_details.length>0" type="button"
+            class="continue_guest" (click)="buyProductAsGuest()" [disabled]="logotpRequested">
+            Continue as Guest
+          </button>
+          <div *ngIf="loginsubmitted && loginForm.get('phoneNum')?.invalid">
+            <div class="invalid-feedback d-block text-left" *ngIf="loginForm.get('phoneNum')?.errors?.['required']">
+              Enter valid mobile number
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="login-sec" *ngIf="showOtpForm">
+      <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()">
+        <div class="l-form-group otp_form mt-4">
+          <label class="login_label_head">Verify Mobile Number<span> *</span></label>
+          <p class="form_sec_title">Enter OTP <img style="width: 9%;" src="../../../assets/image/edit.png"
+              (click)="editPhoneNumber()" alt="edit"></p>
+
+          <div class="d-flex mt-2">
+            <input type="text" maxlength="1" class="otp-input" id="loginotp1" formControlName="loginotp1"
+              (input)="logonOtpInput($event, 1)" (keydown)="logonOtpInput($event, 1)" required #otpInput1 autofocus>
+            <input type="text" maxlength="1" class="otp-input" id="loginotp2" formControlName="loginotp2"
+              (input)="logonOtpInput($event, 2)" (keydown)="logonOtpInput($event, 2)" required>
+            <input type="text" maxlength="1" class="otp-input" id="loginotp3" formControlName="loginotp3"
+              (input)="logonOtpInput($event, 3)" (keydown)="logonOtpInput($event, 3)" required>
+            <input type="text" maxlength="1" class="otp-input" id="loginotp4" formControlName="loginotp4"
+              (input)="logonOtpInput($event, 4)" (keydown)="logonOtpInput($event, 4)" required>
+          </div>
+          <div
+            *ngIf="loginsubmitted && (!otpForm.get('loginotp1')?.valid || !otpForm.get('loginotp2')?.valid || !otpForm.get('loginotp3')?.valid || !otpForm.get('loginotp4')?.valid)">
+            <div class="invalid-feedback d-block text-left">
+              OTP is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="l-form-submit">
+          <button type="submit">Verify & Continue</button>
+        </div>
+        <div class="d-flex align-items-center mt-2 resenOtp">
+          <button type="button" class="btn" (click)="logrestartOTPRequest()" [disabled]="logincountdown > 0">
+            Resend OTP <span *ngIf="logincountdown > 0">{{ logincountdown }} seconds</span>
+          </button>
+        </div>
+        <div class="d-flex align-items-center mt-2">
+
+        </div>
+      </form>
+    </div>
+
+    <!-- </div> -->
+    <div class="back-dash 1">
+      <a (click)="destroyModel()"><i class="fa-solid fa-xmark"></i></a>
+    </div>
+  </section>
+</ng-template>
+
+
+
+
+
+
+<ng-template #register>
+  <section class="login-signup-page">
+    <div class="signup-sec">
+      <div><button class="close_btn_modal" (click)="destroyModel()">x</button></div>
+      <h3 class="login_label_head">Register</h3>
+      <form [formGroup]="registerForm" (ngSubmit)="onregFormSubmit()">
+        <div class="l-form-group fst_name">
+          <label class="form_sec_title">First name<span> *</span></label>
+          <input type="text" id="first_name" formControlName="first_name" maxlength="20"
+          placeholder="Enter first name" (blur)="trimFirstName()"/>
+          <div *ngIf="submitted && registerForm.controls['first_name'].invalid">
+            <div *ngIf="registerForm.controls['first_name'].errors?.['required']" class="invalid-feedback d-block">
+              First name is required.
+            </div>
+            <div *ngIf="registerForm.controls['first_name'].errors?.['pattern']" class="invalid-feedback d-block">
+              Invalid first name
+            </div>
+          </div>
+        </div>
+        <div class="l-form-group lst_name">
+          <label class="form_sec_title">Last name<span> *</span></label>
+          <input type="text" id="last_name" formControlName="last_name" maxlength="20"
+       placeholder="Enter last name" (blur)="trimLastName()"/>
+          <div *ngIf="submitted && registerForm.controls['last_name'].invalid">
+            <div *ngIf="registerForm.controls['last_name'].errors?.['required']" class="invalid-feedback d-block">
+              Last name is required.
+            </div>
+            <div *ngIf="registerForm.controls['last_name'].errors?.['pattern']" class="invalid-feedback d-block">
+              Invalid last name
+            </div>
+          </div>
+        </div>
+        <div class="l-form-group">
+          <label class="form_sec_title">E-mail address <span>*</span></label>
+          <input type="email" id="email" formControlName="email" maxlength="40" required placeholder="Enter your email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
+          <div *ngIf="submitted && registerForm.controls['email'].invalid">
+            <div *ngIf="registerForm.controls['email'].errors?.['required']" class="invalid-feedback d-block">
+              E-mail is required
+            </div>
+            <!-- <div *ngIf="registerForm.controls['email'].errors?.['maxlength']"
+                            class="invalid-feedback d-block">
+                            Maximum limit 40 characters
+                        </div>
+                        <div *ngIf="registerForm.controls['email'].errors?.['minlength']"
+                            class="invalid-feedback d-block">
+                            Minimum limit 7 characters
+                        </div> -->
+            <div *ngIf="registerForm.controls['email'].errors?.['pattern']" class="invalid-feedback d-block">
+              Invalid email
+            </div>
+          </div>
+        </div>
+
+
+        <!-- <div class="l-form-group signup_ph mt-3">
+                    <label class="form_sec_title">Phone Number<span> *</span></label>
+                    <div class="input_btn">
+                        <ngx-intl-tel-input [cssClass]="'form-control'" id="phone"
+                            [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                            [enablePlaceholder]="true" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                            [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO"
+                            [phoneValidation]="true" [separateDialCode]="true" name="phone" formControlName="phone"
+                            [maxLength]="15" (keyup)="phoneNumberChange($event)">
+                        </ngx-intl-tel-input>
+
+                    </div>
+                    <button type="button" class="btn btn-primary ml-2 mt-3" (click)="initiateOTPRequest()"
+                        [disabled]="otpRequested">
+                        {{ otpRequested ? 'OTP Sent' : 'Verify' }}
+                    </button>
+                    <div *ngIf="submitted && !registerForm.controls['phone'].valid">
+                        <div class="invalid-feedback d-block text-left"
+                            *ngIf="registerForm.controls['phone'].errors?.['required']">
+                            Telephone number is required
+                        </div>
+                    </div>
+                    <div *ngIf="registerForm.controls['phone'].errors && registerForm.controls['phone'].errors['validatePhoneNumber']"
+                        class="invalid-feedback d-block text-left">
+                        Invalid phone number
+                    </div>
+
+                </div> -->
+
+        <!-- <div *ngIf="otpRequested" class="l-form-group mt-4 otp_form">
+                    <label class="form_sec_title mb-3"> Enter OTP<span> *</span></label>
+                    <div class="d-flex">
+                        <input type="text" maxlength="1" class="otp-input" formControlName="otp1"
+                            (input)="onOtpInput($event, 1)" #otp1>
+                        <input type="text" maxlength="1" class="otp-input" formControlName="otp2"
+                            (input)="onOtpInput($event, 2)" #otp2>
+                        <input type="text" maxlength="1" class="otp-input" formControlName="otp3"
+                            (input)="onOtpInput($event, 3)" #otp3>
+                        <input type="text" maxlength="1" class="otp-input" formControlName="otp4"
+                            (input)="onOtpInput($event, 4)" #otp4>
+                    </div>
+                    <div
+                        *ngIf="submitted && (registerForm.controls['otp1'].invalid || registerForm.controls['otp2'].invalid || registerForm.controls['otp3'].invalid || registerForm.controls['otp4'].invalid)">
+                        <div class="invalid-feedback d-block">
+                            OTP is required.
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mt-2 resenOtp">
+                        <button type="button" class="btn btn-secondary" (click)="restartOTPRequest()"
+                            [disabled]="countdown > 0">
+                            Resend OTP <span *ngIf="countdown > 0">{{ countdown }} seconds</span>
+                        </button>
+                    </div>
+                </div> -->
+        <div class="l-form-submit">
+          <p>Your data helps us improve your experience on this website and manage your account. For more
+            details, see our <span style="color: #0a472e;"><a (click)="footerRouter()">privacy
+                policy.</a></span></p>
+          <button type="submit">Register</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</ng-template>

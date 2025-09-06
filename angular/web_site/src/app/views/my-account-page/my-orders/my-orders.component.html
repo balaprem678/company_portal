@@ -1,0 +1,68 @@
+<section class="orders-list pt_110">
+    <div class="container">
+        <h2>Welcome back, {{userDetails.username}}</h2>
+
+        <h5>Order Status</h5>
+        <div class="order-list-table" *ngIf="orderDetails && orderDetails.length>0">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th class="action">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of orderDetails">
+                        <td data-title="Order"><a [routerLink]="['../new-order-received']">{{item.order_id}}</a></td>
+                        <td data-title="Date">{{item.createdAt | date:'mediumDate'}}</td>
+                        <td data-title="Status">{{item.status | statusPipe}}</td>
+                        <td data-title="Total">₹ {{item.billings.amount.grand_total | number:'1.2-2'}} for {{item.foods.length}}
+                            {{item.foods.length===1?'item':'items'}} </td>
+                        <td data-title="Action" class="action">
+                            <div class="actions_icons">
+                                <a class="t-view" (click)="viewOrderDetails(item)"><i class="fa-regular fa-eye"></i></a>
+                                <a *ngIf="item.status === 7" class="t-view" (click)="invoice(item)"><i
+                                        class="fa-solid fa-file-invoice"></i></a>
+                                <a *ngIf="item.status === 7" class="t-view" (click)="reOrder(item)"><img src="../../../../assets/pillai_images/reorder.svg" alt="reorder"></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="orderDetails.length == 0" style="text-align:center;">
+                        <td colspan="12"><b>No data</b></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="pagination-sec" *ngIf="orderDetails.length != 0">
+            <span class="page-number">Page {{currentPage}} of {{totalPages}}</span>
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+                        <a class="page-link" (click)="setPage(currentPage - 1)" aria-label="Previous">
+                            Previous
+                        </a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of getVisiblePageNumbers()"
+                        [ngClass]="{'active': currentPage === page}">
+                        <a class="page-link" (click)="setPage(page)">{{ page }}</a>
+                    </li>
+                    <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+                        <a class="page-link" (click)="setPage(currentPage + 1)" aria-label="Next">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="back-dash">
+            <a [routerLink]="['/my-account-page']">Back to Dashboard</a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,115 @@
+<div class="pagecontent">
+    <div class="row">
+        <div class="col-md-12">
+            <form name="cityEditForm" #cityEditForm="ngForm" (ngSubmit)="onSubmit(cityEditForm)">
+                <fieldset>
+                    <section class="tile" fullscreen="isFullscreen01">
+                        <div class="tile-body">
+                            <div class="wrap-reset">
+                                <div class="row">
+                                    <div class="form-group col-md-12 legend">
+                                        <h4>
+                                            <strong>city</strong> Settings
+                                        </h4>
+                                        <p>City details</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6"
+                                        ng-class="{ 'has-error' : cityEditForm.midpoint.$invalid && !cityEditForm.midpoint.$pristine, 'has-success' : cityEditForm.midpoint.$valid && !cityEditForm.midpoint.$pristine}">
+                                        <label class="sublin-hea">Location <span class="mandatory">*</span></label>
+                                        <input class="form-control" name="midpoint" required type="text" #search
+                                            places-auto-complete size=80 ngModel #midpoint="ngModel">
+                                        <p class="help-block">
+                                            <span class="invalid-feedback"
+                                                *ngIf="cityEditForm.submitted && cityEditForm.controls.midpoint.errors && cityEditForm.controls.midpoint.errors.required">Location
+                                                is required.</span>
+                                        </p>
+                                    </div>
+                                    <div class="form-group col-sm-6"
+                                        ng-class="{ 'has-error' : cityEditForm.cityname.$invalid && !cityEditForm.cityname.$pristine, 'has-success' : cityEditForm.cityname.$valid && !cityEditForm.cityname.$pristine}">
+                                        <label for="cityname">City Name<span class="mandatory">*</span>
+                                        </label>
+                                        <input type="text" name="cityname" minlength="2" class="form-control"
+                                            placeholder="Enter city name" maxlength="25" ngModel #cityname="ngModel"
+                                            pattern="^[a-zA-Z0-9\_\. ]*$" required>
+                                        <p class="help-block">
+                                            <span class="invalid-feedback"
+                                                *ngIf="cityEditForm.submitted && cityEditForm.controls.cityname.errors && cityEditForm.controls.cityname.errors.required">City
+                                                name is required.</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6"
+                                        ng-class="{ 'has-error' : cityEditForm.slug.$invalid && !cityEditForm.slug.$pristine, 'has-success' : cityEditForm.slug.$valid && !cityEditForm.slug.$pristine}">
+                                        <label for="slug">City Slug<span class="mandatory">*</span> </label>
+                                        <p class="mb-10 custom-font" *ngIf="settings">
+                                            {{settings.site_url}}city/{{slugValue}}
+                                            <span> <a href="javascript:;" (click)="editslug()"
+                                                    class="btn btn-default btn-rounded-20 btn-xs pull-right">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a></span>
+                                            <input *ngIf="showslug" type="text" ng-show="edit_billing_address"
+                                                name="slug" id="slug" class="form-control" ngModel #slug="ngModel"
+                                                [(ngModel)]="editSlugValue" minlength="3" maxlength="15" required>
+
+                                        </p>
+                                        <p class="help-block">
+                                            <span class="invalid-feedback"
+                                                *ngIf="cityEditForm.submitted && cityEditForm.controls.slug && cityEditForm.controls.slug.errors && cityEditForm.controls.slug.errors.minlength">Slug
+                                                must be minimum of 3 characters.
+                                            </span>
+                                            <span class="invalid-feedback"
+                                                *ngIf="cityEditForm.submitted && cityEditForm.controls.slug && cityEditForm.controls.slug.errors && cityEditForm.controls.slug.errors.maxlength">Slug
+                                                must be maximum of 15 characters.</span>
+                                            <span class="invalid-feedback"
+                                                *ngIf="(cityEditForm.submitted && cityEditForm.controls.slug && cityEditForm.controls.slug.errors && cityEditForm.controls.slug.errors.required) || (cityEditForm.submitted && !slugValue)">
+                                                City
+                                                Slug is required.</span>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label class="sublin-hea"> <strong>Region</strong><span
+                                                class="mandatory">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- <agm-map style="height: 300px;width: 100%;" id="Gmap" [latitude]="lat"
+                                        [longitude]="lng" [zoom]="18">
+                                    </agm-map> -->
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6"
+                                        ng-class="{ 'has-error' : cityEditForm.status.$invalid && !cityEditForm.status.$pristine, 'has-success' : cityEditForm.status.$valid && !cityEditForm.status.$pristine}">
+                                        <label for="status" class="control-label">Status<span
+                                                class="mandatory">*</span></label>
+                                        <select type="text" name="status" id="status" class="form-control" ngModel
+                                            #status="ngModel" required>
+                                            <option value="" disabled selected>Select</option>
+                                            <option value="1">Active</option>
+                                            <option value="2">In-Active</option>
+                                        </select>
+                                        <p class="help-block">
+                                            <span class="invalid-feedback"
+                                                *ngIf="cityEditForm.submitted && cityEditForm.controls.status && cityEditForm.controls.status.errors && cityEditForm.controls.status.errors.required">status
+                                                is required.</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                                    <button class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10" type="submit">Submit
+                                        <i class="fa fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

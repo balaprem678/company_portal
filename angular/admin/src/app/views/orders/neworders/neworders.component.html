@@ -1,0 +1,45 @@
+<!-- <div class="row">
+    <label for="rcategory">Select By City <span class="color_red">*</span></label>
+    <ng-select style="width: 20%;" [(ngModel)]="getcityarea" [items]="getcity" [clearable]="false" bindLabel="cityname"
+        bindValue="_id" (change)='onFilterData($event)' required>
+    </ng-select> -->
+<!-- <input type="date" id="start1" class="form-control" name="from1" (change)="datechange($event.target.value)"
+        [max]="getToday()">
+
+    <input type="date" id="start" class="form-control" name="from" [(ngModel)]='to_dates'
+        (change)='tochanedata($event.target.value)' min={{fromDate}} max={{maxDate}} [max]="getToday()"> -->
+<!-- 
+    <div class="input-group">
+        <input type="text" [(ngModel)]="onFromDate" placeholder="Filter By Start Date" [formControl]="startDate"
+            disabled class="form-control" #dp="bsDatepicker" [maxDate]="minDate" bsDatepicker
+            [bsConfig]="{ isAnimated: true, dateInputFormat: 'MMMM DD,YYYY'}" [bsValue]="myDateValue"
+            (onHidden)="fromdateStarted()" autocomplete="off">
+        <button class="btn btn-success" style="position: relative;top:20px;" (click)="dp.toggle()"
+            [attr.aria-expanded]="dp.isOpen" type="button"><i class="fa fa-calendar"></i></button>
+    </div> -->
+
+<!-- <div class="input-group">
+        <input type="text" [(ngModel)]="onToDate" [formControl]="endDate" placeholder="Filter By End Date" disabled
+            class="form-control" [minDate]="onFromDate" [bsValue]="myDateValue1" [maxDate]="minDate" #dp1="bsDatepicker"
+            bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MMMM DD,YYYY'}" (onHidden)="ToDateStarted()"
+            autocomplete="off">
+        <button class="btn btn-success" style="position: relative;top:20px;" (click)="dp1.toggle()"
+            [attr.aria-expanded]="dp1.isOpen" type="button"><i class="fa fa-calendar"></i></button>
+    </div>
+    <button type="submit" (click)="onsubmit()">Submit</button>
+    <button type="submit" (click)="onclear()">Clear</button>
+</div> -->
+
+
+<div class="order-new_order_page">
+    <app-common-table [settings]="settings" [source]="source" [count]="totalItems" [itemsPerPage]="limit"
+        [tablename]="'New Orders'" [add_btn]="add_btn" [deleteApis]="deleteApis" [addBtnUrl]="addBtnUrl"
+        [addBtnName]="addBtnName" [editUrl]="editUrl" [viewUrl]="viewUrl"
+        (onitemsPerPageChange)="onitemsPerPageChange($event)" [card_details]="card_details"
+        (onDeleteChange)="onDeleteChange($event)" (onPageChange)="onPageChange($event)" [bulk_action]="bulk_action"
+        (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)"
+        [filter_action]="filter_action" [filter_action_list]="filter_action_list"
+        (onFilterAction)="onFilterAction($event)" [export_btn]="export_btn" [exportApis]="exportApis"
+        (onexportChange)="onexportChange($event)">
+    </app-common-table>
+</div>

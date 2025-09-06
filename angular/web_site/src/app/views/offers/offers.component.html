@@ -1,0 +1,34 @@
+<!-- <section class="offers-page">
+	<div class="container">
+		<div class="offer-list-page" *ngFor="let offers of offerlist">
+			<span class="offer-banner"><img [src]="apiUrl+offers.image" alt="" /></span>	
+		</div>
+	</div>
+</section> -->
+
+<section class="offers-page pt_110">
+	<div class="container">
+		<div *ngIf="!loading && offerlist.length === 0" style="display: flex;text-align: center;justify-content: center;">
+			<!-- <p>No data</p> -->
+			<img style="width: 400px;" src="assets/image/no_data.jpg" alt="" />
+		</div>
+		<div *ngIf="!loading && offerlist.length > 0">
+
+			<div class="offer-list-page" *ngFor="let offer of offerlist">
+				<span class="offer-banner"><a routerLink="{{offer.producturl}}"><img [src]="apiUrl + offer.image" alt="" /></a></span>
+			</div>
+		</div>
+	</div>
+
+	<div class="pagination" *ngIf="offerlist.length > 10">
+		<button (click)="onPageChange('prev')" [disabled]="currentPage === 1">
+			← Previous
+		</button>
+
+		<span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+		<button (click)="onPageChange('next')" [disabled]="currentPage >= totalPages">
+			Next →
+		</button>
+	</div>
+</section>

@@ -1,0 +1,7 @@
+<app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit"
+    [tablename]="'Users List'" [add_btn]="add_btn" [template]="template" [addBtnUrl]="addBtnUrl"
+    [addBtnName]="addBtnName" [editUrl]="editUrl" [deleteApis]="deleteApis" (onDeleteChange)="onDeleteChange()"
+    (onitemsPerPageChange)="onitemsPerPageChange($event)" [bulk_action]="bulk_action" [card_details]="card_details"
+    (onPageChange)="onPageChange($event)" (onheaderCardChange)="onheaderCardChange($event)"
+    (onSearchChange)="onSearchChange($event)">
+</app-common-table>

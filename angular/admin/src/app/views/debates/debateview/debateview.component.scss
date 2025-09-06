@@ -1,0 +1,77 @@
+.follow-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.follow-list li {
+    display: flex;
+    width: 50%;
+    margin-bottom: 10px;
+    background: #fff;
+    padding: 0 15px;
+}
+
+.folspac-lists {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.follow-list li i {
+    display: flex;
+    flex-wrap: wrap;
+    width: 15%;
+}
+
+.follow-list li i img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.follow-list li p {
+    padding: 0;
+    margin: 0;
+    width: 85%;
+}
+
+.follow-list li p span {
+    font-size: 14px;
+    display: flex;
+    color: #000;
+    line-height: 24px;
+    padding-bottom: 0px;
+    width: 100%;
+    word-break: break-all;
+}
+
+.follow-list li p small {
+    font-size: 13px;
+    display: flex;
+    color: rgb(112, 112, 112);
+    line-height: 19px;
+    padding-bottom: 0px;
+    width: 100%;
+    word-break: break-all;
+}
+
+p.no-record {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #999696;
+    margin: 30px 0;
+}
+
+.cover-imgs img {
+    max-width: 50%;
+    max-height: 100%;
+}

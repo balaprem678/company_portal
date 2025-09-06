@@ -1,0 +1,21 @@
+::ng-deep .yes_no_btn {
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+::ng-deep .conform_yes {
+  background-color: #004b44;
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 8px 30px;
+  font-weight: 700;
+}
+
+::ng-deep .conform_no {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 30px;
+  font-weight: 700;
+}

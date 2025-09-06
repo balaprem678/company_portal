@@ -1,0 +1,164 @@
+.color_red {
+  color: red;
+}
+
+.tile-header {
+  width: 100% !important;
+  float: none !important;
+}
+.tile-body .form-group label {
+  font-size: 14px !important;
+  font-weight: bold;
+  color: #8a8a8a;
+  text-align: left;
+  width: 160px;
+}
+label.data-label {
+  width: 70% !important;
+  font-weight: 500 !important;
+}
+
+:where(
+    .publisher_Key,
+    .payment_name,
+    .payment_description,
+    .payment_mode,
+    .secret_key,
+    .status,
+    .app_id,
+    .refund_mode
+  ) {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  margin-bottom: 20px;
+}
+input,
+ng-select {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+}
+ng-select {
+  padding: 0;
+}
+
+.payment_logo {
+  min-height: 343px;
+  max-height: 407px;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  background-color: #ffffff;
+  background: #fff;
+  padding: 30px;
+  position: relative;
+  input {
+    border: none;
+    background-color: transparent;
+    width: 30px;
+    position: absolute;
+    right: 100px;
+    top: 75px;
+    padding: 0;
+
+    &::-webkit-file-upload-button {
+      width: 28px;
+      height: 28px;
+      border-radius: 15px;
+      border: none;
+      background: #fff;
+      background-image: url("../../../../assets/image/pencil.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      box-shadow: 0px 0 3px 0 #ccc;
+      color: rgba(255, 255, 255, 0);
+      z-index: 1;
+      position: relative;
+    }
+  }
+
+  label {
+    text-align: left;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: var(--bs-gray-800);
+    font-size: 21.1px;
+  }
+
+  .img_center_call {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 15px auto;
+    box-shadow: 0 0 80px 0 #dddddd;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    img {
+      box-shadow: 0 0 4px 0 #f1f1f1;
+    }
+  }
+
+  .center_thumbnail_img {
+    position: absolute;
+    top: 84px;
+    left: 89px;
+    width: 150px;
+    height: 150px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    img {
+      width: 100%;
+    }
+  }
+  p.image_size_filter {
+    font-size: 13px;
+    text-align: center;
+    margin-top: 34px;
+    color: #99a1b7;
+  }
+}
+
+// input up and down arrow disable
+::ng-deep .select_category ng-select,
+::ng-deep .status ng-select {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+}
+
+::ng-deep input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--bs-gray-800);
+  font-size: 15px;
+}
+.cash_on_delivery,
+p .stripe_payment p,
+.razorpay_payment p,
+.cash_free_payment p {
+  margin: 0;
+  font-weight: 700;
+  font-size: 14px;
+  word-break: break-all;
+}

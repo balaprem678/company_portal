@@ -1,0 +1,121 @@
+.bill-and-ship h2 {
+  text-align: center;
+  font-family: "Signika", Sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1em;
+  color: #222222;
+  margin-bottom: 2em;
+}
+.billing-address {
+  width: 48%;
+}
+.bill-ship-add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 33px;
+  position: relative;
+  margin-top: 28px;
+}
+.billing-address.right {
+  .shipping_address_child {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}
+.billing-address.left {
+  position: sticky;
+  top: 0;
+}
+.billing-address h3 {
+  font-size: 1.75rem;
+  color: #0a472e;
+  margin-bottom: 40px;
+}
+.bill-ad {
+  border: 1px solid #f4f4f4;
+  margin-bottom: none;
+  border-radius: 6px;
+  padding: 40px;
+  &:last-child(1) {
+  }
+  button {
+    background-color: #58d68d;
+    border: none;
+    font-size: 14px;
+  }
+}
+.bill-ad a {
+  font-size: 14px;
+  color: #0a472e;
+  text-decoration: none;
+  font-weight: 700;
+  margin-bottom: 1em;
+  display: inline-block;
+  border: 1px solid #0a482f;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.bill-ad p {
+  font-size: 14px;
+  color: #222;
+  font-weight: 500;
+}
+.back-dash {
+  text-align: center;
+  margin: 34px 0 0px 0;
+}
+.back-dash a {
+  text-decoration: none;
+  font-size: 15px;
+  color: #000000;
+  background: #f4f4f4;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.address_edit_delete {
+  display: flex;
+  justify-content: space-between;
+  label {
+    font-size: 16px;
+    font-weight: 700;
+  }
+}
+.edit_delete {
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+  justify-content: space-between;
+  a {
+    border: 1px solid #0a482f;
+    height: 30px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.address_edit_delete {
+  .input_label {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .bill-ad {
+    padding: 20px;
+  }
+  .billing-address {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .billing-address h3 {
+    font-size: 1.25rem;
+  }
+}

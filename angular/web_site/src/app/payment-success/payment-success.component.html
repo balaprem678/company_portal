@@ -1,0 +1,50 @@
+<!-- <div class="container">
+    <div class="payment-success">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header p-0">
+                        <span class="pay-img"><img src="assets/image/success-video.gif" alt="success-video"  width="100%" height="100%"></span>
+                    </div>
+                    <div class="card-body p-0">
+                        <h2 class="modal-title text-center" style="color: #16A14E;">Payment Successful</h2>
+                        <p class="trans-p fw-bold text-center">Transaction number: <b>#65748</b></p>
+                        <p class="trans-p p-text text-center">A confirmation order will be sent to your email <i class="fst-normal">{{email}}</i></p>
+                    </div>
+                    <div class="card-footer p-0 my-3">
+                        <button [routerLink]="['']" type="button" class="btn shop-btn">Continue shopping</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="container pt_110">
+    <div class="payment-success">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <p class="orderid">ORDER ID : {{ order_id }}</p>
+
+                    <div class="card-header p-0">
+                        <span class="pay-img"><img src="assets/image/success-video.gif" alt="success-video" width="100%"
+                                height="100%"></span>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <h2 class="modal-title text-center">Thank you for shopping with <br>
+                            Pillai's Foods.</h2>
+                        <!-- <p class="trans-p fw-bold text-center">Transaction number: <b>#65748</b></p> -->
+                        <!-- <p class="trans-p p-text text-center">A confirmation order will be sent to your email <i
+                                class="fst-normal">{{email}}</i></p> -->
+                    </div>
+                    <div class="card-footer p-0 my-3">
+                        <button [routerLink]="['']" type="button" class="btn shop-btn">BACK TO SHOP</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

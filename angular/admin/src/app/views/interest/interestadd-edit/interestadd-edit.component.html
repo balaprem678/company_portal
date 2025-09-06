@@ -1,0 +1,87 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>{{pageTitle | titlecase}}</strong></div>
+                <form #InterestAddEditForm="ngForm" (ngSubmit)="onFormSubmit(InterestAddEditForm)" autocomplete="off">
+                    <div class="card-body">
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="name">Name <span class="mandatory">*</span> </label>
+                                    <input type="text" id="name" ngModel name="name" #name="ngModel" required
+                                        class="form-control" placeholder="Enter Name"
+                                    >
+                                    <div *ngIf="InterestAddEditForm.submitted && !name.valid">
+                                        <div class="invalid-feedback" *ngIf="name.errors.required">Name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="status">Status <span class="mandatory">*</span></label>
+                                    <select name="status" id="status" class="form-control" ngModel name="status"
+                                        #status="ngModel" required
+                                   >
+                                        <option value="">--Select--</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Inactive</option>
+                                    </select>
+                                    <div *ngIf="InterestAddEditForm.submitted && !status.valid">
+                                        <div class="invalid-feedback" *ngIf="status.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="group-control">
+                                    <label for="image">Image <span class="mandatory">*</span>
+                                    </label>
+                                    <div class="file-chooser">
+                                        <span class="ste-level" *ngIf="imageName">{{imageName}} </span>
+                                        <span class="ste-level" *ngIf="!imageName">Choose a file </span>
+                                        <span class="ste-levs"> Upload </span>
+                                        <div class="mychs">
+                                            <input type="file" id="image" ngModel name="image" #image="ngModel"
+                                                required="{{interestDetails ? false : true}}" class="form-control"
+                                                (change)="fileChangeEvent($event)"
+                                          >
+                                        </div>
+                                    </div>
+                                    <!-- <div>Allowed files: png, jpg. Max file size 2Mb</div> -->
+                                    <div>Allowed files: png, jpg</div>
+                                    <div *ngIf="InterestAddEditForm.submitted && !image.valid">
+                                        <div class="invalid-feedback" *ngIf="image.errors.required">Image is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" *ngIf="croppedImage">
+                                <div class="group-control crop-spaces">
+                                    <label for="cropimage">Cropped Image </label><br>
+                                    <img id="cropimage" [src]="croppedImage" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="group-control mt-5">
+                                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+                                        format="png" (imageCropped)="imageCropped($event)"></image-cropper>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-success" [disabled]="submitebtn">
+                            Submit
+                        </button>
+                        <button type="button" routerLink="/app/interests/list" class="btn btn-sm btn-danger">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

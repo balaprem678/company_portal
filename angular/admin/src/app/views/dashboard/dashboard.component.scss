@@ -1,0 +1,171 @@
+#chart {
+  position: relative;
+  background: #fff;
+  height: 100%;
+  border-radius: 6px;
+  min-height: 317px;
+  display: flex;
+  align-items: center;
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-156px, -10px);
+    font-size: 15px;
+    font-weight: 800;
+  }
+}
+
+::ng-deep text#SvgjsText1753,
+::ng-deep .apexcharts-toolbar {
+  display: none !important;
+}
+
+.dashboard_chart {
+  display: flex;
+  align-items: center;
+}
+
+:where(.products, .customers, .total_earnings, .order_user) {
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+  padding: 16px;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  width: 256px;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  h6 {
+    color: #878a99;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  .dash_title {
+    color: #495057;
+    font-size: 22px;
+    font-weight: 600;
+  }
+}
+
+.products {
+  border-bottom: 4px solid #9ad8f0;
+}
+
+.customers {
+  border-bottom: 4px solid #e9bf5a;
+}
+
+.total_earnings {
+  border-bottom: 4px solid #14c56c;
+}
+
+.order_user {
+  border-bottom: 4px solid #5bc7e7;
+}
+
+#widget1 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  .dash_title_number {
+    display: flex;
+    justify-content: space-between;
+    min-height: 42px;
+  }
+  .progress_data {
+    p {
+      margin: 0;
+      font-weight: 700;
+      display: flex;
+      gap: 10px;
+
+      span:nth-child(1) {
+        width: 80px;
+        display: inline-block;
+        text-align: end;
+      }
+
+      span:nth-child(2) {
+        text-align: end;
+      }
+    }
+  }
+
+  .abs_links {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    a {
+      color: #878a99;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    img {
+      border-radius: 8px;
+      width: 40px;
+    }
+  }
+}
+
+.total_earnings .progress_data {
+  visibility: hidden;
+}
+
+.earning_chart_select_opt {
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+  padding: 16px;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+
+  .earning_e_m_d {
+    display: flex;
+    justify-content: space-between;
+
+    .month_year {
+      width: 355px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .year_select,
+    .month_select {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      label {
+        margin: 0;
+      }
+
+      select {
+        width: 120px;
+        height: 40px;
+        padding: 0 15px;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #4b5675;
+        border: 1px solid #dbdfe9;
+        border-radius: 0.475rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+    }
+  }
+
+  #earningCharts {
+  }
+}
+
+.month_select select {
+  width: 100%;
+}

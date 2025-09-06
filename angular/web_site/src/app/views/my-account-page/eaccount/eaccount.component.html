@@ -1,0 +1,108 @@
+<section class="billing-adddress-page eaccount-page pt_110">
+    <div class="padding-container mt-4">
+        <h2>Welcome back,{{userDetails.username}}</h2>
+
+
+        <div class="bill-forms mt-5">
+            <button *ngIf="!isEditMode" class="edit_icon" (click)="toggleEditMode()"><img
+                    src="../../../../assets/pillai_images/edit.png" alt="">Edit</button>
+            <form [formGroup]="userProfileEditForm" (ngSubmit)="userProfileEditSubmit()">
+                <div class="t-bill-group">
+
+                    <!-- First Name Field -->
+                    <div class="b-group-sec">
+                        <label>First name <span>*</span></label>
+                        <input formControlName="firstName" type="text" placeholder="First Name" minlength="4"
+                            maxlength="20">
+                        <div *ngIf="submitted && userProfileEditForm.controls['firstName'].invalid">
+                            <div *ngIf="userProfileEditForm.controls['firstName'].errors?.['required']"
+                                class="invalid-feedback d-block">
+                                First Name is required.
+                            </div>
+                            <div *ngIf="userProfileEditForm.controls['firstName'].errors?.['pattern']"
+                                class="invalid-feedback d-block">
+                                Invalid First Name
+                            </div>
+                            <div *ngIf="userProfileEditForm.controls['firstName'].errors?.['minlength']"
+                                class="invalid-feedback d-block">
+                                Minimum limit 4 characters
+                            </div>
+                            <div *ngIf="userProfileEditForm.controls['firstName'].errors?.['maxlength']"
+                                class="invalid-feedback d-block">
+                                Minimum limit 20 character
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Last Name Field -->
+                    <div class="b-group-sec">
+                        <label>Last name <span>*</span></label>
+                        <input formControlName="lastName" type="text" maxlength="20" placeholder="Last Name">
+                        <div *ngIf="submitted && userProfileEditForm.controls['lastName'].invalid">
+                            <div *ngIf="userProfileEditForm.controls['lastName'].errors?.['required']"
+                                class="invalid-feedback d-block">
+                                Last Name is required.
+                            </div>
+                            <div *ngIf="userProfileEditForm.controls['lastName'].errors?.['maxlength']"
+                                class="invalid-feedback d-block">
+                                Maximum limit 20 characters
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="t-bill-group">
+                    <!-- Email Field -->
+                    <div class="b-group-sec">
+                        <label>Email address <span>*</span></label>
+                        <input formControlName="email" type="text" placeholder="Email">
+                        <div *ngIf="submitted && userProfileEditForm.controls['email'].invalid">
+                            <div *ngIf="userProfileEditForm.controls['email'].errors?.['required']"
+                                class="invalid-feedback d-block">
+                                Email is required
+                            </div>
+                            <div *ngIf="userProfileEditForm.controls['email'].errors?.['maxlength']"
+                                class="invalid-feedback d-block">
+                                Maximum limit 40 characters
+                            </div>
+                            <div *ngIf="userProfileEditForm.controls['email'].errors?.['minlength']"
+                                class="invalid-feedback d-block">
+                                Minimum limit 7 characters
+                            </div>
+                            <div *ngIf="userProfileEditForm.controls['email'].errors?.['pattern']"
+                                class="invalid-feedback d-block">
+                                Invalid email
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phone Number Field -->
+                    <div class="b-group-sec">
+                        <label>Phone Number</label>
+                        <!-- <ngx-intl-tel-input  class="tel-input-custom"  cssClass="form-control" id="phoneNumber" [preferredCountries]="preferredCountries"
+                        [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                        [customPlaceholder]="'Enter phone number'"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="true"
+                        [selectedCountryISO]="selectedCountryISO" formControlName="phoneNumber" [phoneValidation]="true"
+                        [separateDialCode]="false" [maxLength]="15" (keyup)="phoneNumber($event)">
+                    </ngx-intl-tel-input> -->
+                        <input formControlName="phoneNumber" type="text" minlength="15" placeholder="Phone Number">
+                    </div>
+                </div>
+                   
+
+                <!-- Save Changes Button -->
+                <div *ngIf="isEditMode" class="b-group-but">
+                    <button type="submit">Save changes</button>
+                </div>
+            </form>
+        </div>
+
+
+
+
+        <div class="back-dash">
+            <a [routerLink]="['/my-account-page']">Back to Dashboard</a>
+        </div>
+    </div>
+</section>

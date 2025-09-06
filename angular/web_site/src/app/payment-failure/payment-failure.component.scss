@@ -1,0 +1,43 @@
+.payment-failure {
+  width: 100%;
+  padding-top: 100px;
+}
+.card {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  margin: 0 auto 40px auto;
+}
+.card-header {
+  width: 150px;
+  height: 150px;
+  margin: 30px 0 0 0;
+}
+span.pay-img {
+  width: 150px;
+  height: 150px;
+  display: block;
+  overflow: hidden;
+}
+.pay-img img {
+  transform: scale(2);
+}
+h2.modal-title.text-center {
+  font-size: 30px;
+}
+.trans-p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.trans-p.p-text {
+  width: 80%;
+  margin: 0 auto;
+}
+.shop-btn {
+  background: #e50808;
+  color: #fff;
+  font-size: 16px;
+  padding: 8px 17px;
+}

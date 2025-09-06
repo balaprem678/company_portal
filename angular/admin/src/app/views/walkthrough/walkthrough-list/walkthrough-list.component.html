@@ -1,0 +1,13 @@
+<div class="layout_ctrl-walkthrough_images">
+    <div class="container">
+
+        <app-common-table [settings]="settings" [source]="source" [count]="totalItems" [itemsPerPage]="limit"
+            [tablename]="'Walkthrough Images'" [restoreApis]="restoreApis" [deleteApis]="deleteApis" [add_btn]="add_btn"
+            [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName" [editUrl]="editUrl"
+            (onDeleteChange)="onDeleteChange($event)" (onitemsPerPageChange)="onitemsPerPageChange($event)"
+            [card_details]="card_details" (onPageChange)="onPageChange($event)" [bulk_action]="bulk_action"
+            (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)"
+            [permanentdelete]="permanentdelete">
+        </app-common-table>
+    </div>
+</div>

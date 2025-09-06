@@ -1,0 +1,118 @@
+<h1><strong>Vehicle</strong></h1>
+<div class="pagecontent doc_page" *ngIf="!myBooleanValue">
+    <!-- row -->
+    <div class="row">
+        <!-- col -->
+        <div class="col-md-12">
+            <!-- tile -->
+            <section class="tile">
+                <!-- tile header -->
+                <!-- <tabset class="tabs-dark">
+                    <tab heading="Details" active="VCTRL.activetab"> -->
+                        <form class="Category-settings" enctype="multipart/form-data" name="vehiFieldForm"
+                            #vehiFieldForm="ngForm" (ngSubmit)="onSubmit(vehiFieldForm)" novalidate>
+                            <fieldset ng-disabled="myBooleanValue">
+                                <div class="row">
+                                    <div class="form-group col-sm-6"
+                                        ng-class="{ 'has-error' : vehiFieldForm.vehicle_name.$invalid && !vehiFieldForm.vehicle_name.$pristine, 'has-success' : vehiFieldForm.vehicle_name.$valid && !vehiFieldForm.vehicle_name.$pristine}">
+                                        <label for="vehicle_name" class="control-label">Vehicle Name<span
+                                                class="color_red">*</span></label>
+                                        <input type="text" pattern="^[a-zA-Z0-9\_\. ]*$" name="vehicle_name" ngModel
+                                            #vehicle_name="ngModel" id="vehicle_name" minlength="2" maxlength="18"
+                                            class="form-control" required>
+                                        <p class="help-block"
+                                            *ngIf="(vehiFieldForm.submitted || (vehiFieldForm.controls.vehicle_name && vehiFieldForm.controls.vehicle_name.touched)) &&vehiFieldForm.controls.vehicle_name.errors">
+                                            <span class="invalid-feedback"
+                                                *ngIf="vehiFieldForm.controls.vehicle_name.errors.required">Vehicle
+                                                name is required.</span>
+                                            <span class="invalid-feedback"
+                                                *ngIf="vehiFieldForm.controls.vehicle_name.errors.minlength">Vehicle
+                                                Name Must
+                                                Be Minimum Of 2 characters.</span>
+                                            <span class="invalid-feedback"
+                                                *ngIf="vehiFieldForm.controls.vehicle_name.errors.maxlength">Vehicle
+                                                Name Must
+                                                Be Maximum Of 18 characters.</span>
+
+                                            <span class="invalid-feedback"
+                                                *ngIf="vehiFieldForm.controls.vehicle_name.errors.pattern">Allowed Only
+                                                Dot,
+                                                Underscore.</span>
+                                        </p>
+                                    </div>
+                                    <div class="form-group col-sm-6"
+                                        ng-class="{ 'has-error' : vehiFieldForm.status.$invalid && !vehiFieldForm.status.$pristine, 'has-success' : vehiFieldForm.status.$valid && !vehiFieldForm.status.$pristine}">
+                                        <label for="status" class="control-label">Status<span
+                                                class="color_red">*</span></label>
+                                        <select type="text" name="status" id="status" class="form-control" ngModel
+                                            #status="ngModel" convert-to-number required>
+                                            <option value="1">Active</option>
+                                            <option value="2">In-Active</option>
+                                        </select>
+                                        <p class="help-block"
+                                            *ngIf="(vehiFieldForm.submitted || (vehiFieldForm.controls.status && vehiFieldForm.controls.status.touched)) &&vehiFieldForm.controls.status.errors">
+                                            <span class="invalid-feedback"
+                                                *ngIf="vehiFieldForm.controls.status.errors.required">Status
+                                                is required.</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                                    <button type="submit"
+                                        class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10">Submit<i
+                                            class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    <!-- </tab>
+                </tabset> -->
+            </section>
+            <!-- /tile -->
+        </div>
+        <!-- /col -->
+    </div>
+    <!-- /row -->
+</div>
+<!-- /page content -->
+
+
+<div class="pagecontent doc_page" *ngIf="myBooleanValue && vehicleDetails">
+    <!-- row -->
+    <div class="row">
+        <!-- col -->
+        <div class="col-md-12">
+            <!-- tile -->
+            <section class="tile">
+                <!-- tile header -->
+                <!-- <tabset class="tabs-dark">
+
+                    <tab heading="Details" active="VCTRL.activetab"> -->
+                        <form class="Category-settings" submit-validate enctype="multipart/form-data"
+                            name="vehiFieldForm" novalidate>
+                            <fieldset ng-disabled="myBooleanValue">
+                                <div class="row">
+                                    <div class="form-group col-sm-6"
+                                        ng-class="{ 'has-error' : vehiFieldForm.vehicle_name.$invalid && !vehiFieldForm.vehicle_name.$pristine, 'has-success' : vehiFieldForm.vehicle_name.$valid && !vehiFieldForm.vehicle_name.$pristine}">
+                                        <label for="vehicle_name" class="control-label">Vehicle Name</label>
+                                        <label>{{vehicleDetails.vehicle_name}}</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-6"
+                                        ng-class="{ 'has-error' : vehiFieldForm.status.$invalid && !vehiFieldForm.status.$pristine, 'has-success' : vehiFieldForm.status.$valid && !vehiFieldForm.status.$pristine}">
+                                        <label for="status" class="control-label">Status</label>
+                                        <label>{{vehicleDetails.status==1? "Active" : "In Active"}} </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    <!-- </tab>
+                </tabset> -->
+            </section>
+        </div>
+        <!-- /tile -->
+    </div>
+    <!-- /col -->
+</div>
+<!-- /row -->

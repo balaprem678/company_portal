@@ -1,0 +1,192 @@
+<app-header *ngIf="logo" [navbarBrandRouterLink]="['/app']" [fixed]="true"
+    [navbarBrandFull]="{src: logo, width: 89, height: 25, alt: 'Logo',style: { 'max-width.px': 89,'max-height.px': 25 }}"
+    [navbarBrandMinimized]="{src: 'assets/image/icon.png', width: 30, height: 30,  alt: 'Logo-icon'}"
+    [sidebarToggler]="'lg'" [asideMenuToggler]="'lg'">
+
+    <ul class="nav navbar-nav ml-auto top_bar_profile_bell">
+        <li class="nav-item dropdown" dropdown placement="bottom right">
+            <a routerLink="/app/orders/neworders" class="nav-link" data-toggle="dropdown" href="javascript:void(0)"
+                role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false"><i
+                    class="fa fa-bell-o"></i><span class="badge badge-pill badge-danger"></span>
+                <span ng-if="pendingDriverLength != 0" class="badge bg-lightred">{{total}} </span>
+            </a>
+            <!-- <div class="dropdown-menu dropdown-menu-right" role="menu" *dropdownMenu aria-labelledby="simple-dropdown"> -->
+            <!-- <div class="">Notification<strong>{{total}}</strong></div>
+                <ul slimscroll="{height: '100%'}" class="list-group header-scroll" id="table-scroll"> -->
+            <!-- <div class="panel-body">
+                        <a class="dropdown-item"><strong>Orders List : {{pendingOrderlength}} </strong>
+                        </a>
+                    </div> -->
+            <!-- <li class="dropdown-item" *ngFor="let ptasker of pendingOrders">
+                        <a routerLink="/app/orders/vieworders/{{ptasker._id}}" class="media">
+                            <div class="media-left">
+                            </div>
+                            <div class="media-body">
+                                <span class="block">{{ptasker.order_id}}</span>
+                                <div><small class="text-muted">{{ptasker.createdAt| timeago:live}}</small></div>
+                            </div>
+                        </a>
+                    </li> -->
+            <!-- <a routerLink="/app/orders/neworders">Show all orders >> </a> -->
+            <!-- <br>
+                    <div class="panel-body">
+                        <a class="dropdown-item"><strong>New Drivers List : {{pendingDriverlength}}</strong>
+                        </a>
+                    </div>
+                    <li class="dropdown-item" *ngFor="let pdriver of pendingDrivers">
+                        <a routerLink="/app/drivers/editdriver/{{pdriver._id}}" class="media">
+                            <div class="media-left">
+                            </div>
+                            <div class="media-body">
+                                <span class="block">{{pdriver.username}}</span>
+                                <div>
+                                    <small class="text-muted">{{pdriver.createdAt| timeago:live}}</small>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <a routerLink="/app/drivers/driverslist" style="margin-left:13px;">Show all orders >> </a> -->
+            <!-- </ul> -->
+            <!-- </div> -->
+
+            <!-- </li> -->
+
+            <!-- <li class="nav-item d-md-down-none"> 
+            <a class="nav-link" href="javascript:void(0)"><i class="fa fa-list"></i></a>
+        </li> -->
+        <li class="nav-item dropdown admin_user_profile" dropdown placement="bottom right">
+            <div class="admin_profile">
+                <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true"
+                    aria-expanded="false" dropdownToggle (click)="false">
+                    <img src="assets/image/user.jpg" class="img-avatar" alt="user image" />
+                    <div>
+                        <!-- <h5>Prem</h5> -->
+                        <p><b>Admin</b></p>
+                    </div>
+                </a>
+
+            </div>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+                <div class="admin_profile_dd">
+                    <!-- <div class="admin_profile_post">
+                        <img src="" alt="">
+                        <div>
+                            <h5>Prem</h5>
+                            <p>admin@mail.com</p>
+                        </div>
+                    </div> -->
+
+                    <div class="profile_setting_logout">
+                        <a class="dropdown-item" routerLink="/app/settings"><img src="assets/image/profile.png"
+                                alt="">&nbsp;My Profile</a>
+                        <a class="dropdown-item" routerLink="/app/settings"><img src="assets/image/setting.png"
+                                alt="">&nbsp;Setting</a>
+                        <a class="dropdown-item" href="javascript:void(0)" (click)="logOutPop(logOutPopup)"><img
+                                src="assets/image/logout.png" alt="">&nbsp;Logout</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</app-header>
+<div class="app-body">
+    <app-sidebar [fixed]="true" [display]="'lg'" [minimized]="minimized" #sidebar
+        (minimizedChange)="toggleMinimize($event)">
+        <!-- <div class="dashboard_sidebar_logo">
+        <img src="assets/image/logo.png" alt="logo">
+    </div> -->
+        <app-sidebar-nav [navItems]="navItems"></app-sidebar-nav>
+        <app-sidebar-minimizer></app-sidebar-minimizer>
+    </app-sidebar>
+    <!-- Main content -->
+    <main class="main">
+        <!-- Breadcrumb -->
+        <cui-breadcrumb>
+            <!-- Breadcrumb Menu-->
+        </cui-breadcrumb>
+        <div class="container-fluid">
+            <router-outlet>
+                <app-spinner></app-spinner>
+            </router-outlet>
+        </div>
+    </main>
+    <!-- <app-aside [fixed]="true" [display]="false">
+    </app-aside> -->
+</div>
+<span id="triggerPopupModal" (click)="confirmModal.show()"></span>
+<div bsModal #confirmModal="bs-modal" class="active_inactive_modal modal fade" id="exampleModalCenter" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content cases-model">
+            <h5 class="modal-title" id="exampleModalLongTitle">Change Status </h5>
+            <h6> Are you sure! Do you want to Change Status? </h6>
+            <!-- <div class="product_details">
+                <img src="" alt="">
+                <div>
+                    <h4>qwertyu</h4>
+                    <p>asdfghjk</p>
+                </div>
+            </div> -->
+            <div class="yes_no">
+                <button type="button" class="btn conform-cancel" (click)="confirmModal.hide()">
+                    No
+                </button>
+                <button type="button" class="btn conform-dels" (click)="confirmPopunModal();confirmModal.hide();">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<span id="triggerPopupModal1" (click)="confirmModal1.show()"></span>
+<div bsModal #confirmModal1="bs-modal" class="active_inactive_modal modal fade" id="exampleModalCenter" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content cases-model">
+            <h5 class="modal-title" id="exampleModalLongTitle">Change Flag Status </h5>
+            <h6> Are you sure! Do you want to Change Flag Status? </h6>
+            <!-- <div class="product_details">
+                <img src="" alt="">
+                <div>
+                    <h4>qwertyu</h4>
+                    <p>asdfghjk</p>
+                </div>
+            </div> -->
+            <div class="yes_no">
+                <button type="button" class="btn conform-cancel" (click)="confirmModal1.hide()">
+                    No
+                </button>
+                <button type="button" class="btn conform-dels" (click)="confirmPopunModalflag();confirmModal1.hide();">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <app-footer [fixed]="true">
+    <span class="m-auto"><a href="javascript:void(0)">Copyright {{settings ? settings.site_title : ''}}</a> &copy;
+   
+        2024 Developed & Designed by Team Tweaks.</span>
+</app-footer> -->
+
+<ng-template #logOutPopup>
+    <div class="logout_modal">
+
+        <div class="modal-body login-body">
+            <div class="h4_close">
+                <h4>Logout</h4>
+                <div (click)="destroyPopup()" style="cursor: pointer;" title="close the popup" class="pop_cls_btn">
+                    &#10006;
+                </div>
+            </div>
+            <h6 class="modal-title">Are you sure? You are attempting to logout?</h6>
+        </div>
+        <div class="modal-footer border-0">
+            <button type="button" (click)="destroyPopup()" class="btn cancel-btn">Cancel</button>
+            <button type="button" (click)="logout()" class="btn out-bnt">Logout</button>
+        </div>
+    </div>
+</ng-template>

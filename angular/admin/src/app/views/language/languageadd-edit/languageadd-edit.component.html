@@ -1,0 +1,74 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>{{pageTitle | titlecase}}</strong></div>
+                <form #LanguageAddEditForm="ngForm" (ngSubmit)="onFormSubmit(LanguageAddEditForm)" autocomplete="off">
+                    <div class="card-body row">
+                        <div class="col-md-12">
+                            <div class="form-group grouping-strains row">
+                                <div class="col-md-4">
+                                    <div class="group-control">
+                                        <label for="name">Language Name <span class="mandatory">*</span> </label>
+                                        <input type="text" id="name" ngModel name="name" #name="ngModel" required
+                                            class="form-control" pattern="^[a-zA-Z]([\w -]*[a-zA-Z])*$"
+                                            placeholder="Enter Name"
+                                       >
+                                        <div *ngIf="LanguageAddEditForm.submitted && !name.valid">
+                                            <div class="invalid-feedback" *ngIf="name.errors.required">Name is required.
+                                            </div>
+                                            <div class="invalid-feedback" *ngIf="name.errors?.pattern">Please enter
+                                                valid Name.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="group-control">
+                                        <label for="code">Language Code <span class="mandatory">*</span> </label>
+                                        <input type="text" id="code" ngModel name="code" #code="ngModel" required
+                                            class="form-control" pattern="^[a-zA-Z]([\w -]*[a-zA-Z])*$"
+                                            placeholder="Enter Code"
+                                    >
+                                        <div *ngIf="LanguageAddEditForm.submitted && !code.valid">
+                                            <div class="invalid-feedback" *ngIf="code.errors.required">Code is required.
+                                            </div>
+                                            <div class="invalid-feedback" *ngIf="code.errors?.pattern">Please enter
+                                                valid Code.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="group-control">
+                                        <label for="status">Enable/Disable <span class="mandatory">*</span></label>
+                                        <select name="status" id="status" class="form-control" ngModel name="status"
+                                            #status="ngModel" required
+                                       >
+                                            <option value="">--Select--</option>
+                                            <option value="1">Enable</option>
+                                            <option value="2">Disable</option>
+                                        </select>
+                                        <div *ngIf="LanguageAddEditForm.submitted && !status.valid">
+                                            <div class="invalid-feedback" *ngIf="status.errors.required">Status is
+                                                required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-success" [disabled]="submitebtn">
+                            Submit
+                        </button>
+                        <button type="button" routerLink="/app/language/list" class="btn btn-sm btn-danger">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

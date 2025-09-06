@@ -1,0 +1,79 @@
+<div class="email_template-add_edit_email_template margin_top">
+    <div class="container">
+        <div class="animated fadeIn">
+            <form #emailtempleteForm="ngForm" (ngSubmit)="onFormSubmit(emailtempleteForm)" autocomplete="off">
+                <div class="full_page_title margin_top">
+                    <strong>{{pageTitle | titlecase}}</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="email_subject">
+                            <label for="email_subject">Email Subject <span class="mandatory">*</span> </label>
+                            <input type="text" id="email_subject" ngModel name="email_subject" #email_subject="ngModel"
+                                required class="form-control" placeholder="Enter Email Subject" maxlength="25">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="sender_email_address">
+                            <label for="sender_email">User Email Address</label>
+                            <ng-select
+                                id="sender_email"
+                                [items]="userEmails"  
+                                bindLabel="email"  
+                                bindValue="email"  
+                                name="user_emails"
+                                [(ngModel)]="selectedEmails" 
+                                placeholder="Search and select emails"
+                                [multiple]="true"  
+                                [searchable]="true"  
+                                [closeOnSelect]="false" 
+                                class="form-control"
+                                [disabled]="allActiveUsers"
+                                (change)="onEmailsSelected($event)">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="sender_email_address">
+                            <label for="sender_email">Sender Email Address</label>
+                           <input type="text" placeholder="Enter Sender Email" name="senderemail" id="senderemail" [(ngModel)]="senderEmail" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-5">
+                        <div class="sender_name">
+                            <input type="checkbox" id="active_users" ngModel name="active_users" [(ngModel)]="allActiveUsers" (change)="onActiveUsersChange()">&nbsp;
+                            <label for="active_users">All Active Users <span class="mandatory">*</span> </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="email_content">
+                            <label for="email_content">Email Content <span class="mandatory">*</span></label>
+                            <angular-editor id="email_content" name="email_content" required ngModel
+                                [placeholder]="'Enter text here...'" #email_content="ngModel" [config]="editorConfig"></angular-editor>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="email_footer">
+                            <label for="email_footer">Email Footer </label>
+                            <textarea id="email_footer" ngModel name="email_footer" [(ngModel)]="emailFooter" class="form-control" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <div class="card_footer_btn">
+                        <button type="button" *ngIf="viewpage" routerLink="/app/email-template/list" class="btn back-btns">
+                            Back
+                        </button>
+                        <button type="button" *ngIf="!viewpage" routerLink="/app/email-template/list" class="btn btn-sm ">
+                            Cancel
+                        </button>
+                        <button type="submit" *ngIf="!viewpage" class="btn btn-sm " [disabled]="submitebtn">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

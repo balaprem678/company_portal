@@ -1,0 +1,378 @@
+<section class="manage-address pt_110">
+    <div class="container">
+        <div class="bread-crumb">
+            <a [routerLink]="['']">Home</a>
+            <p> <i class="fa fa-angle-right" aria-hidden="true"></i> </p>
+            <!-- <a [routerLink]="['/my-account']">Account</a>
+            <p> <i class="fa fa-angle-right" aria-hidden="true"></i> </p> -->
+            <a>Manage address</a>
+        </div>
+        <div class="address-page">
+            <h3 *ngIf="orderAddress.length > 0">Address</h3>
+            <div class="address-form">
+                <button *ngIf="orderAddress.length > 0" (click)="addNew()" class="add-new-add">+ Add a new
+                    address</button>
+                <br>
+                <button *ngIf="billbtn && billingAddress.length==0 " (click)="Billing_btn()" class="add-new-add">Billing
+                    Address</button>
+                <div class="add-address-form"
+                    *ngIf="!edited && orderAddress.length > 0 || !edited && orderAddress.length == 0">
+                    <!-- <h5>ADD NEW ADDRESS</h5> -->
+                    <!-- <h6>Customer Info</h6> -->
+                    <form #addressForm="ngForm" (ngSubmit)="onFormSubmit(addressForm)">
+                        <div class="address-form-group">
+                            <label><b>SHIPPING ADDRESS</b></label>
+                            <!-- First name -->
+                            <input type="text" placeholder="First name" name="full_name" ngModel #full_name="ngModel"
+                                id="full_name" [(ngModel)]="mapsearch.name" required maxlength="20" minlength="1"
+                                pattern="^[a-zA-Z]+$" />
+                            <!-- ^[a-zA-Z]([\w -]*[a-zA-Z])*$ -->
+                            <div *ngIf="addressForm.submitted && !full_name.valid">
+                                <div *ngIf="full_name.errors?.['required']" class="invalid-feedback d-block">
+                                    Enter First Name
+                                </div>
+                                <div *ngIf="full_name.errors?.['maxlength']">Maximum limit 20 characters</div>
+                                <div *ngIf="full_name.errors?.['minlength']">Minimum limit 1 character</div>
+                                <div class="invalid-feedback" *ngIf="full_name.errors?.['pattern']">Enter valid Full
+                                    name</div>
+                            </div>
+
+                            <!-- Last name -->
+                            <input type="text" placeholder="Last name" name="last_name" ngModel #last_name="ngModel"
+                                id="last_name" [(ngModel)]="mapsearch.lastname" required maxlength="20" minlength="1"
+                                pattern="^[a-zA-Z]+$" />
+                            <div *ngIf="addressForm.submitted && !last_name.valid">
+                                <div *ngIf="last_name.errors?.['required']" class="invalid-feedback d-block">
+                                    Enter Last Name
+                                </div>
+                                <div *ngIf="last_name.errors?.['maxlength']">Maximum limit 20 characters</div>
+                                <div *ngIf="last_name.errors?.['minlength']">Minimum limit 1 character</div>
+                                <div class="invalid-feedback" *ngIf="last_name.errors?.['pattern']">Enter valid Last
+                                    name</div>
+                            </div>
+                        </div>
+
+                        <!-- Address line 1 -->
+                        <div>
+                            <input name="fulladres1" ngModel #fulladres1="ngModel" [(ngModel)]="mapsearch.fulladres"
+                                (keydown.enter)="$event.preventDefault()" class="form-control" id="searchmap"
+                                autocorrect="off" autocapitalize="off" spellcheck="off" type="text" (click)="loadmap()"
+                                placeholder="Address Line " required>
+                            <div *ngIf="addressForm.submitted && !fulladres1.valid">
+                                <div *ngIf="fulladres1.errors?.['required']" class="invalid-feedback d-block">Enter
+                                    Address</div>
+                            </div>
+                        </div>
+
+                        <!-- Country/Region -->
+                        <div class="address-form-group">
+                            <input placeholder="Country/Region" type="text" name="country_region" id="country_region"
+                                ngModel #country_region="ngModel" [(ngModel)]="mapsearch.country" required />
+                            <div *ngIf="addressForm.submitted && !country_region.valid">
+                                <div class="invalid-feedback d-block"
+                                    *ngIf="country_region.errors && country_region.errors['required']">
+                                    Enter Country/Region
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pin code -->
+                        <div class="address-form-group">
+                            <input placeholder="PIN code" type="text" name="zipcode1" id="zipcode1" ngModel
+                                #zipcode1="ngModel" maxlength="6" [(ngModel)]="mapsearch.zipcode" required />
+                            <div *ngIf="addressForm.submitted && !zipcode1.valid">
+                                <div class="invalid-feedback d-block"
+                                    *ngIf="zipcode1.errors && zipcode1.errors['required']">
+                                    Enter Pin Code.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- State -->
+                        <div class="address-form-group">
+                            <input placeholder="State" type="text" name="state1" id="state1" ngModel #state1="ngModel"
+                                [(ngModel)]="mapsearch.state" required />
+                            <div *ngIf="addressForm.submitted && !state1.valid">
+                                <div class="invalid-feedback d-block"
+                                    *ngIf="state1.errors && state1.errors['required']">
+                                    Enter State.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Town/City -->
+                        <div>
+                            <input name="town_city" ngModel #town_city="ngModel" [(ngModel)]="mapsearch.city"
+                                (keydown.enter)="$event.preventDefault()" class="form-control" id="searchmap"
+                                autocorrect="off" autocapitalize="off" spellcheck="off" type="text" (click)="loadmap()"
+                                placeholder="Town/City" required>
+                            <div *ngIf="addressForm.submitted && !town_city.valid">
+                                <div *ngIf="town_city.errors?.['required']" class="invalid-feedback d-block">Enter
+                                    Town/City</div>
+                            </div>
+                        </div>
+
+                        <!-- Phone number -->
+                        <div class="address-form-group">
+                            <ngx-intl-tel-input id="phone" [preferredCountries]="preferredCountries"
+                                [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name,SearchCountryField.All]"
+                                [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO"
+                                [phoneValidation]="true" [separateDialCode]="separateDialCode" #phone="ngModel"
+                                [numberFormat]="PhoneNumberFormat.National" (keyup)="phoneNumberChange($event)"
+                                name="phone" [required]="true" ngModel>
+                            </ngx-intl-tel-input>
+                            <div *ngIf="addressForm.submitted && !phone.valid">
+                                <div class="invalid-feedback d-block"
+                                    *ngIf="phone.errors && phone.errors?.['required']">
+                                    Enter Phone Number.
+                                </div>
+                                <div class="invalid-feedback d-block"
+                                    *ngIf="phone.errors && phone.errors?.['validatePhoneNumber'] && !phone.errors?.['validatePhoneNumber']['valid']">
+                                    Invalid mobile number
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="address-form-group w-100">
+                            <label>SAVE ADDRESS AS</label>
+                            <span>
+                                <input type="radio" [(ngModel)]="mapsearch.choose_location" value="Home" name="home"
+                                    required />
+                                <p class="check-box"></p>
+                                Home
+                            </span>
+                            <span>
+                                <input type="radio" [(ngModel)]="mapsearch.choose_location" value="Office" name="office"
+                                    required />
+                                <p class="check-box"></p>
+                                Office
+                            </span>
+                            <span>
+                                <input type="radio" [(ngModel)]="mapsearch.choose_location" value="Other" name="other"
+                                    required />
+                                <p class="check-box"></p>
+                                Others
+                            </span>
+                            <div *ngIf="addressForm.submitted && !mapsearch.choose_location"
+                                class="invalid-feedback d-block">
+                                Select an Address type.
+                            </div>
+                        </div>
+
+                        <div class="address-form-group address-button">
+                            <button class="save-add">Save Address</button>
+                            <button (click)="cancelEdite()" type="button">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="add-address-form" *ngIf="!edited_billing || billingAddress.length==0 ">
+                    <!-- <h5>ADD NEW ADDRESS</h5> -->
+                    <!-- <h6>Customer Info</h6> -->
+                    <form #BillingForm="ngForm" (ngSubmit)="onBillFormSubmit(BillingForm)">
+                        <div class="address-form-group">
+                            <label><b>BILLING ADDRESS</b></label>
+                            <!-- First name -->
+                            <input type="text" placeholder="First name" name="full_name" ngModel #full_name="ngModel"
+                                id="full_name" [(ngModel)]="mapsearch.name" required maxlength="20" minlength="1"
+                                pattern="^[a-zA-Z]+$" />
+                            <!-- ^[a-zA-Z]([\w -]*[a-zA-Z])*$ -->
+                            <div *ngIf="BillingForm.submitted && !full_name.valid">
+                                <div *ngIf="full_name.errors?.['required']" class="invalid-feedback d-block">
+                                    Enter First Name
+                                </div>
+                                <div *ngIf="full_name.errors?.['maxlength']">Maximum limit 20 characters</div>
+                                <div *ngIf="full_name.errors?.['minlength']">Minimum limit 1 character</div>
+                                <div class="invalid-feedback" *ngIf="full_name.errors?.['pattern']">Enter valid Full
+                                    name</div>
+                            </div>
+
+                            <!-- Last name -->
+                            <input type="text" placeholder="Last name" name="last_name" ngModel #last_name="ngModel"
+                                id="last_name" [(ngModel)]="mapsearch.lastname" required maxlength="20" minlength="1"
+                                pattern="^[a-zA-Z]+$" />
+                            <div *ngIf="BillingForm.submitted && !last_name.valid">
+                                <div *ngIf="last_name.errors?.['required']" class="invalid-feedback d-block">
+                                    Enter Last Name
+                                </div>
+                                <div *ngIf="last_name.errors?.['maxlength']">Maximum limit 20 characters</div>
+                                <div *ngIf="last_name.errors?.['minlength']">Minimum limit 1 character</div>
+                                <div class="invalid-feedback" *ngIf="last_name.errors?.['pattern']">Enter valid Last
+                                    name</div>
+                            </div>
+                        </div>
+
+                        <!-- Address line 1 -->
+                        <div>
+                            <input name="fulladres1" ngModel #fulladres1="ngModel" [(ngModel)]="mapsearch.fulladres"
+                                (keydown.enter)="$event.preventDefault()" class="form-control" id="searchmap"
+                                autocorrect="off" autocapitalize="off" spellcheck="off" type="text" (click)="loadmap()"
+                                placeholder="Address Line " required>
+                            <div *ngIf="BillingForm.submitted && !fulladres1.valid">
+                                <div *ngIf="fulladres1.errors?.['required']" class="invalid-feedback d-block">Enter
+                                    Address</div>
+                            </div>
+                        </div>
+
+                        <!-- Country/Region -->
+                        <div class="address-form-group">
+                            <input placeholder="Country/Region" type="text" name="country_region" id="country_region"
+                                ngModel #country_region="ngModel" [(ngModel)]="mapsearch.country" required />
+                            <div *ngIf="BillingForm.submitted && !country_region.valid">
+                                <div class="invalid-feedback d-block"
+                                    *ngIf="country_region.errors && country_region.errors['required']">
+                                    Enter Country/Region
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pin code -->
+                        <div class="address-form-group">
+                            <input placeholder="PIN code" type="text" name="zipcode1" id="zipcode1" ngModel
+                                #zipcode1="ngModel" maxlength="6" [(ngModel)]="mapsearch.zipcode" required />
+                            <div *ngIf="BillingForm.submitted && !zipcode1.valid">
+                                <div class="invalid-feedback d-block"
+                                    *ngIf="zipcode1.errors && zipcode1.errors['required']">
+                                    Enter Pin Code.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- State -->
+                        <div class="address-form-group">
+                            <input placeholder="State" type="text" name="state1" id="state1" ngModel #state1="ngModel"
+                                [(ngModel)]="mapsearch.state" required />
+                            <div *ngIf="BillingForm.submitted && !state1.valid">
+                                <div class="invalid-feedback d-block"
+                                    *ngIf="state1.errors && state1.errors['required']">
+                                    Enter State.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Town/City -->
+                        <div>
+                            <input name="town_city" ngModel #town_city="ngModel" [(ngModel)]="mapsearch.city"
+                                (keydown.enter)="$event.preventDefault()" class="form-control" id="searchmap"
+                                autocorrect="off" autocapitalize="off" spellcheck="off" type="text" (click)="loadmap()"
+                                placeholder="Town/City" required>
+                            <div *ngIf="BillingForm.submitted && !town_city.valid">
+                                <div *ngIf="town_city.errors?.['required']" class="invalid-feedback d-block">Enter
+                                    Town/City</div>
+                            </div>
+                        </div>
+
+                        <!-- Phone number -->
+                        <div class="address-form-group">
+                            <ngx-intl-tel-input id="phone" [preferredCountries]="preferredCountries"
+                                [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name,SearchCountryField.All]"
+                                [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO"
+                                [phoneValidation]="true" [separateDialCode]="separateDialCode" #phone="ngModel"
+                                [numberFormat]="PhoneNumberFormat.National" (keyup)="phoneNumberChanges($event)"
+                                name="phone" [required]="true" ngModel>
+                            </ngx-intl-tel-input>
+                            <div *ngIf="BillingForm.submitted && !phone.valid">
+                                <div class="invalid-feedback d-block"
+                                    *ngIf="phone.errors && phone.errors?.['required']">
+                                    Enter Phone Number.
+                                </div>
+                                <div class="invalid-feedback d-block"
+                                    *ngIf="phone.errors && phone.errors?.['validatePhoneNumber'] && !phone.errors?.['validatePhoneNumber']['valid']">
+                                    Invalid mobile number
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="address-form-group w-100">
+                            <label>SAVE ADDRESS AS</label>
+                            <span>
+                                <input type="radio" [(ngModel)]="mapsearch.choose_location" value="Home" name="home"
+                                    required />
+                                <p class="check-box"></p>
+                                Home
+                            </span>
+                            <span>
+                                <input type="radio" [(ngModel)]="mapsearch.choose_location" value="Office" name="office"
+                                    required />
+                                <p class="check-box"></p>
+                                Office
+                            </span>
+                            <span>
+                                <input type="radio" [(ngModel)]="mapsearch.choose_location" value="Other" name="other"
+                                    required />
+                                <p class="check-box"></p>
+                                Others
+                            </span>
+                            <div *ngIf="BillingForm.submitted && !mapsearch.choose_location"
+                                class="invalid-feedback d-block">
+                                Select an Address type.
+                            </div>
+                        </div>
+
+                        <div class="address-form-group address-button">
+                            <button class="save-add">Save Address</button>
+                            <button (click)="cancelEdite()" type="button">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div>
+                    <p>Shipping Address</p>
+                    <div class="address-form-box" *ngFor="let item of orderAddress">
+                        <input style="cursor: pointer;" type="checkbox" [checked]="item.active"
+                            (click)="activetheAddress(item._id)">
+                        <span class="checkmark"></span>
+                        <div class="address-form-left">
+                            <label>{{item.choose_location}}</label>
+                            <p class="add-name">{{item.first_name}}{{item.last_name}}
+                            </p>
+                            <p class="address-cnt">{{item.fulladres ? item.fulladres : item.line1}}</p>
+                            <p>{{item.city}},{{item.state}}-{{item.zipcode}}</p>
+
+                            <p> {{item.phone ? item.phone.number :
+                                ''}}</p>
+                        </div>
+                        <div class="address-form-right">
+                            <button (click)="deleteAddress(item._id)" class="add-remove">Remove</button>
+                            <button (click)="editeAddress(item)" class="add-Edit">Edit</button>
+                        </div>
+                    </div>
+                    <div *ngIf="continue" class="con-info">
+                        <button [routerLink]="['/checkout']" class="btn con-btn">Continue</button>
+                    </div>Shipping Address
+                </div>
+
+                <!-- billing address -->
+                <div>
+                    <p>billing address</p>
+                    <div class="address-form-box" *ngFor="let item of billingAddress">
+                        <input style="cursor: pointer;" type="checkbox" [checked]="item.active"
+                            (click)="activetheAddress(item._id)">
+                        <span class="checkmark"></span>
+                        <div class="address-form-left">
+                            <label>{{item.choose_location}}</label>
+                            <p class="add-name">{{item.first_name}}{{item.last_name}}
+                            </p>
+                            <p class="address-cnt">{{item.fulladres ? item.fulladres : item.line1}}</p>
+                            <p>{{item.city}},{{item.state}}-{{item.zipcode}}</p>
+
+                            <p> {{item.phone ? item.phone.number :
+                                ''}}</p>
+                        </div>
+                        <div class="address-form-right">
+                            <button (click)="deleteBillingAddress(item._id)" class="add-remove">Remove</button>
+                            <button (click)="editebillingAddress(item)" class="add-Edit">Edit</button>
+                        </div>
+                    </div>
+                    <div *ngIf="continue" class="con-info">
+                        <button [routerLink]="['/checkout']" class="btn con-btn">Continue</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

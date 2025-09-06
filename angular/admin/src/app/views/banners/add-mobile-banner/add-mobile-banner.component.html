@@ -1,0 +1,54 @@
+<h4>
+    <label class="ng-binding" *ngIf='!id'>Add Mobile Banner</label>
+    <label class="ng-binding" *ngIf='id'>Edit Mobile Banner</label>
+</h4>
+<label>Banners details</label>
+<div class="container">
+    <form name="nameDetails" [formGroup]="webform" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="rcategory">Banner <span class="color_red">*</span></label>
+                <input type="text" formControlName="bannername" class="form-control" placeholder="Banner Name" required>
+                <div *ngIf="submitted && formcontrol.bannername.errors?.required" style="color:red">Banner name is
+                    required!
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <!-- File Input -->
+                <label for="rcategory">Banner Image <span class="color_red">*</span></label>
+                <div class="form-group">
+                    <input class="form-control" type="file" formControlName="image" accept="image/*"
+                        (change)="onSelectedFile($event)" accept="image/*" [required]="!preview">
+                    <div *ngIf="submitted && formcontrol.image.errors?.required" style="color:red">Image is required!
+                    </div>
+                    <span class="restaurant-img-error">Allowed files: png, jpg. Max file size 1Mb</span>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Status<span class="color_red">*</span></label>
+                <select type="text" name="status" id="status" class="form-control" formControlName="status"
+                    [(ngModel)]="status" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Active</option>
+                    <option value="2">In-Active</option>
+                </select>
+                <div *ngIf="submitted && formcontrol.status.errors?.required" class="invalid-feedback">Status is
+                    required!
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="preview">
+                        <img class="ng-scope" style="width: 200px;" [src]="preview" width="50px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button style="margin-top: 50px;" type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>

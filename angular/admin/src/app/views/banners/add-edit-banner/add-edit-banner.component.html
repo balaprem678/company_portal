@@ -1,0 +1,125 @@
+<div class="banner-add_web_banner margin_top">
+    <div class="container">
+
+        <h4 class="full_page_title">
+            <strong class="ng-binding" *ngIf='!id'>Add Banner</strong>
+            <strong class="ng-binding" *ngIf='id'>Edit Banner</strong>
+        </h4>
+        <form name="nameDetails" [formGroup]="webform" (ngSubmit)="onSubmit()">
+            <div class="row">
+
+                <!-- <div class="status mt-4">
+                    <label>Banner Type<span class="color_red">*</span></label>
+                    <ng-select [items]="bannerOptions" bindLabel="label" bindValue="value" formControlName="bannertype"
+                         name="bannertype" id="bannertype" required
+                         placeholder="Select Type">
+                    </ng-select>
+
+
+                    <div *ngIf="submitted && formcontrol.status.errors?.required" style="color:red">Status is
+                        required!
+                    </div>
+                </div> -->
+                <div class="col-md-4">
+                    <div class="banner_images">
+                        <label for="rcategory">Banner Image <span class="color_red">*</span></label>
+                        <div class="form-group">
+                            <input class="form-control" type="file" accept="image/*" formControlName="image"
+                                (change)="onSelectedFile($event)" [required]="!preview">
+                        </div>
+                        <div class="img_center_call">
+                            <img src="assets/image/no_images.png" alt="no_images">
+                        </div>
+                        <div class="preview">
+                            <img class="ng-scope" [src]="preview">
+                        </div>
+                        <div *ngIf="submitted && formcontrol.image.errors?.required" style="color:red">Image is
+                            required!
+                        </div>
+                        <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                            *.png, *.jpg and *.jpeg image files are
+                            accepted</p>
+                        <!-- <div *ngIf="submitted && formcontrol.image.errors?.required" style="color:red">Image is
+                            required!
+                        </div> -->
+                        <!-- <span class="restaurant-img-error">Allowed files: png, jpg. Max file size 1Mb</span> -->
+                    </div>
+
+                    <div class="status mt-4">
+                        <label>Select Status<span class="color_red">*</span></label>
+                        <!-- <select type="text" name="status" id="status" class="form-control" [(ngModel)]="status"
+                            formControlName="status" convert-to-number required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">Active</option>
+                            <option value="2">In-Active</option>
+                        </select> -->
+                        <ng-select [items]="statusOptions" bindLabel="label" bindValue="value" formControlName="status"
+                            class="custom-ng-select" name="status" id="status" required
+                            [style.border-radius.px]="dropdownBorderRadius" placeholder="Select">
+                        </ng-select>
+
+
+                        <div *ngIf="submitted && formcontrol.status.errors?.required" style="color:red">Status is
+                            required!
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-8">
+                    <div class="banner_name">
+                        <label for="rcategory">Banner <span class="color_red">*</span></label>
+                        <input type="text" formControlName="bannername" [(ngModel)]="bannerName" class="form-control"
+                            placeholder="Banner Name" name="" (keyup)="letterLeft(bannerName)" maxlength="30" required>
+                        <p>Banner name should not exceed
+                            30 Charcters , left:{{nameWordsLeft}}</p>
+                        <div *ngIf="submitted && formcontrol.bannername.errors?.required" style="color:red">Banner name
+                            is
+                            required!
+                        </div>
+                        <!-- <div *ngIf="formcontrol.bannername.touched" style="color:red">Banner should be in
+                        30Charcters{{nameWordsLeft}}</div> -->
+                    </div>
+
+                    <div class="select_category mt-4">
+                        <label for="status">Select Category <span class="mandatory">*</span></label>
+                        <ng-select [items]="categorylist" bindLabel="rcatname" bindValue="rcatname"
+                            formControlName="banner_category" class="custom-ng-select" placeholder="Select"
+                            required>
+                        </ng-select>
+                        <div *ngIf="submitted && formcontrol.banner_category.errors?.required" style="color:red">
+                            Category
+                            is
+                            required!
+                        </div>
+                        <!-- <div *ngIf="submitted && !status.valid">
+                        <div class="invalid-feedback" *ngIf="formcontrol.banner_category.errors?.required">Category is
+                            required.
+                        </div> -->
+                        <!-- <div class="invalid-feedback" *ngIf="status.errors.status">Please enter valid category
+                        </div> -->
+                        <!-- </div> -->
+                    </div>
+
+                    <div class="specification mt-4">
+                        <label for="rcategory">Specification<span class="color_red">*</span></label>
+                        <input type="text" formControlName="description" [(ngModel)]="specification"
+                            class="form-control" maxlength="100" (keyup)="specificationLetterLeft(specification)"
+                            placeholder="Specification" required>
+                        <p>Specification should not exceed
+                            100 Charcters , left:{{specificationLeft}}</p>
+                        <div *ngIf="submitted && formcontrol.description.errors?.required" style="color:red">
+                            Specification
+                            is
+                            required!
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 card_footer_btn_single">
+                    <button type="submit" class="btn">Save Changes</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+.setting_smtp_setting
+  :where(.smtp_host, .smtp_port, .smtp_mode, .smtp_email, .smtp_passowrd) {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  margin-bottom: 20px;
+}
+input,
+ng-select {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+  margin-bottom: 15px;
+}
+ng-select {
+  padding: 0;
+}
+
+.card_footer_btn {
+  margin-left: auto;
+  margin-right: 12px;
+  margin-top: 30px;
+  margin-bottom: 80px;
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+}
+
+.card_footer_btn button {
+  background-color: #1b84ff;
+  height: 47px;
+  width: 151px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.card_footer_btn button:hover {
+  background-color: #056ee9;
+}
+
+::ng-deep input[type="number"]::-webkit-inner-spin-button,
+::ng-deep input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::ng-deep input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}

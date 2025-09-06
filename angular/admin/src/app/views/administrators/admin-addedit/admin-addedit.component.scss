@@ -1,0 +1,11 @@
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group.legend p {
+    font-size: 12px;
+    color: #95a2a9;
+    border-bottom: 1px dotted #cacaca;
+    padding-bottom: 5px;
+}::ng-deep .card-footer {
+    margin-bottom: 3pc !important;
+  }

@@ -1,0 +1,279 @@
+<section class="order-received pt_110">
+    <!-- <div class="container">
+        <div class="shipping-box">
+            <h2>Free Shipping (Limited Time Offer)</h2>
+            <div class="shipping-boxes">
+                <div class="ship-box">
+                    <span><img src="../../../../assets/image/pillais/boxes-solid.png" alt="" /></span>
+                    <div>
+                        <h3>FREE SHIPPING</h3>
+                        <p>On Orders above ₹399 (up to 5kg)</p>
+                    </div>
+                </div>
+                <div class="ship-box">
+                    <span><img src="../../../../assets/image/pillais/rupee-sign.png" alt="" /></span>
+                    <div>
+                        <h3>₹75 SHIPPING FARE</h3>
+                        <p>For Orders below ₹399 (above 5kg)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="single-box">
+            <span><img src="../../../../assets/image/pillais/lock-solid.png" alt="" /></span>
+            <div>
+                <h3>Exclusive Offer</h3>
+                <p>Unlock Additional Savings ₹124 with Orders over ₹499!</p>
+            </div>
+        </div>
+    </div> -->
+</section>
+
+<section class="checkout-details">
+    <div class="container">
+        <div class="checkout-details-left">
+            <div class="thank-head">
+                <span><img src="../../../../assets/image/pillais/check-mark.png" alt="" /></span>
+                <div>
+                    <h3>Order ID {{order.order_id}}</h3>
+                    <p>Thank you {{userdetails.first_name}} {{userdetails.last_name}}!</p>
+                </div>
+            </div>
+
+            <!-- <div class="order-status">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" [style.width.%]="progressValue"
+                        [attr.aria-valuenow]="progressValue" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="progress-status">
+                    <span>
+                        <h6>Processing</h6>
+                        <p>{{order.order_history.order_time | date:'mediumDate'}}</p>
+                    </span>
+                    <span>
+                        <h6>Delivery Date</h6>
+                        <p>-</p>
+                    </span>
+                </div>
+            </div> -->
+
+
+            <div class="order-status" *ngIf="order">
+                <div class="progress-container">
+                    <h4>{{ statusMapping[order.status]?.label || '' }}</h4>
+                    <p>
+                        {{ order.status === 1 ? (order.order_history.order_time | date:'mediumDate') : '' }}
+                    </p>
+                    <p>
+                        {{ order.status == 7 ? (parseDate(order.shiprocket_data.delivered_date) | date:'mediumDate') : '' }}
+                    </p>
+
+                    <div class="order_tracker_dot">
+                        <!-- Progress Bar -->
+                        <div class="progress">
+                            <div class="progress-bar" [style.width.%]="progressValue"
+                                [attr.aria-valuenow]="progressValue" aria-valuemin="0" aria-valuemax="100"
+                                [class.canceled]="order.status === 9"></div>
+
+                            <!-- Dynamic Scan Dots -->
+                            <div class="scan-dots">
+                                <ng-container *ngIf="order.shiprocket_data?.scans?.length > 0">
+                                    <ng-container
+                                        *ngFor="let scan of order.shiprocket_data?.scans?.slice().reverse(); let i = index">
+                                        <div class="dot"
+                                            [style.left.%]="(i / (order.shiprocket_data?.scans?.length - 1)) * 100"
+                                            title="{{scan.activity}} at {{scan.location}} on {{scan.date | date:'mediumDate'}}">
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="progress-points">
+                            <div class="point" [class.active]="progressValue >= 10"><span>Ordered</span> </div>
+                            <div class="point" [class.active]="progressValue >= 50"><span>Shipped</span></div>
+
+                            <div class="point" [class.active]="progressValue >= 80"><span>Out for Delivery</span></div>
+                            <div class="point" [class.active]="progressValue >= 100 && order.status === 7">
+                                <span>Delivered</span>
+                            </div>
+                            <div *ngIf="order.status === 9" class="point" [class.canceled-point]="order.status === 9">
+                                <span>Cancelled</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Status Details -->
+                <div class="progress-status">
+                    <div *ngIf="order.status === 7">
+                        <p>
+                            {{ order.order_history?.delivered_time | date:'mediumDate' }}
+                        </p>
+                    </div>
+                    <!-- <div *ngIf="order.status !== 9 && order.status !== 7">
+                        <h6>Estimated Delivery Date</h6>
+                        <p>
+                            {{ order.shiprocket_data?.etd| date:'mediumDate' }}
+                        </p>
+                    </div> -->
+                    <!-- <div *ngIf="order.status === 9">
+                        <p>
+                            Canceled on {{ order.order_history?.canceled_time | date:'mediumDate' }}
+                        </p>
+                    </div> -->
+                </div>
+            </div>
+
+
+            <div class="order-update">
+                <h4>Order Updates</h4>
+                <p *ngIf="order.shiprocket_data?.courier === '' ||!order.shiprocket_data?.courier ">You’ll receive
+                    shipping and delivery updates via email.</p>
+                <div *ngIf="order.shiprocket_data &&  order.shiprocket_data?.courier !== '' &&  order.shiprocket_data?.awb_code !== ''">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Courier Service Partner</td>
+                                <td colspan="2">&nbsp;:&nbsp;</td>
+                                <td>{{ order.shiprocket_data?.courier }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tracking Id</td>
+                                <td colspan="2">&nbsp;:&nbsp;</td>
+                                <td> <a target="_blank"
+                                        [href]="'https://shiprocket.co/tracking/' + order.shiprocket_data?.awb_code">
+                                        {{ order.shiprocket_data?.awb_code }}
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="order-info">
+                <h4>Information</h4>
+                <ul class="row">
+                    <li class="col-lg-6 col-md-6 col-6 col-sx-12">
+                        <h6>Contact information</h6>
+                        <p> Email: {{order && order.delivery_address && order.delivery_address.email ?
+                            order.delivery_address.email : ''}}</p>
+                        <p> Phone no.: {{order && order.delivery_address && order.delivery_address.phone ?
+                            order.delivery_address.phone : ''}}</p>
+                    </li>
+                    <li class="col-lg-6 col-md-6 col-6 col-sx-12">
+                        <h6>Payment</h6>
+                        <p>Cash On Delivery</p>
+                    </li>
+                    <li class="col-lg-6 col-md-6 col-6 col-sx-12">
+                        <h6>Shipping address</h6>
+                        <p> {{order && order.delivery_address && order.delivery_address.username ?
+                            order.delivery_address.username : ''}} </p>
+                        <p>{{order && order.delivery_address && order.delivery_address.line1 ?
+                            order.delivery_address.line1 : ''}}</p>
+                        <p>{{order && order.delivery_address && order.delivery_address.city ?
+                            order.delivery_address.city : ''}}</p>
+                        <p> {{order && order.delivery_address && order.delivery_address.state ?
+                            order.delivery_address.state : ''}}, {{order && order.delivery_address &&
+                            order.delivery_address.country ? order.delivery_address.country : ''}}, {{order &&
+                            order.delivery_address && order.delivery_address.zipcode ? order.delivery_address.zipcode
+                            :''}}</p>
+                        <p>{{order && order.delivery_address && order.delivery_address.phone ?
+                            order.delivery_address.phone : ''}}</p>
+                    </li>
+                    <!-- <li class="col-lg-6 col-md-6 col-6 col-sx-12"
+                        *ngIf="order.billing_address != undefined && order.billing_address != 'undefined' && order.billing_address != null">
+                        <h6>Billing address</h6>
+                        <p> {{order && order.billing_address && order.billing_address.first_name ?
+                            order.billing_address.first_name : ''}} ,{{order && order.billing_address &&
+                            order.billing_address.last_name ? order.billing_address.last_name : ''}} </p>
+                        <p>{{order && order.billing_address && order.billing_address.line1 ? order.billing_address.line1
+                            : ''}}</p>
+                        <p>{{order && order.billing_address && order.billing_address.zipcode ?
+                            order.billing_address.zipcode : ''}}, {{order && order.billing_address &&
+                            order.billing_address.state ? order.billing_address.state : ''}}</p>
+                    </li> -->
+                    <li class="col-lg-6 col-md-6 col-6 col-sx-12">
+                        <h6>Billing address</h6>
+                        <p *ngIf="order?.billing_address; else useDeliveryAddress">
+                            {{ order.billing_address.first_name || '' }} {{ order.billing_address.last_name || '' }}
+                        </p>
+                        <p *ngIf="order?.billing_address; else useDeliveryAddress">
+                            {{ order.billing_address.line1 || '' }}
+                        </p>
+                        <p>{{order && order.billing_address && order.billing_address.city ?
+                            order.billing_address.city : ''}}</p>
+                        <p *ngIf="order?.billing_address; else useDeliveryAddress">
+                            {{ order.billing_address.state || '' }},
+                            {{ order.billing_address.country || '' }},
+                            {{ order.billing_address.pincode || order.billing_address.zipcode || '' }}
+                        </p>
+                        <p *ngIf="order?.billing_address; else useDeliveryAddress">
+                            {{ order.billing_address.phone_number || order.billing_address.phone.number || order.billing_address.phone ||'' }}
+                        </p>
+                        <ng-template #useDeliveryAddress>
+                            <p>{{ order?.delivery_address?.username || '' }}</p>
+                            <p>{{ order?.delivery_address?.line1 || '' }}</p>
+                            <p>
+                                {{ order?.delivery_address?.state || '' }},
+                                {{ order?.delivery_address?.country || '' }},
+                                {{ order?.delivery_address?.zipcode || '' }}
+                            </p>
+                            <p>{{ order?.delivery_address?.phone || '' }}</p>
+                        </ng-template>
+                    </li>
+
+                    <li class="col-lg-6 col-md-6 col-6 col-sx-12">
+                        <h6>Shipping</h6>
+                        <p>Standard Shipping</p>
+                    </li>
+                </ul>
+            </div>
+            <!-- <div class="cont-shop">
+                <a href="">Continue shopping</a>
+            </div> -->
+        </div>
+        <div class="checkout-details-right">
+            <h4>Shopping Summary</h4>
+            <div class="info-cart-box" *ngFor="let food of order.foods">
+                <!-- <span><img [src]="apiUrl+food.image" alt="" /><i>{{food.net_quantity}}</i></span> -->
+                <span><img [src]="apiUrl+food.image" alt="" /></span>
+                <div class="info-cart-name">
+                    <p>{{food.name}} {{food.variations[0][0].chaild_name}}</p>
+                </div>
+                <div class="info-cart-price">
+                    <span>{{food.net_quantity}} X {{currency_symbol ?currency_symbol : "₹"}}{{food.price}} =
+                        {{currency_symbol ?currency_symbol : "₹"}}{{food.net_quantity * food.price}}</span>
+                </div>
+            </div>
+            <hr>
+            <div class="info-totals">
+                <!-- order.billings.amount.total -->
+                <p>Subtotal <span>{{currency_symbol ?currency_symbol : "₹"}}{{total}}</span></p>
+                <p>Tax <span>{{currency_symbol ?currency_symbol : "₹"}}{{tax ? tax : 0}}</span></p>
+                <p>Shipping Charge <span>{{currency_symbol ?currency_symbol : "₹"}}{{shipping ? shipping : 0}}</span>
+                </p>
+                <p *ngIf="cod_charge > 0">COD Charge <span>{{currency_symbol ?currency_symbol : "₹"}}{{cod_charge ?
+                        cod_charge : 0}}</span></p>
+                <p *ngIf="coupon_discount > 0">Discount <span>-{{currency_symbol ?currency_symbol :
+                        "₹"}}{{coupon_discount ? coupon_discount : 0}}</span></p>
+
+                <!-- <span>Shipping <p>₹75 via Standard <br>Shipping</p></span> -->
+                <!-- <span class="info-t-price">
+                    Total(after discount and tax) <p>{{currency_symbol ?currency_symbol : "₹"}}{{grandTotal}}</p>
+                </span> -->
+                <p>Total Weight <span>{{totalWeight | number:'1.2-2'}} kg</span></p>
+                <hr>
+                <p class="info-t-price">
+                    Total<span>{{currency_symbol ?currency_symbol : "₹"}}{{grandTotal | number:'1.2-2'}}</span>
+                </p>
+                <!-- <span class="saved-order">You saved on this order! <p>₹12</p></span> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="ssl-enc">
+    <img src="../../../assets/image/pillais/payment_method.png" alt="" />
+    <p>SSL encrypted 100% Safe And Secure Purchases.</p>
+</div>

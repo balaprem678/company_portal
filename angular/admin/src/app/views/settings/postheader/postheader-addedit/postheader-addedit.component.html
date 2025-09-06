@@ -1,0 +1,147 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header"><strong>{{pageTitle | titlecase}}</strong></div>
+                <form #postheaderAddEditForm="ngForm" (ngSubmit)="onFormSubmit(postheaderAddEditForm)"
+                    autocomplete="off">
+                    <div class="card-body">
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="postheadertitle">Postheader Title <span class="mandatory">*</span>
+                                    </label>
+                                    <input type="text" id="postheadertitle" ngModel name="postheadertitle"
+                                        #postheadertitle="ngModel" required class="form-control"
+                                        [ngClass]="{ 'is-invalid': postheaderAddEditForm.submitted && postheadertitle.errors }"
+                                        [ngClass]="{ 'is-valid': !postheadertitle.errors && postheadertitle.valid}">
+                                    <div *ngIf="postheaderAddEditForm.submitted && !postheadertitle.valid">
+                                        <div class="invalid-feedback" *ngIf="postheadertitle.errors.required">Postheader
+                                            Title is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="postheadername">Postheader Name <span class="mandatory">*</span>
+                                    </label>
+                                    <input type="text" id="postheadername" ngModel name="postheadername"
+                                        #postheadername="ngModel" required class="form-control"
+                                        [ngClass]="{ 'is-invalid': postheaderAddEditForm.submitted && postheadername.errors }"
+                                        [ngClass]="{ 'is-valid': !postheadername.errors && postheadername.valid}">
+                                    <div *ngIf="postheaderAddEditForm.submitted && !postheadername.valid">
+                                        <div class="invalid-feedback" *ngIf="postheadername.errors.required">Postheader
+                                            Name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="postheaderdescription">Description 1 <span class="mandatory">*</span>
+                                    </label>
+                                    <input type="text" id="postheaderdescription" ngModel name="postheaderdescription"
+                                        #postheaderdescription="ngModel" required class="form-control"
+                                        [ngClass]="{ 'is-invalid': postheaderAddEditForm.submitted && postheaderdescription.errors }"
+                                        [ngClass]="{ 'is-valid': !postheaderdescription.errors && postheaderdescription.valid}">
+                                    <div *ngIf="postheaderAddEditForm.submitted && !postheaderdescription.valid">
+                                        <div class="invalid-feedback" *ngIf="postheaderdescription.errors.required">
+                                            Description 1 is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="postheaderdescription">Description 2 <span class="mandatory">*</span>
+                                    </label>
+                                    <input type="text" id="postheaderdescription1" ngModel name="postheaderdescription1"
+                                        #postheaderdescription1="ngModel" required class="form-control"
+                                        [ngClass]="{ 'is-invalid': postheaderAddEditForm.submitted && postheaderdescription1.errors }"
+                                        [ngClass]="{ 'is-valid': !postheaderdescription1.errors && postheaderdescription1.valid}">
+                                    <div *ngIf="postheaderAddEditForm.submitted && !postheaderdescription1.valid">
+                                        <div class="invalid-feedback" *ngIf="postheaderdescription1.errors.required">
+                                            Description 2 is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="group-control">
+                                    <label for="Postheader_image">Postheader Image<span
+                                            class="mandatory">*</span></label>
+                                    <input type="file" name="Postheader_image" id="Postheader_image"
+                                        (change)="filechange($event)" class="form-control" accept="image/*" ngModel
+                                        name="Postheader_image" #Postheader_image="ngModel"
+                                        required="{{postheaderDetails ? false : true}}"
+                                        [ngClass]="{ 'is-invalid': postheaderAddEditForm.submitted && Postheader_image.errors }"
+                                        [ngClass]="{ 'is-valid': !Postheader_image.errors && Postheader_image.valid && !filesize}">
+                                    <br>
+                                    <div>Allowed files: png, jpg. Max file size 1Mb</div>
+                                    <div class="profile-og" style="width: 10px; margin-top: 40px;">
+                                        <img style="width: 250px; margin-top: -5px;" class="profile-pic"
+                                            [src]="previewHeaderImage">
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="filesize">Max file size less than 1Mb.</div>
+
+                                    <div *ngIf="postheaderAddEditForm.submitted && !Postheader_image.valid">
+                                        <div class="invalid-feedback" *ngIf="Postheader_image.errors.required">
+                                            Postheader Image is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="Post_Type">Post Type <span class="mandatory">*</span></label>
+                                    <select name="Post_Type" id="Post_Type" class="form-control" ngModel
+                                        name="Post_Type" #Post_Type="ngModel" required
+                                        [ngClass]="{ 'is-invalid': postheaderAddEditForm.submitted && Post_Type.errors }"
+                                        [ngClass]="{ 'is-valid': !Post_Type.errors && Post_Type.valid}">
+                                        <option value="">--Select--</option>
+                                        <option value='overview'>Overview</option>
+                                        <option value='bodyview'>Bodyview</option>
+                                        <option value='appview'>Appview</option>
+                                    </select>
+                                    <div *ngIf="postheaderAddEditForm.submitted && !Post_Type.valid">
+                                        <div class="invalid-feedback" *ngIf="Post_Type.errors.required">Post Type is
+                                            required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="status">Status <span class="mandatory">*</span></label>
+                                    <select name="status" id="status" class="form-control" ngModel name="status"
+                                        #status="ngModel" required
+                                        [ngClass]="{ 'is-invalid': postheaderAddEditForm.submitted && status.errors }"
+                                        [ngClass]="{ 'is-valid': !status.errors && status.valid}">
+                                        <option value="">--Select--</option>
+                                        <option value="1">Publish</option>
+                                        <option value="2">Unpublish</option>
+                                    </select>
+                                    <div *ngIf="postheaderAddEditForm.submitted && !status.valid">
+                                        <div class="invalid-feedback" *ngIf="status.errors.required">Status is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-success" [disabled]="submitebtn">
+                            Submit
+                        </button>
+                        <button type="button" routerLink="/app/settings/postheaderlist" class="btn btn-sm btn-danger">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

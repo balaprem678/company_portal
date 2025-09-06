@@ -1,0 +1,83 @@
+<div class="pagecontent">
+    <div class="row">
+        <form #cityAreaFor="ngForm" (ngSubmit)="onSubmit(cityAreaFor)" (keydown.enter)="$event.preventDefault()"
+            enctype="multipart/form-data">
+            <fieldset>
+                <section class="tile" fullscreen="isFullscreen01">
+                    <div class="tile-body">
+                        <div class="wrap-reset">
+                            <div class="row">
+                                <div class="form-group col-md-12 legend">
+                                    <h4>
+                                        <strong>Area </strong> Settings
+                                    </h4>
+                                    <p>Add area to city</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="sublin-hea">Location<span class="color_red">*</span></label>
+                                    <input class="form-control" name="midpoint" required type="text"
+                                        ng-class="{ 'has-error' : cityAreaFor.midpoint.$invalid && !cityAreaFor.midpoint.$pristine, 'has-success' : cityAreaFor.midpoint.$valid && !cityAreaFor.midpoint.$pristine}"
+                                        #search places-auto-complete size=200 ngModel #midpoint="ngModel">
+                                    <p class="help-block">
+                                        <span class="invalid-feedback"
+                                            *ngIf="cityAreaFor.submitted && cityAreaFor.controls.midpoint.errors && cityAreaFor.controls.midpoint.errors.required">Location
+                                            is required.</span>
+                                    </p>
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label class="sublin-hea">Area Name<span class="color_red">*</span></label>
+                                    <input class="form-control" name="fulladdress" required type="text" placeholder="Enter area name"
+                                        ng-class="{ 'has-error' : cityAreaFor.fulladdress.$invalid && !cityAreaFor.fulladdress.$pristine, 'has-success' : cityAreaFor.fulladdress.$valid && !cityAreaFor.fulladdress.$pristine}"
+                                        places-auto-complete size=200 ngModel #fulladdress="ngModel">
+                                    <p class="help-block">
+                                        <span class="invalid-feedback"
+                                            *ngIf="cityAreaFor.submitted && cityAreaFor.controls.fulladdress.errors && cityAreaFor.controls.fulladdress.errors.required">Location
+                                            is required.</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="sublin-hea"> <strong>Area Region</strong><span
+                                            class="color_red">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- <agm-map style="height: 300px;width: 100%;" id="Gmap" [latitude]="lat" [longitude]="lng"
+                                    [zoom]="18">
+                                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                                </agm-map> -->
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="status" class="control-label">Status<span
+                                            class="color_red">*</span></label>
+                                    <select type="text" name="status" id="status" class="form-control" ngModel
+                                        ng-class="{ 'has-error' : cityAreaFor.status.$invalid && !cityAreaFor.status.$pristine, 'has-success' : cityAreaFor.status.$valid && !cityAreaFor.status.$pristine}"
+                                        #status="ngModel" required>
+                                        <option value="" disabled selected>Select</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">In-Active</option>
+                                    </select>
+                                    <p class="help-block">
+                                        <span class="invalid-feedback"
+                                            *ngIf="cityAreaFor.submitted && cityAreaFor.controls.status && cityAreaFor.controls.status.errors && cityAreaFor.controls.status.errors.required">status
+                                            is required.</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                                <button class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10">Submit
+                                    <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+</div>

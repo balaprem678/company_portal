@@ -1,0 +1,272 @@
+::ng-deep .login-model.modal-dialog {
+  max-width: 1220px !important;
+}
+
+.login-signup-page {
+  padding-top: 2em;
+}
+
+.login-signup-page h2 {
+  font-family: "Signika", Sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1em;
+  text-align: center;
+  margin-bottom: 0px;
+  width: 100%;
+}
+
+.login-signup-page .padding-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.l-form-group i {
+  position: absolute;
+  top: 48px;
+  font-size: 11px;
+}
+
+.l-form-group label span {
+  color: #ff0000;
+}
+
+.l-form-submit span {
+  color: #222222;
+  font-size: 14px;
+}
+
+.login-sec a {
+  color: #0a472e;
+  box-shadow: none;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 12px;
+  margin-top: 2em;
+  display: block;
+}
+
+.back-dash {
+  text-align: center;
+  margin: 3em 0;
+}
+
+.back-dash a {
+  text-decoration: none;
+  font-size: 15px;
+  padding: 12px 24px;
+  border-radius: 3px;
+  text-align: center;
+  transition: all 0.3s;
+  background: #f4f4f4;
+  color: #222;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 991px) {
+  .login-sec,
+  .signup-sec {
+    width: 100%;
+  }
+
+  .login-signup-page .padding-container {
+    gap: 6px;
+  }
+
+  .login-signup-page form {
+    padding: 18px;
+    height: auto;
+  }
+
+  .login-signup-page h2 {
+    margin-bottom: 23px;
+  }
+
+  .login-sec h3,
+  .signup-sec h3 {
+    margin-bottom: 35px;
+  }
+
+  .signup-sec {
+    margin-top: 28px;
+  }
+}
+
+.error-message {
+  color: red;
+}
+
+.login_password {
+  position: relative;
+
+  img {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.login-model.modal-dialog {
+  transform: none;
+  max-width: 1250px;
+}
+
+::ng-deep .signup_ph,
+::ng-deep .login_ph {
+  .input_btn {
+    ngx-intl-tel-input {
+      input {
+        &:focus {
+          box-shadow: none !important;
+        }
+        &::-webkit-input-placeholder {
+          color: #ccc !important;
+          font-size: 16px !important;
+        }
+      }
+    }
+
+    .form-control:focus {
+      box-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
+    }
+  }
+}
+
+.otp_form {
+  .d-flex {
+    gap: 10px;
+    font-size: 13px;
+
+    input {
+      width: 50px;
+      height: 40px;
+    }
+  }
+}
+
+// New Changes
+.signup-sec,
+.login-sec {
+  width: 38%;
+  padding: 40px;
+  background-color: #000;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+}
+.login_label_head {
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+::ng-deep .signup_ph,
+::ng-deep .login_ph {
+  .input_btn {
+    ngx-intl-tel-input {
+      width: 100%;
+      display: block;
+      .iti.iti--allow-dropdown {
+        width: 100%;
+      }
+    }
+  }
+  .otpverify_btn {
+    width: 100%;
+    background: #0a472e;
+    color: #fff;
+    margin-top: 10px;
+    border: 1px solid #fff;
+    opacity: 100%;
+  }
+  .otpverify_btn.bef_enter {
+    opacity: 30%;
+  }
+}
+
+.l-form-submit button {
+  background: #0a472e;
+  border-radius: 6px;
+  color: #fff;
+  padding: 7px 32px;
+  border: none;
+  font-size: 100%;
+  font-weight: 700;
+  margin-top: 60px;
+  width: 100%;
+}
+.resenOtp {
+  justify-content: center;
+  button {
+    font-size: 13px;
+    background: transparent;
+    color: #d63333;
+    border: none;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #d63333;
+    border-radius: unset;
+    -webkit-border-radius: unset;
+    -moz-border-radius: unset;
+    -ms-border-radius: unset;
+    -o-border-radius: unset;
+  }
+}
+
+.form_sec_title {
+  margin: 0;
+  margin-top: 15px;
+
+  font-size: 12px;
+  margin-top: 10px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.signup-sec {
+  .lst_name,
+  .fst_name {
+    width: 48%;
+    display: inline-block;
+  }
+  .lst_name {
+    margin-left: 10px;
+  }
+}
+
+.l-form-group input {
+  background: rgb(255, 255, 255);
+  border: none;
+  font-size: 14px;
+  border-radius: 6px;
+  color: #222222;
+  padding: 8px 16px;
+  width: 100%;
+  outline: none;
+  border: 1px solid #e8f0fe;
+
+  &::placeholder {
+    color: #ccc;
+    font-size: 12px;
+  }
+}
+.l-form-submit p {
+  font-size: 12px;
+  margin-top: 10px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+::ng-deep .iti.separate-dial-code input,
+::ng-deep .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-2 input,
+::ng-deep .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input,
+::ng-deep .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4 input {
+  padding-left: 85px !important;
+}

@@ -1,0 +1,66 @@
+<section class="my-account-page">
+    <div class="container">
+        <!-- <h2>Welcome back, {{username}}</h2> -->
+        <h2>Welcome, {{userDetails && userDetails.first_name ? userDetails.first_name : ''}} {{userDetails && userDetails.last_name ? userDetails.last_name : ''}}</h2>
+        <div class=" row">
+            <div class="col-lg-3 col-md-3 col-6 my-acc-box">
+                <div class="mo_ma_pm_mp_l" style="background: #ddf6ec;">
+                    <a href="" [routerLink]="['./my-orders']">
+                        <img src="../../../assets/image/pillais/my-acc-icon.png" alt="" />
+                        My Orders
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-6 my-acc-box">
+                <div class="mo_ma_pm_mp_l" style="background: #f7edf8;">
+
+                    <a href="" [routerLink]="['./manage-address']">
+                        <img src="../../../assets/image/pillais/my-acc-icon-2.png" alt="" />
+                        Manage Address
+                    </a>
+                </div>
+            </div>
+            <!-- <div class="col-lg-6 col-md-6 col-6 my-acc-box">
+                <div class="mo_ma_pm_mp_l" style="background: #f3e4dc;">
+
+                    <a href="">
+                        <img src="../../../assets/image/pillais/my-acc-icon-3.png" alt="" />
+                        Payment Methods
+                    </a>
+                </div>
+            </div> -->
+            <div class="col-lg-3 col-md-3 col-6 my-acc-box">
+                <div class="mo_ma_pm_mp_l" style="background: #d6eff9;">
+
+                    <a href="" [routerLink]="['./eaccount']">
+                        <img src="../../../assets/image/pillais/my-acc-icon-4.png" alt="" />
+                        Manage Profile
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-6 my-acc-box" (click)="logOutPop(logOutPopup)">
+                <div class="mo_ma_pm_mp_l" style="background: #dde3ff;">
+
+                    <button><img src="../../../assets/image/pillais/my-acc-icon-5.png" alt="" />
+                        Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #logOutPopup>
+    <div class="modal-header">
+        <h4>Logout</h4>
+        <div (click)="destroyPopup()" style="cursor: pointer;" title="close the popup" class="pop_cls_btn">
+            &#10006;
+        </div>
+    </div>
+    <div class="modal-body login-body">
+        <h6 class="modal-title">You are attempting to logout</h6>
+    </div>
+    <div class="modal-footer border-0">
+        <button type="button" (click)="destroyPopup()" class="btn cancel-btn">Cancel</button>
+        <button type="button" (click)="logout()" class="btn out-bnt">Logout</button>
+    </div>
+</ng-template>

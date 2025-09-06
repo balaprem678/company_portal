@@ -1,0 +1,15 @@
+{
+    "port": "",
+    "mongodb": {
+        "host": "",
+        "port": "",
+        "database": ""
+    },
+    "directory": {
+        "users": "./uploads/images/users/"
+    },
+    "default_image": {
+        "users": ""
+    }
+}
+

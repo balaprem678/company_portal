@@ -1,0 +1,75 @@
+doctype html
+html(lang='en')
+  head
+    title= title
+    style.
+      * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      }
+      .col-xs-12 {
+      float: left;
+      width: 100%;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+      }
+      .container {
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+      }
+      .payment-success-wrap,.payment-failure-wrap{
+      text-align: center;
+      padding:80px 0;
+      float:left;
+      width:100%;
+      }
+      .payment-success-wrap img,.payment-failure-wrap img{
+      max-height: 160px;
+      display:inline-block;
+      margin:0 auto 15px;
+      }
+      .payment-success-wrap h2,.payment-failure-wrap h2{
+      margin: 0 auto 10px;
+      font-size: 34px;
+      color: #359d7b;
+      }
+      .payment-failure-wrap h2{
+      color: #e05c63;
+      }
+      .payment-success-wrap p,.payment-failure-wrap p{
+      margin-bottom: 0;
+      font-size: 15px;
+      color: #636363;
+      }
+      .payment-success-wrap a,.payment-failure-wrap a{
+      font-size: 18px;
+      color: #fff;
+      background: #359d7b;
+      padding: 8px 15px;
+      min-width: 121px;
+      display: inline-block;
+      border-radius: 25px;
+      margin: 30px auto 20px;
+      text-decoration: none;
+      outline:none;
+      cursor: pointer;
+      }
+      .payment-failure-wrap a{
+      background: #e05c63;
+      }
+  body
+    section.payment-failure-page
+      .container
+        .col-md-12
+          .payment-failure-wrap
+            img.img-responsive(src=siteUrl+'app/site/public/images/pay_failure.png')
+            h2 UH OH !
+            p The transaction coudn't be made.
+            
+            
+

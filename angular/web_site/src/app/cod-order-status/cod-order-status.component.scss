@@ -1,0 +1,90 @@
+.payment-success {
+  width: 100%;
+  padding-top: 100px;
+  background-image: linear-gradient(#104b2d, #a1ae25);
+  margin-bottom: 20px;
+  border-radius: 16px;
+}
+
+.orderid{
+  font-size: 30px;
+    color: #144a2e;
+    text-shadow:
+    1px 1px 1px #a1ae25,
+    2px 2px 1px #a1ae25;
+    font-weight: 800;
+}
+.card {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45%;
+  margin: 30px auto 40px;
+}
+
+.card-header {
+  width: 150px;
+  height: 150px;
+  margin: 30px 0 0 0;
+}
+
+span.pay-img {
+  width: 150px;
+  height: 150px;
+  display: block;
+  overflow: hidden;
+}
+
+.pay-img img {
+  transform: scale(2);
+}
+
+h2.modal-title.text-center {
+  font-size: 30px;
+  color: #144a2e;
+  font-weight: 800;
+}
+
+.trans-p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.trans-p.p-text {
+  width: 80%;
+  margin: 0 auto;
+}
+.card-footer {
+  border: none;
+}
+.shop-btn {
+  border: none;
+  // background: #e50808;
+  background-image: linear-gradient(to right, #104b2d, #a1ae25);
+  color: #fff;
+  font-size: 16px;
+  padding: 8px 17px;
+}
+
+@media screen and (max-width: 767px) {
+  .payment-success {
+    padding-top: 180px;
+  }
+
+  .card {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .payment-success {
+    padding-top: 0;
+  }
+  h2.modal-title.text-center {
+    font-size: 18px;
+  }
+  .card {
+    margin: 0 auto 0px;
+  }
+}

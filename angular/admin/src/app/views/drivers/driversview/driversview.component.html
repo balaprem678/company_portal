@@ -1,0 +1,233 @@
+<tabset class="tabs-dark">
+    <tab heading="Details">
+        <div class="container">
+            <h3><strong>Driver Details</strong></h3>
+            <div *ngIf="data">
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>City</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span>{{data[0].main_city}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Vehicle</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span>{{data[0].category}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Driver Name</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span>{{data[0].username}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Email</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span>{{data[0].email}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Phone No</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span>{{data[0].phone.code}}
+                                {{data[0].phone.number}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Phone No</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span>{{data[0].phone.code}}
+                                {{data[0].phone.number}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row"
+                    *ngIf="data != null  && data[0].address !=null && data[0].address.line1 !=null">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Address Line 1</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span> {{data[0].address.line1}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row"
+                    *ngIf="data != null  && data[0].address !=null && data[0].address.line2 !=null">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Address Line 2</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span> {{data[0].address.line2}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row"
+                    *ngIf="data != null  && data[0].address !=null && data[0].address.state !=null">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>State/Province</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span> {{data[0].address.state}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row"
+                    *ngIf="data != null  && data[0].address !=null && data[0].address.country !=null">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Country</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span> {{data[0].address.country}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row" *ngIf="data != null  data[0].avatar !=null">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>About</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <img [src]="preview" class="picture" onError="this.src='assets/image/user.jpg'"
+                            style="width:150px;" /> </div>
+                </div>
+            </div>
+            <!-- <p *ngIf="data != null"> City : {{data[0].main_city}} </p>
+            <p *ngIf="data != null"> Vehicle : {{data[0].category}}</p>
+            <p *ngIf="data != null"> Driver Name : {{data[0].username}}</p>
+            <p *ngIf="data != null"> Email : {{data[0].email}}</p>
+            <p *ngIf="data != null"> Phone No : {{data[0].phone.code}} {{data[0].phone.number}}</p>
+            <p *ngIf="data != null  && data[0].address !=null && data[0].address.line1 !=null"> Address Line 1:
+                {{data[0].address.line1}} </p>
+            <p *ngIf="data != null && data[0].address !=null && data[0].address.line2 !=null"> Address Line 2 :
+                {{data[0].address.line2}}</p>
+            <p *ngIf="data != null  && data[0].address !=null && data[0].address.state !=null"> State/Province :
+                {{data[0].address.state}}</p>
+            <p *ngIf="data != null && data[0].address !=null && data[0].address.country !=null"> Country :
+                {{data[0].address.country}}</p>
+            <p *ngIf="data != null && data[0].avatar !=null"> About :
+                <img [src]="data[0].avatar" class="picture" onError="this.src='assets/image/user.jpg'"
+                    style="width:50px;" />
+            </p> -->
+
+
+        </div>
+    </tab>
+    <tab heading="Documents">
+        <div class="container" *ngIf="data">
+            <h3><strong>Documents Settings</strong></h3>
+            <div *ngFor="let doc of data[0].driver_documents">
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>{{doc.doc_name}}</strong></span></label>
+                        <img [src]="env+doc.image" class="picture" onError="this.src='assets/image/user.jpg'"
+                            style="width:150px;" />
+                    </div>
+                    <div class="col-md-4">
+                        <a download="1649337984888.jpg" href="{{env}}{{doc.image}}" target="_self" download>Download</a>
+                        <!-- <button class="download-button" (click)="loadImage(doc.image)">Download</button>                    -->
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Expiry Date</strong></span></label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span>
+                                {{doc.expiry_date| date: "MMM d, y"}}</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tab>
+    <tab heading="Banking">
+        <div class="container">
+            <h3><strong>Account Settings</strong></h3>
+            <div *ngIf="data">
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Account Name</strong></span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="data[0].account_details">
+                        <label class="group-control" for="name"><span>
+                                {{data[0].account_details.account_name}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Account Address</strong></span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="data[0].account_details">
+                        <label class="group-control" for="name"><span>
+                                {{data[0].account_details.account_address}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Account Number</strong></span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="data[0].account_details">
+                        <label class="group-control" for="name"><span>
+                                {{data[0].account_details.account_number}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Routing Number</strong></span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="data[0].account_details">
+                        <label class="group-control" for="name"><span>
+                                {{data[0].account_details.routing_number}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Bank Name</strong></span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="data[0].account_details">
+                        <label class="group-control" for="name"><span>
+                                {{data[0].account_details.bank_name}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Branch Name</strong></span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="data[0].account_details">
+                        <label class="group-control" for="name"><span>
+                                {{data[0].account_details.branch_name}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Branch Address</strong></span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="data[0].account_details">
+                        <label class="group-control" for="name"><span>
+                                {{data[0].account_details.branch_address}}</span></label>
+                    </div>
+                </div>
+                <div class="form-group grouping-strains row">
+                    <div class="col-md-4">
+                        <label class="group-control" for="name"><span><strong>Swift Code</strong></span></label>
+                    </div>
+                    <div class="col-md-4" *ngIf="data[0].account_details">
+                        <label class="group-control" for="name"><span>
+                                {{data[0].account_details.swift_code}}</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tab>
+    <div class="card-footer">
+        <button type="button" routerLink="/app/drivers/driverslist" class="btn back-btns">
+            Back to list
+        </button>
+    </div>
+</tabset>

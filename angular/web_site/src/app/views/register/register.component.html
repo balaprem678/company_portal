@@ -1,0 +1,283 @@
+<div class="modal-body register-body w-100 position-relative p-0">
+    <div (click)="destroyModel()" title="close the popup" class="pop_cls_btn position-absolute">
+        &#10006;
+    </div>
+    <div class="popup-image">
+        <img src="{{env}}{{settings.register_image}}" onerror="this.src='assets/image/popup.png'" width="100%"
+            height="100%" alt="">
+    </div>
+    <div class="reg-form">
+        <h6 class="reg-head text-center">Sign up for free</h6>
+        <p class="p-head text-center">If you don’t have an account <i class="d-block fst-normal">You can Register here
+                !</i></p>
+        <form #registerForm="ngForm" (ngSubmit)="onFormSubmit(registerForm, otpModel)">
+            <div class="row">
+                <div class="group-control col-sm-6">
+                    <input type="text" id="first_name" ngModel name="first_name" #first_name="ngModel" required
+                        placeholder="First name" class="form-control" minlength="3" maxlength="20"
+                        pattern="^[a-zA-Z]([\w -]*[a-zA-Z])*$"
+                        [ngClass]="{ 'is-invalid': registerForm.submitted && first_name.errors }"
+                        [ngClass]="{ 'is-valid': !first_name.errors && first_name.valid}" [required]="true">
+                    <div *ngIf="registerForm.submitted && !first_name.valid">
+                        <div class="invalid-feedback"
+                            *ngIf="first_name && first_name.errors && first_name.errors['required']">First Name is
+                            required.
+                        </div>
+                        <div class="invalid-feedback" *ngIf="first_name.errors?.['minlength']">First Name must be at
+                            least 3
+                            characters long.
+                        </div>
+                        <div class="invalid-feedback" *ngIf="first_name.errors?.['maxlength']">First Name can be max 20
+                            characters long.
+                        </div>
+                        <div class="invalid-feedback" *ngIf="first_name.errors?.['pattern']">Please enter valid First
+                            Name.
+                        </div>
+                    </div>
+                </div>
+                <div class="group-control col-sm-6 ">
+                    <input type="text" id="last_name" ngModel name="last_name" #last_name="ngModel" required
+                        placeholder="Last name" class="form-control" minlength="1" maxlength="20"
+                        pattern="^[a-zA-Z]([\w -]*[a-zA-Z])*$"
+                        [ngClass]="{ 'is-invalid': registerForm.submitted && last_name.errors}"
+                        [ngClass]="{ 'is-valid': !last_name.errors && last_name['valid']}">
+                    <div *ngIf="registerForm.submitted && !last_name.valid">
+                        <div class="invalid-feedback" *ngIf="last_name.errors && last_name.errors['required']">Last Name
+                            is required.
+                        </div>
+                        <div class="invalid-feedback" *ngIf="last_name.errors?.['minlength']">Last Name must be at least
+                            1 characters long.
+                        </div>
+                        <div class="invalid-feedback" *ngIf="last_name.errors?.['maxlength']">Last Name can be max 20
+                            characters long.
+                        </div>
+                        <div class="invalid-feedback" *ngIf="last_name.errors?.['pattern']">Please enter valid Last
+                            Name character.
+                        </div>
+                    </div>
+                </div>
+                <div class="group-control col-sm-6">
+                    <input type="text" id="email" ngModel name="email" #email="ngModel" class="form-control"
+                        placeholder="Enter your email" pattern="^[a-z0-9.]+@[a-z0-9.-]+\.[a-z]{2,3}$" [required]="true">
+                    <div *ngIf="registerForm.submitted && !email.valid">
+                        <div class="invalid-feedback" *ngIf="email.errors['required']">Email is required.
+                        </div>
+                        <div class="invalid-feedback" *ngIf="email.errors['email']">Please enter valid Email
+                        </div>
+                        <div class="invalid-feedback" *ngIf="email.errors && email.errors?.['pattern']">
+                            Please enter valid Email</div>
+                    </div>
+                </div>
+                <div class="group-control col-sm-6 phone-control">
+
+                    <ngx-intl-tel-input
+                        cssClass="form-control {{(registerForm.submitted && phone.errors) ? 'is-invalid' : ''}} {{(!phone.errors && phone.valid  && !checkpassword) ? 'is-valid' : ''}}"
+                        id="phone" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                        [enablePlaceholder]="true" [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO" [phoneValidation]="true"
+                        [separateDialCode]="separateDialCode" #phone="ngModel"
+                        [numberFormat]="PhoneNumberFormat.National" (keyup)="phoneNumberChange($event)" name="phone"
+                        [required]="true" ngModel>
+                    </ngx-intl-tel-input>
+                    <div *ngIf="registerForm.submitted && !phone.valid">
+                        <div class="invalid-feedback" *ngIf="phone.errors && phone.errors['required']">
+                            Phone Number is required.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="group-control login-input col-sm-6" > -->
+                <!-- <div class="position-relative pass-div">
+                        <input required ngModel  name="password" type={{passtypenp}} #password="ngModel"
+                            class="form-control" minlength="6"
+                            placeholder="Password" maxlength="500" id="password"> -->
+
+                <!-- <i class="{{nppassicon}} password-icon" (click)="hideShowPassword('np')"></i> -->
+                <!-- <div *ngIf="registerForm.submitted && !password.valid" class="invalid-feedback">
+                            <div *ngIf="password.errors && password.errors['minlength']">Password must be minimum length
+                                6 character.</div>
+                            <div *ngIf="password.errors && password.errors['maxlength']">Password must be maximum length
+                                500 character.</div>
+                            <div *ngIf="password.errors && password.errors['required']">Password is required</div>
+                        </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+
+                <div class="group-control login-input col-sm-6">
+                    <div class="position-relative pass-div">
+                        <input required ngModel name="password" type="{{passtypenp}}" class="form-control" minlength="6"
+                            placeholder="Password" maxlength="13" id="password" #password="ngModel"
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,13}$">
+                        <!-- Add your password icon and show/hide functionality here -->
+                        <i class="{{nppassicon}} password-icon" (click)="hideShowPassword('np')"></i>
+                        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
+
+                            <!-- <div *ngIf="password.errors['minlength']">Password must be at least 6 characters long -->
+                            <span *ngIf="password.errors['minlength']">Password must be at least 6 characters
+                                long </span>
+                            <span
+                                *ngIf="(!password.errors['minlength'] && (!hasLetter(password.value) ||!hasUpperCase(password.value) || !hasNumber(password.value) ||!hasSpecialChar(password.value) ))">Password
+                                must contain
+                            </span>
+                            <span
+                                *ngIf="( password.errors['minlength'] &&  (!hasLetter(password.value) ||!hasUpperCase(password.value) || !hasNumber(password.value) ||!hasSpecialChar(password.value))) ">and
+                                contains</span>
+                            <span *ngIf="!hasLetter(password.value)">,1 lowercase</span>
+                            <span *ngIf="!hasUpperCase(password.value)">,1 uppercase</span>
+                            <span *ngIf="!hasNumber(password.value)">,1 number</span>
+                            <span *ngIf="!hasSpecialChar(password.value)"> and 1 special character</span>
+                            <!-- </div> -->
+                            <!-- <div *ngIf="!hasLetter(password.value)">Password must contain at least one letter</div> -->
+                            <!-- <div *ngIf="!hasUpperCase(password.value)">Password must contain at least one capital letter
+                            </div> -->
+                            <!-- <div *ngIf="!hasNumber(password.value)">Password must contain at least one Number </div>
+                            <div *ngIf="!hasSpecialChar(password.value)">Password must contain at least one special
+                                character</div> -->
+                        </div>
+                        <div *ngIf="registerForm.submitted && !password.valid" class="invalid-feedback">
+                            <div *ngIf="password.errors['required']">Password is required</div>
+                            <!-- <div *ngIf="confirmpassword.errors && confirmpassword.errors['minlength']">Confirm Password
+                                must be minimum length
+                                6 character.</div>
+
+
+Password must be at least 6 characters long and contains 1 uppercase, 1 lowercase, 1 number and 1 special character.
+
+                            <div *ngIf="confirmpassword.errors && confirmpassword.errors['maxlength']">Confirm Password
+                                must be maximum length
+                                500 character.</div>
+                            <div *ngIf="confirmpassword.errors && confirmpassword.errors['required']">Confirm Password
+                                is required</div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- add password strength atleast one letter, alphabet, capital letter, special character and minimum 6 charectres -->
+                <div class="group-control login-input col-sm-6">
+                    <!-- <div class="group-control login-input col-sm-6" *ngIf="!socialLogin"> -->
+                    <div class="position-relative pass-div">
+                        <input required ngModel name="confirmpassword" type={{passtypecnp}} #confirmpassword="ngModel"
+                            class="form-control" minlength="6"
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,13}$"
+                            placeholder="Confirm password" maxlength="13" id="confirmpassword">
+                        <!-- <input required ngModel name="confirmpassword"  type={{passtypecnp}} #confirmpassword="ngModel"
+                            class="form-control" pattern="^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$" minlength="6"
+                            placeholder="Confirm password" maxlength="500" id="confirmpassword"> -->
+                        <i class="{{cnppassicon}} password-icon" (click)="hideShowPassword('cnp')"></i>
+                        <div *ngIf="confirmpassword.touched && !confirmpassword.valid" class="invalid-feedback">
+                            <!-- <div *ngIf="confirmpassword.errors && confirmpassword.errors?.['pattern']">
+                                Enter secure password Ex:- Silks@123.</div> -->
+                            <div *ngIf="pass && confirmpassword && pass !=confirmpassword">Password and Confirm Password
+                                is not matching.</div>
+                        </div>
+                        <div *ngIf="registerForm.submitted && !confirmpassword.valid" class="invalid-feedback">
+                            <div *ngIf="confirmpassword.errors && confirmpassword.errors['minlength']">Confirm Password
+                                must be minimum length
+                                6 character.</div>
+                            <div *ngIf="confirmpassword.errors && confirmpassword.errors['maxlength']">Confirm Password
+                                must be maximum length
+                                500 character.</div>
+                            <div *ngIf="confirmpassword.errors && confirmpassword.errors['required']">Confirm Password
+                                is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pro-form-group">
+                    <label>Your Gender</label>
+                    <span>
+                        <input type="radio" value="male" (change)="onChangeGender('male')" name="gender" />
+                        <!-- <p class="check-box"></p> -->
+                        Male
+                    </span>
+                    <span>
+                        <input type="radio" value="female" (change)="onChangeGender('female')" name="gender" />
+                        <!-- <p class="check-box"></p> -->
+                        Female
+                    </span>
+
+                    <div class="invalid-feedback"
+                        *ngIf="submitted == true &&  (!gender || gender == undefined || gender == null || gender == '') ">
+                        Gender is required
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="register-check">
+                <label for="termsconditions"></label>
+                <div class="register-box">
+                    <input type="checkbox" name="termsconditions" id="termsconditions" ngModel
+                        #termsconditions="ngModel" [required]="true">
+                    <span class="checkmark"></span>
+                </div>
+                <p class="accept-p">Accept the <a href="{{settings.site_url}}page/terms-and-conditions" target="_blank">Terms &
+                    Conditions</a></p>
+                <div *ngIf="registerForm.submitted && !termsconditions.valid">
+                    <div class="invalid-feedback" *ngIf="termsconditions.errors && termsconditions.errors['required']">
+                        Please Accept the Terms and Conditions.
+                    </div>
+                </div>
+            </div> -->
+            <div class="sumbit-btn d-flex justify-content-end gap-2">
+                <button type="submit"
+                    class="link-border link-color rounded text-center w-100 py-2 px-4">Register</button>
+            </div>
+            <p class="signup-part">Already have an account? <a (click)="openLoginPopup(loginPopup)">Log in</a></p>
+
+        </form>
+        <div class="sign-alter d-flex flex-wrap align-items-center justify-content-between">
+            <!-- <p class="or-text position-absolute">OR</p> -->
+            <!-- <a class="sign-other" (click)="signInWithGoogle()"><span><img src="assets/image/google.png" alt="" width="25px" height="26px"></span>Sign up with google</a> -->
+            <!-- <a class="sign-other face-sign" (click)="signInWithfaceBook()"><span><img src="assets/image/facebook.png" alt="" width="25px" height="26px"></span></a> -->
+            <!-- <button type="button" (click)="signInWithGoogle(regPopup)" class="signup-btn w-100"><i class="fa fa-google"
+                    aria-hidden="true"></i>&nbsp; Google Login</button><br> -->
+            <!-- <span>Or</span><br>
+            <button type="button" (click)="signInWithfaceBook(regPopup)" class="signup-btn w-100"><i
+                    class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;Facebook Login</button> -->
+        </div>
+    </div>
+</div>
+<!-- <div class='modal-footer justify-content-center'>
+    <button type="button" (click)="signInWithGoogle()" class="signup-btn w-100"><i class="fa fa-google"
+            aria-hidden="true"></i>&nbsp; Google Signup</button><br>
+    <span>Or</span><br>
+    <button type="button" (click)="signInWithfaceBook()" class="signup-btn w-100"><i class="fa fa-facebook-square"
+            aria-hidden="true"></i>&nbsp;Facebook Signup</button>
+</div> -->
+
+<ng-template #loginPopup>
+    <app-login [modalRef]="modalRef"></app-login>
+</ng-template>
+
+<ng-template #otpModel>
+    <div class="modal-header">
+        <h4>Verify Otp</h4>
+        <div (click)="destroyModel()" title="close the popup" class="pop_cls_btn">
+            &#10006;
+        </div>
+    </div>
+    <div class="modal-body login-body">
+        <div class="container-fluid">
+            <form (ngSubmit)="onSubmit(otpform)" #otpform="ngForm">
+                <p>Enter 4 digit code sent to your mobile number</p>
+                <div class="row d-flex">
+                    <div class="form-group d-flex col-sm-3 gap-2">
+                        <input type="text" name="num1" autocomplete="off" id="num1" (keyup)="onDigitInput($event)"
+                            [(ngModel)]="num1" [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" ngModel #digit1="ngModel">
+                        <input type="text" name="num2" autocomplete="off" id="num2" (keyup)="onDigitInput($event)"
+                            [(ngModel)]="num2" [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" ngModel #digit2="ngModel">
+                        <input type="text" name="num3" autocomplete="off" id="num3" (keyup)="onDigitInput($event)"
+                            [(ngModel)]="num3" [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" ngModel #digit3="ngModel">
+                        <input type="text" name="num4" autocomplete="off" id="num4" (keyup)="onDigitInput($event)"
+                            [(ngModel)]="num4" [ngModelOptions]=" 
+                        {standalone: true}" class="form-control" maxlength="1" ngModel #digit4="ngModel">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</ng-template>

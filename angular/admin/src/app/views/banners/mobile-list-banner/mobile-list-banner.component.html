@@ -1,0 +1,11 @@
+<div class="layout_ctrl-web_banner_list">
+    <app-common-table [settings]="settings" [source]="source" [count]="totalItems" [itemsPerPage]="limit"
+        [tablename]="'Banner Lists'" [restoreApis]="restoreApis" [deleteApis]="deleteApis" [add_btn]="add_btn"
+        [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName" [editUrl]="editUrl" (onDeleteChange)="onDeleteChange($event)"
+        (onitemsPerPageChange)="onitemsPerPageChange($event)" [card_details]="card_details"
+        (onPageChange)="onPageChange($event)" [bulk_action]="bulk_action"
+        (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)"
+        [permanentdelete]="permanentdelete">
+    </app-common-table>
+
+</div>

@@ -1,0 +1,143 @@
+.contact_us_page {
+  .container {
+    width: 1200px;
+    margin: auto;
+    justify-content: center;
+    .row {
+      gap: 100px;
+      h2 {
+        color: #0a472e;
+        font-size: 44px;
+        font-weight: 800;
+        margin-bottom: 16px;
+      }
+      .contact_info_report,
+      .where_house_support {
+        display: flex;
+        gap: unset;
+        margin-top: 40px;
+        h5 {
+          color: #222222;
+          font-size: 26px;
+          font-weight: 800;
+          line-height: 1.7em;
+          margin-bottom: 46px;
+        }
+        p {
+          color: #7a7a7a;
+          font-family: "Mulish", Sans-serif;
+          font-size: 17px;
+          font-weight: 600;
+          line-height: 2em;
+        }
+        a {
+          color: #222222;
+          transition: color 0.3s;
+          font-size: 17px;
+          font-weight: 600;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          i,
+          &:hover {
+            color: #0a472e;
+          }
+        }
+      }
+      .wlthfy {
+        background-color: #ddf6ec;
+        padding: 38px;
+        border-radius: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        -ms-border-radius: 30px;
+        -o-border-radius: 30px;
+        form {
+          :where(.name, .email, .message) {
+            margin-bottom: 34px;
+          }
+          label {
+            margin-bottom: 10px;
+          }
+          textarea,
+          input {
+            border: none;
+            background-color: #fff;
+            width: 100%;
+            height: 40px;
+            padding: 0 10px;
+            border-radius: 6px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            -ms-border-radius: 6px;
+            -o-border-radius: 6px;
+            &::placeholder {
+              font-size: 15px;
+              font-weight: 600;
+            }
+          }
+          textarea {
+            height: 94px;
+            resize: none;
+          }
+
+          button {
+            background-color: #0a472e;
+            color: #ffffff;
+            width: 100%;
+            border: none;
+            height: 45px;
+            border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -ms-border-radius: 3px;
+            -o-border-radius: 3px;
+            &:hover {
+              background-color: #80891b;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .contact_us_page {
+    .container {
+      width: unset;
+      .row {
+        gap: unset;
+        .contact_info_report,
+        .where_house_support {
+          h5 {
+            margin-bottom: 20px;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .wlthfy{
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 678px) {
+  .contact_us_page {
+    .container {
+      .row {
+        .wlthfy {
+          margin-top: 20px;
+          form {
+            h2 {
+              font-size: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

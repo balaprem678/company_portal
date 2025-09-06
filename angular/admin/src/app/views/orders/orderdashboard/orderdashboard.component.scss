@@ -1,0 +1,40 @@
+.filter-box .row {
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 6px;
+  align-items: center;
+}
+.filter-b {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 24%;
+  margin-right: 10px;
+}
+.filter-b .input-group {
+  align-items: center;
+}
+.filter-b .input-group label {
+  margin: 0 0 6px 0;
+}
+.filter-b label {
+  width: 100%;
+}
+.filter-b ng-select {
+  width: 100%;
+}
+.filter-sub button {
+  width: 45%;
+  height: 38px;
+  margin-right: 13px;
+  border: 1px solid #fff;
+  background: #4dbd74;
+  color: #fff;
+}
+.filter-sub button:last-child {
+  background: #fd392c;
+}
+.input-group.filter-sub {
+  margin-top: 25px;
+}
+

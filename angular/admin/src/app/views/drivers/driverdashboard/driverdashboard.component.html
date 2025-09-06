@@ -1,0 +1,118 @@
+<div style="display: block;">
+    <canvas baseChart *ngIf="pieChartData" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+        [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend" [colors]="pieColor">
+    </canvas>
+</div>
+
+<div class="container">
+    <div class="row">
+        <h3>Top Drivers in Rating</h3>
+        <table style="" class="table table-bordered" border="1" id="user-list">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Driver Name</th>
+                    <th style="width: 20%;">Email</th>
+                    <th style="width: 20%;">Phone</th>
+                    <th style="width: 10%;">Rating</th>
+                    <th style="width: 25%;">No.of.Deliveries</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="topdrivers && topdrivers.length > 0 && topdrivers[0] !='undefined'">
+                <tr *ngFor="let item of topdrivers">
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.username}}</p>
+                    </td>
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.email}}</p>
+                    </td>
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.phone.code}} {{item.phone.number}}</p>
+                    </td>
+                    <td style="width: 10%;padding-left:8px">
+                        <p>{{item.avg_ratings}}</p>
+                    </td>
+                    <td style="width: 10%;padding-left:8px">
+                        <p>{{item.deliverd}}</p>
+                    </td>
+                </tr>
+                <tr *ngIf="topdrivers.length === 0">
+                    <span style="font-size: 20px;">No Records Found</span>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <h3>Top Drivers in Delivery</h3>
+        <table style="" class="table table-bordered" border="1" id="user-list">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Driver Name</th>
+                    <th style="width: 20%;">Email</th>
+                    <th style="width: 20%;">Phone</th>
+                    <th style="width: 10%;">Rating</th>
+                    <th style="width: 25%;">No.of.Deliveries</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="topdelivery && topdelivery.length > 0 && topdelivery[0] !='undefined'">
+                <tr *ngFor="let item of topdelivery">
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.username}}</p>
+                    </td>
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.email}}</p>
+                    </td>
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.phone.code}} {{item.phone.number}}</p>
+                    </td>
+                    <td style="width: 10%;padding-left:8px">
+                        <p>{{item.avg_ratings}}</p>
+                    </td>
+                    <td style="width: 10%;padding-left:8px">
+                        <p>{{item.deliverd}}</p>
+                    </td>
+                </tr>
+                <tr *ngIf="topdelivery.length === 0">
+                    <span style="font-size: 20px;">No Records Found</span>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <h3>Drivers in Least Rating</h3>
+        <table style="" class="table table-bordered" border="1" id="user-list">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Driver Name</th>
+                    <th style="width: 20%;">Email</th>
+                    <th style="width: 20%;">Phone</th>
+                    <th style="width: 10%;">Rating</th>
+                    <th style="width: 25%;">No.of.Deliveries</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="leastrating && leastrating.length > 0 && leastrating[0] !='undefined'">
+                <tr *ngFor="let item of leastrating">
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.username}}</p>
+                    </td>
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.email}}</p>
+                    </td>
+                    <td style="width: 20%;padding-left:8px">
+                        <p>{{item.phone.code}} {{item.phone.number}}</p>
+                    </td>
+                    <td style="width: 10%;padding-left:8px">
+                        <p>{{item.avg_ratings}}</p>
+                    </td>
+                    <td style="width: 10%;padding-left:8px">
+                        <p>{{item.deliverd}}</p>
+                    </td>
+                </tr>
+                <tr *ngIf="leastrating.length === 0">
+                    <span style="font-size: 20px;">No Records Found</span>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

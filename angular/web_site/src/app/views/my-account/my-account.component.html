@@ -1,0 +1,303 @@
+<div class="my-account-page my-5 pt_110">
+	<div class="container">
+		<div class="bread-crumb">
+			<a [routerLink]="['']">Home</a>
+			<!-- <p> <i class="fa fa-angle-right" aria-hidden="true"></i> </p>
+            <a href="">Account</a> -->
+			<p> <i class="fa fa-angle-right" aria-hidden="true"></i> </p>
+			<a [routerLink]="['/my-account']">My Profile</a>
+			<ng-container *ngIf="editprofile">
+				<p> <i class="fa fa-angle-right" aria-hidden="true"></i> </p>
+				<a [routerLink]="['/my-account']">Edit Profile</a>
+			</ng-container>
+
+		</div>
+		<div class="my-profile-sec saved_profile" *ngIf="!editprofile && userDetails">
+			<h3>My Profile</h3>
+			<div class="pforile-form">
+
+				<div class="pro-form-group">
+					<label>First Name</label>
+					<input type="text" [(ngModel)]="userDetails.first_name" readonly />
+				</div>
+				<div class="pro-form-group">
+					<label>Last Name</label>
+					<input type="text" [(ngModel)]="userDetails.last_name" readonly />
+				</div>
+				<div class="pro-form-group">
+					<label>Email Address</label>
+					<input type="email" [(ngModel)]="userDetails.email" readonly />
+				</div>
+				<div class="pro-form-group gender">
+
+					<label>Gender</label><br>
+					<span *ngIf="userDetails && userDetails.gender == 'male'">
+						<!-- <input type="radio" [checked]="userDetails.gender == 'male'" name="gender" disabled /> -->
+						<!-- <p class="check-box"></p> -->
+						Male
+					</span>
+					<span *ngIf="userDetails && userDetails.gender == 'female'">
+						<!-- <input type="radio" [checked]="userDetails.gender == 'female'" name="gender" disabled /> -->
+						<!-- <p class="check-box"></p> -->
+						Female
+					</span>
+				</div>
+				<div class="pro-form-group">
+					<label>Mobile Number</label>
+					<label for="code">{{userDetails.phone.code}} {{userDetails.phone.number}}</label>
+					<!-- <input type="number" [(ngModel)]="userDetails.phone.number" readonly /> -->
+				</div>
+				<div class="pro-form-group profile_img after_saves">
+					<label>Profile</label><br>
+					<div style="border-radius: 50px;
+					height: 100px;
+					width: 100px;
+					overflow: hidden;
+					">
+						<img src="{{apiUrl+userDetails.avatar}}" onerror="this.src='assets/image/emptyuser.svg'"
+							width="100%" alt="" class="user_svg">
+					</div>
+				</div>
+			</div>
+			<div class="my-profile-button">
+				<button (click)="editfun()">Edit</button>
+			</div>
+			<!-- <div class="pro-form-group full-part">
+				<button type="button" class="btn pass-btn" (click)="changePassow(otpModel)">
+					Change Password
+				</button>
+			</div> -->
+		</div>
+		<div>
+			<form #form="ngForm" *ngIf="editprofile" class="my-profile-sec">
+				<div class="pforile-form">
+					<div class="pro-form-group">
+						<label for="name">First Name </label>
+						<input class="is-invalid" type="text" id="yourname" name="yourname" pattern='^[^\d]*$'
+							[ngClass]="{ 'is-invalid': yourname.errors }" placeholder="Enter the first name"
+							#yourname="ngModel" ngModel maxlength="20" minlength="1" required>
+						<div *ngIf="yourname.errors?.['pattern']" class="invalid-feedback d-block">
+							Numbers are not allowed</div>
+						<div *ngIf="yourname.errors?.['required']" class="invalid-feedback d-block">
+							First name is required</div>
+						<div *ngIf="yourname.errors?.['maxlength']"> Maximum limit 20 characters
+						</div>
+						<div *ngIf="yourname.errors?.['minlength']">Minimum limit 1 character
+						</div>
+					</div>
+					<div class="pro-form-group">
+						<label for="name">Last Name </label>
+						<input type="text" id="yourname1" name="yourname1" pattern='^[^\d]*$' #yourname1="ngModel"
+							ngModel required maxlength="20" minlength="1" placeholder="Enter the last name">
+						<div *ngIf="yourname1.errors?.['pattern']" class="invalid-feedback d-block">
+							Numbers are not allowed</div>
+						<div *ngIf="yourname1.errors?.['required']" class="invalid-feedback d-block">
+							Last name is required</div>
+						<div *ngIf="yourname1.errors?.['maxlength']"> Maximum limit 20
+							characters</div>
+						<div *ngIf="yourname1.errors?.['minlength']">Minimum limit 1 character
+						</div>
+					</div>
+
+					<div class="pro-form-group">
+						<label for="email">Your Email</label>
+						<input id="email" name="email" type="email" #email="ngModel" ngModel
+							pattern="^[a-z0-9.]+@[a-z0-9.-]+\.[a-z]{2,3}$" required placeholder="Enter the e-mail">
+						<div *ngIf="email.errors?.['required']" class="invalid-feedback d-block">E-mail is
+							required
+						</div>
+
+						<div *ngIf="email.errors?.['pattern']" class="invalid-feedback d-block">Please enter the
+							valid
+							email ID
+						</div>
+					</div>
+					<div class="pro-form-group gender">
+
+						<label>Gender</label><br>
+						<span>
+							<input type="radio" [checked]="userDetails.gender == 'male'" value="male"
+								(click)="changeGender('male')" name="gender" />
+							<p class="check-box"></p>
+							Male
+						</span>
+						<span>
+							<input type="radio" [checked]="userDetails.gender=='female'" value="female"
+								(click)="changeGender('female')" name="gender" />
+							<p class="check-box"></p>
+							Female
+						</span>
+						<div *ngIf="!checked_gender && !userDetails.gender" class="invalid-feedback d-block">
+							Gender is required</div>
+					</div>
+
+					<div class="pro-form-group">
+						<label for="hover_image">Mobile Number</label>
+						<ngx-intl-tel-input id="phone" [preferredCountries]="preferredCountries"
+							[enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+							[customPlaceholder]="'00000 00000'"
+							[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+							[selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO"
+							[phoneValidation]="true" [separateDialCode]="separateDialCode"
+							[numberFormat]="PhoneNumberFormat.National" (keyup)="checkPhoneNumber($event)" name="phone"
+							required ngModel #phone='ngModel' readonly>
+						</ngx-intl-tel-input>
+						<div *ngIf="phone.errors?.['required']" class="invalid-feedback d-block">
+							Mobile number is required</div>
+						<div *ngIf="phone.errors && phone.errors?.['validatePhoneNumber'] && !phone.errors?.['validatePhoneNumber']['valid']"
+							class="invalid-feedback d-block">
+							Invalid mobile number</div>
+
+					</div>
+					<div class="pro-form-group profile_img">
+						<label for="hover_image">Profile</label>
+						<input id="fileInput" class="form-control" type="file" ngModel #hover_image="ngModel"
+							(change)="onFileChange($event)" name="hover_image" id="hover_image" aria-invalid="true" />
+						<p class="help-block">
+							<span class="invalid-feedback" *ngIf="form.submitted && !previewImage">Product
+								Hover Image required, Allowed files: jpeg, png, jpg. Max file size
+								50Mb.</span>
+						</p>
+						<div class="profile-view" *ngIf="previewImage">
+
+							<img [src]="previewImage" width="100%" alt="" style="
+							border: 1px solid #ccc;
+							position: absolute;
+							top: -50px;
+							right: -175px;
+							border-radius: 100px;" class="img-responsive">
+						</div>
+					</div>
+
+
+					<!-- <div class="row">
+						<div class="form-group col-sm-6">
+							
+
+						</div>
+					</div> -->
+				</div>
+				<div class="update-data">
+					<button type="button" class="btn pass-btn" (click)="changePassow(otpModel)">
+						Change Password
+					</button>
+					<button type="button" class="btn btn-primary userprofile-detail" (click)="OnSaveProfile(form)">
+						Save
+					</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+<ng-template #otpModel>
+	<div class="modal-header">
+
+		<h4 class="m-0">Verify Account</h4>
+		<div (click)="destroyChange()" title="close the popup" class="pop_cls_btn">
+			&#10006;
+		</div>
+	</div>
+	<div class="modal-body login-body">
+		<div class="container-fluid p-0">
+			<form (ngSubmit)="onSubmit(otpform, changePasswordPop)" #otpform="ngForm">
+				<p>Enter 4 digit code sent to your email: <strong>{{forgot_mail}}</strong></p>
+				<div class="row d-flex">
+					<div
+						class="form-group d-flex flex-wrap align-items-center justify-content-between gap-2 login-value mb-5">
+						<input type="number" name="num1" autocomplete="off" id="num1" [(ngModel)]="num1"
+							[ngModelOptions]="{standalone: true}" class="form-control"
+							(input)="validateDigitInput($event)" maxlength="1" ngModel #digit1="ngModel"
+							(keyup)="onDigitInput(1,$event)" (keydown.control.v)="onCtrlV($event, 1)" min="0" max="9">
+						<input type="number" name="num2" autocomplete="off" id="num2" [(ngModel)]="num2"
+							[ngModelOptions]="{standalone: true}" class="form-control"
+							(input)="validateDigitInput($event)" maxlength="1" ngModel #digit2="ngModel"
+							(keyup)="onDigitInput(2,$event)" (keydown.control.v)="onCtrlV($event, 2)" min="0" max="9">
+						<input type="number" name="num3" autocomplete="off" id="num3" [(ngModel)]="num3"
+							[ngModelOptions]="{standalone: true}" class="form-control"
+							(input)="validateDigitInput($event)" maxlength="1" ngModel #digit3="ngModel"
+							(keyup)="onDigitInput(3,$event)" (keydown.control.v)="onCtrlV($event, 3)" min="0" max="9">
+						<input type="number" name="num4" autocomplete="off" id="num4" [(ngModel)]="num4"
+							[ngModelOptions]="{standalone: true}" class="form-control"
+							(input)="validateDigitInput($event)" maxlength="1" ngModel #digit4="ngModel"
+							(keyup)="onDigitInput(4,$event)" (keydown.control.v)="onCtrlV($event, 4)" min="0" max="9">
+					</div>
+
+				</div>
+				<button *ngIf="remainingTime > 0" type="submit" class="btn verify-bnt">Verify</button>
+				<button *ngIf="remainingTime <= 0" type="submit" class="btn verify-bnt_disable"
+					[disabled]="remainingTime <= 0">Verify</button>
+			</form>
+		</div>
+
+		<p *ngIf="remainingTime > 0" class="pass-p codedisap-p text-center mt-3"><a>Resend Code in</a> <strong>{{
+				remainingTime > 0? remainingTime : 00 }}</strong> seconds &nbsp;</p>
+
+		<p *ngIf="remainingTime == 0" class="pass-p code-p text-center mt-3"><a (click)="resenOtp()">Resend Code
+				in</a>
+			<strong>{{ remainingTime > 0? remainingTime : 00 }}</strong> seconds &nbsp;
+		</p>
+	</div>
+	<!-- <div class='modal-footer justify-content-center'>
+
+		[disabled]="remainingTime == 0"
+
+        <div *ngIf="remainingTime > 0">
+
+          
+            Resend Code in <strong>{{ remainingTime > 0? remainingTime : 00 }}</strong>  seconds &nbsp; <a (click)="resenOtp()"></a>
+        </div> 
+        <div>
+
+        </div>
+    </div> -->
+
+</ng-template>
+
+<ng-template #changePasswordPop>
+	<div class="modal-header">
+		<h4>Change Password</h4>
+		<div (click)="destroyPassModel()" title="close the popup" class="pop_cls_btn">
+			&#10006;
+		</div>
+	</div>
+	<div class="modal-body login-body">
+		<div class="container-fluid">
+			<form #changeForm="ngForm" (ngSubmit)="onChangeFormSubmit(changeForm)">
+				<div class="form-group change-pass">
+					<label for="newpassword">New Password</label>
+					<!-- ngModel class="form-control" placeholder="Enter Password" id="newpassword" required>  -->
+					<input required name="newpassword" type="{{passtypenp}}" minlength="6" maxlength="100"
+						#newpassword="ngModel" ngModel class="form-control" placeholder="Enter Password"
+						id="newpassword"
+						pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,13}$">
+					<span><i class="{{nppassicon}} password-icon" (click)="hideShowPassword('np')"></i></span>
+					<div *ngIf="changeForm.submitted && !newpassword.valid" class="invalid-feedback">
+						<div>
+						</div>
+					</div>
+					<div class="form-group  change-pass">
+						<label for="confirmpassword">Confirm Password</label>
+						<input required name="confirmpassword" type="{{passtypecnp}}" #confirmpassword="ngModel"
+							minlength="6" maxlength="100" ngModel class="form-control"
+							placeholder="Enter Confirm Password" id="confirmpassword" required>
+						<span><i class="{{cnppassicon}} password-icon" (click)="hideShowPassword('cnp')"></i></span>
+						<div *ngIf="changeForm.submitted && !confirmpassword.valid" class="invalid-feedback">
+						</div>
+						<div *ngIf="newpassword.value != confirmpassword.value">Password and Confirm Password do
+							not match.</div>
+					</div>
+					<div class="sumbit-btn d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+						<button type="button" class="cancel-pass rounded text-center  py-2 px-4 m-0"
+							(click)="destroyPassModel()">Cancel</button>
+						<button type="submit"
+							class="link-border link-color change-password rounded text-center  py-2 px-4 m-0">Save
+							Changes</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</ng-template>

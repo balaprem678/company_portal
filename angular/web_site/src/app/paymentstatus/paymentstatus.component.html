@@ -1,0 +1,48 @@
+<div class="payment_success_failure pt_110">
+
+    <div *ngIf="orderStatus=='Success'" class="container">
+        <div class="payment-success mt_130px mb_20px">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header p-0">
+                            <span class="pay-img"><img src="assets/image/success-video.gif" alt="success-video"></span>
+                        </div>
+                        <div class="card-body p-0">
+                            <h2 class="modal-title text-center" style="color: #16A14E;">Payment Successful</h2>
+                            <!-- <p class="trans-p fw-bold text-center">Transaction number: <b>#65748</b></p> -->
+                            <p class="trans-p p-text text-center">A confirmation order will be sent to your email <i
+                                    class="fst-normal">Email</i></p>
+                        </div>
+                        <div class="card-footer p-0">
+                            <button [routerLink]="['']" type="button" class="btn shop-btn">Continue shopping</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="orderStatus=='Failure'" class="container">
+        <div class="payment-failure mt_130px">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header p-0">
+                            <span class="pay-img"><img src="assets/image/failure.gif" alt="success-video"></span>
+                        </div>
+                        <div class="card-body p-0">
+                            <h2 class="modal-title text-center" style="color: #e50808;">Payment Failed</h2>
+                            <!-- <p class="trans-p fw-bold text-center">Transaction number: <b>#65748</b></p> -->
+                            <p class="trans-p p-text text-center">Unfortunately payment was rejected</p>
+                        </div>
+                        <div class="card-footer p-0">
+                            <button [routerLink]="['/cart']" type="button" class="btn shop-btn">Back To My
+                                Orders</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

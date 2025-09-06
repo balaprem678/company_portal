@@ -1,0 +1,281 @@
+<div class="col-md-12">
+    <tabset class="tabs-dark">
+        <tab heading="Details">
+            <div class="container">
+                <form #landingForm="ngForm" (ngSubmit)="onFormSubmit(landingForm)" autocomplete="off">
+                    <div class="row">
+                        <div class="form-group col-md-12 legend">
+                            <h4><strong>Driver landing page details </strong></h4>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Main Title <span class="color_red">*</span> </label>
+                        <input type="text" class="form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-minlength ng-valid-maxlength has-visited" name="main_title" minlength="3" maxlength="25" ngModel #main_title="ngModel" required>
+                        <p class="help-block" *ngIf="landingForm.submitted && !main_title.valid">
+                            <span class="invalid-feedback" *ngIf="main_title.errors && main_title.errors.required">Main
+                                title is
+                                required.</span>
+                            <span class="invalid-feedback" *ngIf="main_title.errors && main_title.errors.minlength">Main
+                                title
+                                Must Be Minimum Of 3 characters.</span>
+                            <span class="invalid-feedback" *ngIf="main_title.errors && main_title.errors.maxlength">Main
+                                title
+                                Must Be Maximum Of 25 characters.</span>
+                            <span class="invalid-feedback" *ngIf="main_title.errors && main_title.errors.pattern">Allow
+                                Only
+                                Dot, Underscore And lowercase.</span>
+                        </p>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12 legend">
+                            <h4><strong>Section </strong> 1</h4>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title ">Title:<span class="color_red">*</span> </label>
+                        <input type="text" class="form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-minlength ng-valid-maxlength has-visited ng-touched" minlength="3" maxlength="25" ngModel #title1="ngModel" name="title1" required>
+                        <p class="help-block" *ngIf="landingForm.submitted && !title1.valid">
+                            <span class="invalid-feedback" *ngIf="title1.errors && title1.errors.required">Title is
+                                required.</span>
+                            <span class="invalid-feedback" *ngIf="title1.errors && title1.errors.minlength">Title Must
+                                Be
+                                Minimum Of 3 characters.</span>
+                            <span class="invalid-feedback" *ngIf="title1.errors && title1.errors.maxlength">Title Must
+                                Be
+                                Maximum Of 25 characters.</span>
+                            <span class="invalid-feedback" *ngIf="title1.errors && title1.errors.pattern">Allow Only
+                                Dot,
+                                Underscore And lowercase.</span>
+                        </p>
+                    </div>
+                    <div class="form-group driver_page_wrap">
+                        <div>
+                            <label>Description <span class="color_red">*</span></label>
+                        </div>
+                        <div class="txt_areas">
+                            <textarea class="form-control" name="description1" ngModel #description1="ngModel" required></textarea>
+                            <span class="invalid-feedback" *ngIf="landingForm.submitted && description1.errors && description1.errors.required">Description
+                                is
+                                required.</span>
+                        </div>
+                    </div>
+                    <section class="shop_member_section2">
+                        <label for="avatar1">Icon <span class="color_red">*</span></label>
+                        <div class="">
+                            <p class="help-block">
+                                <span style="color:red" *ngIf="landingForm.submitted &&avatar1.errors && avatar1.errors.accept">Allowed
+                                    files: png,
+                                    jpg. Max file size 2Mb.</span>
+                                <span style="color:red" *ngIf="landingForm.submitted &&avatar1.errors && avatar1.errors.required">Icon is
+                                    required.</span>
+                            </p>
+                        </div>
+                        <div class="upload_img_cont">
+                            <input accept="image/*" id="fileInput" ui-jq="filestyle" type="file" (change)="fileChangeEvent1($event)" style=" right: 0; width: 8%;" ngModel #avatar1="ngModel" name="avatar1" DLCTept="image/*"
+                                ngf-max-size="2MB" ngf-model-invalid="errorFiles" class="form-control" ui-options="{
+              buttonText: 'Find file', iconName: 'fa fa-inbox'}" id="avatar1" aria-invalid="true" ngf-min-width="250" ngf-min-height="250" [required]="!preview1" />
+                            <div>
+                                <img *ngIf="landingDetails && preview1 && croppedImage1==''" [src]="envUrl+preview1" class="" style="max-height: 200px;">
+                                <image-cropper style="width: 400px;;" [imageChangedEvent]="imageChangedEvent1" [maintainAspectRatio]="true" [aspectRatio]="4 / 4" [resizeToWidth]="256" format="png" (imageCropped)="imageCropped1($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+                                    (loadImageFailed)="loadImageFailed()">
+                                </image-cropper>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <div class="row">
+                        <div class="form-group col-md-12 legend">
+                            <h4><strong>Section </strong> 2</h4>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : userEditForm1.title.$invalid && !userEditForm1.title.$pristine,
+              'has-success' : userEditForm1.title.$valid && !userEditForm1.title.$pristine} ">
+                        <label for="title ">Title:<span class="color_red">*</span> </label>
+                        <input type="text" ngModel #title2="ngModel" name="title2" class="form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-minlength ng-valid-maxlength has-visited ng-touched" required>
+                        <p class="help-block" *ngIf="landingForm.submitted && !title2.valid">
+                            <span class="invalid-feedback" *ngIf="title2.errors && title2.errors.required">Title is
+                                required.</span>
+                            <span class="invalid-feedback" *ngIf="title2.errors && title2.errors.minlength">Title Must
+                                Be
+                                Minimum Of 3 characters.</span>
+                            <span class="invalid-feedback" *ngIf="title2.errors && title2.errors.maxlength">Title Must
+                                Be
+                                Maximum Of 25 characters.</span>
+                            <span class="invalid-feedback" *ngIf="title2.errors && title2.errors.pattern">Allow Only
+                                Dot,
+                                Underscore And lowercase.</span>
+                        </p>
+                    </div>
+                    <div class="form-group driver_page_wrap">
+                        <div>
+                            <label>Description <span class="color_red">*</span></label>
+                        </div>
+                        <div class="txt_areas">
+                            <textarea ng-minlength="5" name="description2" ngModel #description2="ngModel" class="form-control" required></textarea>
+                            <span class="invalid-feedback" *ngIf="landingForm.submitted && description2.errors && description2.errors.required">Description
+                                is
+                                required.</span>
+                        </div>
+                    </div>
+                    <section class="shop_member_section2">
+                        <label for="avatar1">Icon <span class="color_red">*</span></label>
+                        <div class="">
+                            <p class="help-block">
+                                <span style="color:red" *ngIf="landingForm.submitted &&avatar2.errors && avatar2.errors.accept">Allowed
+                                    files: png,
+                                    jpg. Max file size 2Mb.</span>
+                                <span style="color:red" *ngIf="landingForm.submitted &&avatar2.errors && avatar2.errors.required">Icon is
+                                    required.</span>
+                            </p>
+                        </div>
+                        <div class="upload_img_cont">
+                            <input accept="image/*" id="fileInput" ui-jq="filestyle" type="file" (change)="fileChangeEvent2($event)" style=" right: 0; width: 8%;" ngModel #avatar2="ngModel" name="avatar2" DLCTept="image/*" ngf-max-size="2MB"
+                                ngf-model-invalid="errorFiles" class="filestyle avatar_img" ui-options="{buttonText: 'Find file', iconName: 'fa fa-inbox'}" id="avatar1" aria-invalid="true" ngf-min-width="250" ngf-min-height="250" [required]="!preview2" />
+                            <div>
+                                <img *ngIf="landingDetails && preview2 && croppedImage2==''" [src]="envUrl+preview2" class="" style="max-height: 200px;">
+                                <image-cropper style="width: 400px;;" [imageChangedEvent]="imageChangedEvent2" [maintainAspectRatio]="true" [aspectRatio]="4 / 4" [resizeToWidth]="256" format="png" (imageCropped)="imageCropped2($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+                                    (loadImageFailed)="loadImageFailed()">
+                                </image-cropper>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="row">
+                        <div class="form-group col-md-12 legend">
+                            <h4><strong>Section </strong> 3</h4>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : userEditForm1.title.$invalid && !userEditForm1.title.$pristine,
+              'has-success' : userEditForm1.title.$valid && !userEditForm1.title.$pristine} ">
+                        <label for="title ">Title:<span class="color_red">*</span> </label>
+                        <input type="text" name="title3" ngModel #title3="ngModel" class="form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-minlength ng-valid-maxlength has-visited ng-touched" required>
+                        <p class="help-block" *ngIf="landingForm.submitted && !title3.valid">
+                            <span class="invalid-feedback" *ngIf="title3.errors && title3.errors.required">Title is
+                                required.</span>
+                            <span class="invalid-feedback" *ngIf="title3.errors && title3.errors.minlength">Title Must
+                                Be
+                                Minimum Of 3 characters.</span>
+                            <span class="invalid-feedback" *ngIf="title3.errors && title3.errors.maxlength">Title Must
+                                Be
+                                Maximum Of 25 characters.</span>
+                            <span class="invalid-feedback" *ngIf="title3.errors && title3.errors.pattern">Allow Only
+                                Dot,
+                                Underscore And lowercase.</span>
+                        </p>
+                    </div>
+                    <div class="form-group driver_page_wrap">
+                        <div>
+                            <label>Description <span class="color_red">*</span></label>
+                        </div>
+                        <div class="txt_areas">
+                            <textarea ng-minlength="5" name="description3" ngModel #description3="ngModel" class="form-control" required></textarea>
+                            <span class="invalid-feedback" *ngIf="landingForm.submitted && description3.errors && description3.errors.required">Description
+                                is
+                                required.</span>
+                        </div>
+                    </div>
+                    <section class="shop_member_section2">
+                        <label for="avatar1">Icon <span class="color_red">*</span></label>
+                        <div class="">
+                            <p class="help-block">
+                                <span style="color:red" *ngIf="landingForm.submitted &&avatar3.errors && avatar3.errors.accept">Allowed
+                                    files: png,
+                                    jpg. Max file size 2Mb.</span>
+                                <span style="color:red" *ngIf="landingForm.submitted &&avatar3.errors && avatar3.errors.required">Icon is
+                                    required.</span>
+                            </p>
+                        </div>
+                        <div class="upload_img_cont">
+                            <input accept="image/*" id="fileInput" ui-jq="filestyle" type="file" (change)="fileChangeEvent3($event)" style=" right: 0; width: 8%;" ngModel #avatar3="ngModel" name="avatar3" DLCTept="image/*" ngf-max-size="2MB"
+                                ngf-model-invalid="errorFiles" class="filestyle avatar_img" ui-options="{
+              buttonText: 'Find file', iconName: 'fa fa-inbox'}" id="avatar1" aria-invalid="true" ngf-min-width="250" ngf-min-height="250" [required]="!preview3" />
+                            <div>
+                                <img *ngIf="landingDetails && preview3 && croppedImage3==''" [src]="envUrl+preview3" class="" style="max-height: 200px;">
+                                <image-cropper style="width: 400px;;" [imageChangedEvent]="imageChangedEvent3" [maintainAspectRatio]="true" [aspectRatio]="4 / 4" [resizeToWidth]="256" format="png" (imageCropped)="imageCropped3($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+                                    (loadImageFailed)="loadImageFailed()">
+                                </image-cropper>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                        <button class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10">Submit<i
+                                class="fa fa-arrow-right"></i></button>
+                    </div>
+                </form>
+            </div>
+        </tab>
+        <tab heading="Banner">
+            <form #bannerForm="ngForm" (ngSubmit)="onSubmit(bannerForm)" autocomplete="off">
+                <div class="row">
+                    <div class="form-group col-md-12 legend">
+                        <h4><strong>Banner</strong></h4>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="title ">Title:<span class="color_red">*</span> </label>
+                    <input type="text" class="form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-valid-minlength ng-valid-maxlength has-visited ng-touched" ngModel #banner_title="ngModel" name="banner_title" required>
+                    <p class="help-block" *ngIf="bannerForm.submitted && !banner_title.valid">
+                        <span class="invalid-feedback" *ngIf="banner_title.errors && banner_title.errors.required">Title
+                            is
+                            required.</span>
+                        <span class="invalid-feedback" *ngIf="banner_title.errors && banner_title.errors.minlength">Title Must
+                            Be
+                            Minimum Of 3 characters.</span>
+                        <span class="invalid-feedback" *ngIf="banner_title.errors && banner_title.errors.maxlength">Title Must
+                            Be
+                            Maximum Of 25 characters.</span>
+                        <span class="invalid-feedback" *ngIf="banner_title.errors && banner_title.errors.pattern">Allow
+                            Only
+                            Dot,
+                            Underscore And lowercase.</span>
+                    </p>
+                </div>
+                <div class="form-group driver_page_wrap">
+                    <div>
+                        <label>Description <span class="color_red">*</span></label>
+                    </div>
+                    <div class="txt_areas">
+                        <textarea class="form-control" name="banner_description" ngModel #banner_description="ngModel" required></textarea>
+                        <span class="invalid-feedback" *ngIf="bannerForm.submitted && banner_description.errors && banner_description.errors.required">Description
+                            is
+                            required.</span>
+                    </div>
+                </div>
+                <section class="shop_member_section2">
+                    <label for="avatar1">Icon <span class="color_red">*</span></label>
+                    <div class="">
+                        <p class="help-block">
+                            <span style="color:red" *ngIf="landingForm.submitted &&avatar1.errors && avatar1.errors.accept">Allowed
+                                files: png,
+                                jpg. Max file size 2Mb.</span>
+                            <span style="color:red" *ngIf="bannerForm.submitted &&banner_avatar.errors && banner_avatar.errors.required">Icon
+                                is
+                                required.</span>
+                        </p>
+                    </div>
+                    <div class="upload_img_cont">
+                        <input accept="image/*" id="fileInput" ui-jq="filestyle" type="file" (change)="fileChangeEvent_banner($event)" style=" right: 0; width: 8%;" ngModel #banner_avatar="ngModel" name="banner_avatar"
+                            DLCTept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFiles" class="filestyle avatar_img" ui-options="{
+      buttonText: 'Find file', iconName: 'fa fa-inbox'}" id="avatar1" aria-invalid="true" ngf-min-width="250" ngf-min-height="250" [required]="!banner_preview" />
+                        <div>
+                            <img *ngIf="landingDetails && banner_preview && croppedImage_banner==''" [src]="envUrl+banner_preview" class="" style="max-height: 200px;">
+                            <image-cropper style="width: 400px;;" [imageChangedEvent]="imageChangedEvent_banner" [maintainAspectRatio]="true" [aspectRatio]="4 / 4" [resizeToWidth]="256" format="png" (imageCropped)="imageCropped_banner($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+                                (loadImageFailed)="loadImageFailed()">
+                            </image-cropper>
+                        </div>
+                    </div>
+                </section>
+                <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                    <button class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10">Submit<i
+                            class="fa fa-arrow-right"></i></button>
+                </div>
+            </form>
+        </tab>
+    </tabset>
+</div>

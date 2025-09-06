@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header"><strong><h1>Cancellation Reasons</h1></strong></div>
+</div>
+<div  *ngIf="data">
+    <div class="form-group grouping-strains row">
+        <div class="col-md-4">
+            <label  class="group-control" for="name"><span><strong>Reason</strong></span></label>
+        </div>
+        <div class="col-md-4">
+            <label  class="group-control" for="name"><span>{{data.reason}}</span></label>
+        </div>
+    </div>
+    <div class="form-group grouping-strains row">
+        <div class="col-md-4">
+            <label  class="group-control" for="name"><span><strong>Cancellation For</strong></span></label>
+        </div>
+        <div class="col-md-4">
+            <label  class="group-control" for="name"><span>{{data.type}}</span></label>
+        </div>
+    </div>
+    <div class="form-group grouping-strains row">
+        <div class="col-md-4">
+            <label  class="group-control" for="name"><span><strong>Status</strong></span></label>
+        </div>
+        <div class="col-md-4">
+            <label  class="group-control" for="name"><span *ngIf="data != null && data.status == 1">Active</span><span *ngIf="data != null && data.status == 2">In Active</span></label>
+        </div>
+    </div>
+    <!-- <p *ngIf="data != null"> Reason : {{data.reason}} </p>
+    <p *ngIf="data != null"> Cancellation For : {{data.type}}</p>
+    <p *ngIf="data != null && data.status == 1"> Status : Active</p>
+    <p *ngIf="data != null && data.status == 2"> Status : In Active</p> -->
+</div>

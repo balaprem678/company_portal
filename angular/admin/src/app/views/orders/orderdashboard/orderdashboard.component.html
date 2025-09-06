@@ -1,0 +1,62 @@
+<!-- <app-common-table [filter_action]="filter_action" [filter_action_list]="filter_action_list"
+    (onFilterAction)="onFilterAction($event)">
+</app-common-table> -->
+<div class="filter">
+    <div class="filter-but">
+        <h2> <span (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapseBasic">
+                <i class="fa fa-filter" aria-hidden="true"></i> Filter <i
+                    class="{{!isCollapsed ? 'fa fa-angle-up' : 'fa fa-angle-down'}}"></i></span>
+        </h2>
+    </div>
+    <div class="filter-box filbox-imports" id="collapseBasic" [collapse]="isCollapsed">
+        <!-- <div class="col-12"> -->
+        <div class="row">
+            <!-- <div class="filter-b">
+                <div class="input-group">
+                    <label for="rcategory">Select By City</label>
+                    <ng-select [items]="getcity" style="" [clearable]="false" bindLabel="cityname" bindValue="_id" [(ngModel)]="city_name" (change)='onFilterData($event)' placeholder="select by city" required>
+                    </ng-select>
+                </div>
+            </div> -->
+
+            <!-- <input type="date" id="start1" class="form-control" name="from1" (change)="datechange($event.target.value)" [max]="getToday()">
+      <input type="date" id="start" class="form-control" name="from" [(ngModel)]='to_dates' (change)='tochanedata($event.target.value)' min={{fromDate}} max={{maxDate}} [max]="getToday()"> -->
+            <div class="filter-b">
+                <div class="input-group">
+                    <label for="from_date">From Date</label>
+                    <input type="text" [(ngModel)]="onFromDate" placeholder="Filter By Start Date"
+                        [formControl]="startDate" disabled class="form-control" #dp="bsDatepicker" [maxDate]="minDate"
+                        bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MMMM DD,YYYY'}"
+                        [bsValue]="myDateValue" (onHidden)="fromdateStarted()" autocomplete="off">
+                    <button class="btn btn-success" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
+                        type="button"><i class="fa fa-calendar"></i></button>
+                </div>
+            </div>
+
+            <div class="filter-b">
+                <div class="input-group">
+                    <label for="to_date">To Date</label>
+                    <input type="text" [(ngModel)]="onToDate" [formControl]="endDate" placeholder="Filter By End Date"
+                        disabled class="form-control" [minDate]="onFromDate" [bsValue]="myDateValue1"
+                        [maxDate]="minDate" #dp1="bsDatepicker" bsDatepicker
+                        [bsConfig]="{ isAnimated: true, dateInputFormat: 'MMMM DD,YYYY'}" (onHidden)="ToDateStarted()"
+                        autocomplete="off">
+                    <button class="btn btn-success" (click)="dp1.toggle()" [attr.aria-expanded]="dp1.isOpen"
+                        type="button"><i class="fa fa-calendar"></i></button>
+                </div>
+            </div>
+            <div class="filter-b">
+                <div class="input-group filter-sub">
+                    <button type="submit" (click)="onsubmit()">Submit</button>
+                    <button type="submit" (click)="onclear()">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: block;">
+    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [type]="pieChartType" [options]="pieChartOptions"
+        [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+    </canvas>
+</div>

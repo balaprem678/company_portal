@@ -1,0 +1,53 @@
+<div class="reviews_and_ratings_view_page margin_top">
+    <div class="animated fadeIn">
+        <div class="full_page_title"><strong>{{pageTitle | titlecase}}</strong></div>
+        <div class="tabset-div tabbing-function row" *ngIf="ReviewsDetails">
+            <div class="col-md-8">
+                <div class="spaces-wisths">
+                    <div class="dash-details">
+                        <span class="heading-pros">Username <span class="qus-alg"> : </span>
+                        </span>
+                        <span>{{ReviewsDetails.username ?
+                            ReviewsDetails.username
+                            :'-'}}</span>
+                    </div>
+                    <div class="dash-details">
+                        <span class="heading-pros">Productname <span class="qus-alg"> : </span>
+                        </span>
+                        <span>{{ReviewsDetails && ReviewsDetails.products && ReviewsDetails.products.name !=
+                            ('' || undefined || null) && ReviewsDetails.products.name ?
+                            ReviewsDetails.products.name
+                            :'-'}}</span>
+                    </div>
+                    <div class="dash-details">
+                        <span class="heading-pros">Comments <span class="qus-alg"> : </span>
+                        </span>
+                        <span>{{ReviewsDetails.comment ? ReviewsDetails.comment
+                            :'-'}}</span>
+                    </div>
+                    <div class="dash-details">
+                        <span class="heading-pros">Ratings <span class="qus-alg"> :
+                            </span>
+                        </span>
+                        <rating class="rating-review-star-view" [(ngModel)]="ReviewsDetails.rating" [max]="max"
+                            [readonly]="readonly"></rating>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 admin_rev_rat_img" *ngIf="ReviewsDetails.image && ReviewsDetails.image.length > 0">
+                <span>Images</span>
+                <div class="review_details">
+                    <div *ngFor="let image of ReviewsDetails.image">
+                        <img *ngIf="image" [src]="env_url+image">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="mt-5">
+            <button type="button" routerLink="/app/reviews/rating/list" class="btn back-btns">
+                Back
+            </button>
+        </div>
+    </div>
+</div>

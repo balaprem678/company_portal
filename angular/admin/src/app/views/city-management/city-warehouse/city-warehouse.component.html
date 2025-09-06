@@ -1,0 +1,86 @@
+<div class="pagecontent">
+    <div class="row">
+        <form #cityEditForm="ngForm" (ngSubmit)="onSubmit(cityEditForm)" (keydown.enter)="$event.preventDefault()" enctype="multipart/form-data">
+            <fieldset>
+                <section class="tile" fullscreen="isFullscreen01">
+                    <div class="tile-body">
+                        <div class="wrap-reset">
+                            <div class="row">
+                                <div class="form-group col-md-12 legend">
+                                    <h4>
+                                        <strong>Warehouse </strong> Settings
+                                    </h4>
+                                    <p>Add Warehouse to City</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="sublin-hea">Location<span class="color_red">*</span></label>
+                                    <input class="form-control" name="midpoint" required type="text" ng-class="{ 'has-error' : cityEditForm.midpoint.$invalid && !cityEditForm.midpoint.$pristine, 'has-success' : cityEditForm.midpoint.$valid && !cityEditForm.midpoint.$pristine}" #search places-auto-complete
+                                        size=200 ngModel #midpoint="ngModel">
+                                    <p class="help-block">
+                                        <span class="invalid-feedback" *ngIf="cityEditForm.submitted && cityEditForm.controls.midpoint.errors && cityEditForm.controls.midpoint.errors.required">Location
+                                            is required.</span>
+                                    </p>
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label class="sublin-hea">Full Address<span class="color_red">*</span></label>
+                                    <input class="form-control" name="fulladdress" required type="text" ng-class="{ 'has-error' : cityEditForm.fulladdress.$invalid && !cityEditForm.fulladdress.$pristine, 'has-success' : cityEditForm.fulladdress.$valid && !cityEditForm.fulladdress.$pristine}"
+                                        places-auto-complete size=200 ngModel #fulladdress="ngModel">
+                                    <p class="help-block">
+                                        <span class="invalid-feedback" *ngIf="cityEditForm.submitted && cityEditForm.controls.fulladdress.errors && cityEditForm.controls.fulladdress.errors.required">Location
+                                            is required.</span>
+                                    </p>
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label class="sublin-hea">ZipCode<span class="color_red">*</span></label>
+                                    <input class="form-control" name="zipcode" required type="text" places-auto-complete ng-class="{ 'has-error' : cityEditForm.zipcode.$invalid && !cityEditForm.zipcode.$pristine, 'has-success' : cityEditForm.zipcode.$valid && !cityEditForm.zipcode.$pristine}"
+                                        size=200 ngModel #zipcode="ngModel">
+                                    <p class="help-block">
+                                        <span class="invalid-feedback" *ngIf="cityEditForm.submitted && cityEditForm.controls.zipcode.errors && cityEditForm.controls.zipcode.errors.required">Location
+                                            is required.</span>
+                                    </p>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="sublin-hea"> <strong>Region</strong><span
+                                            class="color_red">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- <agm-map style="height: 300px;width: 100%;" id="Gmap" [latitude]="lat" [longitude]="lng" [zoom]="18">
+                                    <agm-marker [latitude]="lat" [longitude]="lng" ></agm-marker>
+                                </agm-map> -->
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="status" class="control-label">Status<span
+                                            class="color_red">*</span></label>
+                                    <select type="text" name="status" id="status" class="form-control" ngModel ng-class="{ 'has-error' : cityEditForm.status.$invalid && !cityEditForm.status.$pristine, 'has-success' : cityEditForm.status.$valid && !cityEditForm.status.$pristine}" #status="ngModel"
+                                        required>
+                                        <option value="" disabled selected>Select</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">In-Active</option>
+                                    </select>
+                                    <p class="help-block">
+                                        <span class="invalid-feedback" *ngIf="cityEditForm.submitted && cityEditForm.controls.status && cityEditForm.controls.status.errors && cityEditForm.controls.status.errors.required">status
+                                            is required.</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                                <button class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10">Submit
+                                    <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+</div>

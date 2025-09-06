@@ -1,0 +1,553 @@
+.file-upload,
+.cover-file-upload {
+  display: none;
+}
+
+.red-icon {
+  color: red;
+  font-size: 18px;
+}
+
+.p-image {
+  position: absolute;
+  top: 73%;
+  right: 32%;
+  color: #666666;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.r-image {
+  position: absolute;
+  top: 6%;
+  right: 36%;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.p-image > i {
+  font-size: 18px;
+}
+
+.c-image {
+  position: absolute;
+  top: 65%;
+  right: 14%;
+  color: #666666;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.c-image > i {
+  font-size: 20px;
+}
+
+.p-image:hover {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.upload-button:hover {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: #999;
+}
+
+.cropper-image {
+  margin-top: 40px;
+}
+
+.cover-image-div {
+  width: 330px;
+  height: 150px;
+  background-color: #ccc;
+}
+
+.cover-image {
+  max-height: 200px;
+  height: 150px;
+  max-width: 350px;
+  width: 330px;
+  object-fit: cover;
+}
+
+::ng-deep .ng-option img {
+  height: 20px !important;
+  width: 20px !important;
+}
+
+::ng-deep div.tab-content {
+  margin-top: 5px;
+}
+
+::ng-deep .nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #20a8d8;
+  border-radius: 15px;
+}
+
+::ng-deep .nav-pills .nav-link {
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  margin-right: 5px;
+}
+
+.follow-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.follow-list li {
+  display: flex;
+  width: 50%;
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 0 15px;
+}
+
+.folspac-lists {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.follow-list li i {
+  display: flex;
+  flex-wrap: wrap;
+  width: 15%;
+}
+
+.follow-list li i img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.follow-list li p {
+  padding: 0;
+  margin: 0;
+  width: 85%;
+}
+
+.follow-list li p span {
+  font-size: 14px;
+  display: flex;
+  color: #000;
+  line-height: 24px;
+  padding-bottom: 0px;
+  width: 100%;
+  word-break: break-all;
+}
+
+.follow-list li p small {
+  font-size: 13px;
+  display: flex;
+  color: rgb(112, 112, 112);
+  line-height: 19px;
+  padding-bottom: 0px;
+  width: 100%;
+  word-break: break-all;
+}
+
+p.no-record {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #999696;
+  margin: 30px 0;
+}
+
+.pac-container {
+  z-index: 10000 !important;
+  width: auto !important;
+  position: initial !important;
+  left: 0 !important;
+  right: 0 !important;
+  display: block !important;
+}
+
+.pac-container:empty {
+  display: none !important;
+}
+
+h6.allow-files {
+  width: 96%;
+  text-align: center;
+  font-size: 13px;
+  color: #747474;
+  margin: 4px 0 15px;
+}
+
+.email-status {
+  border: 1px solid #4ebe52;
+  padding: 5px;
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.email-status p {
+  margin: 0;
+  font-size: 16px;
+  color: #4ebe52;
+}
+
+.email-unstatus {
+  border: 1px solid #f96b61;
+  padding: 5px;
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.email-unstatus p {
+  margin: 0;
+  font-size: 16px;
+  color: #f96b61;
+}
+
+::ng-deep .is-invalid .ng-select-container {
+  border: 1px solid red !important;
+}
+
+::ng-deep .is-valid .ng-select-container {
+  border-color: #4dbd74 !important;
+}
+
+.cover-imgs {
+  margin: 4px 0;
+}
+
+.ng-select .ng-has-value .placeholder {
+  display: block !important;
+}
+
+.custom ::ng-deep .ng-placeholder::before {
+  font-family: FontAwesome;
+  content: "\f002";
+}
+
+.badge badge-success badge-pill mb-1 {
+  color: black;
+}
+.p-image {
+  top: 86%;
+  right: 36%;
+}
+
+// New Correction - 13:07:24
+
+// title
+.full_page_title {
+  margin-bottom: 20px;
+}
+.full_page_title strong {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+// Images
+.profile_images {
+  position: relative;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+  min-height: 343px;
+  max-height: 407px;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  background-color: #ffffff;
+  background: #fff;
+  padding: 30px;
+}
+.profile_images label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--bs-gray-800);
+  font-size: 21.1px;
+}
+.pencil {
+  width: 28px;
+  height: 28px;
+  border-radius: 15px;
+  border: none;
+  background: #fff;
+  background-image: url("../../../../assets/image/pencil.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 0 3px 0 #ccc;
+  color: #fff0;
+  z-index: 1;
+  position: absolute;
+  right: 85px;
+  top: 5px;
+}
+.profile_images .pencil input {
+  border: none;
+  background-color: transparent;
+  width: 30px;
+
+  padding: 0;
+}
+
+.profile_images .pencil input::-webkit-file-upload-button:focus-visible {
+  outline: none;
+}
+
+.img_center_call {
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  margin: 15px auto;
+  box-shadow: 0 0 80px 0 #dddddd;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.img_center_call img {
+  box-shadow: 0 0 4px 0 #f1f1f1;
+}
+
+// p.image_size_filter {
+//   font-size: 13px;
+//   text-align: center;
+//   margin-top: 20px;
+//   color: #99a1b7;
+// }
+
+.preview {
+  position: absolute;
+  top: 90px;
+  left: 134px;
+  width: 140px;
+  height: 148px;
+}
+.preview img {
+  width: 100%;
+}
+
+.image_crop {
+  position: absolute;
+  left: -360px;
+  top: -40px;
+}
+// input-select
+.first_name,
+.lastname,
+.email,
+.mobile_number,
+.status,
+.select_gender {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+}
+
+.first_name label,
+.lastname label,
+.email label,
+.mobile_number label,
+.status label,
+.select_gender label {
+  font-size: 15px;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--bs-gray-800);
+}
+
+select,
+input::placeholder {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+}
+.specification p,
+.banner_name p {
+  font-size: 14.35px;
+  color: #99a1b7;
+  margin-top: 8px;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container {
+  /* Add your custom styles here */
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container .ng-clear-wrapper {
+  display: none; /* Example: hide the clear button */
+}
+
+::ng-deep .custom-ng-select .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+.select_gender ng-select {
+  padding: 0 !important;
+}
+
+::ng-deep .tab-content {
+  margin-top: -1px;
+  background: #fff0 !important;
+  border: 1px solid #c8ced300 !important;
+}
+
+.covers-spaces {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 80px;
+  .user_details_sec {
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    background-color: #ffffff;
+    background: #fff;
+    padding: 30px;
+    position: relative;
+    .dash-details {
+      display: flex;
+      padding: 12px 0;
+      .active_inactive {
+        background-color: #ffc107;
+        color: #000;
+      }
+      .heading-pros {
+        font-size: 14px;
+        color: #252424;
+        font-weight: 700;
+        position: relative;
+        width: 150px;
+      }
+    }
+  }
+  .user_profile_sec {
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    background-color: #ffffff;
+    background: #fff;
+    padding: 30px;
+    position: relative;
+    .avs-details {
+      width: 100%;
+      h6 {
+        text-align: left;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+        color: var(--bs-gray-800);
+        font-size: 21.1px;
+      }
+      img {
+        width: 150px;
+        height: 150px;
+        display: flex;
+        object-fit: cover;
+        margin: 50px auto;
+        border: 1px solid #ccc;
+        border-radius: 8%;
+        box-shadow: 0px 0px 10px 0px #ccc;
+      }
+    }
+  }
+}
+
+::ng-deep .inline_cat_image {
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: auto;
+  position: relative;
+
+  .input_pencil {
+    width: 30px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    &::-webkit-file-upload-button {
+      width: 28px;
+      height: 28px;
+      border-radius: 15px;
+      border: none;
+      background: #fff;
+      background-image: url("../../../../assets/image/pencil.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      box-shadow: 0px 0 3px 0 #ccc;
+      color: #fff0;
+      z-index: 1;
+      position: relative;
+    }
+    &::-webkit-file-upload-button:focus-visible {
+      outline: none;
+    }
+  }
+  .img_center_call {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 15px auto;
+    box-shadow: 0 0 80px 0 #dddddd;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    img {
+      box-shadow: 0 0 4px 0 #f1f1f1;
+    }
+  }
+
+  .preview {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 142px;
+    height: 142px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    img {
+      // width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      background-color: #fff;
+      padding: 7px;
+    }
+  }
+}
+
+p.image_size_filter {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 34px;
+  color: #99a1b7;
+}

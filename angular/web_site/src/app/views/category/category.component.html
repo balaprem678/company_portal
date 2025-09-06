@@ -1,0 +1,1014 @@
+<!-- <div class="product-list container">
+  <div class="bread-crumb">
+    <a [routerLink]="['']">Home</a>
+    <p> <i class="fa fa-angle-right" aria-hidden="true"></i> </p>
+    <a *ngIf="category_name && category_name.length == 1" class="category_names">{{category_name[0]}}</a>
+    <a *ngIf="!category_name">Search</a>
+  </div>
+  <p class="mt-3 items_length" *ngIf="!categoryDetails || !categoryDetails._id">Total Items - <span>{{totalItems}}
+      items</span></p>
+  <p class="mt-3 items_length" *ngIf="categoryDetails && categoryDetails._id">{{categoryDetails.rcatname ?
+    categoryDetails.rcatname : categoryDetails.scatname}} - <span>{{totalItems}} items</span></p>
+</div>
+<section class="product-list-page">
+  <div class="container">
+    <div class="product-filter-sec active" id="product-filter-sec">
+      <div class="filter-left">
+        <div class="filter_scroll">
+          <div class="filter-head">
+            <h2>FILTERS</h2>
+            <a class="clear_all" (click)="clearFilter()">CLEAR ALL</a>
+          </div>
+          <div class="parts_reviews">
+            <div class="filter-parts"
+              *ngIf="categoryDetails && sub_list && sub_list[categoryDetails._id] && sub_list[categoryDetails._id].length > 0">
+              <h3>Categories</h3>
+              <div class="filter_accordian b_b_1" *ngIf="categoryDetails && categoryDetails._id">
+                <div ngbAccordion [closeOthers]="true">
+                  <div ngbAccordionItem [collapsed]="false">
+                    <h2 ngbAccordionHeader>
+                      <button ngbAccordionButton> {{ categoryDetails.rcatname ?
+                        categoryDetails.rcatname : categoryDetails.scatname }} </button>
+                    </h2>
+                    <div ngbAccordionCollapse>
+                    
+                      <ul class="category-listed m-0" *ngIf="checkobx[categoryDetails._id] == true">
+                        <ng-container *ngIf="sub_list[categoryDetails._id] && sub_list[categoryDetails._id].length > 0">
+                          <li class="check-box" *ngFor="let scat of sub_list[categoryDetails._id]; let j = index">
+                            <div class="df_aic">
+                              <input type="checkbox" [checked]="category.indexOf(scat._id) != -1"
+                                (click)="subCategorySelect(scat._id,scat.slug,j,categoryDetails._id,'')"
+                                name="scat{{j}}" id="scat{{j}}">
+                              <span class="checkmark">{{scat.scatname}}</span>
+                            </div>
+                           
+                            <ul class="submenu" *ngIf="category.indexOf(scat._id) != -1">
+                              <ng-container
+                                *ngTemplateOutlet="subCategoryTemplate; context:{ $implicit: {parentId:scat._id ,grandParentId: categoryDetails._id,indx:j}}"></ng-container>
+                            </ul>
+                          </li>
+                        </ng-container>
+                      </ul>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+           
+            <div class="filter-parts filter_price b_b_1">
+              <h3>Price</h3>
+              <div class="price-range filter_price_range">
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(0,100)"
+                    [checked]="price_filter.indexOf('0:100') != -1" name="rcat" id="rcat" value="">
+                  <span class="checkmark"></span>
+                  <label (click)="getpricefilters(0,100)" style="cursor: pointer;"><i>Less than</i> to
+                    <i>₹ 100</i> </label>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(100,3000)"
+                    [checked]="price_filter.indexOf('100:300') != -1" name="rcat" id="rcat" value="">
+                  <span class="checkmark"></span>
+                  <label (click)="getpricefilters(100,300)" style="cursor: pointer;"><i>₹ 100</i>to
+                    <i>₹ 300</i> </label>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(300,1000)"
+                    [checked]="price_filter.indexOf('300:1000') != -1" name="rcat" id="rcat" value="">
+                  <span class="checkmark"></span>
+                  <label (click)="getpricefilters(300,1000)" style="cursor: pointer;">
+                    <i>₹ 300</i> to
+                    <i>₹ 1000</i> </label>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(1000,2000)"
+                    [checked]="price_filter.indexOf('1000:2000') != -1" name="price" id="price" value="">
+                  <span class="checkmark"></span>
+                  <label (click)="getpricefilters(1000,2000)" style="cursor: pointer;">
+                    <i>₹ 1000</i> to
+                    <i>₹ 2000</i> </label>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="checkbox" (click)="getpricefilters(2000,3000)"
+                    [checked]="price_filter.indexOf('2000:3000') != -1" name="price" id="price" value="">
+                  <span class="checkmark"></span>
+                  <label (click)="getpricefilters(2000,3000)" style="cursor: pointer;"><i>₹ 2000</i> to
+                    <i>₹ 3000</i> </label>
+                </div>
+               
+              </div>
+      
+            </div>
+            <div *ngIf="settings.review_rating" class="filter-reviews filter-parts b_b_1">
+              <h3>Reviews & Ratings</h3>
+              <div class="price-range">
+                <div class="head-prod check-box">
+                  <input type="radio" [checked]="rating_filter === 5" (click)="ratingFilterUpdate(5)" name="ratingRadio"
+                    id="ratingRadio" value="5">
+                  <span class="checkmark"></span>
+                  <ngb-rating class="review-star-small" [rate]="5" [disabled]="true" [readonly]="false"></ngb-rating>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="radio" [checked]="rating_filter === 4" (click)="ratingFilterUpdate(4)" name="ratingRadio"
+                    id="ratingRadio" value="4">
+                  <span class="checkmark"></span>
+                  <ngb-rating class="review-star-small" [rate]="4" [disabled]="true"
+                    [readonly]="false"></ngb-rating><span>
+                    & up</span>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="radio" [checked]="rating_filter === 3" (click)="ratingFilterUpdate(3)" name="ratingRadio"
+                    id="ratingRadio" value="3">
+                  <span class="checkmark"></span>
+                  <ngb-rating class="review-star-small" [rate]="3" [disabled]="true"
+                    [readonly]="false"></ngb-rating><span>
+                    & up</span>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="radio" [checked]="rating_filter === 2" (click)="ratingFilterUpdate(2)" name="ratingRadio"
+                    id="ratingRadio" value="2">
+                  <span class="checkmark"></span>
+                  <ngb-rating class="review-star-small" [rate]="2" [disabled]="true"
+                    [readonly]="false"></ngb-rating><span>
+                    & up</span>
+                </div>
+                <div class="head-prod check-box">
+                  <input type="radio" [checked]="rating_filter === 1" (click)="ratingFilterUpdate(1)" name="ratingRadio"
+                    id="ratingRadio" value="1">
+                  <span class="checkmark"></span>
+                  <ngb-rating class="review-star-small" [rate]="1" [disabled]="true"
+                    [readonly]="false"></ngb-rating><span>
+                    & up</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-list">
+        <div class="product_pagination">
+          <div class="fillter-top">
+            <div class="icon_all_product"> <button class="filter_icon" (click)='menu_click("add")'><img
+                  src="../../../assets/image/new_../../../assets/image/pillais/filter.svg" /></button> <button (click)='menu_click("remove")'
+                class="back_arrow">
+                
+                &#x2190;
+              </button>
+              
+              <ng-container *ngIf="category_name && category_name.length >0 && category_name.length != 1">
+                <h3>All</h3>
+              </ng-container> <ng-container *ngIf="categoryDetails">
+                <h3 class="product_title_name">{{ categoryDetails.rcatname ?
+                  categoryDetails.rcatname : categoryDetails.scatname }}</h3>
+              </ng-container>
+              
+            </div>
+
+            <div class="short_by_select">
+              <p for="sortFilter" class="sort_by">Sort by : </p>
+              
+              <div ngbDropdown class="d-inline-block">
+                <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                  {{sort_filter_val}}
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="short_by_filter_dd">
+                  <button (click)="changeSort('latest')" value="latest" ngbDropdownItem>New Arrivals</button>
+                  <button (click)="changeSort('lowtohigh')" value="lowtohigh" ngbDropdownItem>Price: Low to
+                    High</button>
+                  <button (click)="changeSort('hightolow')" value="hightolow" ngbDropdownItem>Price: High to
+                    Low</button>
+                  <button (click)="changeSort('rathightolow')" *ngIf="settings.review_rating" value="rathightolow"
+                    ngbDropdownItem>Ratings: High to Low</button>
+                  <button (click)="changeSort('ratlowtohigh')" *ngIf="settings.review_rating" value="ratlowtohigh"
+                    ngbDropdownItem>Ratings: Low to High</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="filter-result box-scroll">
+            <div class="card_box" *ngFor="let item of productList">
+              
+              <span>
+                <img src="{{env}}{{item.avatar}}" style="z-index: 1;" class=""
+                  onerror="this.src='assets/image/no_img.png'"
+                  (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)" />
+                <img *ngIf="item.hover_image" src="{{ env }}{{ item.hover_image }}" class="hover_img"
+                  style="z-index: 1;" (click)="productDetails(item.slug, item._id, item.rcat_id, item.scat_id)"
+                  onerror="this.src='assets/image/no_img.png'" />
+
+                <p class="like" (click)="addFavourite(item._id, loginPopup)">
+                  <i class="fa fa-heart-o" aria-hidden="true" *ngIf="!item.favourite"></i>
+                  <i class="fa fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+                </p>
+                <p class="xcelerator-pdpXceleratorImageTag" *ngIf="item.offer_status == 1">Special Offer</p>
+              </span>
+              <div class="card_box_details">
+
+                
+                <p class="cart_cnt" (click)="productDetails(item.slug,item.product_id,item.rcategory,item.scategory)">
+                  <span>{{item.name}}</span>
+                </p>
+                <p class="price" *ngIf="item.offer_status == 0">
+                  ₹ {{item.sale_price | number}}
+                  <i class="fst-normal text-decoration-line-through" *ngIf="item.base_price > item.sale_price">₹
+                    {{item.base_price | number}}</i>
+                </p>
+                <p class="price" *ngIf="item.offer_status == 1">₹ {{item.offer_sale | number}} <i
+                    class="fst-normal text-decoration-line-through" *ngIf="item.offer_base > item.offer_sale">₹
+                    {{item.offer_base | number}}</i><i class="price__dis_offer offer"
+                    *ngIf="item.offer_status == 1">({{item.offer_amount}} % OFF)</i>
+                </p>
+
+            
+
+
+
+                <div *ngIf="settings.review_rating && item.total_rating_users>0 && item.rating" class="review_rating">
+                  <div class="_3LWZlK">{{item.rating ? item.rating : 0}}&nbsp;
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  </div>&nbsp;|
+                  <label>{{item.total_rating_users ? (item.total_rating_users | usersCount) : 0}}</label>
+                </div>
+
+
+                
+                <p class="deal-outofstock"><span *ngIf="item.size_status == 2 && !item.quantity"><i></i> Out of
+                    stock</span> </p>
+                <button *ngIf="cart_details.indexOf(item['_id'])!=-1 && item.size_status == 2 "
+                  [routerLink]="['/cart']"><img src="../../assets/image/Common/shopping-cart.png"
+                    class="shoping_cart_img" alt="shopping-cart">
+                  GO TO CART
+                </button>
+                <button *ngIf="cart_details.indexOf(item['_id'])==-1 && item.size_status == 2 && item.quantity > 0 "
+                  (click)="preAddCart(item,'add')"><img src="../../assets/image/Common/shopping-cart.png"
+                    class="shoping_cart_img" alt="shopping-cart">
+                  ADD TO CART
+                </button>
+                <button *ngIf="cart_details.indexOf(item['_id'])!=-1 && item.size_status == 1 "
+                  [routerLink]="['/cart']"><img src="../../assets/image/Common/shopping-cart.png"
+                    class="shoping_cart_img" alt="shopping-cart">
+                  GO TO CART
+                </button>
+                <button *ngIf="cart_details.indexOf(item['_id'])==-1 && item.size_status == 1 "
+                  (click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)"><img
+                    src="../../assets/image/Common/shopping-cart.png" class="shoping_cart_img" alt="shopping-cart">
+                  ADD TO CART
+                </button>
+              </div>
+            </div>
+
+          
+            <div class="no-order d-flex flex-wrap justify-content-center"
+              *ngIf="showproduct && productList.length == 0">
+              <span>
+                <img src="assets/image/no-product.png" alt=""  width="100%" height="100%">
+              </span>
+              <p class="empty-p mt-2"><span>Product is not available</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pagination-sec" *ngIf="productList.length != 0">
+          <span class="page-number back"><img src="../../../assets/image/Common/back.png" alt="Back">&nbsp;Page
+            {{currentPage}}</span>
+          <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item previous" [ngClass]="{'disabled': currentPage === 1}">
+                <a class="page-link" (click)="setPage(currentPage - 1)" aria-label="Previous">
+              <li class="pagination-prev pagination-disabled"><span class="pagination-arrowLeft"></span><img
+                  src="../../../assets/image/Common/left-arrow.png" alt="left-arrow">&nbsp;&nbsp;Previous</li>
+              </a>
+              </li>
+             
+              <span class="page-number center_align">Page {{currentPage}} of {{totalPages}}</span>
+              <li class="page-item next" [ngClass]="{'disabled': currentPage === totalPages}">
+                <a class="page-link" (click)="setPage(currentPage + 1)" aria-label="Next">
+                  Next&nbsp;&nbsp;<img src="../../../assets/image/Common/right-arrow.png" alt="right-arrow">
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #loginPopup>
+  <app-login [modalRef]="modalRef"> </app-login>
+</ng-template>
+
+<ng-template #subCategoryTemplate let-detailObj>
+  <li *ngFor="let subcat of sub_list[detailObj.parentId]; let k=index">
+    <input type="checkbox" [checked]="category.indexOf(subcat._id) != -1"
+      (change)="subCategorySelect(subcat._id,subcat.slug,detailObj.indx,detailObj.parentId,detailObj.grandParentId)"><span
+      style="position: relative;
+  left: 10px;">{{subcat.scatname}}</span>
+    <ul class="submenu" *ngIf="sub_list[subcat._id] && sub_list[subcat._id].length > 0 ">
+      <ng-container
+        *ngTemplateOutlet="subCategoryTemplate; context:{  $implicit: {parentId:subcat._id, grandParentId: detailObj.parentId} }">
+      </ng-container>
+    </ul>
+  </li>
+</ng-template> -->
+
+
+
+
+<section class="category-page pt_110">
+	<div class="mob-category-head">
+		<a href="">
+			<img src="../../../assets/image/pillais/c-head-arrow.png" alt="" />
+		</a>
+		<h6>Atta | Flours</h6>
+	</div>
+	<div class="container-fluid">
+		<span class="product_banner"><img src="{{env}}{{bannerImage}}" alt="" /></span>
+		<div class="category-menu">
+			<div class="category-head">
+				<h2><i class="fa fa-shopping-bag"></i>Shop by Department</h2>
+			</div>
+			<div class="categorys-menus">
+				<!-- <ul>
+					<li>
+						<div class="category-li">
+							<span><img src="../../../assets/image/pillais/svgviewer.png" alt="" /></span>
+							Dals | Beans | Peas
+							<i class="fa fa-angle-left" aria-hidden="true"></i>
+						</div>
+						<ul class="sub-category">
+							<li *ngFor="let scat of sub_list[categoryDetails._id]; let j = index">
+								<a><img src="../../../assets/image/pillais/category/Dals_Beans_Peas.png"
+										alt="" />Dals</a>
+							</li>
+						</ul>
+					</li>
+				</ul> -->
+
+				<!-- Base code used for modification  -->
+				<!-- <div class="accordion product_filter" id="accordionExample"
+					*ngIf="categoryDetails && sub_list && sub_list[categoryDetails._id] && sub_list[categoryDetails._id].length > 0 ">
+					<div class="accordion-item" *ngIf="categoryDetails && categoryDetails._id ">
+						<h2 class="accordion-header" id="headingOne">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse"
+								data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								<div class="category-li">
+
+									<div class="category_head">
+										<img src="{{apiUrl + categoryDetails.iconimg}}" alt="" />
+									</div>
+									<span>
+										{{ categoryDetails.rcatname ?
+										categoryDetails.rcatname : categoryDetails.scatname }}
+									</span>
+
+								</div>
+							</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show category_product_sub"
+							aria-labelledby="headingOne" data-bs-parent="#accordionExample"
+							*ngIf="sub_list[categoryDetails._id] && sub_list[categoryDetails._id].length > 0  ">
+
+							<div class="accordion-body" *ngFor="let scat of sub_list[categoryDetails._id]; let j = index"
+							[class.active]="isActive(j)" (click)="toggleAccordion(j)">
+							<div class="sub_category_list">
+							<img [src]="apiUrl + scat.img" alt="">
+							<input type="checkbox" [checked]="category.indexOf(scat._id) != -1"
+							(click)="subCategorySelect(scat._id, scat.slug, j, categoryDetails._id, '')" name="scat{{ j }}"
+							id="scat{{ j }}">
+							<span class="checkmark">{{ scat.scatname }}</span>
+						</div>
+					</div>
+						</div>
+					</div>
+				</div> -->
+
+				<!-- Base code used for modification  -->
+
+				<!-- +============================== -->
+
+
+				<!-- <div class="filter_accordian" *ngIf="sub_list && sub_list.mainCat && sub_list.mainCat.length >0">
+	<div ngbAccordion [closeOthers]="true">
+	  <div *ngFor="let main_cat of sub_list.mainCat;" ngbAccordionItem
+		[collapsed]="categoryDetails && categoryDetails._id != main_cat._id ? true :false">
+		<h2 ngbAccordionHeader>
+		  <button ngbAccordionButton
+			(click)="variant_params='';category_slug=[];category=[];getCategoryFilter(main_cat.slug,main_cat)">
+			{{
+			main_cat.rcatname
+			}}</button>
+		</h2>
+		<div ngbAccordionCollapse>
+		  <ul class="category-listed m-0" *ngIf="checkobx[main_cat._id] == true">
+			<ng-container *ngIf="sub_list[main_cat._id] && sub_list[main_cat._id].length > 0">
+			  <li class="check-box" *ngFor="let scat of sub_list[main_cat._id]; let j = index">
+				<div class="df_aic">
+				  <input type="checkbox" [checked]="category.indexOf(scat._id) != -1"
+					(click)="subCategorySelect(scat._id,scat.slug,j,main_cat._id,'')" name="scat{{j}}"
+					id="scat{{j}}">
+				  <span class="checkmark">{{scat.scatname}}</span>
+				</div>
+				<ul class="submenu" *ngIf="category.indexOf(scat._id) != -1">
+				  <ng-container
+					*ngTemplateOutlet="subCategoryTemplate; context:{ $implicit: {parentId:scat._id ,grandParentId: main_cat._id,indx:j}}"></ng-container>
+				</ul>
+			  </li>
+			</ng-container>
+		  </ul>
+		</div>
+
+	  </div>
+	</div>
+  </div> -->
+				<!-- +============================== -->
+
+
+				<!-- 
+<div *ngFor="let item of categoryList">
+	<div class="accordion product_filter" id="accordionExample">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading{{item._id}}">
+				<button class="accordion-button" type="button" [attr.data-bs-toggle]="'collapse'"
+					[attr.data-bs-target]="'#collapse' + item._id" aria-expanded="true"
+					[attr.aria-controls]="'collapse' + item._id" (click)="variant_params='';category_slug=[];category=[];getCategoryFilter(item.slug,item)" >
+					<div class="category-li">
+
+						<img src="../../../assets/image/pillais/svgviewer.png" alt="" />
+						<span>{{ item.rcatname ? item.rcatname : item.scatname }}</span>
+					</div>
+				</button>
+			</h2>
+			<div id="collapse{{item._id}}" class="accordion-collapse collapse"
+				[ngClass]="{'show': item._id === categoryDetails?._id}" [attr.aria-labelledby]="'heading' + item._id"
+				[attr.data-bs-parent]="'#accordionExample'">
+				<div class="accordion-body" *ngIf="sub_list[categoryDetails?._id]?.length > 0">
+					<div class="sub_category_list" *ngFor="let scat of sub_list[categoryDetails?._id]; let j = index">
+						<img src="../../../assets/image/pillais/category/Dals_Beans_Peas.png" alt="" />
+						<input type="checkbox" [checked]="category.indexOf(scat._id) != -1"
+							(click)="subCategorySelect(scat._id, scat.slug, j, categoryDetails?._id, '')"
+							name="scat{{j}}" id="scat{{j}}">
+						<span class="checkmark">{{ scat.scatname }}</span>
+					</div>
+				</div>
+				<div class="text-center" *ngIf="!(sub_list[categoryDetails?._id]?.length > 0)">
+					No sub-categories found.
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+
+				<!-- changes on 16-08-2024 -->
+				<!-- <div class="accordion product_filter" id="accordionExample"
+*ngFor="let item of featured_categories_  ">
+<div class="accordion-item" *ngIf="categoryDetails && categoryDetails._id !== item._id ">
+	<h2 class="accordion-header" id="headingOne">
+		<button class="accordion-button" type="button" data-bs-toggle="collapse"
+			data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			<div class="category-li">
+
+				<div class="category_head">
+					<img src="{{apiUrl + item.iconimg}}" alt="" />
+				</div>
+				<span>
+					{{ item.rcatname ?
+					item.rcatname : item.scatname }}
+				</span>
+
+			</div>
+		</button>
+	</h2>
+	<div id="collapseOne" class="accordion-collapse collapse show category_product_sub"
+		aria-labelledby="headingOne" data-bs-parent="#accordionExample"
+		*ngIf="item.subList && item.subList.length > 0  ">
+		<div class="accordion-body"
+			*ngFor="let scat of item.subLis; let j = index">
+			<div class=" sub_category_list">
+				<img src="{{apiUrl + scat.img}}" alt="" />
+				<input type="checkbox" [checked]="category.indexOf(scat._id) != -1"
+					(click)="subCategorySelect(scat._id,scat.slug,j,categoryDetails._id,'')"
+					name="scat{{j}}" id="scat{{j}}">
+
+				<span class="checkmark">{{scat.scatname}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+</div> -->
+
+
+				<div class="accordion product_filter" id="accordionExample">
+					<div class="accordion-item" *ngFor="let item of featured_categories_">
+
+						<h2 class="accordion-header" [ngClass]="{'active': isAnySubCategoryActive(item._id)}"
+							[id]="'heading' + item._id">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse"
+								[attr.data-bs-target]="'#collapse' + item._id" aria-expanded="true"
+								[attr.aria-controls]="'collapse' + item._id"
+								(click)="setCategoryFilter(item.slug)">
+								<div class="category-li">
+									<div class="category_head">
+										<img [src]="apiUrl + item.iconimg" alt="" />
+									</div>
+									<span>
+										{{ item.rcatname ? item.rcatname : item.scatname }}
+									</span>
+								</div>
+							</button>
+						</h2>
+						<div [id]="'collapse' + item._id" class="accordion-collapse collapse category_product_sub"
+							[class.show]="categoryDetails && categoryDetails._id === item._id"
+							[attr.aria-labelledby]="'heading' + item._id" data-bs-parent="#accordionExample">
+							<div class="accordion-body" *ngIf="item.subList && item.subList.length > 0">
+								<div class="sub_category_list" *ngFor="let scat of item.subList; let j = index"
+									[ngClass]="{'active': isActive(j)}" (click)="toggleAccordion(j)">
+									<img [src]="apiUrl + scat.img" alt="" />
+									<input type="checkbox" [checked]="category.indexOf(scat._id) !== -1"
+										(click)="subCategorySelect(scat._id, scat.slug, j, item._id, '',item)"
+										[id]="'scat' + j" name="scat{{j}}">
+									<span class="checkmark">{{ scat.scatname }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<!-- changes on 16-08-2024 end -->
+			</div>
+		</div>
+		<div class="category-list-page">
+			<!-- <span class="cat-banner" ><img src="../../../assets/image/pillais/catagories-banner.jpg" alt="" /></span> -->
+			<span class="cat-banner"><img src="{{env}}{{bannerImage}}" alt="" /></span>
+			<!-- <img src="{{env}}{{bannerImage}}" alt="" /> -->
+			<div class="cate-list-parts">
+				<div class="product-part" *ngFor="let item of productList">
+					<div class="p-list-cnt">
+						<a class="p-img-part products_images">
+							<picture *ngIf="item.avatar"
+								(click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)">
+								<source *ngIf="item.avatar?.webpImg" [srcset]="env + item.avatar?.webpImg"
+									type="image/webp">
+								<img [src]="env + (item.avatar?.fallback || item.avatar) "
+									onerror="this.src='assets/image/no_img.png'" alt="Trade Mark Image">
+								<!-- <span class="off_percentage" *ngIf="item.selectedPriceDetail">({{
+									((item.selectedPriceDetail.mprice -
+									item.selectedPriceDetail.sprice) / item.selectedPriceDetail.mprice *
+									100) | number : '1.0-0' }}% off!)</span> -->
+
+
+									<span class="off_percentage" *ngIf="
+                    item && 
+                    item.selectedPriceDetail &&
+                    item.selectedPriceDetail.mprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.sprice != (undefined || null || '') &&
+                    item.selectedPriceDetail.mprice > 0 &&
+                    (item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) > 0
+                  ">
+                    ({{
+                    ((item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) /
+                    item.selectedPriceDetail.mprice * 100) | number : '1.0-2'
+                    }}% Off)
+                  </span>
+
+
+							</picture>
+							<!-- <img src="{{env}}{{item.avatar}}" class=""
+								onerror="this.src='assets/image/no_img.png'"
+								(click)="productDetails(item.slug,item._id,item.rcat_id,item.scat_id)"> -->
+						</a>
+						<div class="p-product-cnt">
+							<div class="p-product-hide">
+								<a class="p-img-part "
+									(click)="productDetails(item.slug,item.product_id,item.rcategory,item.scategory)">
+
+									<h2>{{item.name}}</h2>
+
+								</a>
+								<div>
+									<div *ngIf="item.selectedPriceDetail">
+										<p class="price 1" *ngIf="item.offer_status == 0">
+											<span class="" *ngIf="item.base_price > item.sale_price">
+												₹ {{item.selectedPriceDetail.mprice | number}}
+											</span>&nbsp;
+											<span>
+												₹ {{item.selectedPriceDetail.sprice | number}}
+											</span>
+										</p>
+										<p class="price 1" *ngIf="item.offer_status == 1">
+											<span class="" *ngIf="item.base_price > item.sale_price">
+												₹ {{item.selectedPriceDetail.mprice | number}}
+											</span>&nbsp;
+											<span>
+												₹ {{item.selectedPriceDetail.sprice | number}}
+											</span>
+											<span class="price__dis_offer offer"
+												*ngIf="item.offer_status == 1">
+												({{item.offer_amount}} % OFF)
+											</span>
+										</p>
+									</div>
+									<ul>
+										<div *ngFor="let price of item.price_details">
+											<li>
+												<input type="radio" name="p-q-{{item._id}}" [value]="price"
+													[(ngModel)]="item.selectedPriceDetail"
+													(ngModelChange)="onPriceDetailChange(item,$event)">
+												<p>{{ price.attributes[0].chaild_name }}</p>
+											</li>
+										</div>
+									</ul>
+									<div class="v-add qty-sec cart_add_to_cart">
+										<!-- <p class="offer_precentage" *ngIf="item.selectedPriceDetail">
+											Save: <span>{{ currency_symbol ? currency_symbol : '₹' }}{{
+												(item.selectedPriceDetail.mprice - item.selectedPriceDetail.sprice) || 0
+												}} ({{ ((item.selectedPriceDetail.mprice -
+												item.selectedPriceDetail.sprice) / item.selectedPriceDetail.mprice *
+												100) | number : '1.0-0' }}% off!)</span>
+										</p> -->
+										<a class="p-add-cart" *ngIf="cartLength==0 "
+											(click)="preAddCart(item, 'add')">
+											<img src="../../../assets/image/pillais/cart.png" alt="" />
+										</a>
+
+										<!-- <a class="p-add-cart" *ngIf="cartLength==0" (click)="preAddCart(item, 'add')">
+									      <img src="../../../assets/image/pillais/cart.png" alt="" />
+								            < /a> -->
+
+										<div *ngFor="let i of item.price_details">
+											<div *ngFor="let rem of unmatchedObjects">
+
+												<div *ngIf=" item._id===rem._id 
+									  && i.attributes[0].chaild_id == rem.price_details.attributes[0].chaild_id 
+									 && i.attributes[0].chaild_id==item.selectedPriceDetail.attributes[0].chaild_id
+									   && rem.showAddToCartButton 
+									  && cartLength>0 ">
+													<!-- <button
+										  (click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+										  ADD TO CART
+										</button> -->
+													<a class="p-add-cart"
+														(click)="preAddCartBtn(item, 'add',rem._id,rem.price_details.attributes[0].chaild_id )">
+														<img src="../../../assets/image/pillais/cart.png"
+															alt="" />
+													</a>
+												</div>
+											</div>
+										</div>
+
+										<div *ngFor="let items of cartDetails.cart_details; let i=index">
+											<div class="p-dec-qty " *ngIf="item._id === cartDetails.cart_details[i].id 
+									  && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id 
+									  ">
+												<div class="p-qty-form minus_plus_section">
+													<button class="minus_input_plus"
+														*ngIf="items.quantity==1"
+														(click)="removeFoodFromCart(items)">-</button>
+													<button class="minus_input_plus"
+														*ngIf="items.quantity>1"
+														(click)="changeCart(items, 'decreement')">-</button>
+													<input class="minus_input_plus" type="text"
+														[(ngModel)]="items.quantity" readonly />
+													<button class="minus_input_plus"
+														(click)="changeCart(items, 'increement')">+</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <i  class="fa-regular fa-heart"></i>
+					<i class="fa-solid fa-heart"></i> -->
+
+					<p class="like" (click)="addFavourite(item._id,item.selectedPriceDetail.attributes[0].chaild_id)">						<i class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+						<i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+					</p>
+				</div>
+
+				<!-- <div class="product-part">
+					<div class="p-list-cnt">
+						<a href="" class="p-img-part">
+							<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+						</a>
+						<div class="p-product-cnt">
+							<div class="p-product-hide">
+								<a href="" class="p-img-part">
+									<h2>Verkadalai – 500g</h2>
+									<span class="p-price"><b></b> </span>
+									<span class="w-price">£ 99.00</span>
+								</a>
+								<ul>
+									<li>
+										<input type="radio" name="p-q">
+										<p>100g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>500g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>1kg</p>
+									</li>
+								</ul>
+
+							</div>
+							<div class="v-add qty-sec">
+								<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+										alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-part">
+					<div class="p-list-cnt">
+						<a href="" class="p-img-part">
+							<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+						</a>
+						<div class="p-product-cnt">
+							<div class="p-product-hide">
+								<a href="" class="p-img-part">
+									<h2>Verkadalai – 500g</h2>
+									<span class="p-price"><b></b> </span>
+									<span class="w-price">£ 99.00</span>
+								</a>
+								<ul>
+									<li>
+										<input type="radio" name="p-q">
+										<p>100g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>500g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>1kg</p>
+									</li>
+								</ul>
+
+							</div>
+							<div class="v-add qty-sec">
+								<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+										alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-part">
+					<div class="p-list-cnt">
+						<a href="" class="p-img-part">
+							<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+						</a>
+						<div class="p-product-cnt">
+							<div class="p-product-hide">
+								<a href="" class="p-img-part">
+									<h2>Verkadalai – 500g</h2>
+									<span class="p-price"><b></b> </span>
+									<span class="w-price">£ 99.00</span>
+								</a>
+								<ul>
+									<li>
+										<input type="radio" name="p-q">
+										<p>100g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>500g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>1kg</p>
+									</li>
+								</ul>
+
+							</div>
+							<div class="v-add qty-sec">
+								<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+										alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-part">
+					<div class="p-list-cnt">
+						<a href="" class="p-img-part">
+							<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+						</a>
+						<div class="p-product-cnt">
+							<div class="p-product-hide">
+								<a href="" class="p-img-part">
+									<h2>Verkadalai – 500g</h2>
+									<span class="p-price"><b></b> </span>
+									<span class="w-price">£ 99.00</span>
+								</a>
+								<ul>
+									<li>
+										<input type="radio" name="p-q">
+										<p>100g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>500g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>1kg</p>
+									</li>
+								</ul>
+
+							</div>
+							<div class="v-add qty-sec">
+								<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+										alt="" /></a>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+				<div class="product-part">
+					<div class="p-list-cnt">
+						<a href="" class="p-img-part">
+							<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+						</a>
+						<div class="p-product-cnt">
+							<div class="p-product-hide">
+								<a href="" class="p-img-part">
+									<h2>Verkadalai – 500g</h2>
+									<span class="p-price"><b></b> </span>
+									<span class="w-price">£ 99.00</span>
+								</a>
+								<ul>
+									<li>
+										<input type="radio" name="p-q">
+										<p>100g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>500g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>1kg</p>
+									</li>
+								</ul>
+
+							</div>
+							<div class="v-add qty-sec">
+								<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+										alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-part">
+					<div class="p-list-cnt">
+						<a href="" class="p-img-part">
+							<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+						</a>
+						<div class="p-product-cnt">
+							<div class="p-product-hide">
+								<a href="" class="p-img-part">
+									<h2>Verkadalai – 500g</h2>
+									<span class="p-price"><b></b> </span>
+									<span class="w-price">£ 99.00</span>
+								</a>
+								<ul>
+									<li>
+										<input type="radio" name="p-q">
+										<p>100g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>500g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>1kg</p>
+									</li>
+								</ul>
+
+							</div>
+							<div class="v-add qty-sec">
+								<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+										alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-part">
+					<div class="p-list-cnt">
+						<a href="" class="p-img-part">
+							<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+						</a>
+						<div class="p-product-cnt">
+							<div class="p-product-hide">
+								<a href="" class="p-img-part">
+									<h2>Verkadalai – 500g</h2>
+									<span class="p-price"><b></b> </span>
+									<span class="w-price">£ 99.00</span>
+								</a>
+								<ul>
+									<li>
+										<input type="radio" name="p-q">
+										<p>100g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>500g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>1kg</p>
+									</li>
+								</ul>
+
+							</div>
+							<div class="v-add qty-sec">
+								<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+										alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-part">
+					<div class="p-list-cnt">
+						<a href="" class="p-img-part">
+							<img src="../../../assets/image/pillais/product-img/Verkadalai.jpg" alt="">
+						</a>
+						<div class="p-product-cnt">
+							<div class="p-product-hide">
+								<a href="" class="p-img-part">
+									<h2>Verkadalai – 500g</h2>
+									<span class="p-price"><b></b> </span>
+									<span class="w-price">£ 99.00</span>
+								</a>
+								<ul>
+									<li>
+										<input type="radio" name="p-q">
+										<p>100g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>500g</p>
+									</li>
+									<li>
+										<input type="radio" name="p-q">
+										<p>1kg</p>
+									</li>
+								</ul>
+
+							</div>
+							<div class="v-add qty-sec">
+								<a href="" class="p-add-cart"><img src="../../../assets/image/pillais/cart.png"
+										alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div> -->
+
+			</div>
+
+			<!-- <nav aria-label="..." class="pagination-nav">
+				<ul class="pagination">
+					<li class="page-item disabled">
+						<a class="page-link" href="#" tabindex="-1" aria-disabled="true">←</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item active" aria-current="page">
+						<a class="page-link" href="#">2</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item">
+						<a class="page-link" href="#">→</a>
+					</li>
+				</ul>
+			</nav> -->
+
+
+		</div>
+	</div>
+
+</section>
+
+<ng-template #subCategoryTemplate let-detailObj>
+	<li *ngFor="let subcat of sub_list[detailObj.parentId]; let k=index">
+		<input type="checkbox" [checked]="category.indexOf(subcat._id) != -1"
+			(change)="subCategorySelect(subcat._id,subcat.slug,detailObj.indx,detailObj.parentId,detailObj.grandParentId,detailObj)"><span
+			style="position: relative;
+	  left: 10px;">{{subcat.scatname}}</span>
+		<ul class="submenu" *ngIf="sub_list[subcat._id] && sub_list[subcat._id].length > 0 ">
+			<ng-container
+				*ngTemplateOutlet="subCategoryTemplate; context:{  $implicit: {parentId:subcat._id, grandParentId: detailObj.parentId} }">
+			</ng-container>
+		</ul>
+	</li>
+</ng-template>

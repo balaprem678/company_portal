@@ -1,0 +1,721 @@
+<div class="payment_gateway margin_top">
+    <div class="full_page_title ">
+        <strong>{{gateway_name}}</strong>
+    </div>
+    <section class="tile cash_on_delivery" *ngIf="paymentDetails && paymentDetails.alias == 'cod'">
+        <form class="profile-settings" name="cashfreeForm" novalidate>
+            <fieldset ng-disabled="myBooleanValue">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6 col0sm-12">
+                        <div class="payment_name"
+                            ng-class="{ 'has-error' : cashfreeForm.name.$invalid && !cashfreeForm.name.$pristine, 'has-success' : cashfreeForm.name.$valid && !cashfreeForm.name.$pristine}">
+                            <label for="name">Payment Name<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings ?
+                                paymentDetails.settings.name : ''}}</p>
+                            <input *ngIf="!viewpage" required type="text" name="name" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.name" id="name">
+                        </div>
+                        <div class="payment_description"
+                            ng-class="{ 'has-error' : cashfreeForm.description.$invalid && !cashfreeForm.description.$pristine, 'has-success' : cashfreeForm.description.$valid && !cashfreeForm.description.$pristine}">
+                            <label for="description">Payment Description<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings ?
+                                paymentDetails.settings.description :''}}</p>
+                            <textarea *ngIf="!viewpage" required type="text" maxlength="100" name="description" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.description" id="description"></textarea>
+                        </div>
+                        <div class="status mt-4">
+                            <label for="paymentMode">Status<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.status==1 ?
+                                'Active' : 'In Active'}}</p>
+                            <select *ngIf="!viewpage" id="paymentMode" name="enable_disable"
+                                [(ngModel)]="paymentDetails.status" class="form-control mb-10">
+                                <option value='1' selected="selected">Active</option>
+                                <option value='2'>In Active</option>
+                            </select>
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="payment_logo">
+                            <label for="name">Payment Logo<span class="color_red">*</span></label>
+                            <input *ngIf="!viewpage" required type="file" name="payment_logo"
+                                (change)="logo_change($event.target.files)" class="form-control" id="payment_logo">
+                            <div class="center_thumbnail_img" *ngIf="image_preview">
+                                <img class="form-control img_preview" src="{{image_preview}}">
+                            </div>
+                            <div class="img_center_call"><img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+                            <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                                *.png, *.jpg and *.jpeg image files are
+                                accepted</p>
+                        </div>
+                    </div>
+                    <div class="card_footer_btn">
+                        <button type="button" *ngIf="!viewpage" routerLink="/app/paymentgateway/list"
+                            class="btn btn-sm ">
+                            Cancel
+                        </button>
+                        <button type="submit" *ngIf="!viewpage" class="btn btn-sm " (click)="onFormSubmit()"
+                            [disabled]="submitebtn">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </section>
+    <!-- codpayment end -->
+
+
+    <!-- Cash Free Payment -- Start -->
+    <section class="tile cash_free_payment" *ngIf="paymentDetails && paymentDetails.alias == 'cashfree'">
+        <form class="profile-settings" name="cashfreeForm" novalidate>
+            <fieldset ng-disabled="myBooleanValue">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6 col-sm-12">
+                        <div class="payment_name"
+                            ng-class="{ 'has-error' : cashfreeForm.name.$invalid && !cashfreeForm.name.$pristine, 'has-success' : cashfreeForm.name.$valid && !cashfreeForm.name.$pristine}">
+                            <label for="name">Payment Name<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.name}}</p>
+                            <input *ngIf="!viewpage" required type="text" name="name" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.name" id="name">
+                        </div>
+                        <div class="payment_description"
+                            ng-class="{ 'has-error' : cashfreeForm.description.$invalid && !cashfreeForm.description.$pristine, 'has-success' : cashfreeForm.description.$valid && !cashfreeForm.description.$pristine}">
+                            <label for="description">Payment Description<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.description}}</p>
+                            <textarea *ngIf="!viewpage" required type="text" name="description" maxlength="100" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.description" id="description"></textarea>
+                        </div>
+                        <div class="payment_mode">
+                            <label for="paymentMode">Payment Mode<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.mode}}</p>
+                            <select *ngIf="!viewpage" id="paymentMode" name="paymentMode"
+                                [(ngModel)]="paymentDetails.settings.mode" class="form-control mb-10">
+                                <option value='live'>Live</option>
+                                <option value='sandbox'>Sandbox</option>
+                            </select>
+                        </div>
+                        <div class="secret_key"
+                            ng-class="{ 'has-error' : cashfreeForm.secretKey.$invalid && !cashfreeForm.secretKey.$pristine, 'has-success' : cashfreeForm.secretKey.$valid && !cashfreeForm.secretKey.$pristine}">
+                            <label for="secretKey">Secret Key<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.secret_key}}</p>
+                            <input *ngIf="!viewpage" required type="text" name="secretKey" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.secret_key" id="secretKey">
+                        </div>
+
+                        <div class="app_id"
+                            ng-class="{ 'has-error' : cashfreeForm.appKey.$invalid && !cashfreeForm.appKey.$pristine, 'has-success' : cashfreeForm.appKey.$valid && !cashfreeForm.appKey.$pristine}">
+                            <label for="appKey">App ID<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.app_key}}</p>
+                            <input *ngIf="!viewpage" required type="text" name="appKey" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.app_key">
+                        </div>
+
+
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="payment_logo">
+                            <label for="name">Payment Logo<span class="color_red">*</span></label>
+                            <div class="">
+                                <input *ngIf="!viewpage" required type="file" name="payment_logo"
+                                    (change)="logo_change($event.target.files)" class="form-control" id="payment_logo">
+
+                                <div class="center_thumbnail_img" *ngIf="image_preview">
+                                    <img class="form-control img_preview" src="{{image_preview}}">
+                                </div>
+
+                                <div class="img_center_call"><img src="assets/image/no_images.png" alt="no_images">
+                                </div>
+                            </div>
+                            <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                                *.png, *.jpg and *.jpeg image files are
+                                accepted</p>
+                        </div>
+                        <div class="refund_mode mt-4">
+                            <label for="refundMode">Refund Mode<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.refundMode}}</p>
+                            <select *ngIf="!viewpage" id="refundMode" name="refundMode"
+                                [(ngModel)]="paymentDetails.settings.refundMode" class="form-control mb-10">
+                                <option value='STANDARD'>Standard</option>
+                                <option value='INSTAND'>Instant</option>
+                            </select>
+                        </div>
+                        <div class="status mt-4">
+                            <label for="paymentMode">Status<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.status==1 ?
+                                'Active' : 'In Active'}}</p>
+                            <select *ngIf="!viewpage" id="paymentMode" name="enable_disable"
+                                [(ngModel)]="paymentDetails.status" class="form-control mb-10">
+                                <option value='1' selected="selected">Active</option>
+                                <option value='2'>In Active</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card_footer_btn">
+                        <button type="button" *ngIf="!viewpage" routerLink="/app/paymentgateway/list"
+                            class="btn btn-sm ">
+                            Cancel
+                        </button>
+                        <button type="submit" *ngIf="!viewpage" class="btn btn-sm " (click)="onFormSubmit()"
+                            [disabled]="submitebtn">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </section>
+    <!-- Cash Free Payment -- End -->
+
+
+    <!-- Rozorpay Payment -- Start -->
+    <div class="razorpay_payment" *ngIf="paymentDetails && paymentDetails.alias == 'Razorpay'">
+        <form class="profile-settings" name="cashfreeForm" novalidate>
+            <fieldset ng-disabled="myBooleanValue">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="payment_name"
+                            ng-class="{ 'has-error' : cashfreeForm.name.$invalid && !cashfreeForm.name.$pristine, 'has-success' : cashfreeForm.name.$valid && !cashfreeForm.name.$pristine}">
+                            <label for="name">Payment Name<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.name}}</p>
+                            <input *ngIf="!viewpage" required type="text" name="name" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.name" id="name">
+                        </div>
+
+                        <div class="payment_description"
+                            ng-class="{ 'has-error' : cashfreeForm.description.$invalid && !cashfreeForm.description.$pristine, 'has-success' : cashfreeForm.description.$valid && !cashfreeForm.description.$pristine}">
+                            <label for="description">Payment Description<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.description}}</p>
+                            <textarea *ngIf="!viewpage" required type="text" name="description" maxlength="100" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.description"  id="description"></textarea>
+                        </div>
+                        <div class="payment_mode">
+                            <div class="payment_mode p-0">
+                                <label for="paymentMode">Payment Mode<span class="color_red">*</span></label>
+                                <p *ngIf="viewpage">{{paymentDetails.settings.mode}}</p>
+                                <select *ngIf="!viewpage" id="paymentMode" name="paymentMode"
+                                    [(ngModel)]="paymentDetails.settings.mode" class="form-control mb-10">
+                                    <option value='live'>Live</option>
+                                    <option value='test'>Test</option>
+                                </select>
+                            </div>
+                            <div class="secret_key p-0"
+                                ng-class="{ 'has-error' : cashfreeForm.secretKey.$invalid && !cashfreeForm.secretKey.$pristine, 'has-success' : cashfreeForm.secretKey.$valid && !cashfreeForm.secretKey.$pristine}">
+                                <label for="secretKey">Secret Key<span class="color_red">*</span></label>
+                                <p *ngIf="viewpage">{{paymentDetails.settings.secret}}</p>
+                                <input *ngIf="!viewpage" required type="text" name="secretKey" class="form-control"
+                                    [(ngModel)]="paymentDetails.settings.secret" id="secretKey">
+                            </div>
+                            <div class="app_id p-0"
+                                ng-class="{ 'has-error' : cashfreeForm.appKey.$invalid && !cashfreeForm.appKey.$pristine, 'has-success' : cashfreeForm.appKey.$valid && !cashfreeForm.appKey.$pristine}">
+                                <label for="appKey">ID<span class="color_red">*</span></label>
+                                <p *ngIf="viewpage">{{paymentDetails.settings.id}}</p>
+                                <input *ngIf="!viewpage" required type="text" name="appKey" class="form-control"
+                                    [(ngModel)]="paymentDetails.settings.id">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="payment_logo">
+                            <label for="name">Payment Logo<span class="color_red">*</span></label>
+                            <input *ngIf="!viewpage" required type="file" name="payment_logo"
+                                (change)="logo_change($event.target.files)" class="form-control" id="payment_logo">
+                            <div class="center_thumbnail_img" *ngIf="image_preview">
+                                <img class="form-control img_preview" src="{{image_preview}}">
+                            </div>
+                            <div class="img_center_call"><img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+
+                            <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                                *.png, *.jpg and *.jpeg image files are
+                                accepted</p>
+                        </div>
+
+                        <div class="refund_mode">
+                            <label for="refundMode">Refund Mode<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.refundMode}}</p>
+                            <select *ngIf="!viewpage" id="refundMode" name="refundMode"
+                                [(ngModel)]="paymentDetails.settings.refundMode" class="form-control mb-10">
+                                <option value='normal'>Normal</option>
+                                <option value='optimum'>Instant</option>
+                            </select>
+                        </div>
+                        <div class="status">
+                            <label for="paymentMode">Status<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.status==1 ?
+                                'Active' : 'In Active'}}</p>
+                            <select *ngIf="!viewpage" id="paymentMode" name="enable_disable"
+                                [(ngModel)]="paymentDetails.status" class="form-control mb-10">
+                                <option value='1' selected="selected">Active</option>
+                                <option value='2'>In Active</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card_footer_btn">
+                        <button type="button" *ngIf="!viewpage" routerLink="/app/paymentgateway/list"
+                            class="btn btn-sm ">
+                            Cancel
+                        </button>
+                        <button type="submit" *ngIf="!viewpage" class="btn btn-sm" (click)="onFormSubmit()"
+                            [disabled]="submitebtn">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <!-- Rozorpay Payment -- End -->
+
+    <!-- Stripe Payment -- Start -->
+    <section class="razorpay_payment stripe_payment" *ngIf="paymentDetails && paymentDetails.alias == 'Stripe'">
+        <form class="profile-settings" name="cashfreeForm" novalidate>
+            <fieldset ng-disabled="myBooleanValue">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="payment_name"
+                            ng-class="{ 'has-error' : cashfreeForm.name.$invalid && !cashfreeForm.name.$pristine, 'has-success' : cashfreeForm.name.$valid && !cashfreeForm.name.$pristine}">
+                            <label for="name">Payment Name<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.name}}</p>
+                            <input *ngIf="!viewpage" required type="text" name="name" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.name" id="name">
+                        </div>
+                        <div class="payment_description"
+                            ng-class="{ 'has-error' : cashfreeForm.description.$invalid && !cashfreeForm.description.$pristine, 'has-success' : cashfreeForm.description.$valid && !cashfreeForm.description.$pristine}">
+                            <label for="description">Payment Description<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.description}}</p>
+                            <textarea *ngIf="!viewpage" required type="text" name="description" maxlength="100" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.description" id="description"></textarea>
+                        </div>
+                        <div class="payment_mode">
+                            <label for="paymentMode">Payment Mode<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.mode}}</p>
+                            <select *ngIf="!viewpage" id="paymentMode" name="paymentMode"
+                                [(ngModel)]="paymentDetails.settings.mode" class="form-control mb-10">
+                                <option value='live'>Live</option>
+                                <option value='test'>Test</option>
+                            </select>
+                        </div>
+                        <div class="secret_key"
+                            ng-class="{ 'has-error' : cashfreeForm.secretKey.$invalid && !cashfreeForm.secretKey.$pristine, 'has-success' : cashfreeForm.secretKey.$valid && !cashfreeForm.secretKey.$pristine}">
+                            <label for="secretKey">Secret Key<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.secret_key}}</p>
+                            <input *ngIf="!viewpage" required type="text" name="secretKey" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.secret_key" id="secretKey">
+                        </div>
+                        <div class="publisher_Key"
+                            ng-class="{ 'has-error' : cashfreeForm.appKey.$invalid && !cashfreeForm.appKey.$pristine, 'has-success' : cashfreeForm.appKey.$valid && !cashfreeForm.appKey.$pristine}">
+                            <label for="appKey">Publisher_Key<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.settings.publisher_key}}</p>
+                            <input *ngIf="!viewpage" required type="text" name="appKey" class="form-control"
+                                [(ngModel)]="paymentDetails.settings.publisher_key">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="payment_logo">
+                            <label for="name">Payment Logo<span class="color_red">*</span></label>
+                            <input *ngIf="!viewpage" required type="file" name="payment_logo"
+                                (change)="logo_change($event.target.files)" class="form-control" id="payment_logo">
+                            <div class="center_thumbnail_img" *ngIf="image_preview">
+                                <img class="form-control img_preview" src="{{image_preview}}">
+                            </div>
+                            <div class="img_center_call"><img src="assets/image/no_images.png" alt="no_images">
+                            </div>
+
+                            <p class="image_size_filter">Set the product thumbnail image <b>145X145</b> pixel. Only
+                                *.png, *.jpg and *.jpeg image files are
+                                accepted</p>
+                        </div>
+
+                        <div class="status mt-4">
+                            <label for="paymentMode">Status<span class="color_red">*</span></label>
+                            <p *ngIf="viewpage">{{paymentDetails.status==1 ?
+                                'Active' : 'In Active'}}</p>
+                            <select *ngIf="!viewpage" id="paymentMode" name="enable_disable"
+                                [(ngModel)]="paymentDetails.status" class="form-control mb-10">
+                                <option value='1' selected="selected">Active</option>
+                                <option value='2'>In Active</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card_footer_btn">
+                        <button type="button" *ngIf="!viewpage" routerLink="/app/paymentgateway/list"
+                            class="btn btn-sm ">
+                            Cancel
+                        </button><button type="submit" *ngIf="!viewpage" class="btn btn-sm " (click)="onFormSubmit()"
+                            [disabled]="submitebtn">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <!-- <div class="form-group">
+                        <label for="refundMode">Refund Mode<span class="color_red">*</span></label>
+                        <label *ngIf="viewpage">{{paymentDetails.settings.refundMode}}</label>
+                        <select *ngIf="!viewpage" id="refundMode" name="refundMode" [(ngModel)]="paymentDetails.settings.refundMode" class="form-control mb-10">
+                            <option value='normal'>Normal</option>
+                            <option value='optimum'>Instant</option>
+                        </select>
+                    </div> -->
+
+
+            </fieldset>
+        </form>
+    </section>
+    <!-- Stripe Payment -- End -->
+
+</div>
+<div class="pagecontent">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- <section class="tile" *ngIf="paymentDetails.alias == 'paypal'">
+                <div class="tile-header dvd dvd-btm">
+                    <h1 class="custom-font"><strong></strong></h1>
+                </div> -->
+            <!-- Paypal IPN -->
+            <!-- <div class="tile-body">
+                    <form class="profile-settings" name="paymentForm" #paymentForm="ngForm" (ngSubmit)="onFormSubmit()" novalidate>
+                        <fieldset ng-disabled="myBooleanValue">
+                            <div class="form-group"
+                                ng-class="{ 'has-error' : paymentForm.client_id.$invalid && !paymentForm.client_id.$pristine, 'has-success' : paymentForm.client_id.$valid && !paymentForm.client_id.$pristine}">
+                                <label for="client_id">Client ID<span class="color_red">*</span></label>
+                                <input type="text" name="client_id" class="form-control"
+                                    ngModel #client_id="ngModel" id="client_id" required>
+                                <p class="help-block" *ngIf="paymentForm.submitted">
+                                    <span  class="invalid-feedback" *ngIf="paymentForm.controls.client_id.errors && !paymentForm.controls.client_id.errors.required">Client
+                                        ID is required.</span>
+                                </p>
+                            </div>
+                            <div class="form-group"
+                                ng-class="{ 'has-error' : paymentForm.client_secret.$invalid && !paymentForm.client_secret.$pristine, 'has-success' : paymentForm.client_secret.$valid && !paymentForm.client_secret.$pristine}">
+                                <label for="client_secret">Client Secret<span class="color_red">*</span></label>
+                                <input type="text" name="client_secret" class="form-control"
+                                   ngModel #client_secret="ngModel" id="client_secret"
+                                    required>
+                                <p class="help-block" *ngIf="paymentForm.submitted">
+                                    <span class="invalid-feedback" *ngIf="paymentForm.controls.client_secret.errors && !paymentForm.controls.client_secret.errors.required">Client
+                                        Secret is required.</span>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label for="paypal_userid">Paypal UserId<span class="color_red">*</span></label>
+                                <input type="text" name="paypal_userid" class="form-control"
+                                    ngModel #paypal_userid="ngModel" id="paypal_userid"
+                                    required>
+                                <span class="invalid-feedback"
+                                *ngIf=" paymentForm.submitted && paymentForm.controls.paypal_userid.errors && !paymentForm.controls.paypal_userid.errors.required">
+                                    This is required field.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="paypal_password">Paypal Password<span class="color_red">*</span></label>
+                                <input type="text" name="paypal_password" class="form-control"
+                                    ngModel #paypal_password="ngModel" id="paypal_password"
+                                    required>
+                                <span class="invalid-feedback"
+                                *ngIf=" paymentForm.submitted && paymentForm.controls.paypal_password.errors && !paymentForm.controls.paypal_password.errors.required">
+                                    This is required field.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="paypal_signature">Paypal Signature<span class="color_red">*</span></label>
+                                <input type="text" name="paypal_signature" class="form-control"
+                                    ngModel #paypal_signature="ngModel" id="paypal_signature"
+                                    required>
+                                <span
+                                *ngIf=" paymentForm.submitted && paymentForm.controls.paypal_signature.errors && !paymentForm.controls.paypal_signature.errors.required">
+                                    This is required field.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="paypal_email">Paypal Email<span class="color_red">*</span></label>
+                                <input required type="text" name="paypal_email" class="form-control"
+                                    ngModel #paypal_email="ngModel" id="paypal_email">
+                                <span
+                                *ngIf=" paymentForm.submitted && paymentForm.controls.paypal_email.errors && !paymentForm.controls.paypal_email.errors.required">
+                                    This is required field.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="paymentMode">Payment Mode<span class="color_red">*</span></label>
+                                <select id="paymentMode" name="paymentMode"
+                                    ngModel #paymentMode="ngModel" class="form-control mb-10">
+                                    <option value='live'>Live</option>
+                                    <option value='sandbox'>Sandbox</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="paymentMode">Status<span class="color_red">*</span></label>
+                                <select id="paymentMode" name="status" ngModel #status="ngModel"
+                                    class="form-control mb-10">
+                                    <option value='1'>Active</option>
+                                    <option value='2'>In Active</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                        <button class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10"
+                            ng-disabled="pageForm.$invalid || myBooleanValue">Submit<i class="fa fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section> -->
+            <!-- <section class="tile" ng-show="paymentDetails.alias == 'stripe'">
+                <div class="tile-header dvd dvd-btm">
+                    <h1 class="custom-font"><strong></strong></h1>
+                </div>
+                <div class="tile-body">
+                    <form class="profile-settings" name="stripeForm" novalidate>
+                        <fieldset ng-disabled="myBooleanValue">
+                            <div class="form-group">
+                                <label for="paymentMode">Payment Mode<span class="color_red">*</span></label>
+                                <select id="paymentMode" name="paymentMode"
+                                    [(ngModel)]="paymentDetails.settings.mode" class="form-control mb-10">
+                                    <option value='live'>Live</option>
+                                    <option value='sandbox'>Sandbox</option>
+                                </select>
+                            </div>
+                            <div class="form-group"
+                                ng-class="{ 'has-error' : stripeForm.secretKey.$invalid && !stripeForm.secretKey.$pristine, 'has-success' : stripeForm.secretKey.$valid && !stripeForm.secretKey.$pristine}">
+                                <label for="secretKey">Secret Key<span class="color_red">*</span></label>
+                                <input required type="text" name="secretKey" class="form-control"
+                                    ng-model="paymentDetails.settings.secret_key" id="secretKey">
+                            </div>
+
+                            <div class="form-group"
+                                ng-class="{ 'has-error' : stripeForm.publishableKey.$invalid && !stripeForm.publishableKey.$pristine, 'has-success' : stripeForm.publishableKey.$valid && !stripeForm.publishableKey.$pristine}">
+                                <label for="publishableKey">Publishable Key<span class="color_red">*</span></label>
+                                <input required type="text" name="publishableKey" class="form-control"
+                                    ng-model="paymentDetails.settings.publishable_key">
+                            </div> -->
+            <!-- <div class="form-group" ng-class="{ 'has-error' : stripeForm.ClientKey.$invalid && !stripeForm.ClientKey.$pristine, 'has-success' : stripeForm.ClientKey.$valid && !stripeForm.ClientKey.$pristine}">
+                            <label for="ClientKey">Client Key</label>
+                            <input required type="text" name="ClientKey" class="form-control" ng-model="paymentDetails.settings.client_key">
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : stripeForm.redirect_uri.$invalid && !stripeForm.redirect_uri.$pristine, 'has-success' : stripeForm.redirect_uri.$valid && !stripeForm.redirect_uri.$pristine}">
+                            <label for="redirect_uri">Redirect Uri</label>
+                            <input required type="text" name="redirect_uri" class="form-control" ng-model="paymentDetails.settings.redirect_uri">
+                        </div> -->
+            <!-- <div class="form-group">
+                                <label for="paymentMode">Status<span class="color_red">*</span></label>
+                                <select id="paymentMode" name="enable_disable" ng-model="paymentDetails.status"
+                                    class="form-control mb-10">
+                                    <option value='1' selected="selected">Active</option>
+                                    <option value='2'>In Active</option>
+                                </select>
+                            </div>
+                            <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                                <button class="btn btn-success btn-ef btn-ef-3 btn-ef-3c mb-10"
+                                    ng-disabled="pageForm.$invalid">Submit<i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </section> -->
+
+            <!-- <section class="tile" *ngIf="paymentDetails && paymentDetails.alias == 'COD'">
+                <div class="tile-header dvd dvd-btm">
+                    <h1 class="custom-font"><strong></strong></h1>
+                </div>
+                <div class="tile-body">
+                    <form class="profile-settings" name="stripeForm" novalidate>
+                        <fieldset ng-disabled="myBooleanValue">
+                            <div class="form-group">
+                                <label for="paymentMode"><strong>Payment Mode</strong></label>
+                                <label *ngIf="viewpage">{{paymentDetails.settings.mode}}</label>
+                                <select *ngIf="!viewpage" id="paymentMode" name="paymentMode" [(ngModel)]="paymentDetails.settings.mode" class="form-control mb-10">
+                                    <option value='live'>Live</option>
+                                    <option value='sandbox'>Sandbox</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="paymentMode">Status</label>
+                                <label *ngIf="viewpage">{{paymentDetails.status==1 ? 'Active' : 'In Active'}}</label>
+                                <select *ngIf="!viewpage" id="paymentMode" name="enable_disable" [(ngModel)]="paymentDetails.status" class="form-control mb-10">
+                                    <option value='1' selected="selected">Active</option>
+                                    <option value='2'>In Active</option>
+                                </select>
+                            </div>
+                            <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                                <button type="submit" *ngIf="!viewpage" class="btn btn-sm btn-success" (click)="onFormSubmit()" [disabled]="submitebtn">
+                                    Submit
+                                </button>
+                                <button type="button" *ngIf="!viewpage" routerLink="/app/paymentgateway/list" class="btn btn-sm ">
+                                    Cancel
+                                </button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </section> -->
+
+            <section class="tile" *ngIf="paymentDetails && paymentDetails.alias == 'mips'">
+                <div class="tile-header dvd dvd-btm">
+                    <h1 class="custom-font"><strong></strong></h1>
+                </div>
+                <div class="tile-body">
+                    <form class="profile-settings" name="cashfreeForm" novalidate>
+                        <fieldset ng-disabled="myBooleanValue">
+                            <div class="form-group"
+                                ng-class="{ 'has-error' : cashfreeForm.name.$invalid && !cashfreeForm.name.$pristine, 'has-success' : cashfreeForm.name.$valid && !cashfreeForm.name.$pristine}">
+                                <label for="name">Payment Name<span class="color_red">*</span></label>
+                                <label *ngIf="viewpage">{{paymentDetails.settings.name}}</label>
+                                <input *ngIf="!viewpage" required type="text" name="name" class="form-control"
+                                    [(ngModel)]="paymentDetails.settings.name" id="name">
+                            </div>
+                            <div class="form-group"
+                                ng-class="{ 'has-error' : cashfreeForm.description.$invalid && !cashfreeForm.description.$pristine, 'has-success' : cashfreeForm.description.$valid && !cashfreeForm.description.$pristine}">
+                                <label for="description">Payment Description<span class="color_red">*</span></label>
+                                <label *ngIf="viewpage">{{paymentDetails.settings.description}}</label>
+                                <textarea *ngIf="!viewpage" required type="text" name="description" maxlength="100" class="form-control"
+                                    [(ngModel)]="paymentDetails.settings.description" id="description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="paymentMode">Payment Mode<span class="color_red">*</span></label>
+                                <label *ngIf="viewpage" class="data-label">{{paymentDetails.settings.mode}}</label>
+                                <select *ngIf="!viewpage" id="paymentMode" name="paymentMode"
+                                    [(ngModel)]="paymentDetails.settings.mode" class="form-control mb-10">
+                                    <option value='live'>Live</option>
+                                    <option value='sandbox'>Sandbox</option>
+                                </select>
+                            </div>
+                            <div class="form-group"
+                                ng-class="{ 'has-error' : cashfreeForm.id_merchant.$invalid && !cashfreeForm.id_merchant.$pristine, 'has-success' : cashfreeForm.id_merchant.$valid && !cashfreeForm.id_merchant.$pristine}">
+                                <label for="id_merchant">Merchant Id<span class="color_red">*</span></label>
+                                <label *ngIf="viewpage"
+                                    class="data-label">{{paymentDetails.settings.id_merchant}}</label>
+                                <input *ngIf="!viewpage" required type="text" name="id_merchant" class="form-control"
+                                    [(ngModel)]="paymentDetails.settings.id_merchant" id="id_merchant">
+                            </div>
+
+                            <div class="form-group"
+                                ng-class="{ 'has-error' : cashfreeForm.id_entity.$invalid && !cashfreeForm.id_entity.$pristine, 'has-success' : cashfreeForm.id_entity.$valid && !cashfreeForm.id_entity.$pristine}">
+                                <label for="id_entity">ID Entity<span class="color_red">*</span></label>
+                                <label *ngIf="viewpage" class="data-label">{{paymentDetails.settings.id_entity}}</label>
+                                <input *ngIf="!viewpage" required type="text" name="id_entity" class="form-control"
+                                    [(ngModel)]="paymentDetails.settings.id_entity">
+                            </div>
+                            <div class="form-group"
+                                ng-class="{ 'has-error' : cashfreeForm.id_operator.$invalid && !cashfreeForm.id_operator.$pristine, 'has-success' : cashfreeForm.id_operator.$valid && !cashfreeForm.id_operator.$pristine}">
+                                <label for="id_operator">ID Operator<span class="color_red">*</span></label>
+                                <label *ngIf="viewpage"
+                                    class="data-label">{{paymentDetails.settings.id_operator}}</label>
+                                <input *ngIf="!viewpage" required type="text" name="id_operator" class="form-control"
+                                    [(ngModel)]="paymentDetails.settings.id_operator">
+                            </div>
+                            <div class="form-group"
+                                ng-class="{ 'has-error' : cashfreeForm.operator_password.$invalid && !cashfreeForm.operator_password.$pristine, 'has-success' : cashfreeForm.operator_password.$valid && !cashfreeForm.operator_password.$pristine}">
+                                <label for="operator_password">Operator Password<span class="color_red">*</span></label>
+                                <label *ngIf="viewpage"
+                                    class="data-label">{{paymentDetails.settings.operator_password}}</label>
+                                <input *ngIf="!viewpage" required type="text" name="operator_password"
+                                    class="form-control" [(ngModel)]="paymentDetails.settings.operator_password">
+                            </div>
+                            <!-- <div class="form-group" ng-class="{ 'has-error' : cashfreeForm.salt.$invalid && !cashfreeForm.salt.$pristine, 'has-success' : cashfreeForm.salt.$valid && !cashfreeForm.salt.$pristine}">
+                                <label for="salt">Hash Salt<span class="color_red">*</span></label>
+                                <label *ngIf="viewpage">{{paymentDetails.settings.salt}}</label>
+                                <input *ngIf="!viewpage" required type="text" name="salt" class="form-control" [(ngModel)]="paymentDetails.settings.salt">
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error' : cashfreeForm.cipher_key.$invalid && !cashfreeForm.cipher_key.$pristine, 'has-success' : cashfreeForm.cipher_key.$valid && !cashfreeForm.cipher_key.$pristine}">
+                                <label for="cipher_key">Operator Password<span class="color_red">*</span></label>
+                                <label *ngIf="viewpage">{{paymentDetails.settings.cipher_key}}</label>
+                                <input *ngIf="!viewpage" required type="text" name="cipher_key" class="form-control" [(ngModel)]="paymentDetails.settings.cipher_key">
+                            </div> -->
+                            <div class="form-group">
+                                <label for="paymentMode">Status<span class="color_red">*</span></label>
+                                <label *ngIf="viewpage" class="data-label">{{paymentDetails.status==1 ? 'Active' : 'In
+                                    Active'}}</label>
+                                <select *ngIf="!viewpage" id="paymentMode" name="enable_disable"
+                                    [(ngModel)]="paymentDetails.status" class="form-control mb-10">
+                                    <option value='1' selected="selected">Active</option>
+                                    <option value='2'>In Active</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Payment Logo<span class="color_red">*</span></label>
+                                <input *ngIf="!viewpage" required type="file" name="payment_logo"
+                                    (change)="logo_change($event.target.files)" class="form-control" id="payment_logo">
+                            </div>
+                            <div class="form-group" *ngIf="image_preview">
+                                <img class="form-control img_preview" src="{{image_preview}}">
+                            </div>
+                            <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                                <button type="submit" *ngIf="!viewpage" class="btn btn-sm btn-success"
+                                    (click)="onFormSubmit()" [disabled]="submitebtn">
+                                    Submit
+                                </button>
+                                <button type="button" *ngIf="!viewpage" routerLink="/app/paymentgateway/list"
+                                    class="btn btn-sm ">
+                                    Cancel
+                                </button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+
+            <!-- <section class="tile" >
+            <div class="tile-header dvd dvd-btm">
+                <h1 class="custom-font"><strong></strong></h1>
+            </div>
+            <div class="tile-body">
+                <form class="profile-settings" name="cashfreeForm" novalidate>
+                    <fieldset ng-disabled="myBooleanValue">
+                        <div class="form-group">
+                            <label for="paymentMode">Payment Mode<span class="color_red">*</span></label>
+
+                            <select id="paymentMode" name="paymentMode"  class="form-control mb-10">
+                                <option value=''>Select</option>
+                                <option value='live'>Live</option>
+                                <option value='sandbox'>Sandbox</option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : cashfreeForm.secretKey.$invalid && !cashfreeForm.secretKey.$pristine, 'has-success' : cashfreeForm.secretKey.$valid && !cashfreeForm.secretKey.$pristine}">
+                            <label for="secretKey">Secret Key<span class="color_red">*</span></label>
+
+                            <input  required type="text" name="secretKey" class="form-control"  id="secretKey">
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error' : cashfreeForm.appKey.$invalid && !cashfreeForm.appKey.$pristine, 'has-success' : cashfreeForm.appKey.$valid && !cashfreeForm.appKey.$pristine}">
+                            <label for="appKey">App ID<span class="color_red">*</span></label>
+                            <input  required type="text" name="appKey" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentMode">Status<span class="color_red">*</span></label>
+                            <select  id="paymentMode" name="enable_disable" class="form-control mb-10">
+                                <option value='1' selected="selected">Active</option>
+                                <option value='2'>In Active</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="refundMode">Refund Mode<span class="color_red">*</span></label>
+                            <select  id="refundMode" name="refundMode" class="form-control mb-10">
+                                <option value=''>Select</option>
+                                <option value='STANDARD'>Standard</option>
+                                <option value='INSTAND'>Instant</option>
+                            </select>
+                        </div>
+                        <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                            <button type="submit"  class="btn btn-sm btn-success" (click)="addPaymentGateway()" [disabled]="submitebtn">
+                                Submit
+                            </button>
+                            <button type="button"  routerLink="/app/paymentgateway/list" class="btn btn-sm ">
+                                Cancel
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </section> -->
+            <!-- create this form for angular and get all data  -->
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,33 @@
+::ng-deep .layout_ctrl-page_list {
+  position: relative;
+  .search-input-tag {
+    position: absolute;
+    right: 140px;
+  }
+  table {
+    thead {
+      tr {
+        th {
+          border: none;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          vertical-align: middle;
+        }
+      
+        td:nth-child(1),
+        td:nth-child(2) div,
+        td:nth-child(3) div{
+          font-weight: 700;
+          font-size: 14px;
+        }
+        td:nth-child(4) span {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

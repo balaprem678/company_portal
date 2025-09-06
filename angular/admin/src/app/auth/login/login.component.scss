@@ -1,0 +1,25 @@
+.login-logo {
+    width: 100%;
+    margin: 0 auto 10px;
+    text-align: center;
+}
+
+.login-logo img {
+    max-width: 100px;
+}
+
+.text-muted {
+    text-align: center;
+}
+::ng-deep .cus-login .main{
+    background-image: url("../../../assets/image/clickkart.png") !important;
+    background-repeat: no-repeat;
+}
+::ng-deep .midl-spaces .card-group .card{
+    background-color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}

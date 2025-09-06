@@ -1,0 +1,135 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-cogs"></i> Debate Setting
+                </div>
+                <form #debateSettingForm="ngForm" autocomplete="off">
+                    <div class="card-body">
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="duration">Duration (Comma seprate ex: 10,)</label>
+                                    <input #durationtag type="number" id="duration" name="duration" pattern="[0-9]{1,2}"
+                                        class="form-control" (keypress)="duration.valid ? durationmin($event) : ''"
+                                        ngModel #duration="ngModel" placeholder="Enter Duration Min">
+                                    <div *ngIf="!duration.valid">
+                                        <div class="invalid-feedback" *ngIf="duration.errors.pattern">Please enter valid
+                                            duration time
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="group-control">
+                                    <!-- <label for="duration">Duration Value </label> -->
+                                    <div class="cus-boxs">
+                                        <span class="cls-sec" *ngFor="let item of durationList; let i=index">
+                                            {{item.name}} <i (click)="clearitem(i)" class="fa fa-times"
+                                                aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="before_start_time">Before Starting Debate(minutes) <span
+                                            class="mandatory">*</span> </label>
+                                    <input type="number" pattern="^[1-9][0-9]*$" id="before_start_time" ngModel
+                                        name="before_start_time" #before_start_time="ngModel" required
+                                        class="form-control" placeholder="Enter Before Staring Debate"
+                                        [ngClass]="{ 'is-invalid': debateSettingForm.submitted && before_start_time.errors }"
+                                        [ngClass]="{ 'is-valid': !before_start_time.errors && before_start_time.valid}">
+                                    <div *ngIf="debateSettingForm.submitted && !before_start_time.valid">
+                                        <div class="invalid-feedback" *ngIf="before_start_time.errors.required">Before
+                                            Staring Debate is required.
+                                        </div>
+                                        <div class="invalid-feedback" *ngIf="before_start_time.errors.pattern">Please
+                                            enter valid Starting time
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="leave_req_before_start_time">Leave Request Before Starting
+                                        Debate(minutes) <span class="mandatory">*</span> </label>
+                                    <input type="number" pattern="^[1-9][0-9]*$" id="leave_req_before_start_time"
+                                        ngModel name="leave_req_before_start_time"
+                                        #leave_req_before_start_time="ngModel" required class="form-control"
+                                        placeholder="Enter Leave Request Before Staring"
+                                        [ngClass]="{ 'is-invalid': debateSettingForm.submitted && leave_req_before_start_time.errors }"
+                                        [ngClass]="{ 'is-valid': !leave_req_before_start_time.errors && leave_req_before_start_time.valid}">
+                                    <div *ngIf="debateSettingForm.submitted && !leave_req_before_start_time.valid">
+                                        <div class="invalid-feedback"
+                                            *ngIf="leave_req_before_start_time.errors.required">Leave Request Before
+                                            Staring Debate is required.
+                                        </div>
+                                        <div class="invalid-feedback"
+                                            *ngIf="leave_req_before_start_time.errors.pattern">Please enter valid
+                                            Starting time
+                                        </div>
+                                        <div class="invalid-feedback" *ngIf="leave_req_before_start_time.errors.min">
+                                            Minimum 1 min
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                            <!-- <div class="form-group grouping-strains row"> -->
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="trending_debates">Trending Debates Interval(Days)<span
+                                            class="mandatory">*</span></label>
+                                    <input type="number" pattern="^[1-9][0-9]*$" id="trending_debates" ngModel
+                                        name="trending_debates" #trending_debates="ngModel" required
+                                        class="form-control" placeholder="Trending Debates Interval"
+                                        [ngClass]="{ 'is-invalid': debateSettingForm.submitted && trending_debates.errors }"
+                                        [ngClass]="{ 'is-valid': !trending_debates.errors && trending_debates.valid}">
+
+
+                                    <div *ngIf="debateSettingForm.submitted && !trending_debates.valid">
+                                        <div class="invalid-feedback" *ngIf="trending_debates.errors.required">Trending
+                                            Debates Interval is required.
+                                        </div>
+                                        <div class="invalid-feedback" *ngIf="trending_debates.errors.pattern">
+                                            Please enter valid days
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group grouping-strains row">
+                            <div class="col-md-6">
+                                <div class="group-control">
+                                    <label for="recent_debate">Recent Debates Interval(Days)<span
+                                            class="mandatory">*</span></label>
+                                    <input type="number" pattern="^[1-9][0-9]*$" id="recent_debate" ngModel
+                                        name="recent_debate" #recent_debate="ngModel" required class="form-control"
+                                        placeholder="Recent Debates Interval"
+                                        [ngClass]="{ 'is-invalid': debateSettingForm.submitted && recent_debate.errors }"
+                                        [ngClass]="{ 'is-valid': !recent_debate.errors && recent_debate.valid}">
+                                    <div *ngIf="debateSettingForm.submitted && !recent_debate.valid">
+                                        <div class="invalid-feedback" *ngIf="recent_debate.errors.required">Recent
+                                            Debates Interval is required.
+                                        </div>
+                                        <div class="invalid-feedback" *ngIf="recent_debate.errors.pattern">
+                                            Please enter valid days
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" (click)="onFormSubmit()" class="btn btn-sm btn-success"
+                            [disabled]="submitebtn">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

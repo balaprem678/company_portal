@@ -1,0 +1,223 @@
+.input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+}
+.color_red {
+  color: red;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 110px;
+  height: 33px;
+}
+:where(.coupon_from_date, .coupon_to_date) {
+  position: relative;
+  button {
+    position: absolute;
+    top: 50px;
+    right: 21px;
+  }
+}
+
+.add_coupon_submit {
+  border: none;
+  background-color: #4dbd74;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 30px;
+  margin: 20px 0;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container {
+  /* Add your custom styles here */
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+::ng-deep .custom-ng-select .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container .ng-clear-wrapper,
+::ng-deep .custom-ng-select .ng-select-container .ng-clear-wrapper {
+  display: none !important; /* Hide the clear button */
+}
+
+.coupon-add_coupon_list
+  :where(
+    .coupon_type,
+    .coupon_name,
+    .coupon_image,
+    .code,
+    .discount_type,
+    .amount,
+    .min_amount,
+    .percentage,
+    .max_amount,
+    .usage_limit_per_coupon,
+    .usage_limit_per_user,
+    .coupon_from_date,
+    .coupon_to_date,
+    .status
+  ) {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+}
+input,
+ng-select {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+}
+ng-select {
+  padding: 0;
+}
+
+.coupon_image label {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--bs-gray-800);
+  font-size: 21.1px;
+}
+
+.card_footer_btn {
+  display: flex;
+  justify-content: end;
+
+  button {
+    background-color: #1b84ff;
+    height: 47px;
+    width: 151px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    margin-bottom: 80px;
+  }
+}
+
+// input up and down arrow disable
+::ng-deep .select_category ng-select,
+::ng-deep .status ng-select {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+}
+::ng-deep input[type="number"]::-webkit-inner-spin-button,
+::ng-deep input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::ng-deep input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--bs-gray-800);
+  font-size: 15px;
+}
+
+::ng-deep .inline_cat_image {
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: auto;
+  position: relative;
+
+  input.input_pencil {
+    width: 30px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    &::-webkit-file-upload-button {
+      width: 28px;
+      height: 28px;
+      border-radius: 15px;
+      border: none;
+      background: #fff;
+      background-image: url("../../../../assets/image/pencil.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      box-shadow: 0px 0 3px 0 #ccc;
+      color: #fff0;
+      z-index: 1;
+      position: relative;
+    }
+    &::-webkit-file-upload-button:focus-visible {
+      outline: none;
+    }
+  }
+  .img_center_call {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 15px auto;
+    box-shadow: 0 0 80px 0 #dddddd;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    img {
+      box-shadow: 0 0 4px 0 #f1f1f1;
+    }
+  }
+
+  .preview {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 142px;
+    height: 142px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    img {
+      // width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      background-color: #fff;
+      padding: 7px;
+    }
+  }
+}
+
+p.image_size_filter {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 34px;
+  color: #99a1b7;
+}
+
+::ng-deep .bs-datepicker-container {
+  padding: 0px !important;
+}
+.bs-datepicker-container {
+  position: absolute !important;
+  transform: translateY(-100%) translateY(-10px) !important;
+  z-index: 1050; /* Ensure it appears above other elements */
+}

@@ -1,0 +1,10 @@
+<div class="site_earning_page">
+    <app-common-table [settings]="settings" [source]="source" [count]="totalItems" [itemsPerPage]="limit"
+        [tablename]="'Site Earnings'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [deleteApis]="deleteApis"
+        [addBtnName]="addBtnName" [editUrl]="editUrl" (onitemsPerPageChange)="onitemsPerPageChange($event)"
+        [card_details]="card_details" (onDeleteChange)="onDeleteChange($event)" (onPageChange)="onPageChange($event)"
+        [bulk_action]="bulk_action" (onheaderCardChange)="onheaderCardChange($event)"
+        (onSearchChange)="onSearchChange($event)" [filter_action]="filter_action"
+        [filter_action_list]="filter_action_list" (onFilterAction)="onFilterAction($event)">
+    </app-common-table>
+</div>

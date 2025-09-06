@@ -1,0 +1,167 @@
+<div class="banner-add_web_banner margin_top">
+    <div class="container">
+        <h4 class="full_page_title">
+            <strong>Batch Banner</strong>
+        </h4>
+        <form #bannerstypes="ngForm" (ngSubmit)="submitForm(bannerstypes)">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="banner_images">
+                        <label for="rcategory">Batch Image1 <span class="color_red">*</span></label>
+                        <div class="form-group">
+                            <input class="form-control" type="file" accept="image/*" name="image" id="image"
+                                (change)="onSelectedFile($event)" [required]="!preview">
+                               
+
+                        </div>
+                        <div class="img_center_call">
+                            <img src="assets/image/no_images.png" alt="no_images">
+                        </div>
+                        <!-- <div class="preview">
+                            <img class="ng-scope">
+                        </div> -->
+                        <div class="preview" *ngIf="preview">
+                            <img class="ng-scope" [src]="preview">
+                        </div>
+                        <div *ngIf="submitted && !preview" class="error" style="color:red">Image 1 is required.</div>
+                        <p class="image_size_filter">Set the banner thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>406x330</span> pixels.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="banner_images">
+                        <label for="rcategory">Batch Image2 <span class="color_red">*</span></label>
+                        <div class="form-group">
+                            <input class="form-control" type="file" accept="image/*" name="image1" id="image1"
+                                (change)="onSelectedFile1($event)" [required]="!preview1">
+                        </div>
+                        <div class="img_center_call">
+                            <img src="assets/image/no_images.png" alt="no_images">
+                        </div>
+                        <div class="preview" *ngIf="preview1">
+                            <img class="ng-scope" [src]="preview1">
+                        </div>
+                        <div *ngIf="submitted && !preview1" class="error" style="color:red">Image 2 is required.</div>
+                        <p class="image_size_filter">Set the banner thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>406x330</span> pixels.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="banner_images">
+                        <label for="rcategory">Batch Image3<span class="color_red">*</span></label>
+                        <div class="form-group">
+                            <input class="form-control" type="file" accept="image/*" name="image2" id="image2"
+                                (change)="onSelectedFile2($event)" [required]="!preview2">
+                        </div>
+                        <div class="img_center_call">
+                            <img src="assets/image/no_images.png" alt="no_images">
+                        </div>
+                        <div class="preview" *ngIf="preview2">
+                            <img class="ng-scope" [src]="preview2">
+                        </div>
+                        <div *ngIf="submitted && !preview2" class="error" style="color:red">Image 3 is required.</div>
+                        <p class="image_size_filter">Set the banner thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>406x330</span> pixels.
+                        </p>
+                    </div>
+
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="banner_images">
+                        <label for="rcategory">Batch Image4<span class="color_red">*</span></label>
+                        <div class="form-group">
+                            <input class="form-control" type="file" accept="image/*" name="image3" id="image3"
+                                (change)="onSelectedFile3($event)" [required]="!preview3">
+                        </div>
+                        <div class="img_center_call">
+                            <img src="assets/image/no_images.png" alt="no_images">
+                        </div>
+                        <div class="preview" *ngIf="preview3">
+                            <img class="ng-scope" [src]="preview3">
+                        </div>
+                        <div *ngIf="submitted && !preview3" class="error" style="color:red">Image 4 is required.</div>
+                        <p class="image_size_filter">Set the banner thumbnail image. Only <br>
+                            *.png, *.jpg and *.jpeg image files are accepted. The required dimensions are
+                            <span>406x330</span> pixels.
+                        </p>
+                    </div>
+
+                </div>
+                <div class="mt-4 col-lg-3 col-md-3 col-sm-12">
+
+                    <div class="status">
+                        <label>Batch Name 1<span class="color_red">*</span></label>
+
+                        <ng-select class="custom-ng-select" [items]="statusOption" bindLabel="name" bindValue="id"
+                            placeholder="Select Status" [(ngModel)]="selectedoptions"
+                            (ngModelChange)="onBatchChange($event)" name="selectedoptions" id="selectedoptions"
+                            [ngModelOptions]="{standalone: true}">
+                        </ng-select>
+                        <div *ngIf="submitted && !selectedoptions" class="error" style="color:red">Batch name 1 is required.</div>
+                    </div>
+
+
+
+                </div>
+                <div class="mt-4 col-lg-3 col-md-3 col-sm-12">
+
+                    <div class="status">
+                        <label>Batch Name 2<span class="color_red">*</span></label>
+
+                        <ng-select class="custom-ng-select" [items]="statusbatch2Option" bindLabel="name" bindValue="id"
+                            placeholder="Select Status" [(ngModel)]="selectedOptionsBatch2"
+                            (ngModelChange)="onBatch2Change($event)" name="selectedOptionsBatch2"
+                            id="selectedOptionsBatch2" [ngModelOptions]="{standalone: true}">
+                        </ng-select>
+                        <div *ngIf="submitted && !selectedOptionsBatch2" class="error" style="color:red">Batch name 2 is required.</div>
+                    </div>
+
+
+                </div>
+                <div class="mt-4 col-lg-3 col-md-3 col-sm-12">
+                    <div class="status">
+                        <label>Batch Name 3<span class="color_red">*</span></label>
+                        <ng-select class="custom-ng-select" [items]="statusbatch3Option" bindLabel="name" bindValue="id"
+                            placeholder="Select Status" [(ngModel)]="selectedOptionsBatch3"
+                            (ngModelChange)="onBatch3Change($event)" name="selectedOptionsBatch3"
+                            id="selectedOptionsBatch3" [ngModelOptions]="{standalone: true}">
+                        </ng-select>
+                        <div *ngIf="submitted && !selectedOptionsBatch3" class="error" style="color:red">Batch name 3 is required.</div>
+                    </div>
+                </div>
+                <div class="mt-4 col-lg-3 col-md-3 col-sm-12">
+                    <div class="status">
+                        <label>Batch Name 4<span class="color_red">*</span></label>
+                        <ng-select class="custom-ng-select" [items]="statusbatch4Option" bindLabel="name" bindValue="id"
+                            placeholder="Select Status" [(ngModel)]="selectedOptionsBatch4"
+                            (ngModelChange)="onBatch4Change($event)" name="selectedOptionsBatch4"
+                            id="selectedOptionsBatch4" [ngModelOptions]="{standalone: true}">
+                        </ng-select>
+                        <div *ngIf="submitted && !selectedOptionsBatch4" class="error" style="color:red">Batch name 4 is required.</div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="status mt-4">
+                        <label>Select Status<span class="color_red">*</span></label>
+                        <ng-select class="custom-ng-select" [items]="statusOptions" bindLabel="name" bindValue="id"
+                            placeholder="Select Status" [(ngModel)]="selectedStatus"
+                            (ngModelChange)="onStatusChange($event)" name="selectedStatus" id="selectedStatus"
+                            [ngModelOptions]="{standalone: true}">
+                        </ng-select>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 card_footer_btn_single">
+                    <button type="submit" class="btn">Submit</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>

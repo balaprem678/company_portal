@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="form-group col-sm-3">
+        <select class="form-control mb-10" [(ngModel)]='app_filter'>
+            <option value="">Select App/Web</option>
+            <optgroup label="----------- Android ----------">
+                <option value="AUA">Android User App</option>
+                <!-- <option value="ARA">Android Restaurant App</option>
+                <option value="ADA">Android Driver App</option> -->
+            </optgroup>
+            <optgroup label="------------- IOS --------------">
+                <option value="IUA">IOS User App</option>
+                <!-- <option value="IRA">IOS Restaurant App</option>
+                <option value="IDA">IOS Driver App</option> -->
+            </optgroup>
+            <optgroup label="------------- Web --------------">
+                <option value="WUA">Web User</option>
+                <!-- <option value="WRA">Web Restaurant</option>
+                <option value="WDA">Web Driver</option> -->
+            </optgroup>
+        </select>
+    </div>
+    <div class="form-group col-sm-3">
+        <select class="form-control mb-10" [(ngModel)]='filter_type'>
+            <option value="" selected disabled>Filter Type</option>
+            <option value="front-end">Front End</option>
+            <option value="back-end">Json Response</option>
+        </select>
+    </div>
+    <div class="form-group col-sm-3 dnt-sw">
+        <button class="btn btn-danger" (click)="filtersubmit()">Submit</button>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="form-group col-sm-3">
+        <button class="btn btn-danger" (click)="download()">Download</button>
+        <button class="btn btn-danger" (click)="upload()">Upload</button>
+
+    </div>
+</div> -->
+<app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit" [tablename]="'Language Manage'" (onitemsPerPageChange)="onitemsPerPageChange($event)" (onPageChange)="onPageChange($event)">
+</app-common-table>
+<button class="btn btn-danger" (click)="submiteBtn()">Submit</button>

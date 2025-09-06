@@ -1,0 +1,111 @@
+<div class="my-wishlist pt_110">
+    <div class="container">
+        <div class="wishlist-part" *ngIf="comboList.length > 0">
+            <div class="wishlist-head d-flex flex-wrap justify-content-between align-items-center my-3">
+                <!-- Wishlist heading could go here if needed -->
+            </div>
+            <div class="my-wishlist-left">
+                <div class="my-wishlist-box" *ngFor="let item of comboList">
+                    <span class="off_percentage">
+                        <!-- Calculate the discount percentage for combos -->
+                        {{ ((item.base_price - item.sale_price) / item.base_price * 100) | number: '1.0-0' }}% Off
+                    </span>
+                    <div class="wishlist-dec">
+                        <span style="cursor:pointer"
+                            (click)="productDetails(item.slug, item._id, item.rcategory, item.scategory)">
+                            <picture *ngIf="item.avatar">
+                                <source *ngIf="item.avatar?.webpImg" [srcset]="env_url + item.avatar?.webpImg"
+                                    type="image/webp">
+                                <img [src]="env_url + (item.avatar?.fallback || item.avatar)"
+                                    onerror="this.src='assets/image/no_img.png'" alt="Product Image">
+                            </picture>
+                        </span>
+                        <span class="wishlist-cnt">
+                            <!-- Show the original price and sale price -->
+                            <!-- <p><del>₹{{ item.base_price | number: '1.2-2' }}</del> ₹{{ item.sale_price | number: '1.2-2' }}</p> -->
+                            <h6 (click)="productDetails(item.slug, item._id, item.rcategory, item.scategory)">{{
+                                item.name }}</h6>
+                            <!-- <div>
+                                <p *ngIf="item.offer_status === 0">₹{{ item.sale_price | number: '1.2-2' }}</p>
+                                <p *ngIf="item.offer_status === 1">₹{{ item.offer_sale | number: '1.2-2' }}</p>
+                            </div> -->
+                        </span>
+                    </div>
+                    <div class="card_box_details">
+                        <div *ngIf="item.selectedPriceDetail">
+                            <p class="price 1" *ngIf="item.offer_status == 0">
+                                <span class="" *ngIf="item.base_price > item.sale_price">
+                                    ₹ {{(item && item.selectedPriceDetail && item.selectedPriceDetail.mprice !=
+                                    (undefined || null || '') && item.selectedPriceDetail.mprice ?
+                                    item.selectedPriceDetail.mprice : 0) | number}}
+                                </span>&nbsp;
+                                <span>
+                                    ₹ {{item && item.selectedPriceDetail && item.selectedPriceDetail.sprice !=
+                                    (undefined || null || '') ? item.selectedPriceDetail.sprice : 0 | number}}
+                                </span>
+                            </p>
+                        </div>
+                        <ul class="kg_gram_l">
+                            <li *ngFor="let price of item.price_details">
+                                <input type="radio" name="p-q-{{item._id}}" [value]="price"
+                                    [(ngModel)]="item.selectedPriceDetail"
+                                    (ngModelChange)="onPriceDetailChange(item,$event)">
+                                <p>{{ price.attributes[0].chaild_name }}</p>
+                            </li>
+                        </ul>
+                        <div class="v-add qty-sec cart_add_to_cart">
+                            <!-- Show the button when the cart is empty -->
+                            <a class="p-add-cart" *ngIf="cartLength === 0" (click)="preAddCart(item, 'add')">
+                                <img src="../../../assets/image/pillais/cart.png" alt="" />
+                            </a>
+
+                            <!-- Loop through price details and unmatched objects -->
+                            <div *ngFor="let i of item.price_details; trackBy: trackByFn">
+                                <div *ngFor="let rem of unmatchedObjects; let j = index">
+                                    <!-- Show the button only if it meets the condition and hasn't been shown already -->
+                                    <div *ngIf="shouldShowAddToCartButton(item, i, rem) && !rem.addedToCart"
+                                        class="add-to-cart-wrapper">
+                                        <a class="p-add-cart"
+                                            (click)="preAddCartBtn(item, 'add', rem._id, rem.price_details.attributes[0].chaild_id)">
+                                            <img src="../../../assets/image/pillais/cart.png" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cart items section: Display cart quantity controls for matching items -->
+                            <div *ngFor="let items of cartDetails?.cart_details; let i=index">
+                                <div class="p-dec-qty"
+                                    *ngIf="item._id === cartDetails.cart_details[i].id && item.selectedPriceDetail.attributes[0].chaild_id == items.variations[0][0].chaild_id">
+                                    <div class="p-qty-form minus_plus_section">
+                                        <button class="minus_input_plus" *ngIf="items.quantity==1"
+                                            (click)="removeFoodFromCart(items)">-</button>
+                                        <button class="minus_input_plus" *ngIf="items.quantity>1"
+                                            (click)="changeCart(items, 'decreement')">-</button>
+                                        <input class="minus_input_plus" type="text" [(ngModel)]="items.quantity"
+                                            readonly />
+                                        <button class="minus_input_plus"
+                                            (click)="changeCart(items, 'increement')">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Add to cart button and logic for combo -->
+                    <!-- <div class="add-cart-but" >
+                        <button class="p-add-cart" (click)="addToCart(item)">
+                            <img src="assets/image/pillais/cart.png" alt="Add to Cart" />
+                        </button>
+                    </div> -->
+
+                    <!-- Handle favorite button -->
+                    <span (click)="addFavourite(item._id,item.selectedPriceDetail.attributes[0].chaild_id)"> <i
+                            class="fa-regular fa-heart" aria-hidden="true" *ngIf="!item.favourite"></i>
+                        <i class="fa-solid fa-heart" aria-hidden="true" *ngIf="item.favourite"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

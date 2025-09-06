@@ -1,0 +1,1091 @@
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cdd0e2;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked+.slider {
+  background-color: #296703;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #296703;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.slider.round:before {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+::ng-deep span.tox-statusbar__branding {
+  display: none !important;
+}
+
+.table-parts {
+  width: 100%;
+  float: left;
+  margin: 15px 0;
+  white-space: normal;
+  overflow: auto;
+  white-space: nowrap;
+  overflow: auto;
+  max-height: 248px;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+}
+
+/* width */
+::ng-deep .table-parts::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::ng-deep .table-parts::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::ng-deep .table-parts::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::ng-deep .table-parts::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.table-parts table {
+  width: 100%;
+  background-color: #fff;
+}
+
+.table-parts table th {
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  background: #202b4600;
+  border: none;
+}
+
+.table-parts table td {
+  padding: 14px 8px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.table-parts table td input,
+.table-parts table td select {
+  min-width: 100%;
+  margin: auto;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.color_red {
+  color: red;
+}
+
+.multiple_imag {
+  display: flex;
+  gap: 7px;
+  flex-wrap: nowrap;
+}
+
+// New Correction - 08.07.24
+
+.additional_thumbnail,
+.hover_thumbnail,
+.thumbnail {
+  position: relative;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+}
+
+.hover_thumbnail .upload_img_cont,
+.thumbnail .upload_img_cont {
+  // width: 298px;
+  min-height: 343px;
+  max-height: 407px;
+  // box-shadow: 0 0 3px 0px #ccc;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  background-color: #ffffff;
+  background: #fff;
+  padding: 30px;
+  position: relative;
+}
+
+.additional_thumbnail .upload_img_cont .additional_image::-webkit-file-upload-button:focus-visible,
+.hover_thumbnail .upload_img_cont .hover_pht::-webkit-file-upload-button:focus-visible,
+.thumbnail .upload_img_cont .front_pht::-webkit-file-upload-button:focus-visible {
+  outline: none;
+}
+
+.hover_thumbnail .upload_img_cont .hover_pht::-webkit-file-upload-button,
+.thumbnail .upload_img_cont .front_pht::-webkit-file-upload-button {
+  width: 28px;
+  height: 28px;
+  border-radius: 15px;
+  border: none;
+  background: #fff;
+  background-image: url("../../../../assets/image/pencil.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 0 3px 0 #ccc;
+  color: #fff0;
+  z-index: 1;
+  position: relative;
+}
+
+.active_inactive_ststus {
+  input {
+    text-shadow: 0 0 0 #2195f300;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.vs_ais {
+  display: block;
+}
+
+.slug {
+  width: 100%;
+}
+
+.faq,
+.popular_recipe,
+.admin_add_view_product_page :where(.information, .varience_status),
+.pdt_view_details,
+.hover_product_image,
+.product_image,
+.return_days,
+.offer_amount,
+.offer,
+.status,
+.product_variations,
+.product_base_price,
+.product_sale_price,
+.select_sub_category,
+.select_category,
+.product_name,
+.meta,
+.active_inactive_ststus,
+.product_details,
+.quantity,
+.returns_days,
+.additional_thumbnail .upload_img_cont,
+.pricing,
+.vs_ais,
+.product_categorys,
+.general {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+}
+
+.admin_edit_product_page :where(.product_variations) {
+  padding: 0;
+}
+
+.veg_nonveg h2,
+.faq h2,
+.popular_recipe h2,
+.hover_product_image h2,
+.product_image h2,
+.meta h2,
+.product_details h5,
+.pricing h2,
+.vs_ais h2,
+.product_categorys h2,
+.general h2 {
+  font-size: 21.5px;
+  font-weight: 700;
+  width: 100%;
+}
+
+.product_image .form-group,
+.hover_product_image .form-group {
+  display: flex;
+  width: 200px;
+  justify-content: center;
+  margin: 20px auto;
+  height: 200px;
+}
+
+.product_image .form-group img {
+  width: 100%;
+  height: 100%;
+}
+.hover_product_image{
+  .form-group{
+    height: 100% !important;
+   }
+  img{
+    width:100%;
+    height: unset !important;
+  }
+}
+
+label {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--bs-gray-800);
+  font-size: 15px;
+}
+
+.additional_thumbnail p.image_size_filter,
+.input_suggession {
+  font-size: 14.35px;
+  color: #99a1b7;
+  margin-top: 8px;
+  margin-bottom: 0;
+  font-weight: 600;
+  text-align: left;
+}
+
+.information textarea {
+  resize: none;
+  height: 140px;
+}
+
+// New Correction 10.06.24
+.additional_thumbnail_limit {
+  border: 1px dashed #1b84ff;
+  background-color: #e9f3ff;
+  height: fit-content;
+  padding: 22px;
+  border-radius: 0.475rem;
+  -webkit-border-radius: 0.475rem;
+  -moz-border-radius: 0.475rem;
+  -ms-border-radius: 0.475rem;
+  -o-border-radius: 0.475rem;
+}
+
+.ad_img_center_call {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.ad_img_center_call h3 {
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+
+.ad_img_center_call p {
+  font-size: 0.95rem;
+  margin: 0;
+  color: #99a1b7;
+  font-weight: 600;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked+.slider {
+  background-color: #3dbc88;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #3dbc88;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(22px);
+  -ms-transform: translateX(22px);
+  transform: translateX(22px);
+}
+
+.product_details button.btn.btn-sm {
+  margin: 0px;
+  height: 35px;
+  width: 60px;
+  border-radius: 6px;
+}
+
+.product_details .enter_title_content {
+  display: flex;
+  gap: 36px;
+  margin: 0;
+  margin-top: 15px;
+}
+
+.product_details .enter_title_content .content-footer {
+  display: flex;
+  gap: 10px;
+}
+
+:where(.health_benefits,
+  .veg_nonveg,
+  .alternative_name,
+  .product_ingredients,
+  .recipes_to_cook) {
+  width: 100%;
+}
+
+// ::ng-deep .ng-select .ng-select-container .ng-value-container,
+// ::ng-deep
+//   .ng-select.ng-select-single
+//   .ng-select-container
+//   .ng-value-container
+//   .ng-input {
+//   padding-left: 0 !important;
+//   padding-right: 0 !important;
+// }
+::ng-deep .ng-select.custom-ng-select .ng-select-container,
+.veg_nonveg ng-select,
+.faq :where(input, textarea),
+::ng-deep .varience_status ng-select,
+::ng-deep .product_categorys ng-select,
+.active_inactive_ststus ng-select,
+.meta input,
+.product_variations ng-select,
+.vs_ais select,
+.product_categorys select,
+.product_details select .product_details input,
+.slug input,
+.quantity input,
+.returns_days input,
+.pricing input,
+.general input {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  // height: 40px;
+  font-weight: 700;
+  line-height: 1.5;
+  appearance: none;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border: 1px solid #dbdfe9;
+  border-radius: 0.475rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  position: relative;
+}
+
+.faq {
+  input {
+    width: 85% !important;
+  }
+
+  textarea {
+    height: 100px !important;
+    width: 85% !important;
+    resize: none;
+  }
+
+  .enter_title_content {
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 1rem;
+
+    &:nth-last-child(1) {
+      border-bottom: none;
+    }
+  }
+
+  .content-footer {
+    width: 120px;
+    display: flex;
+    align-items: start;
+    justify-content: end;
+
+    button {
+      height: unset;
+    }
+  }
+}
+
+::ng-deep .product_categorys ng-select .ng-select-container {
+  padding: 0;
+  display: flex;
+}
+
+::ng-deep ng-select .ng-select-container .ng-value {
+  padding: 1px 0;
+}
+
+::ng-deep .product_categorys ng-select .ng-select-container .ng-arrow-wrapper {
+  position: absolute;
+  right: 24px;
+  top: 6px;
+}
+
+::ng-deep .product_categorys ng-select .ng-select-container .ng-clear-wrapper {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+}
+
+.meta_description textarea {
+  border: 1px solid #dbdfe9;
+  resize: none;
+}
+
+::ng-deep .varience_status ng-select span,
+::ng-deep .active_inactive_ststus ng-select span {
+  font-size: 14px;
+}
+
+::ng-deep ng-select .ng-select-container .ng-value-container .ng-placeholder,
+textarea::placeholder,
+.tags-box input::placeholder,
+::ng-deep input,
+::ng-deep select,
+::ng-deep .active_inactive_ststus ng-select .ng-select-container .ng-value-container .ng-value .ng-value-label,
+.product_variations section,
+.vs_ais select,
+.product_categorys select,
+.product_details select,
+input::placeholder,
+.meta input::placeholder,
+.product_details input::placeholder,
+.slug input::placeholder,
+.quantity input::placeholder,
+.returns_days input::placeholder,
+.pricing input::placeholder,
+.general input::placeholder {
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7 !important;
+}
+
+.additional_thumbnail .upload_img_cont input {
+  border: none;
+  background-color: transparent;
+  width: 630px;
+  height: 100%;
+  position: absolute;
+  left: 8px;
+  box-shadow: none;
+  top: 51px;
+}
+
+.additional_thumbnail .upload_img_cont .additional_image::-webkit-file-upload-button {
+  width: 620px;
+  height: 100%;
+  border-radius: 6px;
+  border: none;
+  background: #fff;
+  z-index: -1;
+  position: relative;
+}
+
+.view-img {
+  gap: 20px;
+}
+
+.view-img .multiple-img {
+  width: 120px;
+  height: 120px;
+}
+
+.view-img .multiple-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.close-icon {
+  color: #d9d6d6;
+  cursor: pointer;
+  font-size: 48px;
+}
+
+span.close-icon-multi {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.card_footer_btn {
+  margin-left: auto;
+  margin-right: 12px;
+  margin-top: 30px;
+  margin-bottom: 80px;
+}
+
+.card_footer_btn button:nth-child(1) {
+  font-size: 17px;
+  width: 125px;
+  height: 47px;
+  font-weight: 600;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.add_btn {
+  background-color: #1b84ff;
+  color: #fff;
+}
+
+.card_footer_btn button:nth-child(2) {
+  background-color: #1b84ff;
+  height: 47px;
+  width: 151px;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.card_footer_btn button:nth-child(1):hover {
+  background-color: #f1f1f4;
+}
+
+.card_footer_btn button:nth-child(2):hover {
+  background-color: #056ee9;
+}
+
+.select_sub_cat {
+  width: 100%;
+}
+
+.add-vari {
+  background-color: #1b84ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 700;
+}
+
+button.btn.cls-table {
+  padding: 0px 5px;
+  color: #ffffff;
+  margin-left: 7px;
+}
+
+.add_varient_img input {
+  border: none;
+  padding: 0;
+  background: none;
+  width: 92px;
+}
+
+.add_varient_img input::-webkit-file-upload-button {
+  width: 111px;
+  height: 46px;
+  border: none;
+  background: none;
+  z-index: 2;
+  color: transparent;
+  position: relative;
+}
+
+.add_varient_img_pos {
+  position: relative;
+}
+
+.add_varient_img_pos .upload-file {
+  position: absolute;
+  top: 8px;
+  left: 48px;
+  width: 28px;
+}
+
+.add_varient_img .view-img .multiple-img {
+  width: 50px;
+  height: 50px;
+  background: #e1e1e1;
+  padding: 3px;
+  border-radius: 6px;
+}
+
+.add_varient_img .view-img {
+  gap: unset;
+  position: absolute;
+  top: 5px;
+  left: 45px;
+}
+
+.add_varient_img .view-img .close-icon {
+  color: #d9d6d6;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+p.help-block {
+  margin: 0;
+}
+
+.table_delete {
+  display: flex;
+}
+
+.table_delete span {
+  margin: auto;
+}
+
+.add_vari_sno {
+  padding: 22px 0 !important;
+}
+
+::ng-deep .product_categorys .ng-select span {
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 700;
+  color: #99a1b7;
+}
+
+// product_categorys input scroll
+
+::ng-deep .ng-dropdown-panel .scroll-host::-webkit-scrollbar {
+  width: 5px;
+}
+
+::ng-deep .ng-dropdown-panel .scroll-host::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::ng-deep .ng-dropdown-panel .scroll-host::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::ng-deep .ng-dropdown-panel .scroll-host::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+::ng-deep .product_categorys grouping-strains ng-select {
+  width: 100%;
+  display: block;
+  width: 100%;
+  height: 40px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #99a1b7;
+  appearance: none;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border: 1px solid #dbdfe9;
+  border-radius: 0.475rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+::ng-deep input[type="number"]::-webkit-inner-spin-button,
+::ng-deep input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.cls-table img {
+  width: 18px;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container,
+::ng-deep .custom-ng-select .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+::ng-deep .ng-select.custom-ng-select .ng-select-container .ng-clear-wrapper,
+::ng-deep .custom-ng-select .ng-select-container .ng-clear-wrapper {
+  display: none !important;
+}
+
+::ng-deep .inline_cat_image {
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: auto;
+  position: relative;
+
+  input.input_pencil {
+    width: 30px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+
+    &::-webkit-file-upload-button {
+      width: 28px;
+      height: 28px;
+      border-radius: 15px;
+      border: none;
+      background: #fff;
+      background-image: url("../../../../assets/image/pencil.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      box-shadow: 0px 0 3px 0 #ccc;
+      color: #fff0;
+      z-index: 1;
+      position: relative;
+    }
+
+    &::-webkit-file-upload-button:focus-visible {
+      outline: none;
+    }
+  }
+
+  .img_center_call {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 15px auto;
+    box-shadow: 0 0 80px 0 #dddddd;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+
+    img {
+      box-shadow: 0 0 4px 0 #f1f1f1;
+    }
+  }
+
+  .preview {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 142px;
+    height: 142px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.tags-box {
+  border: transparent;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+
+  .tags-box-list {
+    margin: 5px 0px;
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+
+      span {
+        background: #e1e1e1;
+        padding: 3px 8px;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: capitalize;
+        border-radius: 4px;
+        margin-right: 5px;
+      }
+
+      i {
+        cursor: pointer;
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+.faq_dscription {
+  height: 40px;
+}
+
+.input_add_delete {
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep ng-select {
+  cursor: pointer;
+
+  .ng-input {
+    input {
+      caret-color: transparent !important;
+    }
+  }
+}
+
+.enter_title_content textarea,
+::ng-deep ng-select {
+  padding: 0 15px;
+}
+
+::ng-deep .product_variations ng-select .ng-select-container,
+::ng-deep .product_categorys ng-select .ng-select-container {
+  border: none;
+}
+
+.active_inactive_ststus ng-select,
+::ng-deep .varience_status ng-select,
+::ng-deep .product_categorys .ng-select.ng-select-single .ng-select-container .ng-value-container,
+::ng-deep .veg_nonveg .ng-select.ng-select-single .ng-select-container .ng-value-container {
+  padding: 0 !important;
+}
+
+::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container,
+::ng-deep .veg_nonveg .ng-select.ng-select-single .ng-select-container .ng-value-container,
+::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input,
+input,
+select,
+ng-select,
+textarea {
+  color: #99a1b7 !important;
+  font-weight: 700 !important;
+}
+
+::ng-deep .ng-select .ng-arrow-wrapper {
+  position: relative;
+  left: -19px;
+}
+
+::ng-deep .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+::ng-deep .admin_edit_product_page {
+  .product_categorys {
+    position: relative;
+
+    ng-dropdown-panel {
+      top: 37px !important;
+
+      // left: 0 !important;
+      .ng-dropdown-panel-items {
+        max-height: 240px;
+        overflow-y: auto;
+      }
+    }
+
+    .ng-clear-wrapper {
+      display: none;
+    }
+  }
+}
+
+// ::ng-deep .ng-dropdown-panel {
+//   position: absolute !important;
+//   left: unset !important;
+//   top: 40px !important;
+// }
+
+.tac {
+  text-align: center;
+}
+
+// .category_select-container {
+//   position: relative;
+// }
+
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  border-color: none;
+}
+
+::ng-deep .ng-select .ng-arrow-wrapper .ng-arrow {
+  left: 0px;
+}
+
+::ng-deep .ng-select .ng-clear-wrapper {
+  left: 20px;
+}
+
+.combo {
+  display: flex;
+  gap: 10px;
+}
+
+.switch {
+  width: 60px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.switch.on {
+  background-color: green;
+}
+
+.toggle {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.3s ease;
+}
+
+.switch.on .toggle {
+  left: 38px;
+  /* Move the knob to the right side when 'on' */
+}
+
+.missed_error {
+  position: relative;
+
+  .invalid-feedback {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+  }
+}
+
+::ng-deep .form-control:valid,
+::ng-deep .form-control.is-valid {
+  border-color: unset !important;
+  padding-right: unset !important;
+  background-image: unset !important;
+}
+
+.group-control {
+  position: relative;
+}
+
+.textarea-wrapper {
+  position: relative;
+  /* Relative to position the char count inside */
+  display: inline-block;
+  width: 100%;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  /* Ensure padding is included in width */
+  padding-bottom: 30px;
+  /* Add space for the character count inside the textarea */
+}
+
+.char-count {
+  position: absolute;
+  bottom: 8px;
+  right: 15px;
+  font-size: 12px;
+  color: #666;
+  pointer-events: none;
+  /* Make sure clicks go to the textarea, not the counter */
+  background: white;
+  /* Optional: Background to make it stand out inside */
+  padding: 0 5px;
+  /* Optional: Padding around the count */
+  opacity: 0.7;
+  /* Optional: Transparency for a softer effect */
+}
+
+
+.trade_mark_img {
+  .inline_cat_image {
+    width: 100%;
+    margin: unset;
+
+    .img_center_call {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 150px;
+      margin: 15px auto;
+      box-shadow: 0 0 80px #ddd;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+    }
+
+    .preview {
+      position: absolute;
+      top: 32px;
+      left: 6px;
+      width: 96%;
+      height: 88px;
+    }
+  }
+
+}
+

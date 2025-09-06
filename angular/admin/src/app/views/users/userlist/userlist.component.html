@@ -1,0 +1,72 @@
+<div class="user-user_list">
+    <div class="container">
+        <app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit"
+            [tablename]="'Customer List'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName"
+            [editUrl]="editUrl" [deleteApis]="deleteApis" [category]="category" [restoreApis]="restoreApis"
+            [inactiveApis]="inactiveApis" [ActiveApis]="userActive" (onDeleteChange)="onDeleteChange($event)"
+            [viewUrl]="viewUrl" [filter_action_list]="filter_action_list"
+            (onitemsPerPageChange)="onitemsPerPageChange($event)" [card_details]="card_details"
+            [bulk_action]="bulk_action" (onPageChange)="onPageChange($event)"
+            (onheaderCardChange)="onheaderCardChange($event)" (onInactivechange)="onInactivechange($event)"
+            (onSearchChange)="onSearchChange($event)" (onFilterAction)="onFilterAction($event)"
+            [user_list_filter_action]="user_list_filter_action" [permanentdelete]="permanentdelete"  [filter_action]="filter_action"
+            [activeBulkAction]="activeBulkAction" [export_btn]="export_btn"  [exportApis]="exportApis"
+            (onexportChange)="onexportChange($event)">
+        </app-common-table>
+        <button type="button" class="open-plan-model" (click)="staticModal.show()" style="display: none;"></button>
+        <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+            role="dialog" aria-labelledby="dialog-static-name">
+            <div class="modal-dialog plain-details">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="dialog-static-name" class="modal-title pull-left">Plan Details</h4>
+                        <button type="button" class="btn-close close pull-right" aria-label="Close"
+                            (click)="staticModal.hide()">
+                            <span aria-hidden="true" class="visually-hidden">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="userlist-status">
+                            <div class="common-ranges">
+                                <div class="col-md-12">
+                                    <h4> {{(selectedRow && selectedRow.subscription_status) ?
+                                        selectedRow.subscription_status :
+                                        ''}} </h4>
+                                </div>
+                            </div>
+                            <div class="common-ranges">
+                                <div class="col-md-6">
+                                    <label> Plan Name <span class="qbs-stru"> : </span> </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5> {{(selectedRow && selectedRow.plan_name !='') ? selectedRow.plan_name : 'Free'
+                                        }}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="common-ranges">
+                                <div class="col-md-6">
+                                    <label> Plan Start Date <span class="qbs-stru"> : </span> </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5> {{(selectedRow && selectedRow.user_subscription !='') ?
+                                        (selectedRow.user_subscription
+                                        | date:"dd/MMM/yyyy") : '' }} </h5>
+                                </div>
+                            </div>
+                            <div class="common-ranges">
+                                <div class="col-md-6">
+                                    <label> Plan Expired Date <span class="qbs-stru"> : </span> </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5> {{(selectedRow && selectedRow.exp_user_subscription !='') ?
+                                        (selectedRow.exp_user_subscription | date:"dd/MMM/yyyy") : ''}} </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

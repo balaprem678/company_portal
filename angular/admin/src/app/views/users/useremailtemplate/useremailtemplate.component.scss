@@ -1,0 +1,40 @@
+.ng-select {
+    width: 100% !important; /* Ensure it takes up full available width */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove any default margin */
+  }
+  
+  /* Fix possible double input rendering by overriding display properties */
+  .ng-select .ng-select-container {
+    display: flex;
+    align-items: center; /* Ensure items are aligned */
+    width: 100%;
+  }
+  
+  .ng-select .ng-select-container .ng-value {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .ng-select .ng-select-container .ng-placeholder {
+    padding-left: 10px; /* Adjust padding */
+    padding-right: 10px; /* Adjust padding */
+  }
+  
+  /* Styling for selected items to avoid overlap */
+  .ng-select .ng-select-container .ng-value .ng-value-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Make long values ellipsis */
+  }
+  
+  .ng-select .ng-select-container .ng-arrow-wrapper {
+    right: 5px;
+    top: 5px;
+  }
+  
+  .ng-select .ng-select-container .ng-clear-wrapper {
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
