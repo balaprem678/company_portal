@@ -1,0 +1,85 @@
+<div class="container mt-4 report-container">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center my-3">
+    <h5 class="mb-0">Performance Analysis Report</h5>
+
+    <div class="d-flex gap-2 align-items-center">
+      <!-- Filter: Month -->
+      <select class="form-select form-select-sm" [(ngModel)]="filterMonth">
+        <option value="">All Months</option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+
+      <!-- Filter: Analysis Range -->
+      <select class="form-select form-select-sm" [(ngModel)]="filterAnalysis">
+        <option value="">All Analysis</option>
+        <option value="100-90">100 - 90</option>
+        <option value="90-80">90 - 80</option>
+        <option value="<80">< 80</option>
+      </select>
+
+      <!-- Filter: Driving Behaviour -->
+      <select class="form-select form-select-sm" [(ngModel)]="filterBehaviour">
+        <option value="">All Behaviours</option>
+        <option value="Speed Violations">Speed Violations</option>
+        <option value="Accidents">Accidents</option>
+        <option value="Traffic Penalties">Traffic Penalties</option>
+        <option value="Incidents">Incidents</option>
+      </select>
+
+      <!-- Sort -->
+      <select class="form-select form-select-sm" [(ngModel)]="sortBy">
+        <option value="">Sort ⬍</option>
+        <option value="dojAsc">D.O.J (Oldest → Newest)</option>
+        <option value="dojDesc">D.O.J (Newest → Oldest)</option>
+        <option value="analysisAsc">Analysis (Low → High)</option>
+        <option value="analysisDesc">Analysis (High → Low)</option>
+      </select>
+
+      <!-- Download PDF -->
+      <button class="btn btn-sm btn-primary" (click)="downloadPDF()">
+        <i class="bi bi-file-earmark-arrow-down"></i> PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div #performanceTable>
+    <table class="table table-bordered table-striped custom-table">
+      <thead>
+        <tr>
+          <th>EMPLOYEE / DRIVER NAME</th>
+          <th>D.O.J</th>
+          <th>LEAVE DAYS</th>
+          <th>SICK DAYS</th>
+          <th>PERFORMANCE ANALYSIS</th>
+          <th>DRIVING BEHAVIOUR (ONLY FOR DRIVERS)</th>
+          <th>REMARKS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of filteredRecords">
+          <td>{{ row.name }}</td>
+          <td>{{ row.doj }}</td>
+          <td>{{ row.leaveDays }}</td>
+          <td>{{ row.sickDays }}</td>
+          <td>{{ row.analysis }}</td>
+          <td *ngIf="row.role === 'Driver'">{{ row.drivingBehaviour }}</td>
+          <td *ngIf="row.role === 'Employee'">-</td>
+          <td>{{ row.remarks }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

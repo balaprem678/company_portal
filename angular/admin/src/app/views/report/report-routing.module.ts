@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: 'reported-list',
-        component: ReportedListComponent,
+        component: ReportlistComponent,
         data: {
           title: 'List'
         }

@@ -51,7 +51,7 @@ const routes: Routes = [
           title: 'Languages'
         }
       },
-       {
+      {
         path: 'invoice',
         loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule),
         data: {
@@ -280,6 +280,28 @@ const routes: Routes = [
         loadChildren: () => import('./reviews-rating/reviews-rating.module').then(m => m.ReviewsRatingModule),
         data: {
           title: 'Reviews & Rating'
+        }
+      },
+      {
+        path: 'fuel-records',
+        loadChildren: () => import('./fuel-records/fuel-records.module').then(m => m.FuelRecordsModule),
+        data: {
+          title: 'Fuel Records'
+        }
+      },
+      {
+        path: 'maintenance',
+        loadChildren: () => import('./maintenance/maintenance.module').then(m => m.MaintenanceModule),
+        data: {
+          title: 'Maintenance'
+        }
+      },
+      {
+        path: 'performance-analysis',
+        loadChildren: () => import('./performance-analysis/performance-analysis.module').then(m => m.PerformanceAnalysisModule),
+        data: {
+          title: 'Performance Analysis'
+
         }
       },
       {
