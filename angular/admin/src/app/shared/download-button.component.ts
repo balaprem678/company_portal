@@ -58,7 +58,7 @@ export class DownloadButtonComponent {
 			<!DOCTYPE html>
 		 <html>
 		 <head>
-			 <title>pillais - Invoice</title>
+			 <title>Invoice</title>
 		 </head>
 		 <body>
 			 <table style="margin: 0; padding: 0; color: #000; padding-top: 40px; padding-bottom: 40px; font-family: 'Montserrat', sans-serif; font-weight: 500; padding-left: 20px;padding-right: 20px; margin:0 auto; width:100%;" border="0" cellspacing="0" cellpadding="0">
@@ -78,7 +78,7 @@ export class DownloadButtonComponent {
 										 </td>
 										 <td width="32%" style="vertical-align: middle;">
 											 <p style="margin: 0;font-size: 13px;margin-bottom: 5px; font-family: 'Montserrat', sans-serif; font-weight: 500; text-align:left; color:#535D66;">GST No: 33AAKCR8418G1Z8</p>
-											 <p style="margin: 0;font-size: 13px;margin-bottom: 5px; font-family: 'Montserrat', sans-serif; font-weight: 500; text-align:left; color:#535D66;"><span> +91 95660 32510</span> | <span>helpdesk@pillais.in</span></p>
+											 <p style="margin: 0;font-size: 13px;margin-bottom: 5px; font-family: 'Montserrat', sans-serif; font-weight: 500; text-align:left; color:#535D66;"><span> +91 95660 32510</span> | <span>helpdesk@help.in</span></p>
 										 </td>
 									 </tr>
 									 <tr>

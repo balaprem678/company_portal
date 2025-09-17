@@ -29,12 +29,12 @@ module.exports = function (io, app) {
 		console.log('Running scheduled task to update Shiprocket status for orders...');
 		try {
 			// Ensure the router function is invoked correctly
-			await shiprocket.shiprocket_check_multiple_orders_status();
+			// await shiprocket.shiprocket_check_multiple_orders_status();
 		} catch (error) {
 			console.error('Error during cron job execution:', error);
 		}
 	});
-    orderStatus.start()
+    // orderStatus.start()
 
 	// var job = new CronJob({
 	// 	cronTime: '*/1 * * * *', //Daily Cron Check @ 00:00
