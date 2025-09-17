@@ -641,9 +641,10 @@ module.exports = function (app, io) {
         /** ROUTERS for Report Management **/
         app.post('/admin/payment/report', ensureAuthorized, report.getReportPayment);
         app.post('/admin/sales/report', ensureAuthorized, report.getReportSales);
+      
+        
 
-
-
+  
 
     } catch (e) {
         console.log('erroe in index.js---------->>>>', e);

@@ -74,6 +74,15 @@ const walkthrough_images = require('../schema/walkthrough_images.js')
 var tags_schema = require('../schema/tags_schema.js');
 var deals_schema = require('../schema/deals_schema.js');
 var combo_schema = require('../schema/combo_offer.schema.js');
+//new schema for comapny portal
+var fleet_schema = require('../schema/fleet.schema.js');
+var vendor_schema = require('../schema/vendor.schema.js');
+var maintenance_schema = require('../schema/maintenance.schema.js');
+var fuel_schema = require('../schema/fuel.schema.js');
+var contract_schema = require('../schema/contract.schema.js');
+var employee_schema = require('../schema/employee.schema.js');
+var invoice_schema = require('../schema/invoice.schema.js');
+var attendance_schema = require('../schema/attendance.schema.js');
 
 
 
@@ -152,6 +161,15 @@ var recenttempvisit = mongoose.Schema(recent_temp_visit_schema.RECENT_TEMP_VIST,
 var tagsSchema = mongoose.Schema(tags_schema.TAGS, { timestamps: true, versionkey: false });
 var dealsSchema = mongoose.Schema(deals_schema.DEALS, { timestamps: true, versionkey: false });
 var comboSchema = mongoose.Schema(combo_schema.COMBO, { timestamps: true, versionkey: false });
+
+var fleetSchema = mongoose.Schema(fleet_schema.FLEET, { timestamps: true, versionKey: false });
+var vendorSchema = mongoose.Schema(vendor_schema.VENDOR, { timestamps: true, versionKey: false });
+var maintenanceSchema = mongoose.Schema(maintenance_schema.MAINTENANCE, { timestamps: true, versionKey: false });
+var fuelSchema = mongoose.Schema(fuel_schema.FUEL, { timestamps: true, versionKey: false });
+var contractSchema = mongoose.Schema(contract_schema.CONTRACT, { timestamps: true, versionKey: false });
+var employeeSchema = mongoose.Schema(employee_schema.EMPLOYEE, { timestamps: true, versionKey: false });
+var invoiceSchema = mongoose.Schema(invoice_schema.INVOICE, { timestamps: true, versionKey: false });
+var attendanceSchema = mongoose.Schema(attendance_schema.ATTENDANCE, { timestamps: true, versionKey: false });
 
 // var checkin_schema = mongoose.Schema(checkin_schema.CHECKIN,{timestamps:true,versionkey:false})
 /* 
@@ -544,6 +562,14 @@ var recently_visit = mongoose.model('recently_visit', recentlyvisitschema, 'rece
 var subscribe = mongoose.model('subscribe', subscribeschema, 'subscribe');
 var recent_temp_visit = mongoose.model('recent_temp_visit', recenttempvisit, 'recent_temp_visit');
 const walkthroughimages = mongoose.model('walkthroughimages', walkthroughimageSchema, 'walkthroughimages')
+var fleet = mongoose.model('fleet', fleetSchema, 'fleet');
+var vendor = mongoose.model('vendor', vendorSchema, 'vendor');
+var maintenance = mongoose.model('maintenance', maintenanceSchema, 'maintenance');
+var fuel = mongoose.model('fuel', fuelSchema, 'fuel');
+var contract = mongoose.model('contract', contractSchema, 'contract');
+var employee = mongoose.model('employee', employeeSchema, 'employee');
+var invoice = mongoose.model('invoice', invoiceSchema, 'invoice');
+var attendance = mongoose.model('attendance', attendanceSchema, 'attendance');
 // var checkin = mongoose.model('checkin',checkin_schema,'checkin');
 const tags = mongoose.model('tags', tagsSchema, 'tags');
 const deals = mongoose.model('deals', dealsSchema, 'deals');
@@ -622,5 +648,17 @@ module.exports = {
 	'tags': tags,
 	'deals': deals,
 	'combo': combo,
-	'offermanagement': offer
+	'offermanagement': offer,
+
+
+	//new schema for company portal
+	'fleet': fleet,
+	'vendor': vendor,
+	'maintenance': maintenance,
+	'fuel': fuel,
+	'contract': contract,
+	'employee': employee,
+	'invoice': invoice,
+	'attendance': attendance
+	// 'checkin':checkin
 };
