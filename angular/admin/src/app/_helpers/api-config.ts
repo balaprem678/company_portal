@@ -51,6 +51,41 @@ export const Apiconfig = {
         "url": "testimonial/addedit",
         "method": "post"
     },
+
+    addFleets:{
+        "url": "admin/fleet/save",
+        "method": "post"
+    },
+    viewFleets:{
+        "url": "admin/fleet/view",
+        "method": "post"
+    },
+
+    listFleets:{
+        "url": "admin/fleet/list",
+        "method": "post"
+    },
+
+
+    saveContract:{
+        "url": "admin/contract/save",
+        "method": "post"
+    },
+
+
+    listContracts:{
+        "url": "admin/contract/list",
+        "method": "post"
+    },
+    viewContract:{
+        "url": "admin/contract/view",
+        "method": "post"
+    },
+
+    listEmployees:{
+        "url": "admin/employee/list",
+        "method": "post",
+    },
     subadminEdit: {
         "url": "admins/getusersrole",
         "method": "post"

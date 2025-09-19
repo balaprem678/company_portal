@@ -43,7 +43,7 @@ constructor( private router: Router, private notifyService: NotificationService,
 
     if(this.id){
       this.apiService
-      .CommonApi(Apiconfig.getTestimonialManagement.method, Apiconfig.getTestimonialManagement.url, {_id : this.id})
+      .CommonApi(Apiconfig.viewFleets.method, Apiconfig.viewFleets.url, {id : this.id})
       .subscribe((res) => {
   console.log(res,"outputtttttttttttttttttttt");
              this.gettestimonial = res.data.doc
@@ -93,38 +93,44 @@ onDocumentSelected(event: any): void {
   }
 
 
-  submitForm(form: NgForm): void {
-    this.submitted = true;
-    if (form.valid) {
-      const formData = new FormData();
-      if (this.id) formData.append('_id', this.id);
+submitForm(form: NgForm): void {
+  this.submitted = true;
+  if (form.valid) {
+    const formData = new FormData();
 
-      // Append all fields from the form
-      formData.append('vehicleName', form.value.vehicleName);
-      formData.append('cubicCapacity', form.value.cubicCapacity);
-      formData.append('registrationNo', form.value.registrationNo);
-      formData.append('colour', form.value.colour);
-      formData.append('insuranceNo', form.value.insuranceNo);
-      formData.append('seatingCapacity', form.value.seatingCapacity);
-      formData.append('monthYrOf', form.value.monthYrOf);
-      formData.append('nextPassingDue', form.value.nextPassingDue);
-      formData.append('makersName', form.value.makersName);
-      formData.append('documentType', this.documentType);
-      if (this.documentFile) formData.append('document', this.documentFile);
+    // Add _id if editing
+    if (this.id) formData.append('_id', this.id);
 
-      this.apiService.CommonApi(Apiconfig.testimonialManagement.method, Apiconfig.testimonialManagement.url, formData)
-        .subscribe((res) => {
-          if (res && res.status === 1) {
-            this.notifyService.showSuccess(this.id ? "Updated successfully" : "Created successfully");
-            this.router.navigate(['/app/asset/list']);
-          } else {
-            this.notifyService.showError(res.message || 'An error occurred.');
-          }
-        });
-    } else {
-      this.notifyService.showError("Please fill all required fields correctly.");
-    }
+    // Fields (matching Fleet schema)
+    formData.append('vehicleName', form.value.vehicleName);
+    formData.append('cubicCapacity', form.value.cubicCapacity);
+    formData.append('registrationNo', form.value.registrationNo);
+    formData.append('colour', form.value.colour);
+    formData.append('insuranceNo', form.value.insuranceNo);
+    formData.append('seatingCapacity', form.value.seatingCapacity);
+    formData.append('manufactureDate', form.value.monthYrOf);   // backend expects manufactureDate
+    formData.append('passingExpiry', form.value.nextPassingDue); // backend expects passingExpiry
+    formData.append('makerName', form.value.makersName);        // backend expects makerName
+
+    // Document fields
+    formData.append('documentType', this.documentType || '');
+    if (this.documentFile) formData.append('document', this.documentFile);
+
+    // Call new Save API
+    this.apiService.CommonApi(Apiconfig.addFleets.method, Apiconfig.addFleets.url, formData)
+      .subscribe((res) => {
+        if (res && res.status === true) {
+          this.notifyService.showSuccess(this.id ? "Updated successfully" : "Created successfully");
+          this.router.navigate(['/app/fleet/list']);
+        } else {
+          this.notifyService.showError(res.message || 'An error occurred.');
+        }
+      });
+  } else {
+    this.notifyService.showError("Please fill all required fields correctly.");
   }
+}
+
 
 onStatusChange(event: any) {
   this.selectedStatus = event;

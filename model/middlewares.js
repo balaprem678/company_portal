@@ -83,29 +83,33 @@ function commonUpload(destinationPath) {
             callback(null, destinationPath); // Define where files are saved
         },
         filename: function (req, file, callback) {
-            const uploadName = file.originalname.split('.');
-            const extension = '.' + uploadName[uploadName.length - 1];
-            const fileName = Date.now().toString();
+           const uploadName = file.originalname.split('.');
+const extension = '.' + uploadName[uploadName.length - 1];
+const fileName = Date.now().toString();
 
-            const originalFileName = fileName + extension;
-            const webpFileName = fileName + '.webp';
+const originalFileName = fileName + extension;
+const webpFileName = fileName + '.webp';
 
-            // Absolute paths for the original and WebP files
-            const originalFilePath = path.resolve(destinationPath, originalFileName);
-            const webpFilePath = path.resolve(destinationPath, webpFileName);
+// Absolute paths
+const originalFilePath = path.resolve(destinationPath, originalFileName);
+const webpFilePath = path.resolve(destinationPath, webpFileName);
 
-            console.log('Received file:', file);
-            console.log('Original file path:', originalFilePath);
-            console.log('WebP file path:', webpFilePath);
+// Relative paths (for DB/frontend)
+const relativeOriginalPath = path.join('uploads', 'images', 'others', originalFileName);
+const relativeWebpPath = path.join('uploads', 'images', 'others', webpFileName);
 
-            // Assign the original file name to the callback for multer
-            callback(null, originalFileName);
+console.log('Received file:', file);
+console.log('Original file path:', originalFilePath);
+console.log('WebP file path:', webpFilePath);
 
-            // Set the filenames directly to req.uploadedFiles, but don't perform the conversion yet
-            req.uploadedFiles = {
-                original: originalFileName,
-                webp: webpFileName,
-            };
+// Assign filename for multer to save
+callback(null, originalFileName);
+
+// Save relative paths to req.uploadedFiles
+req.uploadedFiles = {
+  original: relativeOriginalPath.replace(/\\/g, '/'), // replace backslashes on Windows
+  webp: relativeWebpPath.replace(/\\/g, '/')
+};
         }
     });
 

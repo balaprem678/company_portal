@@ -73,7 +73,7 @@ export class ListTestimonialComponent {
     this.loader.loadingSpinner.next(true);
     this.curentUser = this.authService.currentUserValue;
     if (this.curentUser && this.curentUser.doc.role == "subadmin") {
-      if (this.router.url == '/app/testimonial/list' && this.curentUser.doc.privileges) {
+      if (this.router.url == '/app/fleet/list' && this.curentUser.doc.privileges) {
         this.userPrivilegeDetails = this.curentUser.doc.privileges.filter(x => x.alias == 'Testimonial');
         // if (!this.userPrivilegeDetails[0].status.view) {
         //   this.notifyService.showWarning('You are not authorized this module');
@@ -126,24 +126,23 @@ export class ListTestimonialComponent {
     // )
 
   }
+getdata(data) {
+  console.log(data, 'filtering data,,,,')
+  this.apiService.CommonApi(Apiconfig.listFleets.method, Apiconfig.listFleets.url, data)
+    .subscribe(response => {
+      console.log(response, "fleet list response");
 
-  getdata(data) {
-    console.log(data, 'filtering data,,,,')
-    this.apiService.CommonApi(Apiconfig.testimonialManagementList.method, Apiconfig.testimonialManagementList.url, data).subscribe(response => {
-      console.log("+++++++++++++++++++++++");
-
-      console.log(response, "dddddddddddddddddd");
-
-      if (response) {
-        console.log(response, 'tag list....');
-        this.categorylist = response[0];
-        this.count = response[1];
-        this.source.load(this.categorylist);
+      if (response && response.status) {
+        this.categorylist = response.data;   // fleet array
+        this.count = response.count;         // count number
+        this.source.load(this.categorylist); // load into table
         this.cd.detectChanges();
-
+      } else {
+        this.notifyService.showError(response.message || "Failed to fetch fleets");
       }
-    })
-  }
+    });
+}
+
 
   onDeleteChange(event) {
     this.ngOnInit();
@@ -346,243 +345,141 @@ export class ListTestimonialComponent {
   loadsettings(event) {
     if (event == 'delete') {
       this.settings = {
-        selectMode: 'multi',
-        hideSubHeader: true,
-        columns: {
-          name: {
-            title: 'Tag Name',
-            filter: true,
-            type: 'html',
-            valuePrepareFunction: (value, row) => {
-              return `<div class="overflow-text">${(value.charAt(0).toUpperCase() + value.substr(1).toLowerCase() + (typeof row.last_name != 'undefined' ? row.last_name : ''))}</div>`;
-            }
-          },
-          iconimg: {
-            title: 'Image ',
-            filter: false,
-            type: "html",
-            valuePrepareFunction: image => {
-              if (image === '') {
-                return 'assets/image/no_images.png'
-              } else {
-                return '<img src="' + environment.apiUrl + image + '" width="32" height="32">';
-              }
-            }
-          },
-          // rcategory: {
-          //   title: 'Category Name',
-          //   filter: true,
-          //   valuePrepareFunction: value => {
-          //     return value.rcatname.charAt(0).toUpperCase() + value.rcatname.substr(1).toLowerCase();
-          //   }
-          // },
-          status: {
-            title: 'Status',
-            filter: true,
-            type: 'custom',
-            renderComponent: PopupComponent,
-            sort: false,
-            editable: true,
-            onComponentInitFunction: (instance: any) => {
-              instance.save.subscribe(row => {
-                this.changeStatus(row._id, row.status);
-              });
-            }
-          },
-          // sale_price: {
-          //   title: 'Sale Price',
-          //   filter: false,
-          //   valuePrepareFunction: value => {
-          //     return value;
-          //   }
-          // },
-          createdAt: {
-            title: 'Created At',
-            filter: false,
-            valuePrepareFunction: value => {
-              var date = value ? new DatePipe('en-US').transform(value, 'MMMM dd,yyyy hh:mm a') : new DatePipe('en-US').transform(new Date(), 'dd/MM/yyyy');
-              return date;
-            }
-          },
-          // isRecommeneded: {
-          //   title: 'Recommended Product',
-          //   filter: false,
-          //   type: "custom",
-          //   renderComponent: FeaturedComponent,
-          //   sort: false,
-          //   editable: true,
-          //   onComponentInitFunction: (instance: any) => {
-          //     instance.save.subscribe(row => {
-          //       this.changefeatured(row._id, row.isRecommeneded);
-          //     });
-          //   }
-          // },
-          // EditPrice: {
-          //   title: 'Edit Price',
-          //   filter: false,
-          //   type: "custom",
-          //   renderComponent: EditPriceComponent,
-          //   sort: false,
-          //   editable: true,
-          //   onComponentInitFunction: (instance: any) => {
-          //     instance.save.subscribe(row => {
-          //       this.changefeatured(row._id, row.isRecommeneded);
-          //     });
-          //   }
-          // },
-        },
-        pager: {
-          display: true,
-          perPage: this.default_limit
-        },
-        actions: {
-          add: true,
-          edit: false,
-          delete: false,
-          columnTitle: 'Actions',
-          class: 'action-column',
-          position: 'right',
-          custom: [],
-        },
+  hideSubHeader: true,
+  columns: {
+    index: {
+      title: 'S.No',
+      type: 'text',
+      valuePrepareFunction: (value, row, cell) => {
+        return this.skip + cell.row.index + 1 + '.';
       }
+    },
+    vehicleName: {
+      title: 'Vehicle Name',
+      filter: true
+    },
+    registrationNo: {
+      title: 'Registration No',
+      filter: true
+    },
+    insuranceNo: {
+      title: 'Insurance No',
+      filter: true
+    },
+    makerName: {
+      title: 'Maker Name',
+      filter: true
+    },
+    seatingCapacity: {
+      title: 'Seating Capacity',
+      type: 'number'
+    },
+    manufactureDate: {
+      title: 'Manufacture Date',
+      valuePrepareFunction: (date) => {
+        return date ? new DatePipe('en-US').transform(date, 'dd/MM/yyyy') : '-';
+      }
+    },
+    passingExpiry: {
+      title: 'Passing Expiry',
+      valuePrepareFunction: (date) => {
+        return date ? new DatePipe('en-US').transform(date, 'dd/MM/yyyy') : '-';
+      }
+    },
+    status: {
+      title: 'Status',
+      type: 'html',
+      valuePrepareFunction: (value) => {
+        if (value === 1) {
+          return `<span class='badge badge-success badge-pill'>Active</span>`;
+        } else if (value === 2) {
+          return `<span class='badge badge-warning badge-pill'>Inactive</span>`;
+        } else {
+          return `<span class='badge badge-danger badge-pill'>Deleted</span>`;
+        }
+      }
+    }
+  },
+  pager: {
+    display: true,
+    perPage: this.default_limit
+  },
+  actions: {
+    add: true,
+    edit: false,
+    delete: false,
+    position: 'right'
+  }
+};
       this.settings.actions.custom = this.getSettings.loadSettings(event, this.curentUser, '/app/tags/list', this.userPrivilegeDetails, this.delete_btn, this.edit_btn, this.view_btn);
     } else {
       this.settings = {
-        // selectMode: 'multi',
-        hideSubHeader: true,
-        columns: {
-          index: {
-            title: 'S.No',
-            type: 'text',
-            valuePrepareFunction: (value, row, cell) => {
-              return this.skip + cell.row.index + 1 + '.'
-            }
-          },
-          // name: {
-          //   title: 'Name',
-          //   filter: true,
-          //   valuePrepareFunction: value => {
-          //     return value.charAt(0).toUpperCase() + value.substr(1).toLowerCase();
-          //   }
-          // },
-          image: {
-            title: 'Offer Image',
-            filter: false,
-            type: "html",
-            valuePrepareFunction: image => {
-              // return '<img src="' + environment.apiUrl + image + '" width="40" height="40">';
-              if (image === '') {
-                return '<img src="assets/image/no_images.png" width="32" height="32">'
-              } else {
-                return '<img src="' + environment.apiUrl + image + '" width="32" height="32">';
-              }
-            }
-          },
-          name: {
-            title: 'name',
-            filter: true,
-            type: 'html',
-            valuePrepareFunction: (value, row) => {
-              return value;
-            }
-          },
-          location: {
-            title: 'Location',
-            filter: true,
-            type: 'html',
-            valuePrepareFunction: (value, row) => {
-              return value;
-            }
-          },
-          // position: {
-          //   title: 'Position',
-          //   filter: true,
-          //   type: 'html',
-          //   valuePrepareFunction: (value, row) => {
-          //     return value;
-          //   }
-          // },
-
-          // rcategory: {
-          //   title: 'Category Name',
-          //   filter: true,
-          //   valuePrepareFunction: value => {
-          //     return value.rcatname.charAt(0).toUpperCase() + value.rcatname.substr(1).toLowerCase();
-          //   }
-          // },
-
-          // isRecommeneded: {
-          //   title: 'Recommended Product',
-          //   filter: false,
-          //   type: "custom",
-          //   renderComponent: FeaturedComponent,
-          //   sort: false,
-          //   editable: true,
-          //   onComponentInitFunction: (instance: any) => {
-          //     instance.save.subscribe(row => {
-          //       this.changefeatured(row._id, row.isRecommeneded);
-          //     });
-          //   }
-          // },
-          // sale_price: {
-          //   title: 'Sale Price',
-          //   filter: false,
-          //   valuePrepareFunction: value => {
-          //     return `MRP ${value}`;
-          //   }
-          // },
-          // createdAt: {
-          //   title: 'Published',
-          //   filter: false,
-          //   valuePrepareFunction: value => {
-          //     var date = value ? new DatePipe('en-US').transform(value, 'MMMM dd,yyyy hh:mm a') : new DatePipe('en-US').transform(new Date(), 'dd/MM/yyyy');
-          //     return date;
-          //   }
-          // },
-          // expensive: {
-          //   title: 'Featured',
-          //   filter: false,
-          //   type: "custom",
-          //   renderComponent: ExpensiveComponent,
-          //   sort: false,
-          //   editable: true,
-          //   onComponentInitFunction: (instance: any) => {
-          //     instance.save.subscribe(row => {
-          //       console.log(row,"row from productlist");
-
-          //       this.changefeatured(row._id, row.expensive)
-          //     });
-          //   }
-          // },
-          status:{},
-          // Clone: {
-          //   title: 'Clone',
-          //   filter: false,
-          //   type: "custom",
-          //   renderComponent: CloneComponent,
-          //   sort: false,
-          //   editable: true,
-          //   onComponentInitFunction: (instance: any) => {
-          //     instance.save.subscribe(row => {
-          //       this.cloneDetails(row)
-          //     });
-          //   }
-          // },
-        },
-        pager: {
-          display: true,
-          perPage: this.default_limit
-        },
-        actions: {
-          add: true,
-          edit: false,
-          delete: false,
-          columnTitle: 'Actions',
-          class: 'action-column',
-          position: 'right',
-          custom: [],
-        },
+  hideSubHeader: true,
+  columns: {
+    index: {
+      title: 'S.No',
+      type: 'text',
+      valuePrepareFunction: (value, row, cell) => {
+        return this.skip + cell.row.index + 1 + '.';
       }
+    },
+    vehicleName: {
+      title: 'Vehicle Name',
+      filter: true
+    },
+    registrationNo: {
+      title: 'Registration No',
+      filter: true
+    },
+    insuranceNo: {
+      title: 'Insurance No',
+      filter: true
+    },
+    makerName: {
+      title: 'Maker Name',
+      filter: true
+    },
+    seatingCapacity: {
+      title: 'Seating Capacity',
+      type: 'number'
+    },
+    manufactureDate: {
+      title: 'Manufacture Date',
+      valuePrepareFunction: (date) => {
+        return date ? new DatePipe('en-US').transform(date, 'dd/MM/yyyy') : '-';
+      }
+    },
+    passingExpiry: {
+      title: 'Passing Expiry',
+      valuePrepareFunction: (date) => {
+        return date ? new DatePipe('en-US').transform(date, 'dd/MM/yyyy') : '-';
+      }
+    },
+    status: {
+      title: 'Status',
+      type: 'html',
+      valuePrepareFunction: (value) => {
+        if (value === 1) {
+          return `<span class='badge badge-success badge-pill'>Active</span>`;
+        } else if (value === 2) {
+          return `<span class='badge badge-warning badge-pill'>Inactive</span>`;
+        } else {
+          return `<span class='badge badge-danger badge-pill'>Deleted</span>`;
+        }
+      }
+    }
+  },
+  pager: {
+    display: true,
+    perPage: this.default_limit
+  },
+  actions: {
+    add: true,
+    edit: false,
+    delete: false,
+    position: 'right'
+  }
+};
       if(this.edit_btn){
         this.settings.columns.status={
           title: 'Status',

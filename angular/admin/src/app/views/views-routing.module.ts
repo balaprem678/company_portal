@@ -262,10 +262,17 @@ const routes: Routes = [
         }
       },
       {
-        path: 'testimonial',
+        path: 'fleet',
         loadChildren: () => import('./testimonial/testimonial.module').then(m => m.TestimonialModule),
         data: {
-          title: 'Testimonial'
+          title: 'Fleet'
+        }
+      },
+      {
+        path: 'contracts',
+        loadChildren: () => import('./contracts/contracts.module').then(m => m.ContractsModule),
+        data: {
+          title: 'Contracts'
         }
       },
       {

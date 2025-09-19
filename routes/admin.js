@@ -61,7 +61,8 @@ module.exports = function (app, io) {
         var tags = require('../controller/admin/tags.js')(app);
         var deals = require('../controller/admin/deals.js')(app);
         var report = require('../controller/admin/report.js')(app);
-
+       var fleet = require('../controller/admin/fleet.js')(app);
+         var contract = require('../controller/admin/contract.js')(app);
 
 
         app.get('/dashboard/allStats', ensureAuthorized, dashboard.allStats);
@@ -642,7 +643,19 @@ module.exports = function (app, io) {
         app.post('/admin/payment/report', ensureAuthorized, report.getReportPayment);
         app.post('/admin/sales/report', ensureAuthorized, report.getReportSales);
       
-        
+// FLEET MANAGEMENT
+  app.post('/admin/fleet/save', ensureAuthorized, middlewares.commonUpload(CONFIG.DIRECTORY_OTHERS).single('document'), fleet.saveFleet);
+  app.post('/admin/fleet/list', ensureAuthorized, fleet.listFleets);
+  app.post('/admin/fleet/view', ensureAuthorized, fleet.viewFleet);
+  app.post('/admin/fleet/delete', ensureAuthorized, fleet.deleteFleet);
+  app.post('/admin/fleet/maintenance-due', ensureAuthorized, fleet.maintenanceDue);
+
+  //contract management
+
+  app.post('/admin/contract/save', ensureAuthorized, contract.saveContract);
+  app.post('/admin/contract/list', ensureAuthorized, contract.listContracts);
+  app.post('/admin/contract/view', ensureAuthorized, contract.viewContract);
+  app.post('/admin/contract/delete', ensureAuthorized, contract.deleteContract);
 
   
 

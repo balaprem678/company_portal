@@ -594,13 +594,13 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Add Feet',
-        url: '/app/testimonial/add',
+        url: '/app/fleet/add',
         icon: '',
         id: 'add'
       },
       {
         name: 'Feet List',
-        url: '/app/testimonial/list',
+        url: '/app/fleet/list',
         icon: '',
         id: 'list'
       },
@@ -625,8 +625,28 @@ export const navItems: INavData[] = [
         id: 'list'
       },
     ]
-  }
+  },
 
+  {
+    id: "Contracts",
+    name: 'Contracts',
+    url: '/app/contracts',
+    icon: 'assets/image/offer.png',
+    children: [
+      {
+        name: 'New Contracts',
+        url: '/app/contracts/add',
+        icon: '', 
+        id: 'add'
+      },
+      { 
+        name: 'Active Contracts',
+        url: '/app/contracts/list',
+        icon: '',
+        id: 'list'
+      },
+    ]
+  }
 
   // {
   //   id: "Layout Control",
