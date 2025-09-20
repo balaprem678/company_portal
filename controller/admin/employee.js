@@ -10,46 +10,63 @@ module.exports = function () {
    * @route POST /employee/add
    * @desc Add a new employee
    */
-  controller.addEmployee = async function (req, res) {
-    try {
-      const body = req.body;
+controller.saveEmployee = async function (req, res) {
+  try {
+    const body = req.body;
 
-      let employeeData = {
-        fullName: body.fullName,
-        nationality: body.nationality || null,
-        bloodGroup: body.bloodGroup || null,
-        dob: body.dob ? new Date(body.dob) : null,
-        permanentAddress: body.permanentAddress || null,
-        designation: body.designation || null,
-        employeeId: body.employeeId,
-        employmentType: body.employmentType || "Full-Time",
-        dateOfJoining: body.dateOfJoining ? new Date(body.dateOfJoining) : new Date(),
-        underContract: body.underContract || null,
-        salary: body.salary || 0,
-        bankDetails: body.bankDetails || {},
-        nominee: body.nominee || {},
-        visaExpiry: body.visaExpiry ? new Date(body.visaExpiry) : null,
-        licenseNo: body.licenseNo || null,
-        role: body.role || "Staff", // Default role Staff
-        documents: body.documents || [],
-        status: body.status || 1
-      };
+    let employeeData = {
+      fullName: body.fullName,
+      nationality: body.nationality || null,
+      bloodGroup: body.bloodGroup || null,
+      dob: body.dob ? new Date(body.dob) : null,
+      permanentAddress: body.permanentAddress || null,
+      designation: body.designation || null,
+      employeeId: body.employeeId,
+      employmentType: body.employmentType || "Full-Time",
+      dateOfJoining: body.dateOfJoining ? new Date(body.dateOfJoining) : new Date(),
+      underContract: body.underContract || null,
+      salary: body.salary || 0,
+      bankDetails: body.bankDetails || {},
+      nominee: body.nominee || {},
+      visaExpiry: body.visaExpiry ? new Date(body.visaExpiry) : null,
+      licenseNo: body.licenseNo || null,
+      role: body.role || "Staff", // Default role Staff
+      documents: body.documents || [],
+      status: body.status || 1
+    };
 
-      const result = await db.InsertDocument("employee", employeeData);
+    let result;
 
+    if (body._id) {
+      // ---- Update Employee ----
+      result = await db.UpdateDocument(
+        "employee",
+        { _id: mongoose.Types.ObjectId(body._id) },
+        employeeData
+      );
+      return res.send({
+        status: true,
+        message: "Employee updated successfully",
+        data: result,
+      });
+    } else {
+      // ---- Add New Employee ----
+      result = await db.InsertDocument("employee", employeeData);
       return res.send({
         status: true,
         message: "Employee added successfully",
         data: result,
       });
-    } catch (error) {
-      console.log(error, "ERROR addEmployee");
-      return res.send({
-        status: false,
-        message: "Something went wrong while adding employee.",
-      });
     }
-  };
+  } catch (error) {
+    console.log(error, "ERROR saveEmployee");
+    return res.send({
+      status: false,
+      message: "Something went wrong while saving employee.",
+    });
+  }
+};
+
 
   /**
    * @route POST /employee/list

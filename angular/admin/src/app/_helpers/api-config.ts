@@ -86,6 +86,14 @@ export const Apiconfig = {
         "url": "admin/employee/list",
         "method": "post",
     },
+    saveEmployee:{
+        "url": "admin/employee/save",
+        "method": "post"
+    },
+    viewEmployee:{
+        "url": "admin/employee/view",
+        "method": "post"
+    },
     subadminEdit: {
         "url": "admins/getusersrole",
         "method": "post"

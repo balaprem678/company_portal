@@ -63,6 +63,7 @@ module.exports = function (app, io) {
         var report = require('../controller/admin/report.js')(app);
        var fleet = require('../controller/admin/fleet.js')(app);
          var contract = require('../controller/admin/contract.js')(app);
+         var employee = require('../controller/admin/employee.js')(app);
 
 
         app.get('/dashboard/allStats', ensureAuthorized, dashboard.allStats);
@@ -657,7 +658,9 @@ module.exports = function (app, io) {
   app.post('/admin/contract/view', ensureAuthorized, contract.viewContract);
   app.post('/admin/contract/delete', ensureAuthorized, contract.deleteContract);
 
-  
+  //employee management
+    app.post('/admin/employee/save', ensureAuthorized, middlewares.commonUpload(CONFIG.DIRECTORY_OTHERS).single('document'), employee.saveEmployee);
+    app.post('/admin/employee/list', ensureAuthorized, employee.listEmployees);
 
     } catch (e) {
         console.log('erroe in index.js---------->>>>', e);

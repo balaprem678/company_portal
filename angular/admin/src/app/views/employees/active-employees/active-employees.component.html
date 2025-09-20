@@ -1,1 +1,161 @@
-<p>active-employees works!</p>
+<div class="drivers-employees-page mt-4 container-fluid">
+  <div class="text-center mb-4">
+    <button class="btn" 
+            [ngClass]="{'btn-primary': activeTab==='drivers', 'btn-light': activeTab!=='drivers'}"
+            (click)="switchTab('drivers')">DRIVERS</button>
+    <button class="btn ml-2" 
+            [ngClass]="{'btn-primary': activeTab==='employees', 'btn-light': activeTab!=='employees'}"
+            (click)="switchTab('employees')">EMPLOYEES</button>
+  </div>
+
+  <!-- Drivers Section -->
+  <div *ngIf="activeTab === 'drivers'">
+    <!-- Top Cards -->
+    <div class="row text-center mb-4">
+      <div class="col-md-4 mb-3">
+        <div class="card shadow bg-light">
+          <div class="card-body">
+            <h5>Total No. of Drivers</h5>
+            <h3>{{ totalDrivers }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card shadow bg-light">
+          <div class="card-body">
+            <h5>Deployed Drivers</h5>
+            <h3>{{ deployedDrivers }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card shadow bg-light">
+          <div class="card-body">
+            <h5>Drivers on Vacation</h5>
+            <h3>{{ driversOnVacation }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Driver Table -->
+    <div id="driverTable" class="table-responsive mt-4">
+      <table class="table table-bordered table-striped text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th>DRIVER NAME</th>
+            <th>ID NO.</th>
+            <th>LICENSE NO.</th>
+            <th>D.O.J</th>
+            <th>VISA EXPIRY</th>
+            <th>NOMINEE</th>
+            <th>NATIONALITY</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let driver of driverList; trackBy: trackByDriverId">
+            <td>{{ driver.fullName }}</td>
+            <td>{{ driver.employeeId }}</td>
+            <td>{{ driver.licenseNo }}</td>
+            <td>{{ driver.dateOfJoining | date:'dd/MM/yyyy' }}</td>
+            <td>{{ driver.visaExpiry | date:'dd/MM/yyyy' }}</td>
+            <td>{{ driver.nominee?.name || '-' }}</td>
+            <td>{{ driver.nationality }}</td>
+            <td>
+              <button class="btn btn-sm btn-info mr-1" (click)="viewDriver(driver)">View</button>
+              <button class="btn btn-sm btn-warning" (click)="editDriver(driver)">Edit</button>
+            </td>
+          </tr>
+          <tr *ngIf="driverList.length === 0">
+            <td colspan="8">No drivers found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center mt-3">
+      <button class="btn btn-outline-primary" (click)="downloadDriversPDF()">Download Drivers as PDF</button>
+    </div>
+  </div>
+
+  <!-- Employees Section -->
+  <div *ngIf="activeTab === 'employees'">
+    <!-- Employee Stats Cards -->
+    <div class="row text-center mb-4">
+      <div class="col-md-4 mb-3">
+        <div class="card shadow bg-light">
+          <div class="card-body">
+            <h5>Total Employees</h5>
+            <h3>{{ totalEmployees }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card shadow bg-light">
+          <div class="card-body">
+            <h5>Active Employees</h5>
+            <h3>{{ activeEmployees }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card shadow bg-light">
+          <div class="card-body">
+            <h5>Inactive Employees</h5>
+            <h3>{{ inactiveEmployees }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Employee Table -->
+    <div id="employeeTable" class="table-responsive mt-4">
+      <table class="table table-bordered table-striped text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th>EMPLOYEE NAME</th>
+            <th>ID NO.</th>
+            <th>DEPARTMENT</th>
+            <th>D.O.J</th>
+            <th>STATUS</th>
+            <th>EMAIL</th>
+            <th>PHONE</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees; trackBy: trackByEmployeeId">
+            <td>{{ employee.fullName || employee.name }}</td>
+            <td>{{ employee.employeeId }}</td>
+            <td>{{ employee.department || '-' }}</td>
+            <td>{{ employee.dateOfJoining | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <span [ngClass]="getStatusClass(employee.status)">
+                {{ getStatusText(employee.status) }}
+              </span>
+            </td>
+            <td>{{ employee.email || '-' }}</td>
+            <td>{{ employee.phone || '-' }}</td>
+            <td>
+              <button class="btn btn-sm btn-info mr-1" (click)="viewEmployee(employee)">View</button>
+              <button class="btn btn-sm btn-warning" (click)="editEmployee(employee)">Edit</button>
+            </td>
+          </tr>
+          <tr *ngIf="employees.length === 0">
+            <td colspan="8">No employees found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center mt-3">
+      <button class="btn btn-outline-primary" (click)="downloadEmployeesPDF()">Download Employees as PDF</button>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="text-center mt-4">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
