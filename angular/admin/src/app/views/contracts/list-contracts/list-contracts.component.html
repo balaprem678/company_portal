@@ -1,10 +1,19 @@
 <div class="contracts-page mt-4">
   <div class="container-fluid">
-    <h2 class="text-center mb-4"><strong>Active Contracts</strong></h2>
+    <h2 class="text-center mb-4">
+      <strong>Active Contracts</strong>
+    </h2>
+
+    <!-- Download PDF Button -->
+    <div class="text-right mb-3">
+      <button class="btn btn-success" (click)="downloadPDF()">
+        <i class="fa fa-download"></i> Download as PDF
+      </button>
+    </div>
 
     <div *ngIf="loading" class="text-center">Loading contracts...</div>
 
-    <div class="table-responsive" *ngIf="!loading && contracts.length > 0">
+    <div class="table-responsive" *ngIf="!loading && contracts.length > 0" id="contractsTable">
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
           <tr>
@@ -18,7 +27,6 @@
             <th>Buses/Drivers Deployed</th>
             <th>Contact Officer</th>
             <th>Contract Type</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -38,7 +46,7 @@
               <div>
                 <strong>Buses:</strong>
                 <span *ngFor="let bus of contract.fleetDetails; let i = index">
-                  {{ bus.vehicleName  }}<span *ngIf="i < contract.fleetDetails.length - 1">, </span>
+                  {{ bus.vehicleName }}<span *ngIf="i < contract.fleetDetails.length - 1">, </span>
                 </span>
               </div>
               <div>
@@ -50,11 +58,6 @@
             </td>
             <td>{{ contract.contactOfficer }}</td>
             <td>{{ contract.contractType }}</td>
-            <td>
-              <button class="btn btn-info btn-sm mr-2" (click)="viewContract(contract)">View</button>
-              <button class="btn btn-warning btn-sm mr-2" (click)="editContract(contract)">Edit</button>
-              <button class="btn btn-danger btn-sm" (click)="deleteContract(contract)">Delete</button>
-            </td>
           </tr>
         </tbody>
       </table>

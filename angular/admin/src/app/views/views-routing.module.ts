@@ -304,6 +304,14 @@ const routes: Routes = [
         }
       },
       {
+       path: 'employees',
+       loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule),
+       data: {
+         title: 'Employees'
+       }
+
+      },
+      {
         path: 'performance-analysis',
         loadChildren: () => import('./performance-analysis/performance-analysis.module').then(m => m.PerformanceAnalysisModule),
         data: {

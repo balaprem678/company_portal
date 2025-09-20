@@ -27,6 +27,27 @@ export const navItems: INavData[] = [
       }
     ]
   },
+  {
+    id: "Employees",
+    name: 'Employees',
+    url: '/app/employees',
+    icon: 'assets/image/profile-2user.png',
+    children: [
+      {
+
+        name: 'New Employees',
+        url: '/app/employees/add',
+        icon: '',
+        id: 'add'
+      },
+      {
+        name: 'Active Employees',
+        url: '/app/employees/active-list',
+        icon: '',
+        id: 'list'
+      }
+    ]
+  },
   // {
   //   id: "Brand",
   //   name: 'Brand',
@@ -593,13 +614,19 @@ export const navItems: INavData[] = [
     icon: 'assets/image/offer.png',
     children: [
       {
-        name: 'Add Feet',
+        name: 'New Feet',
         url: '/app/fleet/add',
         icon: '',
         id: 'add'
       },
       {
-        name: 'Feet List',
+        name: 'Active List',
+        url: '/app/fleet/list',
+        icon: '',
+        id: 'list'
+      },
+      {
+        name: 'Assignment',
         url: '/app/fleet/list',
         icon: '',
         id: 'list'

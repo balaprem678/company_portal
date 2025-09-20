@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/_services/api.service';
 import { Apiconfig } from 'src/app/_helpers/api-config';
-import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/_services/notification.service';
+import html2pdf from 'html2pdf.js';
 
 @Component({
   selector: 'app-list-contracts',
@@ -10,9 +11,12 @@ import { Router } from '@angular/router';
 })
 export class ListContractsComponent implements OnInit {
   contracts: any[] = [];
-  loading = false;
+  loading: boolean = true;
 
-  constructor(private apiService: ApiService,private router: Router,) {}
+  constructor(
+    private apiService: ApiService,
+    private notifyService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.getContracts();
@@ -20,44 +24,28 @@ export class ListContractsComponent implements OnInit {
 
   getContracts() {
     this.loading = true;
-    this.apiService.CommonApi(
-      Apiconfig.listContracts.method,
-      Apiconfig.listContracts.url,
-      { status: 1 }   // fetch only active contracts
-    ).subscribe({
-      next: (res) => {
-        if (res && res.status) {
-          this.contracts = res.data;
+    this.apiService.CommonApi(Apiconfig.listContracts.method, Apiconfig.listContracts.url, { status: 1 })
+      .subscribe(
+        (res: any) => {
+          this.contracts = res.data || [];
+          this.loading = false;
+        },
+        (err) => {
+          this.notifyService.showError("Failed to load contracts");
+          this.loading = false;
         }
-        this.loading = false;
-      },
-      error: () => {
-        this.loading = false;
-      }
-    });
+      );
   }
 
-  viewContract(contract: any) {
-    console.log('View contract', contract);
-    this.router.navigate([`/app/contracts/view/${contract._id}`]);
+  downloadPDF() {
+    const element = document.getElementById('contractsTable');
+    const options = {
+      margin: 0.5,
+      filename: `contracts_${new Date().toISOString().split('T')[0]}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
+    };
+    html2pdf().from(element).set(options).save();
   }
-
-  editContract(contract: any) {
-    console.log('Edit contract', contract);
-    this.router.navigate([`/app/contracts/edit/${contract._id}`]);
-  }
-
-  // deleteContract(contract: any) {
-  //   if (confirm('Are you sure you want to delete this contract?')) {
-  //     this.apiService.CommonApi(
-  //       Apiconfig.deleteContract.method,
-  //       Apiconfig.deleteContract.url,
-  //       { id: contract._id }
-  //     ).subscribe((res) => {
-  //       if (res && res.status) {
-  //         this.getContracts();
-  //       }
-  //     });
-  //   }
-  // }
 }
