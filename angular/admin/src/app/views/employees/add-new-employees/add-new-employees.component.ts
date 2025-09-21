@@ -138,7 +138,9 @@ employeeDocuments: any[] = [];
         this.licenseNo = emp.licenseNo || '';
         this.role = emp.role || 'Staff';
         this.status = emp.status ?? 1;
-        this.documentType = emp.documentType || '';
+        // this.documentType = emp.documentType || '';
+        this.employeeDocuments = emp.documents
+        
         // documentFile cannot be preloaded (only preview URL from backend if available)
       }
     });
