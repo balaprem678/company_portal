@@ -830,6 +830,123 @@ function jsontocsvdrivertranscation(data, callback) {
 }
 
 
+
+function commonUploadPDF(destinationPath) {
+    var storage = multer.diskStorage({
+        destination: function (req, file, callback) {
+            // Ensure the destination directory exists
+            fs.mkdirSync(destinationPath, { recursive: true });
+            callback(null, destinationPath);
+        },
+        filename: function (req, file, callback) {
+            const uploadName = file.originalname.split('.');
+            const extension = '.' + uploadName[uploadName.length - 1];
+            const fileName = Date.now().toString();
+            
+            // Generate unique filename
+            const finalFileName = fileName + extension;
+            
+            // Store file path info in request for later use
+            if (!req.uploadedDocuments) {
+                req.uploadedDocuments = [];
+            }
+            
+            req.uploadedDocuments.push({
+                fieldname: file.fieldname,
+                originalname: file.originalname,
+                filename: finalFileName,
+                path: path.join(destinationPath, finalFileName),
+                mimetype: file.mimetype,
+                size: file.size
+            });
+            
+            callback(null, finalFileName);
+        }
+    });
+
+    // File filter for PDFs and common document types
+    const fileFilter = (req, file, callback) => {
+        const allowedMimeTypes = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'image/jpeg',
+            'image/png',
+            'image/jpg'
+        ];
+        
+        if (allowedMimeTypes.includes(file.mimetype)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Invalid file type. Only PDF, DOC, DOCX, and image files are allowed.'), false);
+        }
+    };
+
+    var uploaded = multer({
+        storage: storage,
+        limits: { 
+            fileSize: 10 * 1024 * 1024, // 10MB limit for documents
+            fieldSize: 25 * 1024 * 1024 
+        },
+        fileFilter: fileFilter
+    });
+
+    return uploaded;
+}
+
+
+const processDocuments = (req, res, next) => {
+    if (req.files && req.files.length > 0) {
+        try {
+            const processedDocuments = [];
+            console.log(req.files, "req.files (array format)");
+            
+            // When using .any(), req.files is an array, not an object
+            req.files.forEach((file, index) => {
+                let documentType = 'General';
+                
+                // Extract document index from fieldname: documents[0][file] -> 0
+                const fieldMatch = file.fieldname.match(/documents\[(\d+)\]\[file\]/);
+                if (fieldMatch) {
+                    const docIndex = parseInt(fieldMatch[1]);
+                    
+                    // Try to get document type from request body
+                    const typeKey = `documents[${docIndex}][type]`;
+                    if (req.body[typeKey]) {
+                        documentType = req.body[typeKey];
+                    }
+                }
+                
+                processedDocuments.push({
+                    type: documentType,
+                    originalName: file.originalname,
+                    filename: file.filename,
+                    path: file.path,
+                    size: file.size,
+                    mimetype: file.mimetype,
+                    uploadDate: new Date(),
+                    fieldIndex: fieldMatch ? parseInt(fieldMatch[1]) : index
+                });
+            });
+            
+            req.processedDocuments = processedDocuments;
+            console.log('Processed Documents:', processedDocuments);
+            next();
+        } catch (error) {
+            console.error('Error processing documents:', error);
+            return res.status(500).json({ 
+                status: 0, 
+                message: 'Document processing error',
+                error: error.message 
+            });
+        }
+    } else {
+        next();
+    }
+};
+
+
+
 module.exports = {
     // jsontocsv: jsontocsv,
     commonUpload: commonUpload,
@@ -843,5 +960,7 @@ module.exports = {
     jsontocsvdriverpaydetails: jsontocsvdriverpaydetails,
     jsontocsvrespayout: jsontocsvrespayout,
     jsontocsvrestpaydetails: jsontocsvrestpaydetails,
-    jsontocsvdrivertranscation: jsontocsvdrivertranscation
+    jsontocsvdrivertranscation: jsontocsvdrivertranscation,
+    commonUploadPDF: commonUploadPDF,
+    processDocuments: processDocuments
 };

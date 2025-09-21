@@ -659,7 +659,7 @@ module.exports = function (app, io) {
   app.post('/admin/contract/delete', ensureAuthorized, contract.deleteContract);
 
   //employee management
-    app.post('/admin/employee/save', ensureAuthorized, middlewares.commonUpload(CONFIG.DIRECTORY_OTHERS).single('document'), employee.saveEmployee);
+    app.post('/admin/employee/save', ensureAuthorized, middlewares.commonUploadPDF(CONFIG.DIRECTORY_OTHERS).any(),middlewares.processDocuments, employee.saveEmployee);
     app.post('/admin/employee/list', ensureAuthorized, employee.listEmployees);
 
     } catch (e) {
