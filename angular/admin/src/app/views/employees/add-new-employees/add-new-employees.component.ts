@@ -115,6 +115,8 @@ employeeDocuments: any[] = [];
     ).subscribe((res: any) => {
       if (res.status) {
         const emp = res.data;
+        console.log(emp,"empempempempemp");
+        
         this.fullName = emp.fullName || '';
         this.nationality = emp.nationality || '';
         this.bloodGroup = emp.bloodGroup || '';
