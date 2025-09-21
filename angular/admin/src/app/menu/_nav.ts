@@ -48,6 +48,94 @@ export const navItems: INavData[] = [
       }
     ]
   },
+   {
+    id: "Feet",
+    name: 'Feet',
+    url: '/app/testimonial',
+    icon: 'assets/image/offer.png',
+    children: [
+      {
+        name: 'New Feet',
+        url: '/app/fleet/add',
+        icon: '',
+        id: 'add'
+      },
+      {
+        name: 'Active List',
+        url: '/app/fleet/list',
+        icon: '',
+        id: 'list'
+      },
+      {
+        name: 'Assignment',
+        url: '/app/fleet/assignment',
+        icon: '',
+        id: 'list'
+      },
+    ]
+  },
+  
+  {
+    id: "Contracts",
+    name: 'Contracts',
+    url: '/app/contracts',
+    icon: 'assets/image/offer.png',
+    children: [
+      {
+        name: 'New Contracts',
+        url: '/app/contracts/add',
+        icon: '', 
+        id: 'add'
+      },
+      { 
+        name: 'Active Contracts',
+        url: '/app/contracts/list',
+        icon: '',
+        id: 'list'
+      },
+    ]
+  },
+  {
+    id: "tags",
+    name: 'Vendors',
+    url: '/app/tags',
+    icon: 'assets/image/tag.png',
+    children: [
+      {
+        name: 'Vendors List',
+        url: '/app/tags/list',
+        icon: '',
+        id: 'list'
+      },
+      {
+        name: 'Add Vendors',
+        url: '/app/tags/add',
+        icon: '',
+        id: "add"
+      },
+    ]
+  },
+  {
+    id: "Invoice",
+    name: 'Invoice',
+    url: '/app/invoice',
+    icon: 'assets/image/offer.png',
+    children: [
+      {
+        name: 'Add Invoice',
+        url: '/app/invoice/add',
+        icon: '',
+        id: 'add'
+      },
+      {
+        name: 'Invoice List',
+        url: '/app/invoice/list',
+        icon: '',
+        id: 'list'
+      },
+    ]
+  },
+  
   // {
   //   id: "Brand",
   //   name: 'Brand',
@@ -133,26 +221,7 @@ export const navItems: INavData[] = [
   //     }, 
   //   ]
   // },
-  {
-    id: "tags",
-    name: 'Vendors',
-    url: '/app/tags',
-    icon: 'assets/image/tag.png',
-    children: [
-      {
-        name: 'Vendors List',
-        url: '/app/tags/list',
-        icon: '',
-        id: 'list'
-      },
-      {
-        name: 'Add Vendors',
-        url: '/app/tags/add',
-        icon: '',
-        id: "add"
-      },
-    ]
-  },
+  
   {
     id: "deals",
     name: 'Drivers',
@@ -607,73 +676,7 @@ export const navItems: INavData[] = [
   //     },
   //   ]
   // },
-  {
-    id: "Feet",
-    name: 'Feet',
-    url: '/app/testimonial',
-    icon: 'assets/image/offer.png',
-    children: [
-      {
-        name: 'New Feet',
-        url: '/app/fleet/add',
-        icon: '',
-        id: 'add'
-      },
-      {
-        name: 'Active List',
-        url: '/app/fleet/list',
-        icon: '',
-        id: 'list'
-      },
-      {
-        name: 'Assignment',
-        url: '/app/fleet/assignment',
-        icon: '',
-        id: 'list'
-      },
-    ]
-  },
-  {
-    id: "Invoice",
-    name: 'Invoice',
-    url: '/app/invoice',
-    icon: 'assets/image/offer.png',
-    children: [
-      {
-        name: 'Add Invoice',
-        url: '/app/invoice/add',
-        icon: '',
-        id: 'add'
-      },
-      {
-        name: 'Invoice List',
-        url: '/app/invoice/list',
-        icon: '',
-        id: 'list'
-      },
-    ]
-  },
-
-  {
-    id: "Contracts",
-    name: 'Contracts',
-    url: '/app/contracts',
-    icon: 'assets/image/offer.png',
-    children: [
-      {
-        name: 'New Contracts',
-        url: '/app/contracts/add',
-        icon: '', 
-        id: 'add'
-      },
-      { 
-        name: 'Active Contracts',
-        url: '/app/contracts/list',
-        icon: '',
-        id: 'list'
-      },
-    ]
-  }
+ 
 
   // {
   //   id: "Layout Control",

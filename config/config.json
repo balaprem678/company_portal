@@ -3,7 +3,7 @@
     "mongodb": {
         "host": "127.0.0.1",
         "port": "27017",
-        "database": "pillais"
+        "database": "live-pillais-25j24"
     },
     "directory": {
         "users": "./uploads/images/users/"
