@@ -128,7 +128,7 @@ console.log(employeeData,"employeeDataemployeeDataemployeeData");
       // ---- Update Employee ----
       result = await db.UpdateDocument(
         "employee",
-        { _id: mongoose.Types.ObjectId(body._id) },
+        { _id:new mongoose.Types.ObjectId(body._id) },
         employeeData
       );
       return res.send({

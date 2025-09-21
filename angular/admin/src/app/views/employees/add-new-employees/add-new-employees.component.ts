@@ -114,7 +114,7 @@ employeeDocuments: any[] = [];
       { id: this.id }
     ).subscribe((res: any) => {
       if (res.status) {
-        const emp = res.data;
+        const emp = res.data.doc;
         console.log(emp,"empempempempemp");
         
         this.fullName = emp.fullName || '';
