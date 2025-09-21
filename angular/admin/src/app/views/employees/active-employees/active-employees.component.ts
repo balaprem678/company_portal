@@ -83,7 +83,7 @@ export class ActiveEmployeesComponent implements OnInit {
   getDrivers(): void {
     this.loading = true;
     // Assuming similar API structure for drivers
-    this.apiService.CommonApi('GET', '/api/drivers', {})
+    this.apiService.CommonApi(Apiconfig.listEmployees.method, Apiconfig.listEmployees.url, { status: 1 })
       .subscribe(
         (res: any) => {
           this.loading = false;

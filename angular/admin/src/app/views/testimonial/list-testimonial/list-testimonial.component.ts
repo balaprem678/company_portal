@@ -46,7 +46,7 @@ export class ListTestimonialComponent {
   view_btn: boolean = false;
   delete_btn: boolean = true;
   addBtnUrl: string = '/app/testimonial/add';
-  addBtnName: string = 'Add Testimonial';
+  addBtnName: string = 'Add New Asset';
   editUrl: string = `/app/testimonial/edit/`;
   viewUrl: string = `/app/testimonial/view/`;
   global_status: number = 0;
