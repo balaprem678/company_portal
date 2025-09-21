@@ -627,7 +627,7 @@ export const navItems: INavData[] = [
       },
       {
         name: 'Assignment',
-        url: '/app/fleet/list',
+        url: '/app/fleet/assignment',
         icon: '',
         id: 'list'
       },

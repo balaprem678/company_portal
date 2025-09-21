@@ -7,11 +7,13 @@ import { AddEditTestimonialComponent } from './add-edit-testimonial/add-edit-tes
 import { ListTestimonialComponent } from './list-testimonial/list-testimonial.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CommonTableModule } from '../../common-table/common-table.module';
+import { AssignmentComponent } from './assignment/assignment.component';
 
 @NgModule({
   declarations: [
     AddEditTestimonialComponent,
-    ListTestimonialComponent
+    ListTestimonialComponent,
+    AssignmentComponent
   ],
   imports: [
     CommonTableModule,

@@ -1,0 +1,67 @@
+<div class="assignment-page container-fluid mt-4">
+  <h2 class="text-center mb-4"><strong>Fleet Assignment Report</strong></h2>
+
+  <!-- Top Cards -->
+  <div class="row text-center mb-4">
+    <div class="col-md-4 mb-3">
+      <div class="card bg-light shadow">
+        <div class="card-body">
+          <h5>Total No. of Vehicles</h5>
+          <h2>{{ totalVehicles }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card bg-light shadow">
+        <div class="card-body">
+          <h5>Deployed Vehicles</h5>
+          <h2>{{ deployedVehicles }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card bg-light shadow">
+        <div class="card-body">
+          <h5>Vehicles on Maintenance Schedule</h5>
+          <h2>{{ vehiclesOnMaintenance }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assignment Table -->
+  <div id="pdfContent" class="table-responsive">
+    <table class="table table-bordered table-striped text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th>VEHICLE NO & NAME</th>
+          <th>ASSET CODE</th>
+          <th>ASSIGNED TO</th>
+          <th>DATE ASSIGNED</th>
+          <th>ODOMETER READING</th>
+          <th>CONTRACT ID</th>
+          <th>REMARKS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fleet of fleets">
+          <td>{{ fleet.registrationNo }} - {{ fleet.vehicleName }}</td>
+          <td>{{ fleet.assetCode }}</td>
+          <td>{{ fleet.deployedContract?.clientName || '-' }}</td>
+          <td>{{ fleet.deployedContract?.startDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{ fleet.odometerReading || '-' }}</td>
+          <td>{{ fleet.deployedContract?.contractId || '-' }}</td>
+          <td>{{ fleet.maintenance?.remarks || '-' }}</td>
+        </tr>
+        <tr *ngIf="fleets.length === 0">
+          <td colspan="7">No fleet assignments found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PDF Download -->
+  <div class="text-center mt-3">
+    <button class="btn btn-outline-primary" (click)="downloadPDF()">Download as PDF</button>
+  </div>
+</div>

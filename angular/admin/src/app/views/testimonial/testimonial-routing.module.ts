@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddEditTestimonialComponent } from './add-edit-testimonial/add-edit-testimonial.component';
 import { ListTestimonialComponent } from './list-testimonial/list-testimonial.component';
+import { AssignmentComponent } from './assignment/assignment.component';
 const routes: Routes = [
 
   {
@@ -25,8 +26,16 @@ const routes: Routes = [
     data: {
       title: 'List',
     },
+    
     // canActivate: [AuthGuard]
   },
+  {
+    path: 'assignment',
+    component: AssignmentComponent,
+    data: {
+      title: 'Assignment',
+    },
+  }
 ];
 
 @NgModule({
