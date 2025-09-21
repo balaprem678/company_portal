@@ -660,6 +660,7 @@ module.exports = function (app, io) {
 
   //employee management
     app.post('/admin/employee/save', ensureAuthorized, middlewares.commonUploadPDF(CONFIG.DIRECTORY_OTHERS).any(),middlewares.processDocuments, employee.saveEmployee);
+    app.post('/admin/employee/view', ensureAuthorized, middlewares.commonUploadPDF(CONFIG.DIRECTORY_OTHERS).any(),middlewares.processDocuments, employee.viewemployee);
     app.post('/admin/employee/list', ensureAuthorized, employee.listEmployees);
 
     } catch (e) {

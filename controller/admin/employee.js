@@ -10,13 +10,96 @@ module.exports = function () {
    * @route POST /employee/add
    * @desc Add a new employee
    */
+// controller.saveEmployee = async function (req, res) {
+//   try {
+//     const body = req.body;
+
+// console.log(body,"bodyssssssssssbody");
+// console.log(req.files,"filesssssssss");
+
+
+//     return
+
+//     let employeeData = {
+//       fullName: body.fullName,
+//       nationality: body.nationality || null,
+//       bloodGroup: body.bloodGroup || null,
+//       dob: body.dob ? new Date(body.dob) : null,
+//       permanentAddress: body.permanentAddress || null,
+//       designation: body.designation || null,
+//       employeeId: body.employeeId,
+//       employmentType: body.employmentType || "Full-Time",
+//       dateOfJoining: body.dateOfJoining ? new Date(body.dateOfJoining) : new Date(),
+//       underContract: body.underContract || null,
+//       salary: body.salary || 0,
+//       bankDetails: body.bankDetails || {},
+//       nominee: body.nominee || {},
+//       visaExpiry: body.visaExpiry ? new Date(body.visaExpiry) : null,
+//       licenseNo: body.licenseNo || null,
+//       role: body.role || "Staff", // Default role Staff
+//       documents: body.documents || [],
+//       status: body.status || 1
+//     };
+
+//     let result;
+
+//     if (body._id) {
+//       // ---- Update Employee ----
+//       result = await db.UpdateDocument(
+//         "employee",
+//         { _id: mongoose.Types.ObjectId(body._id) },
+//         employeeData
+//       );
+//       return res.send({
+//         status: true,
+//         message: "Employee updated successfully",
+//         data: result,
+//       });
+//     } else {
+//       // ---- Add New Employee ----
+//       result = await db.InsertDocument("employee", employeeData);
+//       return res.send({
+//         status: true,
+//         message: "Employee added successfully",
+//         data: result,
+//       });
+//     }
+//   } catch (error) {
+//     console.log(error, "ERROR saveEmployee");
+//     return res.send({
+//       status: false,
+//       message: "Something went wrong while saving employee.",
+//     });
+//   }
+// };
+
 controller.saveEmployee = async function (req, res) {
   try {
     const body = req.body;
 
-console.log(body,"bodybody");
+    console.log(body, "bodyssssssssssbody");
+    console.log(req.files, "filesssssssss");
 
-    return
+    // Normalize documents
+    let documents = [];
+    if (body.documents) {
+      let docsFromBody = typeof body.documents === "string"
+        ? JSON.parse(body.documents)
+        : body.documents;
+
+      documents = docsFromBody.map((doc, index) => {
+        let matchedFile = req.files.find(
+          (f) => f.fieldname === `documents[${index}][file]`
+        );
+
+        return {
+          documentType: doc.type, // map type → documentType
+          fileUrl: matchedFile
+            ? matchedFile.destination + matchedFile.filename
+            : null,
+        };
+      });
+    }
 
     let employeeData = {
       fullName: body.fullName,
@@ -30,18 +113,18 @@ console.log(body,"bodybody");
       dateOfJoining: body.dateOfJoining ? new Date(body.dateOfJoining) : new Date(),
       underContract: body.underContract || null,
       salary: body.salary || 0,
-      bankDetails: body.bankDetails || {},
-      nominee: body.nominee || {},
+      bankDetails: body.bankDetails ? JSON.parse(body.bankDetails) : {},
+      nominee: body.nominee ? JSON.parse(body.nominee) : {},
       visaExpiry: body.visaExpiry ? new Date(body.visaExpiry) : null,
       licenseNo: body.licenseNo || null,
-      role: body.role || "Staff", // Default role Staff
-      documents: body.documents || [],
-      status: body.status || 1
+      role: body.role || "Staff",
+      status: Number(body.status) || 1,
+      documents: documents
     };
+console.log(employeeData,"employeeDataemployeeDataemployeeData");
 
     let result;
-
-    if (body._id) {
+    if (body._id && body._id !== "null") {
       // ---- Update Employee ----
       result = await db.UpdateDocument(
         "employee",
@@ -69,7 +152,31 @@ console.log(body,"bodybody");
       message: "Something went wrong while saving employee.",
     });
   }
-};
+}; 
+
+
+
+
+controller.viewemployee = async function (req, res) {
+    try {
+      const { id } = req.body;
+
+      const result = await db.GetOneDocument("employee", { _id: new mongoose.Types.ObjectId(id) }, {}, {});
+
+      if (!result) {
+        return res.send({ status: false, message: "employee not found" });
+      }
+
+      return res.send({ status: true, data: result });
+    } catch (error) {
+      console.log(error, "ERROR viewemployee");
+      return res.send({
+        status: false,
+        message: "Something went wrong while fetching employee details.",
+      });
+    }
+  };
+
 
 
   /**
