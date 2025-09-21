@@ -26,7 +26,7 @@ export class AddNewEmployeesComponent implements OnInit {
   employmentType: string = 'Full-Time';
   dateOfJoining: string = '';
   underContract: string = '';
-  salary: number;
+  salary: number = 0;
 
   bankName: string = '';
   accountNo: string = '';
@@ -43,6 +43,26 @@ export class AddNewEmployeesComponent implements OnInit {
 
   // options from backend
   contractOptions: any[] = [];
+  bloodGroups: string[] = [
+    'A+',
+    'A-',
+    'B+',
+    'B-',
+    'O+',
+    'O-',
+    'AB+',
+    'AB-',
+    'Others'
+  ];
+relations: string[] = [
+  'Father',
+  'Mother',
+  'Brother',
+  'Sister',
+  'Husband',
+  'Wife',
+  'Others'
+];
 
   constructor(
     private route: ActivatedRoute,
@@ -65,40 +85,61 @@ export class AddNewEmployeesComponent implements OnInit {
   }
 
   loadContracts() {
-    this.apiService.CommonApi(Apiconfig.listContracts.method, Apiconfig.listContracts.url, { status: 1 })
-      .subscribe((res: any) => {
-        this.contractOptions = res.data || [];
-      });
+    this.apiService.CommonApi(
+      Apiconfig.listContracts.method,
+      Apiconfig.listContracts.url,
+      { status: 1 }
+    ).subscribe((res: any) => {
+      this.contractOptions = res.data || [];
+    });
+  }
+allowOnlyNumbers(event: KeyboardEvent) {
+  const charCode = event.which ? event.which : event.keyCode;
+
+  // allow: backspace (8), tab (9), delete (46), arrow keys (37-40)
+  if (
+    charCode === 8 || charCode === 9 || charCode === 46 ||
+    (charCode >= 37 && charCode <= 40)
+  ) {
+    return;
   }
 
+  // allow only 0-9
+  if (charCode < 48 || charCode > 57) {
+    event.preventDefault();
+  }
+}
   getEmployee() {
-    this.apiService.CommonApi(Apiconfig.viewEmployee.method, Apiconfig.viewEmployee.url, { id: this.id })
-      .subscribe((res: any) => {
-        if (res.status) {
-          const emp = res.data;
-          this.fullName = emp.fullName;
-          this.nationality = emp.nationality;
-          this.bloodGroup = emp.bloodGroup;
-          this.dob = emp.dob ? emp.dob.split('T')[0] : '';
-          this.permanentAddress = emp.permanentAddress;
-          this.designation = emp.designation;
-          this.employeeId = emp.employeeId;
-          this.employmentType = emp.employmentType;
-          this.dateOfJoining = emp.dateOfJoining ? emp.dateOfJoining.split('T')[0] : '';
-          this.underContract = emp.underContract;
-          this.salary = emp.salary;
-          this.bankName = emp.bankDetails?.bankName;
-          this.accountNo = emp.bankDetails?.accountNo;
-          this.ifsc = emp.bankDetails?.ifsc;
-          this.nomineeName = emp.nominee?.name;
-          this.nomineeRelation = emp.nominee?.relation;
-          this.nomineeContact = emp.nominee?.contact;
-          this.visaExpiry = emp.visaExpiry ? emp.visaExpiry.split('T')[0] : '';
-          this.licenseNo = emp.licenseNo;
-          this.role = emp.role;
-          this.status = emp.status;
-        }
-      });
+    this.apiService.CommonApi(
+      Apiconfig.viewEmployee.method,
+      Apiconfig.viewEmployee.url,
+      { id: this.id }
+    ).subscribe((res: any) => {
+      if (res.status) {
+        const emp = res.data;
+        this.fullName = emp.fullName || '';
+        this.nationality = emp.nationality || '';
+        this.bloodGroup = emp.bloodGroup || '';
+        this.dob = emp.dob ? emp.dob.split('T')[0] : '';
+        this.permanentAddress = emp.permanentAddress || '';
+        this.designation = emp.designation || '';
+        this.employeeId = emp.employeeId || '';
+        this.employmentType = emp.employmentType || 'Full-Time';
+        this.dateOfJoining = emp.dateOfJoining ? emp.dateOfJoining.split('T')[0] : '';
+        this.underContract = emp.underContract || '';
+        this.salary = emp.salary || 0;
+        this.bankName = emp.bankDetails?.bankName || '';
+        this.accountNo = emp.bankDetails?.accountNo || '';
+        this.ifsc = emp.bankDetails?.ifsc || '';
+        this.nomineeName = emp.nominee?.name || '';
+        this.nomineeRelation = emp.nominee?.relation || '';
+        this.nomineeContact = emp.nominee?.contact || '';
+        this.visaExpiry = emp.visaExpiry ? emp.visaExpiry.split('T')[0] : '';
+        this.licenseNo = emp.licenseNo || '';
+        this.role = emp.role || 'Staff';
+        this.status = emp.status ?? 1;
+      }
+    });
   }
 
   submitForm(form: any) {
@@ -135,16 +176,23 @@ export class AddNewEmployeesComponent implements OnInit {
       role: this.role,
       status: this.status
     };
-
-    this.apiService.CommonApi(Apiconfig.saveEmployee.method, Apiconfig.saveEmployee.url, payload)
-      .subscribe((res: any) => {
-        if (res.status) {
-          this.notifyService.showSuccess(this.id ? 'Employee updated successfully' : 'Employee added successfully');
-          this.router.navigate(['/app/employees/list']);
-        } else {
-          this.notifyService.showError('Failed to save employee');
-        }
-      });
+    console.log(payload,"payloadpayload");
+    
+// return
+    this.apiService.CommonApi(
+      Apiconfig.saveEmployee.method,
+      Apiconfig.saveEmployee.url,
+      payload
+    ).subscribe((res: any) => {
+      if (res.status) {
+        this.notifyService.showSuccess(
+          this.id ? 'Employee updated successfully' : 'Employee added successfully'
+        );
+        this.router.navigate(['/app/employees/active-list']);
+      } else {
+        this.notifyService.showError('Failed to save employee');
+      }
+    });
   }
 
   cancel() {
