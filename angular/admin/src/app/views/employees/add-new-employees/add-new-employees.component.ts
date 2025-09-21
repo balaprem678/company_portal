@@ -13,56 +13,41 @@ export class AddNewEmployeesComponent implements OnInit {
   mode: 'add' | 'edit' | 'view' = 'add';
   id: string | null = null;
   readonly: boolean = false;
+uploadedDocument: boolean = false;
+employeeDocuments: any[] = [];
 
-  // employee fields
+  // Employee fields
   fullName: string = '';
   nationality: string = '';
   bloodGroup: string = '';
   dob: string = '';
   permanentAddress: string = '';
-
   designation: string = '';
   employeeId: string = '';
   employmentType: string = 'Full-Time';
   dateOfJoining: string = '';
   underContract: string = '';
   salary: number = 0;
-
   bankName: string = '';
   accountNo: string = '';
   ifsc: string = '';
-
   nomineeName: string = '';
   nomineeRelation: string = '';
   nomineeContact: string = '';
-
   visaExpiry: string = '';
   licenseNo: string = '';
   role: string = 'Staff';
   status: number = 1;
 
-  // options from backend
+  // Employee document fields
+  documentType: string = '';
+  documentFile: File | null = null;
+
+  // Dropdown options
   contractOptions: any[] = [];
-  bloodGroups: string[] = [
-    'A+',
-    'A-',
-    'B+',
-    'B-',
-    'O+',
-    'O-',
-    'AB+',
-    'AB-',
-    'Others'
-  ];
-relations: string[] = [
-  'Father',
-  'Mother',
-  'Brother',
-  'Sister',
-  'Husband',
-  'Wife',
-  'Others'
-];
+  bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-', 'Others'];
+  relations: string[] = ['Father', 'Mother', 'Brother', 'Sister', 'Husband', 'Wife', 'Others'];
+  documentTypes: string[] = ['Aadhar Card', 'PAN Card', 'Ration Card', 'License'];
 
   constructor(
     private route: ActivatedRoute,
@@ -84,6 +69,7 @@ relations: string[] = [
     this.loadContracts();
   }
 
+  // Load contract options from API
   loadContracts() {
     this.apiService.CommonApi(
       Apiconfig.listContracts.method,
@@ -93,22 +79,34 @@ relations: string[] = [
       this.contractOptions = res.data || [];
     });
   }
-allowOnlyNumbers(event: KeyboardEvent) {
-  const charCode = event.which ? event.which : event.keyCode;
 
-  // allow: backspace (8), tab (9), delete (46), arrow keys (37-40)
-  if (
-    charCode === 8 || charCode === 9 || charCode === 46 ||
-    (charCode >= 37 && charCode <= 40)
-  ) {
-    return;
+  // Allow only numbers
+  allowOnlyNumbers(event: KeyboardEvent) {
+    const charCode = event.which ? event.which : event.keyCode;
+
+    // allow: backspace, tab, delete, arrow keys
+    if (charCode === 8 || charCode === 9 || charCode === 46 || (charCode >= 37 && charCode <= 40)) {
+      return;
+    }
+
+    // block non-numeric keys
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
   }
 
-  // allow only 0-9
-  if (charCode < 48 || charCode > 57) {
-    event.preventDefault();
-  }
-}
+  // File selection handler
+//  onFileSelected(event: any) {
+//   const file = event.target.files[0];
+//   if (file) {
+//     this.documentFile = file;
+//     this.uploadedDocument = true;
+//   } else {
+//     this.uploadedDocument = false;
+//   }
+// }
+
+  // Get employee by ID
   getEmployee() {
     this.apiService.CommonApi(
       Apiconfig.viewEmployee.method,
@@ -138,63 +136,169 @@ allowOnlyNumbers(event: KeyboardEvent) {
         this.licenseNo = emp.licenseNo || '';
         this.role = emp.role || 'Staff';
         this.status = emp.status ?? 1;
+        this.documentType = emp.documentType || '';
+        // documentFile cannot be preloaded (only preview URL from backend if available)
       }
     });
   }
+addDocument() {
+  this.employeeDocuments.push({ type: '', file: null });
+}
+
+onFileSelected(event: any, index: number) {
+  const file = event.target.files[0];
+  if (file) {
+    this.employeeDocuments[index].file = file;
+  }
+}
+  // Save employee
+  // submitForm(form: any) {
+  //   if (form.invalid) {
+  //     this.notifyService.showError('Please fill all required fields');
+  //     return;
+  //   }
+
+  //   const payload: any = {
+  //     _id: this.id,
+  //     fullName: this.fullName,
+  //     nationality: this.nationality,
+  //     bloodGroup: this.bloodGroup,
+  //     dob: this.dob,
+  //     permanentAddress: this.permanentAddress,
+  //     designation: this.designation,
+  //     employeeId: this.employeeId,
+  //     employmentType: this.employmentType,
+  //     dateOfJoining: this.dateOfJoining,
+  //     underContract: this.underContract,
+  //     salary: this.salary,
+  //     bankDetails: {
+  //       bankName: this.bankName,
+  //       accountNo: this.accountNo,
+  //       ifsc: this.ifsc
+  //     },
+  //     nominee: {
+  //       name: this.nomineeName,
+  //       relation: this.nomineeRelation,
+  //       contact: this.nomineeContact
+  //     },
+  //     visaExpiry: this.visaExpiry,
+  //     licenseNo: this.licenseNo,
+  //     role: this.role,
+  //     status: this.status,
+  //     documentType: this.documentType
+  //   };
+
+  //   const formData = new FormData();
+  //   Object.keys(payload).forEach(key => {
+  //     if (typeof payload[key] === 'object') {
+  //       formData.append(key, JSON.stringify(payload[key]));
+  //     } else {
+  //       formData.append(key, payload[key]);
+  //     }
+  //   });
+
+  //   if (this.documentFile) {
+  //     formData.append('documentFile', this.documentFile);
+  //   }
+
+  //   this.apiService.CommonApi(
+  //     Apiconfig.saveEmployee.method,
+  //     Apiconfig.saveEmployee.url,
+  //     formData
+  //   ).subscribe((res: any) => {
+  //     if (res.status) {
+  //       this.notifyService.showSuccess(
+  //         this.id ? 'Employee updated successfully' : 'Employee added successfully'
+  //       );
+  //       this.router.navigate(['/app/employees/active-list']);
+  //     } else {
+  //       this.notifyService.showError('Failed to save employee');
+  //     }
+  //   });
+  // }
+
+
 
   submitForm(form: any) {
-    if (form.invalid) {
-      this.notifyService.showError('Please fill all required fields');
-      return;
-    }
+  if (form.invalid) {
+    this.notifyService.showError('Please fill all required fields');
+    return;
+  }
 
-    const payload = {
-      _id: this.id,
-      fullName: this.fullName,
-      nationality: this.nationality,
-      bloodGroup: this.bloodGroup,
-      dob: this.dob,
-      permanentAddress: this.permanentAddress,
-      designation: this.designation,
-      employeeId: this.employeeId,
-      employmentType: this.employmentType,
-      dateOfJoining: this.dateOfJoining,
-      underContract: this.underContract,
-      salary: this.salary,
-      bankDetails: {
-        bankName: this.bankName,
-        accountNo: this.accountNo,
-        ifsc: this.ifsc
-      },
-      nominee: {
-        name: this.nomineeName,
-        relation: this.nomineeRelation,
-        contact: this.nomineeContact
-      },
-      visaExpiry: this.visaExpiry,
-      licenseNo: this.licenseNo,
-      role: this.role,
-      status: this.status
-    };
-    console.log(payload,"payloadpayload");
-    
-// return
-    this.apiService.CommonApi(
-      Apiconfig.saveEmployee.method,
-      Apiconfig.saveEmployee.url,
-      payload
-    ).subscribe((res: any) => {
-      if (res.status) {
-        this.notifyService.showSuccess(
-          this.id ? 'Employee updated successfully' : 'Employee added successfully'
-        );
-        this.router.navigate(['/app/employees/active-list']);
-      } else {
-        this.notifyService.showError('Failed to save employee');
+  // Prepare employee payload (without documents)
+  const payload: any = {
+    _id: this.id,
+    fullName: this.fullName,
+    nationality: this.nationality,
+    bloodGroup: this.bloodGroup,
+    dob: this.dob,
+    permanentAddress: this.permanentAddress,
+    designation: this.designation,
+    employeeId: this.employeeId,
+    employmentType: this.employmentType,
+    dateOfJoining: this.dateOfJoining,
+    underContract: this.underContract,
+    salary: this.salary,
+    bankDetails: {
+      bankName: this.bankName,
+      accountNo: this.accountNo,
+      ifsc: this.ifsc
+    },
+    nominee: {
+      name: this.nomineeName,
+      relation: this.nomineeRelation,
+      contact: this.nomineeContact
+    },
+    visaExpiry: this.visaExpiry,
+    licenseNo: this.licenseNo,
+    role: this.role,
+    status: this.status
+  };
+
+  // Use FormData for uploading files
+  const formData = new FormData();
+
+  // Append payload values
+  Object.keys(payload).forEach(key => {
+    if (typeof payload[key] === 'object') {
+      formData.append(key, JSON.stringify(payload[key]));
+    } else {
+      formData.append(key, payload[key]);
+    }
+  });
+
+  // Append multiple documents
+  if (this.employeeDocuments && this.employeeDocuments.length > 0) {
+    this.employeeDocuments.forEach((doc: any, index: number) => {
+      formData.append(`documents[${index}][type]`, doc.type);
+      if (doc.file) {
+        formData.append(`documents[${index}][file]`, doc.file, doc.file.name);
       }
     });
   }
 
+  // API call
+
+  console.log(formData,"formDataformData");
+  
+  this.apiService.CommonApi(
+    Apiconfig.saveEmployee.method,
+    Apiconfig.saveEmployee.url,
+    formData
+  ).subscribe((res: any) => {
+    if (res.status) {
+      this.notifyService.showSuccess(
+        this.id ? 'Employee updated successfully' : 'Employee added successfully'
+      );
+      this.router.navigate(['/app/employees/active-list']);
+    } else {
+      this.notifyService.showError('Failed to save employee');
+    }
+  });
+}
+
+
+  // Cancel button
   cancel() {
     this.router.navigate(['/app/employees/list']);
   }

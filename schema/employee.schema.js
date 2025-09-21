@@ -14,7 +14,8 @@ EMPLOYEE_SCHEMA.EMPLOYEE = {
     employeeId: { type: String, unique: true },
     employmentType: { type: String, enum: ["Full-Time", "Part-Time", "Contract"] },
     dateOfJoining: Date,
-    underContract: { type: Schema.Types.ObjectId, ref: "Contract" },
+    // underContract: { type: Schema.Types.ObjectId, ref: "Contract" },
+    underContract : String,
     salary: Number,
 
     bankDetails: {

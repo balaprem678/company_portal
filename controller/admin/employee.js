@@ -14,6 +14,10 @@ controller.saveEmployee = async function (req, res) {
   try {
     const body = req.body;
 
+console.log(body,"bodybody");
+
+    return
+
     let employeeData = {
       fullName: body.fullName,
       nationality: body.nationality || null,

@@ -115,19 +115,17 @@
           </div>
 
           <!-- Under Contract -->
-         <div class="form-group">
-  <label>Under Contract</label>
-  <select class="form-control" [(ngModel)]="underContract" name="underContract" [disabled]="readonly" required>
-    <option value="" disabled selected>Select</option>
-    <option value="Yes">Yes</option>
-    <option value="No">No</option>
-  </select>
-  
-  <div *ngIf="employeeForm.submitted && !underContract" class="text-danger">
-    Under Contract is required.
-  </div>
-</div>
-
+          <div class="form-group">
+            <label>Under Contract</label>
+            <select class="form-control" [(ngModel)]="underContract" name="underContract" [disabled]="readonly" required>
+              <option value="" disabled>Select</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <div *ngIf="employeeForm.submitted && !underContract" class="text-danger">
+              Under Contract is required.
+            </div>
+          </div>
         </div>
 
         <!-- Right side -->
@@ -137,18 +135,11 @@
             <label>Salary</label>
             <input type="text" class="form-control" [(ngModel)]="salary" name="salary" #salaryCtrl="ngModel"
               [readonly]="readonly" required maxlength="10" (keypress)="allowOnlyNumbers($event)">
-
-            <!-- Error messages -->
             <div *ngIf="employeeForm.submitted && salaryCtrl.errors" class="text-danger">
-              <div *ngIf="salaryCtrl.errors['required']">
-                Salary is required.
-              </div>
-              <div *ngIf="salaryCtrl.errors['maxlength']">
-                Maximum 10 digits allowed.
-              </div>
+              <div *ngIf="salaryCtrl.errors['required']">Salary is required.</div>
+              <div *ngIf="salaryCtrl.errors['maxlength']">Maximum 10 digits allowed.</div>
             </div>
           </div>
-
 
           <h5>Bank Details</h5>
           <!-- Bank Name -->
@@ -200,26 +191,17 @@
           </div>
 
           <!-- Nominee Relation -->
-   <div class="form-group">
-  <label>Relation</label>
-  <select class="form-control" 
-          [(ngModel)]="nomineeRelation" 
-          name="nomineeRelation" 
-          #nomineeRelationCtrl="ngModel"
-          [disabled]="readonly" 
-          required>
-    <option value="" disabled selected>Select Relation</option>
-    <option *ngFor="let relation of relations" [value]="relation">{{ relation }}</option>
-  </select>
-
-  <div *ngIf="employeeForm.submitted && nomineeRelationCtrl.errors" class="text-danger">
-    <div *ngIf="nomineeRelationCtrl.errors['required']">
-      Relation is required.
-    </div>
-  </div>
-</div>
-
-
+          <div class="form-group">
+            <label>Relation</label>
+            <select class="form-control" [(ngModel)]="nomineeRelation" name="nomineeRelation"
+              #nomineeRelationCtrl="ngModel" [disabled]="readonly" required>
+              <option value="" disabled>Select Relation</option>
+              <option *ngFor="let relation of relations" [value]="relation">{{ relation }}</option>
+            </select>
+            <div *ngIf="employeeForm.submitted && nomineeRelationCtrl.errors" class="text-danger">
+              <div *ngIf="nomineeRelationCtrl.errors['required']">Relation is required.</div>
+            </div>
+          </div>
 
           <!-- Nominee Contact -->
           <div class="form-group">
@@ -265,6 +247,27 @@
           </div>
         </div>
       </div>
+
+      <!-- Employee Documents -->
+<div *ngFor="let doc of employeeDocuments; let i = index" class="row mb-3">
+  <div class="col-md-6">
+    <select class="form-control" [(ngModel)]="doc.type" name="documentType{{i}}" required>
+      <option value="" disabled>Select Document</option>
+      <option value="Passport">Passport</option>
+      <option value="Visa">Visa</option>
+      <option value="Certificate">Certificate</option>
+      <option value="License">License</option>
+      <option value="Resume">Resume/CV</option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <input type="file" class="form-control" (change)="onFileSelected($event, i)" required>
+  </div>
+</div>
+
+<button type="button" class="btn btn-secondary" (click)="addDocument()">+ Add Document</button>
+
+
 
       <!-- Buttons -->
       <div class="mt-4 text-center" *ngIf="!readonly">
