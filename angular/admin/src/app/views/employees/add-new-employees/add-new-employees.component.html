@@ -249,23 +249,81 @@
       </div>
 
       <!-- Employee Documents -->
-<div *ngFor="let doc of employeeDocuments; let i = index" class="row mb-3">
-  <div class="col-md-6">
-    <select class="form-control" [(ngModel)]="doc.type" name="documentType{{i}}" required>
-      <option value="" disabled>Select Document</option>
-      <option value="Passport">Passport</option>
-      <option value="Visa">Visa</option>
-      <option value="Certificate">Certificate</option>
-      <option value="License">License</option>
-      <option value="Resume">Resume/CV</option>
-    </select>
-  </div>
-  <div class="col-md-6">
-    <input type="file" class="form-control" (change)="onFileSelected($event, i)" required>
+<!-- Employee Documents Section -->
+<div class="row">
+  <div class="col-12">
+    <h5>Employee Documents</h5>
+    
+    <div *ngFor="let doc of employeeDocuments; let i = index" class="row mb-3 align-items-center">
+      <!-- Document Type Selection -->
+      <div class="col-md-4">
+        <label>Document Type</label>
+        <select class="form-control" [(ngModel)]="doc.type" name="documentType{{i}}" 
+                [disabled]="readonly" required>
+          <option value="" disabled>Select Document</option>
+          <option value="Passport">Passport</option>
+          <option value="Visa">Visa</option>
+          <option value="Certificate">Certificate</option>
+          <option value="License">License</option>
+          <option value="Resume">Resume/CV</option>
+        </select>
+      </div>
+      
+      <!-- File Input/Display -->
+      <div class="col-md-4">
+        <label>Document File</label>
+        <div *ngIf="!readonly">
+          <input type="file" class="form-control" (change)="onFileSelected($event, i)" 
+                 [required]="!doc.fileUrl && !doc.file">
+          <small class="text-muted" *ngIf="doc.fileUrl">
+            Current file: {{getFileName(doc.fileUrl)}}
+          </small>
+        </div>
+        <div *ngIf="readonly && doc.fileUrl" class="form-control-plaintext">
+          <a [href]="doc.fileUrl" target="_blank" class="btn btn-sm btn-outline-primary">
+            <i class="fa fa-download"></i> {{getFileName(doc.fileUrl)}}
+          </a>
+        </div>
+      </div>
+      
+     <!-- Preview/Download Actions -->
+<div class="col-md-3">
+  <div *ngIf="doc.fileUrl" class="mt-4">
+    <button type="button" class="btn btn-sm btn-info mr-2" (click)="previewDocument(doc.fileUrl)">
+      <i class="fa fa-eye"></i> Preview
+    </button>
+    <a [href]="getFullFileUrl(doc.fileUrl)" download class="btn btn-sm btn-success">
+      <i class="fa fa-download"></i> Download
+    </a>
   </div>
 </div>
 
-<button type="button" class="btn btn-secondary" (click)="addDocument()">+ Add Document</button>
+<!-- For readonly mode display -->
+<div *ngIf="readonly && doc.fileUrl" class="form-control-plaintext">
+  <a [href]="getFullFileUrl(doc.fileUrl)" target="_blank" class="btn btn-sm btn-outline-primary">
+    <i class="fa fa-download"></i> {{getFileName(doc.fileUrl)}}
+  </a>
+</div>
+      
+      <!-- Remove Document Button -->
+      <div class="col-md-1" *ngIf="!readonly">
+        <button type="button" class="btn btn-sm btn-danger mt-4" 
+                (click)="removeDocument(i)" *ngIf="employeeDocuments.length > 1">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Add Document Button -->
+    <div class="row" *ngIf="!readonly">
+      <div class="col-12">
+        <button type="button" class="btn btn-secondary" (click)="addDocument()">
+          <i class="fa fa-plus"></i> Add Document
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

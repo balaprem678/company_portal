@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/_services/api.service';
 import { Apiconfig } from 'src/app/_helpers/api-config';
 import { NotificationService } from 'src/app/_services/notification.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-new-employees',
@@ -15,7 +16,7 @@ export class AddNewEmployeesComponent implements OnInit {
   readonly: boolean = false;
 uploadedDocument: boolean = false;
 employeeDocuments: any[] = [];
-
+   apiUrl = environment.apiUrl
   // Employee fields
   fullName: string = '';
   nationality: string = '';
@@ -48,7 +49,7 @@ employeeDocuments: any[] = [];
   bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-', 'Others'];
   relations: string[] = ['Father', 'Mother', 'Brother', 'Sister', 'Husband', 'Wife', 'Others'];
   documentTypes: string[] = ['Aadhar Card', 'PAN Card', 'Ration Card', 'License'];
-
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -56,16 +57,18 @@ employeeDocuments: any[] = [];
     private notifyService: NotificationService
   ) {}
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.id = params['id'];
         this.mode = this.router.url.includes('view') ? 'view' : 'edit';
         this.readonly = this.mode === 'view';
         this.getEmployee();
+      } else {
+        // Initialize with one empty document for add mode
+        this.addDocument();
       }
     });
-
     this.loadContracts();
   }
 
@@ -140,21 +143,88 @@ employeeDocuments: any[] = [];
         this.status = emp.status ?? 1;
         // this.documentType = emp.documentType || '';
         this.employeeDocuments = emp.documents
-        
+           this.initializeDocuments(emp.documents);
         // documentFile cannot be preloaded (only preview URL from backend if available)
       }
     });
   }
-addDocument() {
-  this.employeeDocuments.push({ type: '', file: null });
+
+    // Initialize documents based on mode
+  initializeDocuments(existingDocuments?: any[]) {
+    if (existingDocuments && existingDocuments.length > 0) {
+      // Edit/View mode: populate with existing documents
+      this.employeeDocuments = existingDocuments.map(doc => ({
+        type: doc.documentType || '',
+        fileUrl: doc.fileUrl || '',
+        file: null,
+        _id: doc._id || null,
+        isExisting: true
+      }));
+    } else {
+      // Add mode: start with one empty document
+      this.employeeDocuments = [{ type: '', file: null, fileUrl: '', isExisting: false }];
+    }
+  }
+
+  addDocument() {
+    this.employeeDocuments.push({ 
+      type: '', 
+      file: null, 
+      fileUrl: '', 
+      isExisting: false 
+    });
+  }
+ // Remove document row
+  removeDocument(index: number) {
+    if (this.employeeDocuments.length > 1) {
+      this.employeeDocuments.splice(index, 1);
+    }
+  }
+
+  // Handle file selection
+  onFileSelected(event: any, index: number) {
+    const file = event.target.files[0];
+    if (file) {
+      this.employeeDocuments[index].file = file;
+      // If replacing an existing file, mark it as updated
+      if (this.employeeDocuments[index].isExisting) {
+        this.employeeDocuments[index].isUpdated = true;
+      }
+    }
+  }
+// Get filename from URL
+getFileName(fileUrl: string): string {
+  if (!fileUrl) return '';
+  // Handle both relative and absolute URLs
+  const fileName = fileUrl.split('/').pop() || 'Unknown file';
+  return fileName;
 }
 
-onFileSelected(event: any, index: number) {
-  const file = event.target.files[0];
-  if (file) {
-    this.employeeDocuments[index].file = file;
+// Preview document in new tab
+previewDocument(fileUrl: string) {
+  if (fileUrl) {
+    const fullUrl = this.getFullFileUrl(fileUrl);
+    console.log('Opening file at:', fullUrl);
+    window.open(fullUrl, '_blank');
   }
 }
+
+// Get full file URL with proper slash handling
+getFullFileUrl(fileUrl: string): string {
+  if (!fileUrl) return '';
+  
+  // Remove leading './' if present
+  let cleanPath = fileUrl.replace(/^\.\//, '');
+  
+  // Remove leading '/' if present to avoid double slashes
+  cleanPath = cleanPath.replace(/^\//, '');
+  
+  // Ensure apiUrl doesn't end with '/' and add single '/'
+  const baseUrl = this.apiUrl.replace(/\/$/, '');
+  
+  return `${baseUrl}/${cleanPath}`;
+}
+
   // Save employee
   // submitForm(form: any) {
   //   if (form.invalid) {
@@ -223,83 +293,97 @@ onFileSelected(event: any, index: number) {
 
 
 
-  submitForm(form: any) {
-  if (form.invalid) {
-    this.notifyService.showError('Please fill all required fields');
-    return;
-  }
-
-  // Prepare employee payload (without documents)
-  const payload: any = {
-    _id: this.id,
-    fullName: this.fullName,
-    nationality: this.nationality,
-    bloodGroup: this.bloodGroup,
-    dob: this.dob,
-    permanentAddress: this.permanentAddress,
-    designation: this.designation,
-    employeeId: this.employeeId,
-    employmentType: this.employmentType,
-    dateOfJoining: this.dateOfJoining,
-    underContract: this.underContract,
-    salary: this.salary,
-    bankDetails: {
-      bankName: this.bankName,
-      accountNo: this.accountNo,
-      ifsc: this.ifsc
-    },
-    nominee: {
-      name: this.nomineeName,
-      relation: this.nomineeRelation,
-      contact: this.nomineeContact
-    },
-    visaExpiry: this.visaExpiry,
-    licenseNo: this.licenseNo,
-    role: this.role,
-    status: this.status
-  };
-
-  // Use FormData for uploading files
-  const formData = new FormData();
-
-  // Append payload values
-  Object.keys(payload).forEach(key => {
-    if (typeof payload[key] === 'object') {
-      formData.append(key, JSON.stringify(payload[key]));
-    } else {
-      formData.append(key, payload[key]);
+   submitForm(form: any) {
+    if (form.invalid) {
+      this.notifyService.showError('Please fill all required fields');
+      return;
     }
-  });
 
-  // Append multiple documents
-  if (this.employeeDocuments && this.employeeDocuments.length > 0) {
+    // Validate that each document has both type and file
+    const invalidDocuments = this.employeeDocuments.filter(doc => 
+      !doc.type || (!doc.file && !doc.fileUrl)
+    );
+
+    if (invalidDocuments.length > 0) {
+      this.notifyService.showError('Please select document type and file for all documents');
+      return;
+    }
+
+    // Prepare employee payload
+    const payload: any = {
+      _id: this.id,
+      fullName: this.fullName,
+      nationality: this.nationality,
+      bloodGroup: this.bloodGroup,
+      dob: this.dob,
+      permanentAddress: this.permanentAddress,
+      designation: this.designation,
+      employeeId: this.employeeId,
+      employmentType: this.employmentType,
+      dateOfJoining: this.dateOfJoining,
+      underContract: this.underContract,
+      salary: this.salary,
+      bankDetails: {
+        bankName: this.bankName,
+        accountNo: this.accountNo,
+        ifsc: this.ifsc
+      },
+      nominee: {
+        name: this.nomineeName,
+        relation: this.nomineeRelation,
+        contact: this.nomineeContact
+      },
+      visaExpiry: this.visaExpiry,
+      licenseNo: this.licenseNo,
+      role: this.role,
+      status: this.status
+    };
+
+    // Use FormData for uploading files
+    const formData = new FormData();
+
+    // Append payload values
+    Object.keys(payload).forEach(key => {
+      if (typeof payload[key] === 'object') {
+        formData.append(key, JSON.stringify(payload[key]));
+      } else {
+        formData.append(key, payload[key]);
+      }
+    });
+
+    // Append documents - only new files and document types
     this.employeeDocuments.forEach((doc: any, index: number) => {
       formData.append(`documents[${index}][type]`, doc.type);
+      
       if (doc.file) {
+        // New file selected
         formData.append(`documents[${index}][file]`, doc.file, doc.file.name);
+      } else if (doc.fileUrl && doc.isExisting) {
+        // Existing file - send the URL to maintain reference
+        formData.append(`documents[${index}][existingFileUrl]`, doc.fileUrl);
+        if (doc._id) {
+          formData.append(`documents[${index}][documentId]`, doc._id);
+        }
+      }
+    });
+
+    console.log('Submitting form data...');
+    
+    this.apiService.CommonApi(
+      Apiconfig.saveEmployee.method,
+      Apiconfig.saveEmployee.url,
+      formData
+    ).subscribe((res: any) => {
+      if (res.status) {
+        this.notifyService.showSuccess(
+          this.id ? 'Employee updated successfully' : 'Employee added successfully'
+        );
+        this.router.navigate(['/app/employees/active-list']);
+      } else {
+        this.notifyService.showError('Failed to save employee');
       }
     });
   }
-
-  // API call
-
-  console.log(formData,"formDataformData");
-  
-  this.apiService.CommonApi(
-    Apiconfig.saveEmployee.method,
-    Apiconfig.saveEmployee.url,
-    formData
-  ).subscribe((res: any) => {
-    if (res.status) {
-      this.notifyService.showSuccess(
-        this.id ? 'Employee updated successfully' : 'Employee added successfully'
-      );
-      this.router.navigate(['/app/employees/active-list']);
-    } else {
-      this.notifyService.showError('Failed to save employee');
-    }
-  });
-}
 
 
   // Cancel button
