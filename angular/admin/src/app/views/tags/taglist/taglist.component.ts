@@ -129,7 +129,7 @@ export class TaglistComponent  {
 
   getdata(data) {
     console.log(data,'filtering data,,,,')
-    this.apiService.CommonApi(Apiconfig.tagList.method, Apiconfig.tagList.url, data).subscribe(response => {
+    this.apiService.CommonApi(Apiconfig.vendorList.method, Apiconfig.vendorList.url, data).subscribe(response => {
       console.log("+++++++++++++++++++++++");
       
       console.log(response);

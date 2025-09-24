@@ -64,7 +64,7 @@ module.exports = function (app, io) {
        var fleet = require('../controller/admin/fleet.js')(app);
          var contract = require('../controller/admin/contract.js')(app);
          var employee = require('../controller/admin/employee.js')(app);
-
+        var vendor = require('../controller/admin/vendor.js')(app);
 
         app.get('/dashboard/allStats', ensureAuthorized, dashboard.allStats);
         app.get('/dashboard/userstats', ensureAuthorized, dashboard.userStats);
@@ -660,8 +660,13 @@ module.exports = function (app, io) {
 
   //employee management
     app.post('/admin/employee/save', ensureAuthorized, middlewares.commonUploadPDF(CONFIG.DIRECTORY_OTHERS).any(),middlewares.processDocuments, employee.saveEmployee);
-    app.post('/admin/employee/view', ensureAuthorized, middlewares.commonUploadPDF(CONFIG.DIRECTORY_OTHERS).any(),middlewares.processDocuments, employee.viewemployee);
+    app.post('/admin/employee/view', ensureAuthorized, employee.viewemployee);
     app.post('/admin/employee/list', ensureAuthorized, employee.listEmployees);
+
+    //vendor management
+    app.post('/admin/vendor/save', ensureAuthorized, middlewares.commonUploadPDF(CONFIG.DIRECTORY_OTHERS).any(),middlewares.processDocuments, vendor.saveVendor);
+    app.post('/admin/vendor/view', ensureAuthorized,middlewares.processDocuments, vendor.viewVendor);
+    app.post('/admin/vendor/list', ensureAuthorized, vendor.listVendors);
 
     } catch (e) {
         console.log('erroe in index.js---------->>>>', e);

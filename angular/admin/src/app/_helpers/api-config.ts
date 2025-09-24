@@ -90,6 +90,19 @@ export const Apiconfig = {
         "url": "admin/employee/save",
         "method": "post"
     },
+    vendorList: {
+        "url": "admin/vendor/list",
+        "method": "post"
+
+    },
+    saveVendor: {
+        "url": "admin/vendor/save",
+        "method": "post"
+    },
+    viewVendor: {
+        "url": "admin/vendor/view",
+        "method": "post"
+    },
     viewEmployee:{
         "url": "admin/employee/view",
         "method": "post"

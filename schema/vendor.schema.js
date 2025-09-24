@@ -10,9 +10,11 @@ VENDOR_SCHEMA.VENDOR = {
     endDate: Date,
     buses: [{ type: Schema.Types.ObjectId, ref: "Fleet" }],
     drivers: [{ type: Schema.Types.ObjectId, ref: "Employee" }],
+    noOfDrivers: Number,
+    noOfBuses: Number,
     contactOfficer: String,
     contractType: String,
-
+    
     invoicingDate: Date,
     lastPayment: Date,
     status: { type: Number, default: 1 },

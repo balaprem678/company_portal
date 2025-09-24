@@ -101,18 +101,19 @@ export const navItems: INavData[] = [
     url: '/app/tags',
     icon: 'assets/image/tag.png',
     children: [
+    {
+        name: 'New Vendors',
+        url: '/app/tags/add',
+        icon: '',
+        id: "add"
+      },  
       {
-        name: 'Vendors List',
+        name: 'Active Vendors',
         url: '/app/tags/list',
         icon: '',
         id: 'list'
       },
-      {
-        name: 'Add Vendors',
-        url: '/app/tags/add',
-        icon: '',
-        id: "add"
-      },
+      
     ]
   },
   {

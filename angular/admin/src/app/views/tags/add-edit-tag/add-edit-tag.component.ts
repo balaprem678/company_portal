@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UntypedFormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/_services/api.service';
 import { Apiconfig } from 'src/app/_helpers/api-config';
@@ -10,20 +10,32 @@ import { NotificationService } from 'src/app/_services/notification.service';
   templateUrl: './add-edit-tag.component.html',
   styleUrls: ['./add-edit-tag.component.scss'],
 })
-export class AddEditTagComponent {
+export class AddEditTagComponent  implements OnInit {
   submitebtn = false;
   viewpage = false;
   userDetails: any = {};
-
+ id: string | null = null;
   contractTypes = ['Yes', 'No'];
   documentTypes = ['PDF', 'DOC'];
 
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private notifyService: NotificationService
+    private notifyService: NotificationService,
+    private route: ActivatedRoute
   ) {}
 
+  ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
+    const path = this.route.snapshot.routeConfig?.path;
+    if (path?.includes('view')) {
+      this.viewpage = true;
+      this.getVendor();
+    } 
+    if (this.id && !this.viewpage) {
+      this.getVendor();
+    }
+  }
   onlyNumbers(event: KeyboardEvent) {
     const charCode = event.which ? event.which : event.keyCode;
     if (charCode < 48 || charCode > 57) {
@@ -40,7 +52,7 @@ export class AddEditTagComponent {
         this.userDetails = tagAddEditForm.value;
 
         const datas = {
-          carrierName: this.userDetails.carrierName,
+          vendorName: this.userDetails.carrierName,
           noOfDrivers: this.userDetails.noOfDrivers,
           contractId: this.userDetails.contractId,
           contractType: this.userDetails.contractType,
@@ -53,7 +65,7 @@ export class AddEditTagComponent {
         };
 
         this.apiService
-          .CommonApi(Apiconfig.tagSave.method, Apiconfig.tagSave.url, datas)
+          .CommonApi(Apiconfig.saveVendor.method, Apiconfig.saveVendor.url, datas)
           .subscribe((result) => {
             if (result.status !== 0) {
               this.router.navigate(['/app/carrier/list']);
@@ -100,5 +112,16 @@ export class AddEditTagComponent {
         this.notifyService.showError('Please enter all mandatory fields');
       }
     }
+  }
+
+  getVendor(){
+    this.apiService.CommonApi(Apiconfig.viewVendor.method, Apiconfig.viewVendor.url, {id: this.id})
+    .subscribe((res: any) => {
+      if (res && res.status) {
+        this.userDetails = res.data;
+      } else {
+        this.notifyService.showError(res.message || 'An error occurred');
+      }
+    }); 
   }
 }
