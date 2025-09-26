@@ -47,7 +47,7 @@ export class TaglistComponent  {
   view_btn: boolean = false;
   delete_btn: boolean = true;
   addBtnUrl: string = '/app/tags/add';
-  addBtnName: string = 'Add Tag';
+  addBtnName: string = 'Add New Vendor';
   editUrl: string = `/app/tags/edit/`;
   viewUrl: string = `/app/tags/view/`;
   global_status: number = 0;
@@ -127,23 +127,40 @@ export class TaglistComponent  {
     
   }
 
-  getdata(data) {
-    console.log(data,'filtering data,,,,')
-    this.apiService.CommonApi(Apiconfig.vendorList.method, Apiconfig.vendorList.url, data).subscribe(response => {
-      console.log("+++++++++++++++++++++++");
+  // getdata(data) {
+  //   console.log(data,'filtering data,,,,')
+  //   this.apiService.CommonApi(Apiconfig.vendorList.method, Apiconfig.vendorList.url, data).subscribe(response => {
+  //     console.log("+++++++++++++++++++++++");
       
-      console.log(response);
+  //     console.log(response);
       
-      if (response && response.length > 0) {
-        console.log(response,'tag list....');
-        this.categorylist = response[0];
-        this.count = response[1];
-        this.source.load(this.categorylist);
-        this.cd.detectChanges();
+  //     if (response && response.length > 0) {
+  //       console.log(response,'tag list....');
+  //       this.categorylist = response[0];
+  //       this.count = response[1];
+  //       this.source.load(this.categorylist);
+  //       this.cd.detectChanges();
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
+
+  getdata(data) {
+  console.log(data,'filtering data,,,,')
+  this.apiService.CommonApi(Apiconfig.vendorList.method, Apiconfig.vendorList.url, data).subscribe(response => {
+    console.log("+++++++++++++++++++++++");
+    console.log(response);
+    
+    if (response && response.status && response.data && response.data.length > 0) {
+      console.log(response.data,'vendor list....');
+      this.categorylist = response.data; // Changed from response[0] to response.data
+      this.count = response.count; // Changed from response[1] to response.count
+      this.source.load(this.categorylist);
+      this.cd.detectChanges();
+    }
+  })
+}
+
 
   onDeleteChange(event) {
     console.log(event);
@@ -343,254 +360,465 @@ export class TaglistComponent  {
     this.getdata(filterdata);
   }
 
-  loadsettings(event) {
-    if (event == 'delete') {
-      this.settings = {
-        selectMode: 'multi',
-        hideSubHeader: true,
-        columns: {
-          name: {
-            title: 'Name',
-            filter: true,
-            type: 'html',
-            valuePrepareFunction: (value, row) => {
-              return value;
-            }
-          },
-          iconimg: {
-            title: 'Image ',
-            filter: false,
-            type: "html",
-            valuePrepareFunction: image => {
-              if(image===''){
-                return 'assets/image/no_images.png'
-              }else{
-                return '<img src="' + environment.apiUrl + image + '" width="32" height="32">';
-              }
-            }
-          },
-          // rcategory: {
-          //   title: 'Category Name',
-          //   filter: true,
-          //   valuePrepareFunction: value => {
-          //     return value.rcatname.charAt(0).toUpperCase() + value.rcatname.substr(1).toLowerCase();
-          //   }
-          // },
-          status: {
-            title: 'Status',
-            filter: true,
-            type: 'custom',
-            renderComponent: PopupComponent,
-            sort: false,
-            editable: true,
-            onComponentInitFunction: (instance: any) => {
-              instance.save.subscribe(row => {
-                this.changeStatus(row._id, row.status);
-              });
-            }
-          },
-          // sale_price: {
-          //   title: 'Sale Price',
-          //   filter: false,
-          //   valuePrepareFunction: value => {
-          //     return value;
-          //   }
-          // },
-          createdAt: {
-            title: 'Created At',
-            filter: false,
-            valuePrepareFunction: value => {
-              var date = value ? new DatePipe('en-US').transform(value, 'MMMM dd,yyyy hh:mm a') : new DatePipe('en-US').transform(new Date(), 'dd/MM/yyyy');
-              return date;
-            }
-          },
-          // isRecommeneded: {
-          //   title: 'Recommended Product',
-          //   filter: false,
-          //   type: "custom",
-          //   renderComponent: FeaturedComponent,
-          //   sort: false,
-          //   editable: true,
-          //   onComponentInitFunction: (instance: any) => {
-          //     instance.save.subscribe(row => {
-          //       this.changefeatured(row._id, row.isRecommeneded);
-          //     });
-          //   }
-          // },
-          // EditPrice: {
-          //   title: 'Edit Price',
-          //   filter: false,
-          //   type: "custom",
-          //   renderComponent: EditPriceComponent,
-          //   sort: false,
-          //   editable: true,
-          //   onComponentInitFunction: (instance: any) => {
-          //     instance.save.subscribe(row => {
-          //       this.changefeatured(row._id, row.isRecommeneded);
-          //     });
-          //   }
-          // },
-        },
-        pager: {
-          display: true,
-          perPage: this.default_limit
-        },
-        actions: {
-          add: true,
-          edit: false,
-          delete: false,
-          columnTitle: 'Actions',
-          class: 'action-column',
-          position: 'right',
-          custom: [],
-        },
-      }
-      this.settings.actions.custom = this.getSettings.loadSettings(event, this.curentUser, '/app/tags/list', this.userPrivilegeDetails, this.delete_btn, this.edit_btn, this.view_btn);
-    } else {
-      this.settings = {
-        // selectMode: 'multi',
-        hideSubHeader: true,
-        columns: {
-          index: {
-            title: 'S.No',
-            type: 'text',
-            valuePrepareFunction: (value, row, cell) => {
-              return this.skip + cell.row.index + 1 + '.'
-            }
-          },
-          // name: {
-          //   title: 'Name',
-          //   filter: true,
-          //   valuePrepareFunction: value => {
-          //     return value.charAt(0).toUpperCase() + value.substr(1).toLowerCase();
-          //   }
-          // },
-          // iconimg: {
-          //   title: 'Icon',
-          //   filter: false,
-          //   type: "html",
-          //   valuePrepareFunction: image => {
-          //     // return '<img src="' + environment.apiUrl + image + '" width="40" height="40">';
-          //     if(image===''){
-          //       return '<img src="assets/image/no_images.png" width="32" height="32">'
-          //     }else{
-          //       return '<img src="' + environment.apiUrl + image + '" width="32" height="32">';
-          //     }
-          //   }
-          // },
-          name: {
-            title: 'Name',
-            filter: true,
-            type: 'html',
-            valuePrepareFunction: (value, row) => {
-              return value;
-            }
-          },
+  // loadsettings(event) {
+  //   if (event == 'delete') {
+  //     this.settings = {
+  //       selectMode: 'multi',
+  //       hideSubHeader: true,
+  //       columns: {
+  //         name: {
+  //           title: 'Name',
+  //           filter: true,
+  //           type: 'html',
+  //           valuePrepareFunction: (value, row) => {
+  //             return value;
+  //           }
+  //         },
+  //         iconimg: {
+  //           title: 'Image ',
+  //           filter: false,
+  //           type: "html",
+  //           valuePrepareFunction: image => {
+  //             if(image===''){
+  //               return 'assets/image/no_images.png'
+  //             }else{
+  //               return '<img src="' + environment.apiUrl + image + '" width="32" height="32">';
+  //             }
+  //           }
+  //         },
+  //         // rcategory: {
+  //         //   title: 'Category Name',
+  //         //   filter: true,
+  //         //   valuePrepareFunction: value => {
+  //         //     return value.rcatname.charAt(0).toUpperCase() + value.rcatname.substr(1).toLowerCase();
+  //         //   }
+  //         // },
+  //         status: {
+  //           title: 'Status',
+  //           filter: true,
+  //           type: 'custom',
+  //           renderComponent: PopupComponent,
+  //           sort: false,
+  //           editable: true,
+  //           onComponentInitFunction: (instance: any) => {
+  //             instance.save.subscribe(row => {
+  //               this.changeStatus(row._id, row.status);
+  //             });
+  //           }
+  //         },
+  //         // sale_price: {
+  //         //   title: 'Sale Price',
+  //         //   filter: false,
+  //         //   valuePrepareFunction: value => {
+  //         //     return value;
+  //         //   }
+  //         // },
+  //         createdAt: {
+  //           title: 'Created At',
+  //           filter: false,
+  //           valuePrepareFunction: value => {
+  //             var date = value ? new DatePipe('en-US').transform(value, 'MMMM dd,yyyy hh:mm a') : new DatePipe('en-US').transform(new Date(), 'dd/MM/yyyy');
+  //             return date;
+  //           }
+  //         },
+  //         // isRecommeneded: {
+  //         //   title: 'Recommended Product',
+  //         //   filter: false,
+  //         //   type: "custom",
+  //         //   renderComponent: FeaturedComponent,
+  //         //   sort: false,
+  //         //   editable: true,
+  //         //   onComponentInitFunction: (instance: any) => {
+  //         //     instance.save.subscribe(row => {
+  //         //       this.changefeatured(row._id, row.isRecommeneded);
+  //         //     });
+  //         //   }
+  //         // },
+  //         // EditPrice: {
+  //         //   title: 'Edit Price',
+  //         //   filter: false,
+  //         //   type: "custom",
+  //         //   renderComponent: EditPriceComponent,
+  //         //   sort: false,
+  //         //   editable: true,
+  //         //   onComponentInitFunction: (instance: any) => {
+  //         //     instance.save.subscribe(row => {
+  //         //       this.changefeatured(row._id, row.isRecommeneded);
+  //         //     });
+  //         //   }
+  //         // },
+  //       },
+  //       pager: {
+  //         display: true,
+  //         perPage: this.default_limit
+  //       },
+  //       actions: {
+  //         add: true,
+  //         edit: false,
+  //         delete: false,
+  //         columnTitle: 'Actions',
+  //         class: 'action-column',
+  //         position: 'right',
+  //         custom: [],
+  //       },
+  //     }
+  //     this.settings.actions.custom = this.getSettings.loadSettings(event, this.curentUser, '/app/tags/list', this.userPrivilegeDetails, this.delete_btn, this.edit_btn, this.view_btn);
+  //   } else {
+  //     this.settings = {
+  //       // selectMode: 'multi',
+  //       hideSubHeader: true,
+  //       columns: {
+  //         index: {
+  //           title: 'S.No',
+  //           type: 'text',
+  //           valuePrepareFunction: (value, row, cell) => {
+  //             return this.skip + cell.row.index + 1 + '.'
+  //           }
+  //         },
+  //         // name: {
+  //         //   title: 'Name',
+  //         //   filter: true,
+  //         //   valuePrepareFunction: value => {
+  //         //     return value.charAt(0).toUpperCase() + value.substr(1).toLowerCase();
+  //         //   }
+  //         // },
+  //         // iconimg: {
+  //         //   title: 'Icon',
+  //         //   filter: false,
+  //         //   type: "html",
+  //         //   valuePrepareFunction: image => {
+  //         //     // return '<img src="' + environment.apiUrl + image + '" width="40" height="40">';
+  //         //     if(image===''){
+  //         //       return '<img src="assets/image/no_images.png" width="32" height="32">'
+  //         //     }else{
+  //         //       return '<img src="' + environment.apiUrl + image + '" width="32" height="32">';
+  //         //     }
+  //         //   }
+  //         // },
+  //         name: {
+  //           title: 'Name',
+  //           filter: true,
+  //           type: 'html',
+  //           valuePrepareFunction: (value, row) => {
+  //             return value;
+  //           }
+  //         },
 
-            number: {
-            title: 'Contact Number',
-            filter: true,
-            type: 'html',
-            valuePrepareFunction: (value, row) => {
-              return value;
-            }
-          },
+  //           number: {
+  //           title: 'Contact Number',
+  //           filter: true,
+  //           type: 'html',
+  //           valuePrepareFunction: (value, row) => {
+  //             return value;
+  //           }
+  //         },
         
-          // rcategory: {
-          //   title: 'Category Name',
-          //   filter: true,
-          //   valuePrepareFunction: value => {
-          //     return value.rcatname.charAt(0).toUpperCase() + value.rcatname.substr(1).toLowerCase();
-          //   }
-          // },
+  //         // rcategory: {
+  //         //   title: 'Category Name',
+  //         //   filter: true,
+  //         //   valuePrepareFunction: value => {
+  //         //     return value.rcatname.charAt(0).toUpperCase() + value.rcatname.substr(1).toLowerCase();
+  //         //   }
+  //         // },
          
-          // isRecommeneded: {
-          //   title: 'Recommended Product',
-          //   filter: false,
-          //   type: "custom",
-          //   renderComponent: FeaturedComponent,
-          //   sort: false,
-          //   editable: true,
-          //   onComponentInitFunction: (instance: any) => {
-          //     instance.save.subscribe(row => {
-          //       this.changefeatured(row._id, row.isRecommeneded);
-          //     });
-          //   }
-          // },
-          // sale_price: {
-          //   title: 'Sale Price',
-          //   filter: false,
-          //   valuePrepareFunction: value => {
-          //     return `MRP ${value}`;
-          //   }
-          // },
-          createdAt: {
-            title: 'Published',
-            filter: false,
-            valuePrepareFunction: value => {
-              var date = value ? new DatePipe('en-US').transform(value, 'MMMM dd,yyyy hh:mm a') : new DatePipe('en-US').transform(new Date(), 'dd/MM/yyyy');
-              return date;
-            }
-          },
-          // expensive: {
-          //   title: 'Featured',
-          //   filter: false,
-          //   type: "custom",
-          //   renderComponent: ExpensiveComponent,
-          //   sort: false,
-          //   editable: true,
-          //   onComponentInitFunction: (instance: any) => {
-          //     instance.save.subscribe(row => {
-          //       console.log(row,"row from productlist");
+  //         // isRecommeneded: {
+  //         //   title: 'Recommended Product',
+  //         //   filter: false,
+  //         //   type: "custom",
+  //         //   renderComponent: FeaturedComponent,
+  //         //   sort: false,
+  //         //   editable: true,
+  //         //   onComponentInitFunction: (instance: any) => {
+  //         //     instance.save.subscribe(row => {
+  //         //       this.changefeatured(row._id, row.isRecommeneded);
+  //         //     });
+  //         //   }
+  //         // },
+  //         // sale_price: {
+  //         //   title: 'Sale Price',
+  //         //   filter: false,
+  //         //   valuePrepareFunction: value => {
+  //         //     return `MRP ${value}`;
+  //         //   }
+  //         // },
+  //         createdAt: {
+  //           title: 'Published',
+  //           filter: false,
+  //           valuePrepareFunction: value => {
+  //             var date = value ? new DatePipe('en-US').transform(value, 'MMMM dd,yyyy hh:mm a') : new DatePipe('en-US').transform(new Date(), 'dd/MM/yyyy');
+  //             return date;
+  //           }
+  //         },
+  //         // expensive: {
+  //         //   title: 'Featured',
+  //         //   filter: false,
+  //         //   type: "custom",
+  //         //   renderComponent: ExpensiveComponent,
+  //         //   sort: false,
+  //         //   editable: true,
+  //         //   onComponentInitFunction: (instance: any) => {
+  //         //     instance.save.subscribe(row => {
+  //         //       console.log(row,"row from productlist");
                 
-          //       this.changefeatured(row._id, row.expensive)
-          //     });
-          //   }
-          // },
-          status: {
-            title: 'Status',
-            filter: true,
-            type: 'custom',
-            renderComponent: PopupComponent,
-            sort: false,
-            editable: true,
-            onComponentInitFunction: (instance: any) => {
-              instance.save.subscribe(row => {
-                this.changeStatus(row._id, row.status);
-              });
-            }
-          },
-          // Clone: {
-          //   title: 'Clone',
-          //   filter: false,
-          //   type: "custom",
-          //   renderComponent: CloneComponent,
-          //   sort: false,
-          //   editable: true,
-          //   onComponentInitFunction: (instance: any) => {
-          //     instance.save.subscribe(row => {
-          //       this.cloneDetails(row)
-          //     });
-          //   }
-          // },
+  //         //       this.changefeatured(row._id, row.expensive)
+  //         //     });
+  //         //   }
+  //         // },
+  //         status: {
+  //           title: 'Status',
+  //           filter: true,
+  //           type: 'custom',
+  //           renderComponent: PopupComponent,
+  //           sort: false,
+  //           editable: true,
+  //           onComponentInitFunction: (instance: any) => {
+  //             instance.save.subscribe(row => {
+  //               this.changeStatus(row._id, row.status);
+  //             });
+  //           }
+  //         },
+  //         // Clone: {
+  //         //   title: 'Clone',
+  //         //   filter: false,
+  //         //   type: "custom",
+  //         //   renderComponent: CloneComponent,
+  //         //   sort: false,
+  //         //   editable: true,
+  //         //   onComponentInitFunction: (instance: any) => {
+  //         //     instance.save.subscribe(row => {
+  //         //       this.cloneDetails(row)
+  //         //     });
+  //         //   }
+  //         // },
+  //       },
+  //       pager: {
+  //         display: true,
+  //         perPage: this.default_limit
+  //       },
+  //       actions: {
+  //         add: true,
+  //         edit: false,
+  //         delete: false,
+  //         columnTitle: 'Actions',
+  //         class: 'action-column',
+  //         position: 'right',
+  //         custom: [],
+  //       },
+  //     }
+  //     this.settings.actions.custom = this.getSettings.loadSettings(event, this.curentUser, '/app/tags/list', this.userPrivilegeDetails, this.delete_btn, this.edit_btn, this.view_btn);
+  //   };
+  // };
+
+  loadsettings(event) {
+  if (event == 'delete') {
+    this.settings = {
+      selectMode: 'multi',
+      hideSubHeader: true,
+      columns: {
+        vendorName: {
+          title: 'Vendor Name',
+          filter: true,
+          type: 'html',
+          valuePrepareFunction: (value, row) => {
+            return value;
+          }
         },
-        pager: {
-          display: true,
-          perPage: this.default_limit
+        contractId: {
+          title: 'Contract ID',
+          filter: true,
+          type: 'html',
+          valuePrepareFunction: (value, row) => {
+            return value;
+          }
         },
-        actions: {
-          add: true,
-          edit: false,
-          delete: false,
-          columnTitle: 'Actions',
-          class: 'action-column',
-          position: 'right',
-          custom: [],
+        startDate: {
+          title: 'Start Date',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? new DatePipe('en-US').transform(value, 'MMM dd, yyyy') : '-';
+          }
         },
-      }
-      this.settings.actions.custom = this.getSettings.loadSettings(event, this.curentUser, '/app/tags/list', this.userPrivilegeDetails, this.delete_btn, this.edit_btn, this.view_btn);
-    };
-  };
+        endDate: {
+          title: 'End Date',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? new DatePipe('en-US').transform(value, 'MMM dd, yyyy') : '-';
+          }
+        },
+        invoicingDate: {
+          title: 'Next Invoicing Date',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? new DatePipe('en-US').transform(value, 'MMM dd, yyyy') : '-';
+          }
+        },
+        lastPayment: {
+          title: 'Last Payment',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? new DatePipe('en-US').transform(value, 'MMM dd, yyyy') : '-';
+          }
+        },
+        status: {
+          title: 'Status',
+          filter: true,
+          type: 'custom',
+          renderComponent: PopupComponent,
+          sort: false,
+          editable: true,
+          onComponentInitFunction: (instance: any) => {
+            instance.save.subscribe(row => {
+              this.changeStatus(row._id, row.status);
+            });
+          }
+        },
+        busesDetails: {
+          title: 'Buses Under Contract',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? value.length : 0;
+          }
+        },
+        driversDetails: {
+          title: 'Drivers Under Contract',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? value.length : 0;
+          }
+        },
+        contactOfficer: {
+          title: 'Contact Officer',
+          filter: true,
+          type: 'html',
+          valuePrepareFunction: (value, row) => {
+            return value || '-';
+          }
+        }
+      },
+      pager: {
+        display: true,
+        perPage: this.default_limit
+      },
+      actions: {
+        add: true,
+        edit: false,
+        delete: false,
+        columnTitle: 'Actions',
+        class: 'action-column',
+        position: 'right',
+        custom: [],
+      },
+    }
+    this.settings.actions.custom = this.getSettings.loadSettings(event, this.curentUser, '/app/vendors/list', this.userPrivilegeDetails, this.delete_btn, this.edit_btn, this.view_btn);
+  } else {
+    this.settings = {
+      hideSubHeader: true,
+      columns: {
+        index: {
+          title: 'S.No',
+          type: 'text',
+          valuePrepareFunction: (value, row, cell) => {
+            return this.skip + cell.row.index + 1 + '.'
+          }
+        },
+        vendorName: {
+          title: 'Vendor Name',
+          filter: true,
+          type: 'html',
+          valuePrepareFunction: (value, row) => {
+            return value;
+          }
+        },
+        contractId: {
+          title: 'Contract ID',
+          filter: true,
+          type: 'html',
+          valuePrepareFunction: (value, row) => {
+            return value;
+          }
+        },
+        startDate: {
+          title: 'Start Date',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? new DatePipe('en-US').transform(value, 'MMM dd, yyyy') : '-';
+          }
+        },
+        endDate: {
+          title: 'End Date',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? new DatePipe('en-US').transform(value, 'MMM dd, yyyy') : '-';
+          }
+        },
+        invoicingDate: {
+          title: 'Next Invoicing Date',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? new DatePipe('en-US').transform(value, 'MMM dd, yyyy') : '-';
+          }
+        },
+        lastPayment: {
+          title: 'Last Payment',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? new DatePipe('en-US').transform(value, 'MMM dd, yyyy') : '-';
+          }
+        },
+        status: {
+          title: 'Status',
+          filter: true,
+          type: 'custom',
+          renderComponent: PopupComponent,
+          sort: false,
+          editable: true,
+          onComponentInitFunction: (instance: any) => {
+            instance.save.subscribe(row => {
+              this.changeStatus(row._id, row.status);
+            });
+          }
+        },
+        busesDetails: {
+          title: 'Buses Under Contract',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? value.length : 0;
+          }
+        },
+        driversDetails: {
+          title: 'Drivers Under Contract',
+          filter: false,
+          valuePrepareFunction: value => {
+            return value ? value.length : 0;
+          }
+        },
+        contactOfficer: {
+          title: 'Contact Officer',
+          filter: true,
+          type: 'html',
+          valuePrepareFunction: (value, row) => {
+            return value || '-';
+          }
+        }
+      },
+      pager: {
+        display: true,
+        perPage: this.default_limit
+      },
+      actions: {
+        add: true,
+        edit: false,
+        delete: false,
+        columnTitle: 'Actions',
+        class: 'action-column',
+        position: 'right',
+        custom: [],
+      },
+    }
+    this.settings.actions.custom = this.getSettings.loadSettings(event, this.curentUser, '/app/vendors/list', this.userPrivilegeDetails, this.delete_btn, this.edit_btn, this.view_btn);
+  }
+}
+
 
   ngAfterViewInit(): void {
     // this.apiService.CommonApi(Apiconfig.productcatgory.method, Apiconfig.productcatgory.url, {}).subscribe(
