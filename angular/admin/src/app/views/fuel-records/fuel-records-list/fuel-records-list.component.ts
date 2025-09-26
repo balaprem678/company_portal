@@ -1,7 +1,12 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, TemplateRef } from '@angular/core';
+import { stat } from 'fs';
 import html2pdf from 'html2pdf.js';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Apiconfig } from 'src/app/_helpers/api-config';
+import { ApiService } from 'src/app/_services/api.service';
 
 interface FuelRecord {
+  _id?: string;
   vehicleNo: string;
   driverName: string;
   contractId: string;
@@ -10,7 +15,7 @@ interface FuelRecord {
   prevDate: string;
   amountPaid: number;
   issuedBy: string;
-  fuelConsumed: number; // in litres
+  fuelConsumed: number;
 }
 
 @Component({
@@ -20,21 +25,134 @@ interface FuelRecord {
 })
 export class FuelRecordsListComponent {
   @ViewChild('fuelTable', { static: false }) fuelTable!: ElementRef;
+  @ViewChild('fuelForm', { static: false }) fuelForm!: TemplateRef<any>;
+  modalRef?: BsModalRef;
 
   // Filters
-  searchVehicle: string = '';
-  searchDriver: string = '';
-  searchContract: string = '';
-  startDate: string = '';
-  endDate: string = '';
-  sortBy: string = '';
+  searchVehicle = '';
+  searchDriver = '';
+  searchContract = '';
+  startDate = '';
+  endDate = '';
+  sortBy = '';
 
-  // Dummy Data
-  records: FuelRecord[] = [
-    { vehicleNo: 'KA-01-AB-1234', driverName: 'John Smith', contractId: 'C001', startOdometer: 12000, endOdometer: 12150, prevDate: '2025-09-01', amountPaid: 500, issuedBy: 'Admin A', fuelConsumed: 10 },
-    { vehicleNo: 'KA-01-AB-5678', driverName: 'Mary Johnson', contractId: 'C002', startOdometer: 22000, endOdometer: 22220, prevDate: '2025-09-02', amountPaid: 700, issuedBy: 'Admin B', fuelConsumed: 15 },
-    { vehicleNo: 'KA-02-XY-1111', driverName: 'David Lee', contractId: 'C003', startOdometer: 5000, endOdometer: 5100, prevDate: '2025-09-03', amountPaid: 450, issuedBy: 'Admin A', fuelConsumed: 8 }
-  ];
+  // Data
+  records: FuelRecord[] = [];
+  vehicles: any[] = [];
+  drivers: any[] = [];
+
+  // New or editing record
+  newFuel: FuelRecord = this.getEmptyFuel();
+  editingFuelId: string | null = null;
+
+  constructor(private modalService: BsModalService, private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.loadFuelRecords();
+    this.loadVehicles();
+    this.loadDrivers();
+  }
+
+  // Fetch all fuels
+  loadFuelRecords() {
+    this.apiService.CommonApi(Apiconfig.listFuels.method, Apiconfig.listFuels.url, { status: 1 })
+      .subscribe((res: any) => {
+        if (res.status) {
+         this.records = res.data.map((item: any) => ({
+  _id: item._id,
+  vehicleId: item.vehicleData?._id || '',
+  vehicleNo: item.vehicleData?.registrationNo || '',
+  driverId: item.driverData?._id || '',
+  driverName: item.driverData?.fullName || '',
+  contractId: item.contractId || '',
+  startOdometer: item.startOdometer || 0,
+  endOdometer: item.endOdometer || 0,
+  prevDate: item.lastRechargeDate || '',
+  amountPaid: item.amountPaid || 0,
+  issuedBy: item.issuedBy || '',
+  fuelConsumed: item.actualUsage || 0
+}));
+
+          console.log(this.records);
+          
+        }
+      });
+  }
+
+  // Fetch vehicles
+  loadVehicles() {
+    this.apiService.CommonApi(Apiconfig.listFleets.method, Apiconfig.listFleets.url, {})
+      .subscribe((res: any) => {
+        if (res.status) this.vehicles = res.data;
+      });
+  }
+
+  // Fetch drivers
+  loadDrivers() {
+    this.apiService.CommonApi(Apiconfig.listEmployees.method, Apiconfig.listEmployees.url, {status:1, role: 'Driver'})
+      .subscribe((res: any) => {
+        if (res.status) this.drivers = res.data;
+      });
+  }
+
+  // Open modal for new or editing
+  openModal(template: any) {
+    this.newFuel = this.getEmptyFuel();
+    this.editingFuelId = null;
+    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+  }
+
+  editFuel(record: FuelRecord) {
+    this.editingFuelId = record._id || null;
+    this.newFuel = { ...record };
+    this.modalRef = this.modalService.show(this.fuelForm, { class: 'modal-lg' });
+  }
+
+ saveFuel() {
+  if (this.editingFuelId) {
+    // Update
+    this.apiService.CommonApi(
+      Apiconfig.saveFuel.method,
+      Apiconfig.saveFuel.url + '/' + this.editingFuelId,
+      this.newFuel
+    ).subscribe((res: any) => {
+      if (res.status) {
+        this.modalRef?.hide();
+        this.loadFuelRecords();
+        this.editingFuelId = null;
+      }
+    });
+  } else {
+    // Add
+    this.apiService.CommonApi(Apiconfig.saveFuel.method, Apiconfig.saveFuel.url, this.newFuel)
+      .subscribe((res: any) => {
+        if (res.status) {
+          this.modalRef?.hide();
+          this.loadFuelRecords();
+        }
+      });
+  }
+}
+
+
+  getEmptyFuel(): FuelRecord {
+    return {
+      vehicleNo: '',
+      driverName: '',
+      contractId: '',
+      startOdometer: 0,
+      endOdometer: 0,
+      prevDate: '',
+      amountPaid: 0,
+      issuedBy: '',
+      fuelConsumed: 0
+    };
+  }
+
+  // Mileage calculation
+  calcMileage(record: FuelRecord): number {
+    return (record.endOdometer - record.startOdometer) / (record.fuelConsumed || 1);
+  }
 
   // Filtering + Sorting
   get filteredRecords() {
@@ -53,22 +171,31 @@ export class FuelRecordsListComponent {
       data = data.filter(d => d.prevDate >= this.startDate && d.prevDate <= this.endDate);
     }
 
-    if (this.sortBy === 'dateAsc') data.sort((a, b) => a.prevDate.localeCompare(b.prevDate));
-    if (this.sortBy === 'dateDesc') data.sort((a, b) => b.prevDate.localeCompare(a.prevDate));
-    if (this.sortBy === 'vehicle') data.sort((a, b) => a.vehicleNo.localeCompare(b.vehicleNo));
-    if (this.sortBy === 'driver') data.sort((a, b) => a.driverName.localeCompare(b.driverName));
-    if (this.sortBy === 'mileageAsc') data.sort((a, b) => this.calcMileage(a) - this.calcMileage(b));
-    if (this.sortBy === 'mileageDesc') data.sort((a, b) => this.calcMileage(b) - this.calcMileage(a));
+    switch (this.sortBy) {
+      case 'dateAsc':
+        data.sort((a, b) => a.prevDate.localeCompare(b.prevDate));
+        break;
+      case 'dateDesc':
+        data.sort((a, b) => b.prevDate.localeCompare(a.prevDate));
+        break;
+      case 'vehicle':
+        data.sort((a, b) => a.vehicleNo.localeCompare(b.vehicleNo));
+        break;
+      case 'driver':
+        data.sort((a, b) => a.driverName.localeCompare(b.driverName));
+        break;
+      case 'mileageAsc':
+        data.sort((a, b) => this.calcMileage(a) - this.calcMileage(b));
+        break;
+      case 'mileageDesc':
+        data.sort((a, b) => this.calcMileage(b) - this.calcMileage(a));
+        break;
+    }
 
     return data;
   }
 
-  // Calculate mileage (km/l)
-  calcMileage(record: FuelRecord): number {
-    return (record.endOdometer - record.startOdometer) / record.fuelConsumed;
-  }
-
-  // Export as PDF
+  // Export PDF
   downloadPDF() {
     const element = this.fuelTable.nativeElement;
     const opt = {

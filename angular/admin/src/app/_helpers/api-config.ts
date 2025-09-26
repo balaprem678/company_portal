@@ -66,7 +66,16 @@ export const Apiconfig = {
         "method": "post"
     },
 
+   listFuels:{
+        "url": "admin/fuel/list",
+        "method": "post"
+    },
+    saveFuel:{
+        "url": "admin/fuel/save",
+        "method": "post"
+    },
 
+    
     saveContract:{
         "url": "admin/contract/save",
         "method": "post"

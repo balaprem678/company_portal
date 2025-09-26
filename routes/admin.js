@@ -65,6 +65,12 @@ module.exports = function (app, io) {
          var contract = require('../controller/admin/contract.js')(app);
          var employee = require('../controller/admin/employee.js')(app);
         var vendor = require('../controller/admin/vendor.js')(app);
+         var fuel = require('../controller/admin/fuel.js')(app);
+
+
+
+
+
 
         app.get('/dashboard/allStats', ensureAuthorized, dashboard.allStats);
         app.get('/dashboard/userstats', ensureAuthorized, dashboard.userStats);
@@ -668,6 +674,11 @@ module.exports = function (app, io) {
     app.post('/admin/vendor/view', ensureAuthorized,middlewares.processDocuments, vendor.viewVendor);
     app.post('/admin/vendor/list', ensureAuthorized, vendor.listVendors);
 
+
+    //fuel management
+    app.post('/admin/fuel/save', ensureAuthorized, fuel.saveFuel);
+    app.post('/admin/fuel/view', ensureAuthorized, fuel.viewFuel);
+    app.post('/admin/fuel/list', ensureAuthorized, fuel.listFuels);
     } catch (e) {
         console.log('erroe in index.js---------->>>>', e);
     }

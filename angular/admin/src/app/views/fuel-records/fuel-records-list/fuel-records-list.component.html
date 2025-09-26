@@ -1,37 +1,17 @@
 <div class="container mt-5 report-container">
-  <!-- Header -->
   <div class="d-flex justify-content-between align-items-center my-3">
     <h5 class="mb-0">Fuel Records Report</h5>
+           <button class="btn btn-sm btn-success" (click)="openModal(fuelForm)">➕ Add Fuel</button>
 
     <div class="d-flex gap-2 align-items-center">
-      <input
-        type="text"
-        class="form-control form-control-sm"
-        placeholder="🚐 Vehicle No."
-        [(ngModel)]="searchVehicle"
-      />
-      <input
-        type="text"
-        class="form-control form-control-sm"
-        placeholder="👨 Driver"
-        [(ngModel)]="searchDriver"
-      />
-      <input
-        type="text"
-        class="form-control form-control-sm"
-        placeholder="📑 Contract ID"
-        [(ngModel)]="searchContract"
-      />
-      <input
-        type="date"
-        class="form-control form-control-sm"
-        [(ngModel)]="startDate"
-      />
-      <input
-        type="date"
-        class="form-control form-control-sm"
-        [(ngModel)]="endDate"
-      />
+      <input type="text" class="form-control form-control-sm" placeholder="🚐 Vehicle No."
+             [(ngModel)]="searchVehicle" />
+      <input type="text" class="form-control form-control-sm" placeholder="👨 Driver"
+             [(ngModel)]="searchDriver" />
+      <input type="text" class="form-control form-control-sm" placeholder="📑 Contract ID"
+             [(ngModel)]="searchContract" />
+      <input type="date" class="form-control form-control-sm" [(ngModel)]="startDate" />
+      <input type="date" class="form-control form-control-sm" [(ngModel)]="endDate" />
       <select class="form-select form-select-sm" [(ngModel)]="sortBy">
         <option value="">Sort ⬍</option>
         <option value="dateAsc">Date ↑</option>
@@ -41,15 +21,12 @@
         <option value="mileageAsc">Mileage ↑</option>
         <option value="mileageDesc">Mileage ↓</option>
       </select>
-
-      <!-- Download PDF -->
       <button class="btn btn-sm btn-primary" (click)="downloadPDF()">
         <i class="bi bi-file-earmark-arrow-down"></i> PDF
       </button>
     </div>
   </div>
 
-  <!-- Table -->
   <div #fuelTable>
     <table class="table table-bordered table-striped custom-table">
       <thead>
@@ -64,6 +41,7 @@
           <th>Issued By</th>
           <th>Fuel Consumed (L)</th>
           <th>Mileage (KM/L)</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -73,13 +51,75 @@
           <td>{{ row.contractId }}</td>
           <td>{{ row.startOdometer }}</td>
           <td>{{ row.endOdometer }}</td>
-          <td>{{ row.prevDate }}</td>
-          <td>{{ row.amountPaid | currency : "INR" : "symbol" : "1.0-0" }}</td>
+          <td>{{ row.prevDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{ row.amountPaid | currency : 'INR':'symbol':'1.0-0' }}</td>
           <td>{{ row.issuedBy }}</td>
           <td>{{ row.fuelConsumed }}</td>
-          <td>{{ calcMileage(row) | number : "1.1-2" }}</td>
+          <td>{{ calcMileage(row) | number:'1.1-2' }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning" (click)="editFuel(row)">✏️ Edit</button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <ng-template #fuelForm>
+    <div class="modal-header">
+      <h5 class="modal-title">{{ editingFuelId ? 'Edit Fuel Record' : 'Add Fuel Record' }}</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="row">
+         <div class="col-md-6">
+  <label>Vehicle</label>
+  <select class="form-select" [(ngModel)]="newFuel.vehicleId" name="vehicleId" [disabled]="editingFuelId" required>
+    <option *ngFor="let v of vehicles" [value]="v._id">{{ v.registrationNo }}</option>
+  </select>
+</div>
+
+<div class="col-md-6">
+  <label>Driver</label>
+  <select class="form-select" [(ngModel)]="newFuel.driverId" name="driverId" [disabled]="editingFuelId" required>
+    <option *ngFor="let d of drivers" [value]="d._id">{{ d.fullName }}</option>
+  </select>
+</div>
+
+          <div class="col-md-6">
+            <label>Contract ID</label>
+            <input type="text" class="form-control" [(ngModel)]="newFuel.contractId" name="contractId" [disabled]="editingFuelId" />
+          </div>
+          <div class="col-md-6">
+            <label>Start Odometer</label>
+            <input type="number" class="form-control" [(ngModel)]="newFuel.startOdometer" name="startOdometer" [disabled]="editingFuelId" />
+          </div>
+          <div class="col-md-6">
+            <label>End Odometer</label>
+            <input type="number" class="form-control" [(ngModel)]="newFuel.endOdometer" name="endOdometer" />
+          </div>
+          <div class="col-md-6">
+            <label>Previous Date</label>
+            <input type="date" class="form-control" [(ngModel)]="newFuel.prevDate" name="prevDate" />
+          </div>
+          <div class="col-md-6">
+            <label>Amount Paid</label>
+            <input type="number" class="form-control" [(ngModel)]="newFuel.amountPaid" name="amountPaid" />
+          </div>
+          <div class="col-md-6">
+            <label>Issued By</label>
+            <input type="text" class="form-control" [(ngModel)]="newFuel.issuedBy" name="issuedBy" />
+          </div>
+          <div class="col-md-6">
+            <label>Fuel Consumed (L)</label>
+            <input type="number" class="form-control" [(ngModel)]="newFuel.fuelConsumed" name="fuelConsumed" />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="modalRef?.hide()">Cancel</button>
+      <button class="btn btn-primary" (click)="saveFuel()">{{ editingFuelId ? 'Update' : 'Save' }}</button>
+    </div>
+  </ng-template>
 </div>
