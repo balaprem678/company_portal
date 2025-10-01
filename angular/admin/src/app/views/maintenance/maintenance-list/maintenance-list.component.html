@@ -4,48 +4,23 @@
     <h5 class="mb-0">Maintenance Records Report</h5>
 
     <div class="d-flex gap-2 align-items-center">
-      <input
-        type="text"
-        class="form-control form-control-sm"
-        placeholder="🚐 Vehicle No."
-        [(ngModel)]="searchVehicle"
-      />
-      <input
-        type="text"
-        class="form-control form-control-sm"
-        placeholder="👨 Driver"
-        [(ngModel)]="searchDriver"
-      />
-
-      <!-- Maintenance Type (Dropdown) -->
+      <!-- Filters -->
+      <input type="text" class="form-control form-control-sm" placeholder="🚐 Vehicle No." [(ngModel)]="searchVehicle" />
+      <input type="text" class="form-control form-control-sm" placeholder="👨 Driver" [(ngModel)]="searchDriver" />
       <select class="form-select form-select-sm" [(ngModel)]="filterType">
         <option value="">All Types</option>
         <option value="Repaired">Repaired</option>
         <option value="Serviced">Serviced</option>
         <option value="Replaced">Replaced</option>
       </select>
-
-      <!-- Parts Serviced (Dropdown) -->
       <select class="form-select form-select-sm" [(ngModel)]="filterPart">
         <option value="">All Parts</option>
         <option value="Brake Pads">Brake Pads</option>
         <option value="Engine Oil">Engine Oil</option>
         <option value="Front Tyres">Front Tyres</option>
       </select>
-
-      <!-- Date Range -->
-      <input
-        type="date"
-        class="form-control form-control-sm"
-        [(ngModel)]="startDate"
-      />
-      <input
-        type="date"
-        class="form-control form-control-sm"
-        [(ngModel)]="endDate"
-      />
-
-      <!-- Sort -->
+      <input type="date" class="form-control form-control-sm" [(ngModel)]="startDate" />
+      <input type="date" class="form-control form-control-sm" [(ngModel)]="endDate" />
       <select class="form-select form-select-sm" [(ngModel)]="sortBy">
         <option value="">Sort ⬍</option>
         <option value="dateAsc">Date ↑</option>
@@ -55,6 +30,11 @@
         <option value="costAsc">Cost ↑</option>
         <option value="costDesc">Cost ↓</option>
       </select>
+
+      <!-- Add New Button -->
+      <button class="btn btn-sm btn-success" (click)="openModal()">
+        <i class="bi bi-plus-lg"></i> Add Maintenance
+      </button>
 
       <!-- Download PDF -->
       <button class="btn btn-sm btn-primary" (click)="downloadPDF()">
@@ -75,19 +55,99 @@
           <th>PARTS REPLACED / SERVICED</th>
           <th>MAINTENANCE COST</th>
           <th>REMARKS</th>
+          <th>ACTION</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let row of filteredRecords">
-          <td>{{ row.date }}</td>
-          <td>{{ row.vehicleNo }}</td>
-          <td>{{ row.driverName }}</td>
-          <td>{{ row.type }}</td>
-          <td>{{ row.parts }}</td>
-          <td>{{ row.cost | currency : "INR" : "symbol" : "1.0-0" }}</td>
+          <td>{{ row.maintenanceDate | date:'yyyy-MM-dd' }}</td>
+          <td>{{ row.vehicleData?.registrationNo }}</td>
+          <td>{{ row.driverData?.fullName }}</td>
+          <td>{{ row.maintenanceType }}</td>
+          <td>
+            <span *ngFor="let p of row.partsData">{{ p.name }} ({{ p.partNumber }}) </span>
+          </td>
+          <td>{{ row.maintenanceCost | currency:'INR':'symbol':'1.0-0' }}</td>
           <td>{{ row.remarks }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning" (click)="openModal(row)">Edit</button>
+          </td>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade show" tabindex="-1" [ngClass]="{ 'd-block': showModal }" *ngIf="showModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form (ngSubmit)="saveMaintenance()">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ editData? 'Edit' : 'Add' }} Maintenance</h5>
+            <button type="button" class="btn-close" (click)="closeModal()"></button>
+          </div>
+          <div class="modal-body">
+           <!-- Vehicle -->
+<div class="mb-3">
+  <label class="form-label">Vehicle</label>
+  <select class="form-select" [(ngModel)]="form.vehicle" name="vehicle" required>
+    <option *ngFor="let v of vehicles" [value]="v._id">
+      {{ v.registrationNo }}
+    </option>
+  </select>
+</div>
+
+<!-- Driver -->
+<div class="mb-3">
+  <label class="form-label">Driver</label>
+  <select class="form-select" [(ngModel)]="form.driver" name="driver" required>
+    <option *ngFor="let d of drivers" [value]="d._id">
+      {{ d.fullName }}
+    </option>
+  </select>
+</div>
+
+            <!-- Type -->
+            <div class="mb-3">
+              <label class="form-label">Maintenance Type</label>
+              <select class="form-select" [(ngModel)]="form.maintenanceType" name="maintenanceType" required>
+                <option value="Repaired">Repaired</option>
+                <option value="Serviced">Serviced</option>
+                <option value="Replaced">Replaced</option>
+              </select>
+            </div>
+            <!-- Cost -->
+            <div class="mb-3">
+              <label class="form-label">Cost</label>
+              <input type="number" class="form-control" [(ngModel)]="form.maintenanceCost" name="maintenanceCost" required />
+            </div>
+            <!-- Spare Parts Used -->
+<div class="mb-3">
+  <label class="form-label">Spare Parts Used</label>
+  <div *ngFor="let p of form.partsUsed; let i = index" class="d-flex gap-2 mb-2">
+    <select class="form-select" [(ngModel)]="p.part" name="part{{i}}" required>
+      <option value="">Select Part</option>
+      <option *ngFor="let sp of spareParts" [value]="sp._id">
+        {{ sp.name }} ({{ sp.partNumber }}) - Stock: {{ sp.totalQuantity }}
+      </option>
+    </select>
+    <input type="number" class="form-control" [(ngModel)]="p.quantity" name="quantity{{i}}" min="1" />
+    <button type="button" class="btn btn-danger btn-sm" (click)="removePart(i)">x</button>
+  </div>
+  <button type="button" class="btn btn-outline-primary btn-sm" (click)="addPart()">+ Add Part</button>
+</div>
+            <!-- Remarks -->
+            <div class="mb-3">
+              <label class="form-label">Remarks</label>
+              <textarea class="form-control" [(ngModel)]="form.remarks" name="remarks"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">{{ editData? 'Update' : 'Save' }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
