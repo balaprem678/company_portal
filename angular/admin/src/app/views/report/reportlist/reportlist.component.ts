@@ -28,6 +28,10 @@ export class ReportlistComponent implements OnInit {
   showModal = false;
   form: any = {};
   editData: any = null;
+  // inside class ReportlistComponent
+selectedDate: string = new Date().toISOString().split('T')[0]; // default today
+selectedEmployees: string[] = []; // for bulk
+
 
   @ViewChild('tableContent', { static: false }) tableContent!: ElementRef;
 
@@ -199,4 +203,108 @@ export class ReportlistComponent implements OnInit {
     };
     html2pdf().from(element).set(opt).save();
   }
+
+  // load attendance for date
+loadAttendanceByDate() {
+  this.apiService.CommonApi(
+    Apiconfig.listAttendance.method,
+    Apiconfig.listAttendance.url,
+    { date: this.selectedDate }
+  ).subscribe((res: any) => {
+    if (res.status) {
+      this.attendanceData = res.data.map((e: any) => ({
+        employeeId: e.employeeData?._id,
+        employeeName: e.employeeData?.fullName,
+        idNo: e.employeeData?.employeeId,
+        status: e.status || 'A',
+        remarks: e.remarks || '',
+      }));
+    }
+  });
+}
+
+// mark/update single attendance
+updateAttendance(row: any) {
+  const payload = {
+    employeeId: row.employeeId,
+    date: this.selectedDate,
+    status: row.status,
+    remarks: row.remarks,
+  };
+
+  this.apiService.CommonApi(
+    Apiconfig.saveAttendance.method,
+    Apiconfig.saveAttendance.url,
+    payload
+  ).subscribe((res: any) => {
+    if (res.status) {
+      this.notification.showSuccess(`Attendance updated for ${row.employeeName}`);
+    } else {
+      this.notification.showError(res.message || 'Error updating attendance');
+    }
+  });
+}
+
+// toggle single employee in selection
+toggleEmployee(empId: string, event: any) {
+  if (event.target.checked) {
+    this.selectedEmployees.push(empId);
+  } else {
+    this.selectedEmployees = this.selectedEmployees.filter((id) => id !== empId);
+  }
+}
+
+// check/uncheck all
+toggleSelectAll(event: any) {
+  if (event.target.checked) {
+    this.selectedEmployees = this.attendanceData.map((e) => e.employeeId);
+  } else {
+    this.selectedEmployees = [];
+  }
+}
+isAllSelected() {
+  return (
+    this.attendanceData.length > 0 &&
+    this.selectedEmployees.length === this.attendanceData.length
+  );
+}
+
+
+markAllPresentToday() {
+  this.apiService.CommonApi(
+    Apiconfig.markallAttendance.method,
+    Apiconfig.markallAttendance.url,
+    {}
+  ).subscribe((res: any) => {
+    if (res.status) {
+      this.notification.showSuccess('All employees marked present for today');
+      this.loadRecords(); // refresh attendance list
+    } else {
+      this.notification.showError(res.message || 'Error marking attendance');
+    }
+  });
+}
+
+// bulk mark attendance
+bulkMarkAttendance(status: 'P' | 'A' | 'L') {
+  const payload = {
+    employeeIds: this.selectedEmployees,
+    date: this.selectedDate,
+    status,
+  };
+
+  this.apiService.CommonApi(
+    Apiconfig.bulkMarkAttendance.method,
+    Apiconfig.bulkMarkAttendance.url,
+    payload
+  ).subscribe((res: any) => {
+    if (res.status) {
+      this.notification.showSuccess('Bulk attendance updated');
+      this.loadAttendanceByDate();
+      this.selectedEmployees = [];
+    } else {
+      this.notification.showError(res.message || 'Error marking attendance');
+    }
+  });
+}
 }

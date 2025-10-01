@@ -97,49 +97,80 @@ controller.saveAttendance = async function (req, res) {
    */
 
 
-  controller.listAttendance = async function (req, res) {
-    try {
-      const {
-        page = 1,
-        limit = 10,
-        search = "",
-        status,
-        startDate,
-        endDate,
-        sortBy,
-        sortOrder = "desc",
-      } = req.body;
+ controller.listAttendance = async function (req, res) {
+  try {
+    const {
+      page = 1,
+      limit = 10,
+      search = "",
+      status,
+      startDate,
+      endDate,
+      sortBy,
+      sortOrder = "desc",
+    } = req.body;
 
-      let match = {};
+    const skip = (parseInt(page) - 1) * parseInt(limit);
 
-      // 🔹 Search by employee name or remarks
-      if (search) {
-        match.$or = [
-          { remarks: { $regex: search, $options: "i" } },
-          { "employeeData.fullName": { $regex: search, $options: "i" } },
-        ];
-      }
+    // 🔹 Sorting
+    let sort = {};
+    if (sortBy === "date") sort["records.date"] = sortOrder === "asc" ? 1 : -1;
+    else if (sortBy === "employee") sort["employeeData.fullName"] = sortOrder === "asc" ? 1 : -1;
+    else sort["records.date"] = -1; // default: latest date first
 
-      // 🔹 Filter by status
-      if (status) {
-        match.status = status;
-      }
+    // 🔹 Base pipeline
+    let pipeline = [
+      {
+        $lookup: {
+          from: "employee",
+          localField: "employee",
+          foreignField: "_id",
+          as: "employeeData",
+        },
+      },
+      { $unwind: { path: "$employeeData", preserveNullAndEmptyArrays: true } },
+      {
+        $unwind: {
+          path: "$records",
+          preserveNullAndEmptyArrays: true, // ✅ Keeps employees even if records is []
+        },
+      },
+    ];
 
-      // 🔹 Filter by date range
-      if (startDate && endDate) {
-        match.date = { $gte: new Date(startDate), $lte: new Date(endDate) };
-      }
+    // 🔹 Match filters
+    let match = {};
+    if (search) {
+      match.$or = [
+        { "records.remarks": { $regex: search, $options: "i" } },
+        { "employeeData.fullName": { $regex: search, $options: "i" } },
+      ];
+    }
+    if (status) match["records.status"] = status;
+    if (startDate && endDate) {
+      match["records.date"] = { $gte: new Date(startDate), $lte: new Date(endDate) };
+    }
+    if (Object.keys(match).length > 0) pipeline.push({ $match: match });
 
-      const skip = (parseInt(page) - 1) * parseInt(limit);
+    // 🔹 Project
+    pipeline.push({
+  $project: {
+    _id: 1,
+    date: "$records.date",
+    status: "$records.status",
+    remarks: "$records.remarks",
+    employeeId: "$employeeData.employeeId",   // flatten
+    employeeName: "$employeeData.fullName",   // flatten
+    employeeRefId: "$employeeData._id",       // keep ref for updates
+  },
+});
 
-      // 🔹 Sorting
-      let sort = {};
-      if (sortBy === "date") sort.date = sortOrder === "asc" ? 1 : -1;
-      else if (sortBy === "employee") sort["employeeData.fullName"] = sortOrder === "asc" ? 1 : -1;
-      else sort.date = -1; // default sort by newest date
+    // 🔹 Apply sorting + pagination
+    pipeline.push({ $sort: sort }, { $skip: skip }, { $limit: parseInt(limit) });
 
-      // 🔹 Aggregation Pipeline
-      let pipeline = [
+    // 🔹 Data + total count
+    const [data, total] = await Promise.all([
+      db.GetAggregation("attendance", pipeline),
+      db.GetAggregation("attendance", [
         {
           $lookup: {
             from: "employee",
@@ -150,46 +181,184 @@ controller.saveAttendance = async function (req, res) {
         },
         { $unwind: { path: "$employeeData", preserveNullAndEmptyArrays: true } },
         {
-          $project: {
-            date: 1,
-            status: 1,
-            remarks: 1,
-            "employeeData._id": 1,
-            "employeeData.fullName": 1,
-            "employeeData.employeeCode": 1,
+          $unwind: {
+            path: "$records",
+            preserveNullAndEmptyArrays: true,
           },
         },
-        { $sort: sort },
-      ];
+        ...(Object.keys(match).length > 0 ? [{ $match: match }] : []),
+        { $count: "total" },
+      ]),
+    ]);
 
-      // Apply match only after lookup/project so search works
-      if (Object.keys(match).length > 0) {
-        pipeline.push({ $match: match });
-      }
+    return res.send({
+      status: true,
+      count: total.length > 0 ? total[0].total : 0,
+      page: parseInt(page),
+      limit: parseInt(limit),
+      data,
+    });
+  } catch (error) {
+    console.log(error, "ERROR listAttendance");
+    return res.send({
+      status: false,
+      message: "Something went wrong while fetching attendance.",
+    });
+  }
+};
 
-      // Pagination
-      pipeline.push({ $skip: skip }, { $limit: parseInt(limit) });
 
-      const [data, total] = await Promise.all([
-        db.GetAggregation("attendance", pipeline),
-        db.GetCount("attendance", {}),
-      ]);
 
-      return res.send({
-        status: true,
-        count: total,
-        page: parseInt(page),
-        limit: parseInt(limit),
-        data,
-      });
-    } catch (error) {
-      console.log(error, "ERROR listAttendance");
-      return res.send({
-        status: false,
-        message: "Something went wrong while fetching attendance.",
-      });
+
+
+// Bulk mark attendance for multiple employees
+controller.bulkMarkAttendance = async function (req, res) {
+  try {
+    const { employeeIds = [], date, status, remarks = "" } = req.body;
+    if (!employeeIds.length || !date || !status) {
+      return res.send({ status: false, message: "Employee IDs, date, and status are required" });
     }
-  };
+
+    const targetDate = new Date(date);
+
+    // Loop through employee IDs and upsert records
+    const operations = employeeIds.map(empId => ({
+      updateOne: {
+        filter: { employee: new mongoose.Types.ObjectId(empId) },
+        update: {
+          $setOnInsert: { employee: new mongoose.Types.ObjectId(empId) },
+          $pull: { records: { date: targetDate } }, // remove existing for same date
+        },
+        upsert: true
+      }
+    }));
+
+    await db.BulkWrite("attendance", operations);
+
+    // Now push updated records
+    const pushOps = employeeIds.map(empId => ({
+      updateOne: {
+        filter: { employee: new mongoose.Types.ObjectId(empId) },
+        update: {
+          $push: {
+            records: { date: targetDate, status, remarks }
+          }
+        }
+      }
+    }));
+
+    await db.BulkWrite("attendance", pushOps);
+
+    return res.send({ status: true, message: "Bulk attendance updated successfully" });
+  } catch (err) {
+    console.log(err, "ERROR bulkMarkAttendance");
+    return res.send({ status: false, message: "Error updating bulk attendance" });
+  }
+};
+
+
+// Mark ALL employees as present for today
+controller.markAllPresentToday = async function (req, res) {
+  try {
+    const today = new Date();
+    const todayDate = new Date(today.toISOString().split("T")[0]); // normalize date (no time)
+
+    // Fetch all employees
+    const employees = await db.GetDocument("employee", { status: 1 }, {}, {});
+    if (!employees.length) {
+      return res.send({ status: false, message: "No active employees found" });
+    }
+
+    // Loop and insert/update attendance
+    const operations = employees.map(emp => ({
+      updateOne: {
+        filter: { employee: emp._id },
+        update: {
+          $setOnInsert: { employee: emp._id },
+          $pull: { records: { date: todayDate } }
+        },
+        upsert: true
+      }
+    }));
+    await db.BulkWrite("attendance", operations);
+
+    const pushOps = employees.map(emp => ({
+      updateOne: {
+        filter: { employee: emp._id },
+        update: {
+          $push: { records: { date: todayDate, status: "P", remarks: "" } }
+        }
+      }
+    }));
+    await db.BulkWrite("attendance", pushOps);
+
+    return res.send({ status: true, message: "All employees marked present for today" });
+  } catch (err) {
+    console.log(err, "ERROR markAllPresentToday");
+    return res.send({ status: false, message: "Error marking all employees present" });
+  }
+};
+
+
+ controller.getDailyReport = async function (req, res) {
+  try {
+    const { date } = req.body;
+    const targetDate = new Date(date);
+
+    let result = await db.GetAggregation("attendance", [
+      { $unwind: "$records" },
+      { $match: { "records.date": targetDate } },
+      {
+        $lookup: {
+          from: "employee",
+          localField: "employee",
+          foreignField: "_id",
+          as: "employeeData",
+        },
+      },
+      { $unwind: "$employeeData" },
+      {
+        $project: {
+          "employeeData.fullName": 1,
+          "employeeData.employeeId": 1,
+          status: "$records.status",
+          remarks: "$records.remarks",
+        },
+      },
+    ]);
+
+    return res.send({ status: true, data: result });
+  } catch (err) {
+    console.log(err, "ERROR getDailyReport");
+    return res.send({ status: false, message: "Error fetching daily report" });
+  }
+};
+
+
+controller.getMonthlyReport = async function (req, res) {
+  try {
+    const { month, year } = req.body;
+    let start = new Date(year, month - 1, 1);
+    let end = new Date(year, month, 0); // last day
+
+    let result = await db.GetAggregation("attendance", [
+      { $unwind: "$records" },
+      { $match: { "records.date": { $gte: start, $lte: end } } },
+      {
+        $group: {
+          _id: { employee: "$employee", status: "$records.status" },
+          days: { $sum: 1 }
+        }
+      }
+    ]);
+
+    return res.send({ status: true, data: result });
+  } catch (err) {
+    console.log(err, "ERROR getMonthlyReport");
+    return res.send({ status: false, message: "Error fetching monthly report" });
+  }
+};
+
 
   controller.saveCustomerPayment = async function (req, res) {
   try {

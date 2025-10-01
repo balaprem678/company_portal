@@ -139,6 +139,12 @@ console.log(employeeData,"employeeDataemployeeDataemployeeData");
     } else {
       // ---- Add New Employee ----
       result = await db.InsertDocument("employee", employeeData);
+      console.log(result,"resultresultresult");
+       await db.InsertDocument("attendance", {
+        employee: result._id,
+        records: []
+      });
+
       return res.send({
         status: true,
         message: "Employee added successfully",
@@ -242,6 +248,93 @@ controller.viewemployee = async function (req, res) {
       });
     }
   };
+
+  controller.bulkMarkAttendance = async function (req, res) {
+  try {
+    const { employeeIds = [], date, status, remarks = "" } = req.body;
+    if (!employeeIds.length || !date || !status) {
+      return res.send({ status: false, message: "Employee IDs, date, and status are required" });
+    }
+
+    const targetDate = new Date(date);
+
+    // Loop through employee IDs and upsert records
+    const operations = employeeIds.map(empId => ({
+      updateOne: {
+        filter: { employee: new mongoose.Types.ObjectId(empId) },
+        update: {
+          $setOnInsert: { employee: new mongoose.Types.ObjectId(empId) },
+          $pull: { records: { date: targetDate } }, // remove existing for same date
+        },
+        upsert: true
+      }
+    }));
+
+    await db.BulkWrite("attendance", operations);
+
+    // Now push updated records
+    const pushOps = employeeIds.map(empId => ({
+      updateOne: {
+        filter: { employee: new mongoose.Types.ObjectId(empId) },
+        update: {
+          $push: {
+            records: { date: targetDate, status, remarks }
+          }
+        }
+      }
+    }));
+
+    await db.BulkWrite("attendance", pushOps);
+
+    return res.send({ status: true, message: "Bulk attendance updated successfully" });
+  } catch (err) {
+    console.log(err, "ERROR bulkMarkAttendance");
+    return res.send({ status: false, message: "Error updating bulk attendance" });
+  }
+};
+
+
+// Mark ALL employees as present for today
+controller.markAllPresentToday = async function (req, res) {
+  try {
+    const today = new Date();
+    const todayDate = new Date(today.toISOString().split("T")[0]); // normalize date (no time)
+
+    // Fetch all employees
+    const employees = await db.GetDocument("employee", { status: 1 }, {}, {});
+    if (!employees.length) {
+      return res.send({ status: false, message: "No active employees found" });
+    }
+
+    // Loop and insert/update attendance
+    const operations = employees.map(emp => ({
+      updateOne: {
+        filter: { employee: emp._id },
+        update: {
+          $setOnInsert: { employee: emp._id },
+          $pull: { records: { date: todayDate } }
+        },
+        upsert: true
+      }
+    }));
+    await db.BulkWrite("attendance", operations);
+
+    const pushOps = employees.map(emp => ({
+      updateOne: {
+        filter: { employee: emp._id },
+        update: {
+          $push: { records: { date: todayDate, status: "P", remarks: "" } }
+        }
+      }
+    }));
+    await db.BulkWrite("attendance", pushOps);
+
+    return res.send({ status: true, message: "All employees marked present for today" });
+  } catch (err) {
+    console.log(err, "ERROR markAllPresentToday");
+    return res.send({ status: false, message: "Error marking all employees present" });
+  }
+};
 
   return controller;
 };

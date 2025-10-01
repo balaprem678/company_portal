@@ -35,7 +35,11 @@
         <option value="">Sort ⬍</option>
         <option *ngFor="let opt of sortOptions" [value]="opt.value">{{ opt.label }}</option>
       </select>
-
+      
+  <!-- Show Mark All button only in attendance tab -->
+  <button *ngIf="activeTab === 'attendance'" class="btn btn-sm btn-success" (click)="markAllPresentToday()">
+    <i class="bi bi-check-all"></i> Mark All Present
+  </button>
       <button class="btn btn-sm btn-success" (click)="openModal()"><i class="bi bi-plus-lg"></i> Add</button>
       <button class="btn btn-sm btn-primary" (click)="downloadPDF()"><i class="bi bi-file-earmark-arrow-down"></i> PDF</button>
     </div>
@@ -44,30 +48,91 @@
   <!-- Table -->
   <div #tableContent>
     <!-- Attendance -->
-    <div *ngIf="activeTab === 'attendance'">
-      <table class="table table-bordered table-striped custom-table">
-        <thead>
-          <tr>
-            <th>Employee Name</th>
-            <th>Date</th>
-            <th>ID No.</th>
-            <th>Status</th>
-            <th>Remarks</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let row of filteredAttendance">
-            <td>{{ row.employeeName }}</td>
-            <td>{{ row.date | date }}</td>
-            <td>{{ row.idNo }}</td>
-            <td>{{ row.status }}</td>
-            <td>{{ row.remarks }}</td>
-            <td><button class="btn btn-sm btn-warning" (click)="openModal(row)">Edit</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div *ngIf="activeTab === 'attendance'">
+  <!-- Bulk Action Toolbar -->
+  <div class="mb-2 d-flex gap-2 align-items-center">
+    <input
+      type="date"
+      class="form-control form-control-sm"
+      [(ngModel)]="selectedDate"
+      (change)="loadAttendanceByDate()"
+    />
+    <button
+      class="btn btn-sm btn-success"
+      (click)="bulkMarkAttendance('P')"
+      [disabled]="selectedEmployees.length === 0"
+    >
+      Mark Present
+    </button>
+    <button
+      class="btn btn-sm btn-danger"
+      (click)="bulkMarkAttendance('A')"
+      [disabled]="selectedEmployees.length === 0"
+    >
+      Mark Absent
+    </button>
+    <button
+      class="btn btn-sm btn-warning"
+      (click)="bulkMarkAttendance('L')"
+      [disabled]="selectedEmployees.length === 0"
+    >
+      Mark Leave
+    </button>
+  </div>
+
+  <table class="table table-bordered table-striped custom-table">
+    <thead>
+      <tr>
+        <th>
+          <input
+            type="checkbox"
+            (change)="toggleSelectAll($event)"
+            [checked]="isAllSelected()"
+          />
+        </th>
+        <th>Employee Name</th>
+        <th>ID No.</th>
+        <th>Status</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr *ngFor="let row of filteredAttendance">
+        <td>
+          <input
+            type="checkbox"
+            [checked]="selectedEmployees.includes(row._id)"
+            (change)="toggleEmployee(row._id, $event)"
+          />
+        </td>
+        <td>{{ row.employeeName }}</td>
+        <td>{{ row.idNo }}</td>
+        <td>
+          <select
+            class="form-select form-select-sm"
+            [(ngModel)]="row.status"
+            (change)="updateAttendance(row)"
+          >
+            <option value="P">Present</option>
+            <option value="A">Absent</option>
+            <option value="L">Leave</option>
+          </select>
+        </td>
+        <td>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            [(ngModel)]="row.remarks"
+            (blur)="updateAttendance(row)"
+            placeholder="Remarks"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
     <!-- Customers -->
     <div *ngIf="activeTab === 'customers'">

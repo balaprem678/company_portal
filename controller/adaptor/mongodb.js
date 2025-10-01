@@ -306,6 +306,30 @@ const GetDoc = (model, query, projection, extension) => {
 
 }
 
+async function BulkWriteDocument(model, operations, options = {}) {
+    try {
+        const result = await db[model].bulkWrite(operations, options);
+        if (result) {
+            return {
+                status: true,
+                doc: result
+            };
+        } else {
+            return {
+                status: false,
+                doc: "Bulk write failed"
+            };
+        }
+    } catch (err) {
+        console.error("BulkWrite Error:", err);
+        return {
+            status: false,
+            message: "Something went wrong during bulk write: " + err
+        };
+    }
+}
+
+
 module.exports = {
     "GetDocument": GetDocument,
     "GetOneDocument": GetOneDocument,
@@ -319,4 +343,5 @@ module.exports = {
     "GetCount": GetCount,
     "GetDoc": GetDoc,
     "UpdateAllDocument": UpdateAllDocument,
+    "BulkWrite": BulkWriteDocument
 };

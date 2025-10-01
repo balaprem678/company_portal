@@ -165,6 +165,15 @@ export const Apiconfig = {
         "method": "post"
     },
 
+    bulkMarkAttendance: {
+        "url": "admin/attendance/bulk-mark",
+        "method": "post"
+    },
+    markallAttendance: {
+        "url": "admin/attendance/mark-all",
+        "method": "post"
+    },
+
     subadminEdit: {
         "url": "admins/getusersrole",
         "method": "post"
