@@ -1,92 +1,126 @@
 <div class="banner-add_web_banner margin_top">
   <div class="container">
     <h4 class="full_page_title"><strong>Add Invoice</strong></h4>
-    <form #invoiceForm="ngForm" (ngSubmit)="submitForm(invoiceForm)">
+
+    <form #invoiceFormRef="ngForm" (ngSubmit)="submitForm(invoiceFormRef)">
       <div class="row">
         <!-- Left Column -->
         <div class="col-lg-6">
-
           <div class="form-group">
-            <label for="invoiceNo">Invoice No <span class="color_red">*</span></label>
-            <input type="text" class="form-control" id="invoiceNo" name="invoiceNo" ngModel required maxlength="20">
-            <div style="color:red" *ngIf="submitted && invoiceForm.controls.invoiceNo?.invalid">
-              <div *ngIf="invoiceForm.controls.invoiceNo?.errors?.required">Invoice No is required!</div>
-            </div>
+            <label>Invoice No <span class="color_red">*</span></label>
+            <input type="text" class="form-control" name="invoiceNo" [(ngModel)]="invoiceForm.invoiceNo" required />
           </div>
 
           <div class="form-group mt-3">
-            <label for="quantity">Quantity <span class="color_red">*</span></label>
-            <input type="number" class="form-control" id="quantity" name="quantity" ngModel required min="1">
-            <div style="color:red" *ngIf="submitted && invoiceForm.controls.quantity?.invalid">
-              <div *ngIf="invoiceForm.controls.quantity?.errors?.required">Quantity is required!</div>
-            </div>
+            <label>Date <span class="color_red">*</span></label>
+            <input type="date" class="form-control" name="date" [(ngModel)]="invoiceForm.date" required />
           </div>
 
           <div class="form-group mt-3">
-            <label for="date">Date <span class="color_red">*</span></label>
-            <input type="date" class="form-control" id="date" name="date" ngModel [value]="today" required>
-            <div style="color:red" *ngIf="submitted && invoiceForm.controls.date?.invalid">
-              <div *ngIf="invoiceForm.controls.date?.errors?.required">Date is required!</div>
-            </div>
+            <label>Due Date <span class="color_red">*</span></label>
+            <input type="date" class="form-control" name="dueDate" [(ngModel)]="invoiceForm.dueDate" required />
           </div>
-
-          <div class="form-group mt-3">
-            <label for="dueDate">Due Date <span class="color_red">*</span></label>
-            <input type="date" class="form-control" id="dueDate" name="dueDate" ngModel required>
-            <div style="color:red" *ngIf="submitted && invoiceForm.controls.dueDate?.invalid">
-              <div *ngIf="invoiceForm.controls.dueDate?.errors?.required">Due Date is required!</div>
-            </div>
-          </div>
-
-          <div class="form-group mt-3">
-            <label for="unitPrice">Unit Price <span class="color_red">*</span></label>
-            <input type="number" class="form-control" id="unitPrice" name="unitPrice" ngModel required min="0.01" step="0.01">
-            <div style="color:red" *ngIf="submitted && invoiceForm.controls.unitPrice?.invalid">
-              <div *ngIf="invoiceForm.controls.unitPrice?.errors?.required">Unit Price is required!</div>
-            </div>
-          </div>
-
         </div>
+
         <!-- Right Column -->
         <div class="col-lg-6">
-
           <div class="form-group">
-            <label for="clientName">Client Name <span class="color_red">*</span></label>
-            <select class="form-control" id="clientName" name="clientName" ngModel required>
-              <option value="" disabled selected>Select Client</option>
-              <option *ngFor="let client of clientOptions" [value]="client">{{client}}</option>
+            <label>Client Name <span class="color_red">*</span></label>
+            <select class="form-control" name="clientName" [(ngModel)]="invoiceForm.clientName" required>
+              <option value="" disabled>Select Client</option>
+              <option *ngFor="let client of clientOptions" [value]="client">{{ client }}</option>
             </select>
-            <div style="color:red" *ngIf="submitted && invoiceForm.controls.clientName?.invalid">
-              <div *ngIf="invoiceForm.controls.clientName?.errors?.required">Client Name is required!</div>
-            </div>
           </div>
 
           <div class="form-group mt-3">
             <label>Payment Details</label>
             <div class="row">
               <div class="col-sm-6 mb-2">
-                <input type="text" class="form-control" placeholder="BANK NAME" name="bankName" ngModel required>
+                <input type="text" class="form-control" placeholder="BANK NAME" name="bankName" [(ngModel)]="invoiceForm.paymentDetails.bankName" required />
               </div>
               <div class="col-sm-6 mb-2">
-                <input type="text" class="form-control" placeholder="ACCOUNT NO" name="accountNo" ngModel required>
+                <input type="text" class="form-control" placeholder="ACCOUNT NO" name="accountNo" [(ngModel)]="invoiceForm.paymentDetails.accountNo" required />
               </div>
             </div>
-            <div style="color:red" *ngIf="submitted && (invoiceForm.controls.bankName?.invalid || invoiceForm.controls.accountNo?.invalid)">
-              <div *ngIf="invoiceForm.controls.bankName?.errors?.required">Bank Name is required!</div>
-              <div *ngIf="invoiceForm.controls.accountNo?.errors?.required">Account No is required!</div>
-            </div>
           </div>
-
-          <div class="form-group mt-3">
-            <label for="invoiceDesc">Invoice Item Description</label>
-            <textarea class="form-control" id="invoiceDesc" name="invoiceDesc" ngModel rows="4" maxlength="250"></textarea>
-          </div>
-
         </div>
       </div>
+
+      <!-- Items Table -->
+      <div class="mt-4">
+        <h5>Invoice Items</h5>
+        <button type="button" class="btn btn-sm btn-success mb-2" (click)="openItemModal()">+ Add Item</button>
+
+        <table class="table table-bordered" *ngIf="invoiceForm.items.length > 0">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Total</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of invoiceForm.items; let i = index">
+              <td>{{ item.description }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.unitPrice | currency:'INR' }}</td>
+              <td>{{ item.total | currency:'INR' }}</td>
+              <td><button class="btn btn-sm btn-danger" type="button" (click)="deleteItem(i)">Delete</button></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="3">Grand Total</th>
+              <th colspan="2">{{ invoiceForm.totalAmount | currency:'INR' }}</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Remarks -->
+      <div class="form-group mt-3">
+        <label>Remarks</label>
+        <textarea class="form-control" name="remarks" [(ngModel)]="invoiceForm.remarks" rows="3"></textarea>
+      </div>
+
+      <!-- Submit -->
       <div class="col-lg-12 card_footer_btn_single mt-4 text-center">
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
   </div>
 </div>
+
+<!-- Item Modal -->
+<div class="modal fade show" tabindex="-1" [ngClass]="{ 'd-block': showItemModal }" *ngIf="showItemModal">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <form (ngSubmit)="addItem()">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Item</h5>
+          <button type="button" class="btn-close" (click)="closeItemModal()"></button>
+        </div>
+        <div class="modal-body">
+          <label>Description</label>
+          <input type="text" class="form-control mb-2" [(ngModel)]="itemForm.description" name="description" required />
+
+          <label>Quantity</label>
+          <input type="number" class="form-control mb-2" [(ngModel)]="itemForm.quantity" name="quantity" min="1" (input)="updateItemTotal()" required />
+
+          <label>Unit Price</label>
+          <input type="number" class="form-control mb-2" [(ngModel)]="itemForm.unitPrice" name="unitPrice" min="0.01" step="0.01" (input)="updateItemTotal()" required />
+
+          <label>Total</label>
+          <input type="number" class="form-control" [(ngModel)]="itemForm.total" name="total" readonly />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeItemModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  
