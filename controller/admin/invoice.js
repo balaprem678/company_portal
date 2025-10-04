@@ -152,7 +152,7 @@ module.exports = function () {
    */
   controller.viewInvoice = async function (req, res) {
     try {
-      const { id } = req.params;
+      const { id } = req.body;
 
       const result = await db.GetOneDocument(
         "invoice",
