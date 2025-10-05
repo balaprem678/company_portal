@@ -45,8 +45,11 @@
               "node_modules/intl-tel-input/build/css/intlTelInput.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "src/assets/css/coreui.scss",
-              "src/scss/style.scss"
+              "src/scss/style.scss",
+              "src/scss/new_style.scss",
+              "src/scss/table.scss",
+              "src/assets/css/coreui.scss"
+
             ],
             "scripts": [],
             "vendorChunk": true,

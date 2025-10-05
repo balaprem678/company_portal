@@ -73,31 +73,6 @@ span.qbs-stru {
 ::ng-deep .export-lists {
   top: 68px;
 }
-
-::ng-deep .user-user_list {
-  table {
-    thead {
-      tr {
-        th {
-          border: none;
-        }
-      }
-    }
-    tbody {
-      tr {
-        td:nth-child(1),
-        td:nth-child(2),
-        td:nth-child(3),
-        td:nth-child(4) {
-          font-weight: 700;
-        }
-        td:nth-child(5) span {
-          font-size: 12px;
-        }
-      }
-    }
-  }
-}
 ::ng-deep .product_list_filter {
   display: none;
 }

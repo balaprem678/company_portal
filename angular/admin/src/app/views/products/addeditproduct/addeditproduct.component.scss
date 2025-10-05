@@ -47,70 +47,6 @@ input:focus+.slider {
   display: none !important;
 }
 
-.table-parts {
-  width: 100%;
-  float: left;
-  margin: 15px 0;
-  white-space: normal;
-  overflow: auto;
-  white-space: nowrap;
-  overflow: auto;
-  max-height: 248px;
-  border-radius: 10px;
-  padding: 10px;
-  background: #fff;
-}
-
-/* width */
-::ng-deep .table-parts::-webkit-scrollbar {
-  width: 5px;
-}
-
-/* Track */
-::ng-deep .table-parts::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-::ng-deep .table-parts::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-/* Handle on hover */
-::ng-deep .table-parts::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.table-parts table {
-  width: 100%;
-  background-color: #fff;
-}
-
-.table-parts table th {
-  padding: 10px;
-  text-align: center;
-  font-size: 13px;
-  background: #202b4600;
-  border: none;
-}
-
-.table-parts table td {
-  padding: 14px 8px;
-  font-size: 13px;
-  text-align: center;
-}
-
-.table-parts table td input,
-.table-parts table td select {
-  min-width: 100%;
-  margin: auto;
-}
-
-.table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
 .color_red {
   color: red;
 }
@@ -675,13 +611,7 @@ p.help-block {
   margin: 0;
 }
 
-.table_delete {
-  display: flex;
-}
 
-.table_delete span {
-  margin: auto;
-}
 
 .add_vari_sno {
   padding: 22px 0 !important;

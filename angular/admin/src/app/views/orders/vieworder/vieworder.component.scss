@@ -233,11 +233,6 @@
   padding: 15px;
 }
 
-.tile .dvd {
-  border-color: rgba(0, 0, 0, 0.1);
-  border-style: solid;
-  border-width: 0;
-}
 
 .tile .dvd.dvd-white {
   border-color: rgba(255, 255, 255, 0.1);
@@ -857,10 +852,6 @@ button.btn.back-btns {
   width: 100% !important;
 }
 
-::ng-deep table tbody tr td {
-  background-color: #fff !important;
-  padding: 10px 15px !important;
-}
 
 .product_details {
   display: flex;
@@ -892,16 +883,6 @@ button.btn.back-btns {
   font-weight: 800;
 }
 
-.order_invoice,
-::ng-deep table thead tr,
-::ng-deep table tbody {
-  border: 1px solid #e9ebec;
-  border-radius: 5px 5px 0 0;
-  -webkit-border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
-  -ms-border-radius: 5px 5px 0 0;
-  -o-border-radius: 5px 5px 0 0;
-}
 
 .product_details h3 {
   font-size: 14px;
@@ -917,10 +898,6 @@ button.btn.back-btns {
   color: #878a99;
 }
 
-::ng-deep table tbody tr td:last-child,
-::ng-deep table thead tr th:last-child {
-  text-align: end;
-}
 
 .order_details_total_amt td {
   font-weight: 700;

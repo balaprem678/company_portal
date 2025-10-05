@@ -1,220 +1,93 @@
-<!-- <div class="dashboard_page margin_top mb-5">
-
-    <div class="full_page_title">
-        <strong> Dashboard</strong>
+<div class="dashboard_page">
+  <h1 class="page_title">Dashboard</h1>
+  <div class="dashboard_chart" id="widget1">
+    <div class="db_card">
+      <h6>Buses</h6>
+      <div class="dash_title"><span>60</span>
+        <img src="assets/new_images/db_c_1.png" alt="">
+      </div>
     </div>
-    <div class="animated fadeIn ">
-        <div class="dashboard_chart">
-            <div id="widget1">
-                <div class="total_earnings">
-                    <div class="dash_title_number">
-                        <h6> Total Earnings </h6>
-                    </div>
-                    <div class="dash_title" id="total_users">{{curreny_symbol}} {{(dashBoardDetails && dashBoardDetails.totalAmount ? dashBoardDetails.totalAmount :  0) | number:'1.2-2'}}</div>
-                    <div class="abs_links">
-                        <a >             </a>
-                        <img src="assets/image/earning.png" alt="">
-                    </div>
-                </div>
-                <div class="order_user">
-                    <div class="dash_title_number">
-                        <h6> Orders </h6>
-                    </div>
-                    <div class="dash_title" id="total_users">{{dashBoardDetails.orders || 0}}</div>
-                    <div class="abs_links">
-                        <a routerLink="/app/orders/allorders">View Total Orders</a>
-                        <img src="assets/image/order.png" alt="">
-                    </div>
-                </div>
-                <div class="customers">
-                    <div class="dash_title_number">
-                        <h6> Customers </h6>
-                    </div>
-                    <div class="dash_title"> {{dashBoardDetails.users || 0}} </div>
-                    <div class="abs_links">
-                        <a routerLink="/app/users/list">View Customer</a>
-                        <img src="assets/image/customer.png" alt="">
-                    </div>
-                </div>
-                <div class="products">
-                    <div class="dash_title_number">
-                        <h6> Products </h6>
-                    </div>
-                    <div class="dash_title"> {{dashBoardDetails.products || 0}} </div>
-                    <div class="abs_links">
-                        <a routerLink="/app/products/list">View Product</a>
-                        <img src="assets/image/product.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
+    <div class="db_card">
+      <h6>Drivers</h6>
+      <div class="dash_title">
+        <span>70</span>
+        <img src="assets/new_images/db_c_2.png" alt="">
+      </div>
+    </div>
 
-    <!-- <div class="earning_chart_select_opt mt-4 mb-5">
-        <div class="earning_e_m_d">
-            <div class="full_page_title">
-                <strong>Earnings </strong>
-            </div>
-         
-            <div class="month_year">
-                <div class="month_select">
-                    <label for="monthSelect">Month:</label>
-                    <select id="monthSelect" [(ngModel)]="selectedMonth" (change)="onMonthChange()">
-                        <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
-                    </select>
-                </div>
+    <div class="db_card">
+      <h6>Contracts</h6>
+      <div class="dash_title"><span>17</span>
+        <img src="assets/new_images/db_c_3.png" alt="">
+      </div>
+    </div>
 
-                <div class="year_select">
-                    <label for="yearSelect">Year:</label>
-                    <select id="yearSelect" [(ngModel)]="selectedYear" (change)="onYearChange()">
-                        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-                    </select>
-                </div>
-            </div>
+    <div class="db_card">
+      <h6>Vendors</h6>
+      <div class="dash_title"><span>4</span>
+        <img src="assets/new_images/db_c_4.png" alt="">
+      </div>
+    </div>
 
+    <div class="db_card">
+      <h6>Alerts</h6>
+      <div class="dash_title"><span>02</span>
+        <img src="assets/new_images/db_c_5.png" alt="">
+      </div>
+    </div>
 
-        </div>
-
-
-
-        <div id="earningCharts">
-            <apx-chart [series]="chartOptionsEarnings.series" [chart]="chartOptionsEarnings.chart"
-                [xaxis]="chartOptionsEarnings.xaxis" [dataLabels]="chartOptionsEarnings.dataLabels"
-                [stroke]="chartOptionsEarnings.stroke" [title]="chartOptionsEarnings.title"
-                [yaxis]="chartOptionsEarnings.yaxis"></apx-chart>
-        </div>
-    </div> -->
-
-<div class="dashboard_page margin_top mb-5">
-
-  <div class="full_page_title">
-    <strong> Dashboard</strong>
-  </div>
-
-  <div class="animated fadeIn ">
-    <div class="dashboard_chart">
-      <div id="widget1">
-
-        <!-- Buses -->
-        <div class="total_earnings">
-          <div class="dash_title_number">
-            <h6> Buses </h6>
-          </div>
-          <div class="dash_title" id="total_users">60</div>
-          <div class="abs_links">
-            <a></a>
-            <img src="assets/image/earning.png" alt="">
-          </div>
-        </div>
-
-        <!-- Drivers -->
-        <div class="order_user">
-          <div class="dash_title_number">
-            <h6> Drivers </h6>
-          </div>
-          <div class="dash_title" id="total_users">70</div>
-          <div class="abs_links">
-            <a>View Total Drivers</a>
-            <img src="assets/image/order.png" alt="">
-          </div>
-        </div>
-
-        <!-- Contracts -->
-        <div class="customers">
-          <div class="dash_title_number">
-            <h6> Contracts </h6>
-          </div>
-          <div class="dash_title"> 17 </div>
-          <div class="abs_links">
-            <a>View Contracts</a>
-            <img src="assets/image/customer.png" alt="">
-          </div>
-        </div>
-
-        <!-- Vendors -->
-        <div class="products">
-          <div class="dash_title_number">
-            <h6> Vendors </h6>
-          </div>
-          <div class="dash_title"> 4 </div>
-          <div class="abs_links">
-            <a routerLink="/app/products/list">View Total Vendors</a>
-            <img src="assets/image/product.png" alt="">
-          </div>
-        </div>
-
-        <!-- Alerts -->
-        <div class="products">
-          <div class="dash_title_number">
-            <h6> Alerts </h6>
-          </div>
-          <div class="dash_title"> 02 </div>
-        </div>
-
-        <!-- Employees -->
-        <div class="products">
-          <div class="dash_title_number">
-            <h6> Employees </h6>
-          </div>
-          <div class="dash_title"> 100 </div>
-        </div>
-
+    <div class="db_card">
+      <h6>Employees</h6>
+      <div class="dash_title"><span>100</span>
+        <img src="assets/new_images/db_c_6.png" alt="">
       </div>
     </div>
   </div>
 
-  <!-- New Row: Map (left) and Table (right) -->
   <div class="row mt-4">
-    
-    <!-- Map Section -->
     <div class="col-md-6 mb-3">
-      <div class="card shadow-sm p-3">
-        <h5 class="mb-3">Live Map</h5>
-        <iframe 
-          width="100%" 
-          height="400" 
-          style="border:0; border-radius:8px;" 
-          loading="lazy"
-          allowfullscreen 
+      <div class="bg_sw">
+        <h5 class="sec_title">Live Map</h5>
+        <iframe width="100%" height="400" style="border:0; border-radius:8px;" loading="lazy" allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509508!2d144.95373631531593!3d-37.81627944202148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf0727f4f2a2b5f9a!2sVictoria!5e0!3m2!1sen!2sau!4v1634125792045!5m2!1sen!2sau">
         </iframe>
       </div>
     </div>
-
-    <!-- Table Section -->
     <div class="col-md-6 mb-3">
-      <div class="card shadow-sm p-3">
-        <h5 class="mb-3">Bus Status</h5>
-        <table class="table table-bordered table-striped">
-          <thead class="table-dark">
-            <tr>
-              <th style="color: black;">Vehicle Number</th>
-              <th style="color: black;">Driver Name</th>
-              <th style="color: black;">Contract Id</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>TN91AA0191</td>
-              <td>Shankar</td>
-              <td>001</td>
-            </tr>
-            <tr>
-              <td>TN91AA0192</td>
-              <td>Sudharsan</td>
-              <td>202</td>
-            </tr>
-            <tr>
-              <td>TN91AA0193</td>
-              <td>Ananth</td>
-              <td>303</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="bg_sw">
+        <h5 class="sec_title">Bus Status</h5>
+        <div class="table_section">
+          <table>
+            <thead>
+              <tr>
+                <th>Vehicle Number</th>
+                <th>Driver Name</th>
+                <th>Contract Id</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TN91AA0191</td>
+                <td>Shankar</td>
+                <td>001</td>
+              </tr>
+              <tr>
+                <td>TN91AA0192</td>
+                <td>Sudharsan</td>
+                <td>202</td>
+              </tr>
+              <tr>
+                <td>TN91AA0193</td>
+                <td>Ananth</td>
+                <td>303</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>

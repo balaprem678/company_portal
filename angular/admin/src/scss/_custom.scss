@@ -566,8 +566,8 @@ p.custom-font {
   background-color: #1a1e31 !important;
 }
 
-.btn-group.export-lists > .btn,
-.btn-group-vertical > .btn {
+.btn-group.export-lists>.btn,
+.btn-group-vertical>.btn {
   background-color: #e9f3ff;
   color: #508dff;
   border: 1px solid #508dff;
@@ -731,14 +731,6 @@ button.btn.back-btns:hover {
   box-shadow: 2px 2px 2px #00000014;
 }
 
-.customtable-design table.table-bordered td {
-  border: 1px solid #f0f0f0 !important;
-}
-
-.customtable-design table.table-bordered th {
-  border: 0px !important;
-}
-
 .breadcrumb {
   border-bottom: 1px solid #f5f5f500 !important;
   position: fixed;
@@ -750,15 +742,6 @@ button.btn.back-btns:hover {
   border-bottom: 1px solid #f5f5f5 !important;
 }
 
-.customtable-design table.table-bordered td a {
-  color: #009688;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.customtable-design table.table-bordered td a:hover {
-  color: #04564e;
-}
 
 :where(.btn.app-closedd, .btn.app-close) {
   width: 110px;
@@ -840,53 +823,6 @@ html:not([dir="rtl"]) .sidebar-show.sidebar-fixed .app-footer {
   margin-left: 250px;
 }
 
-// @font-face {
-//   font-family: “Mulish”;
-//   font-style: normal;
-//   font-weight: 300;
-//   src: local(“Mulish-Light”),
-//     url(“../../../assets/Mulish-font/Mulish-Light.ttf) format(“truetype”);
-// }
-
-// @font-face {
-//   font-family: “Mulish”;
-//   font-style: normal;
-//   font-weight: 400;
-//   src: local(“Mulish-Regular”),
-//     url(“../../../assets/Mulish-font/Mulish-Regular.ttf) format(“truetype”);
-// }
-
-// @font-face {
-//   font-family: “Mulish”;
-//   font-style: normal;
-//   font-weight: 500;
-//   src: local(“Mulish-Medium”),
-//     url(“../../../assets/Mulish-font/Mulish-Medium.ttf) format(“truetype”);
-// }
-
-// @font-face {
-//   font-family: “Mulish”;
-//   font-style: normal;
-//   font-weight: 600;
-//   src: local(“Mulish-SemiBold”),
-//     url(“../../../assets/Mulish-font/Mulish-SemiBold.ttf) format(“truetype”);
-// }
-
-// @font-face {
-//   font-family: “Mulish”;
-//   font-style: normal;
-//   font-weight: 700;
-//   src: local(“Mulish-Bold”),
-//     url(“../../../assets/Mulish-font/Mulish-Bold.ttf) format(“truetype”);
-// }
-
-// @font-face {
-//   font-family: “Mulish”;
-//   font-style: normal;
-//   font-weight: 800;
-//   src: local(“Mulish-ExtraBold”),
-//     url(“../../../assets/Mulish-font/Mulish-ExtraBold.ttf) format(“truetype”);
-// }
 @font-face {
   font-family: "Mulish";
   font-style: normal;
@@ -949,14 +885,7 @@ a.navbar-brand.mainlogo-sec img {
   object-fit: contain;
 }
 
-// .header-fixed .app-header {
-//   padding: 0 0 0 20px;
-// }
 
-.main .container-fluid {
-  // padding: 0 34px;
-  // padding-bottom: 30px;
-}
 
 .app-body .sidebar {
   color: #7e7e7e;
@@ -1031,6 +960,7 @@ div#dkp-container-main {
   border-radius: 18px;
   left: 18px;
 }
+
 .sidebar .nav-dropdown-items .nav-link:hover:before,
 .sidebar .nav-dropdown-items .active.nav-link:before {
   border: 2px solid #ffffff;
@@ -1039,6 +969,7 @@ div#dkp-container-main {
 .sidebar .nav-dropdown-items .active.nav-link:before {
   left: 18px;
 }
+
 .sidebar .nav-dropdown.open .nav-link:hover {
   color: #fff;
 }
@@ -1050,6 +981,7 @@ div#dkp-container-main {
 .app-body .sidebar .nav-link {
   margin-left: 28px;
 }
+
 .app-body .sidebar .active.nav-link {
   color: #ffffff !important;
   // background: #3e97ff !important;
@@ -1117,13 +1049,11 @@ div#dkp-container-main {
   padding-right: 0;
 }
 
-// .app-header .navbar-brand {
-//   width: 205px !important;
-// }
 
 .full_page_title {
   margin-bottom: 20px;
 }
+
 .full_page_title strong {
   font-size: 18px;
   font-weight: 800;
@@ -1157,6 +1087,7 @@ div#dkp-container-main {
   color: #17c653;
   display: inline;
 }
+
 .customtable-design {
   width: 100%;
   display: flex;
@@ -1171,6 +1102,7 @@ div#dkp-container-main {
 .sidebar-minimized .sidebar .nav .nav-link {
   margin: 0 !important;
 }
+
 .app-body .sidebar .active.custom-active.nav-link {
   /* Your custom active styles */
   background: none !important;
@@ -1199,6 +1131,7 @@ div#dkp-container-main {
   -ms-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
 .cancel_order_modal,
 .delete_record,
 .featured_unfeatured_modal,
@@ -1211,17 +1144,20 @@ div#dkp-container-main {
       display: flex;
       justify-content: space-between;
     }
+
     h5 {
       font-weight: 900;
       color: #1d1c1d;
       font-size: 20px;
     }
+
     h6 {
       font-size: 15px;
       color: #1d1c1d;
       margin: 20px 0;
       font-weight: 500;
     }
+
     .product_details {
       display: flex;
       gap: 15px;
@@ -1230,6 +1166,7 @@ div#dkp-container-main {
       padding: 10px;
       border-radius: 6px;
       margin-bottom: 20px;
+
       img {
         background-color: #ccc;
         padding: 10px;
@@ -1237,11 +1174,13 @@ div#dkp-container-main {
         width: 55px;
         height: 55px;
       }
+
       h4 {
         color: #1d1c1d;
         font-size: 15px;
         font-weight: 900;
       }
+
       p {
         color: #1d1c1d;
         font-weight: 600;
@@ -1249,9 +1188,11 @@ div#dkp-container-main {
         margin: 0;
       }
     }
+
     .yes_no {
       display: flex;
       justify-content: end;
+
       button:nth-child(1) {
         border: 1px solid #ccc;
         border-radius: 6px;
@@ -1259,6 +1200,7 @@ div#dkp-container-main {
         margin-right: 10px;
         font-weight: 700;
       }
+
       button:nth-child(2) {
         background-color: #e01e5a;
         color: #ffffff;
@@ -1281,16 +1223,8 @@ div#dkp-container-main {
 }
 
 ::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container,
-::ng-deep
-  .veg_nonveg
-  .ng-select.ng-select-single
-  .ng-select-container
-  .ng-value-container,
-::ng-deep
-  .ng-select.ng-select-single
-  .ng-select-container
-  .ng-value-container
-  .ng-input,
+::ng-deep .veg_nonveg .ng-select.ng-select-single .ng-select-container .ng-value-container,
+::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input,
 input,
 input::placeholder,
 select,
@@ -1305,9 +1239,7 @@ textarea::placeholder {
   left: -19px;
 }
 
-::ng-deep
-  .ng-select.ng-select-focused:not(.ng-select-opened)
-  > .ng-select-container {
+::ng-deep .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
   border-color: transparent;
   box-shadow: none;
 }

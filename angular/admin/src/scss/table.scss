@@ -1,0 +1,39 @@
+ ::ng-deep .table_section {
+   max-height: 200px;
+   overflow-y: auto;
+
+   table {
+     width: 100%;
+
+     thead,
+     tbody {
+
+       tr {
+         th {
+           background-color: #ccc;
+           color: #000;
+         }
+
+         ::ng-deep th,
+         ::ng-deep td {
+           border: 1px solid #ccc !important;
+           border-collapse: collapse;
+           padding: 5px 10px;
+           white-space: nowrap;
+         }
+       }
+     }
+
+     &::-webkit-scrollbar {
+       width: 5px;
+     }
+
+     &::-webkit-scrollbar-track {
+       background: #f1f1f1;
+     }
+
+     &::-webkit-scrollbar-thumb {
+       background: #888;
+     }
+   }
+ }
