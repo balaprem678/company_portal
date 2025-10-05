@@ -174,6 +174,28 @@ export const Apiconfig = {
         "method": "post"
     },
 
+  addInvoice: {
+        "url": "admin/invoice/add",
+        "method": "post"
+    },
+    listInvoices: {
+        "url": "admin/invoice/list",
+        "method": "post"
+    },
+    viewInvoice: {
+        "url": "admin/invoice/view",
+        "method": "post"
+    },
+    deleteInvoice: {
+        "url": "admin/invoice/delete",
+        "method": "post"
+    },
+    updateInvoiceStatus: {
+        "url": "admin/invoice/update-status",
+        "method": "post"
+    },
+
+
     subadminEdit: {
         "url": "admins/getusersrole",
         "method": "post"

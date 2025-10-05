@@ -69,6 +69,7 @@ module.exports = function (app, io) {
         var maintance = require('../controller/admin/maintance.js')(app);
         var sparepart = require('../controller/admin/sapreParts.js')(app);
         var attendence = require('../controller/admin/attendence.js')(app);
+        var invoice = require('../controller/admin/invoice.js')(app);
 
 
 
@@ -700,6 +701,14 @@ module.exports = function (app, io) {
     app.post('/admin/customer/payment/list', ensureAuthorized, attendence.listCustomerPayment);
     app.post('/admin/attendance/bulk-mark', ensureAuthorized, attendence.bulkMarkAttendance);
     app.post('/admin/attendance/mark-all', ensureAuthorized, attendence.markAllPresentToday);
+
+
+    //invoice management
+    app.post('/admin/invoice/add', ensureAuthorized, invoice.saveInvoice);
+    app.post('/admin/invoice/list', ensureAuthorized, invoice.listInvoices);
+    app.post('/admin/invoice/view', ensureAuthorized, invoice.viewInvoice);
+    app.post('/admin/invoice/delete', ensureAuthorized, invoice.deleteInvoice);
+    app.post('/admin/invoice/update-status', ensureAuthorized, invoice.updateInvoiceStatus);
     } catch (e) {
         console.log('erroe in index.js---------->>>>', e);
     }

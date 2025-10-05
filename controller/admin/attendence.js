@@ -221,21 +221,22 @@ controller.bulkMarkAttendance = async function (req, res) {
 
     const targetDate = new Date(date);
 
-    // Loop through employee IDs and upsert records
     const operations = employeeIds.map(empId => ({
       updateOne: {
         filter: { employee: new mongoose.Types.ObjectId(empId) },
         update: {
           $setOnInsert: { employee: new mongoose.Types.ObjectId(empId) },
-          $pull: { records: { date: targetDate } }, // remove existing for same date
+          // First remove existing record for this date
+          $pull: { records: { date: targetDate } }
         },
         upsert: true
       }
     }));
 
-    await db.BulkWrite("attendance", operations);
+    // Run $pull pass (remove duplicates)
+    await db.BulkWriteDocument("attendance", operations);
 
-    // Now push updated records
+    // Run $push pass (insert new record)
     const pushOps = employeeIds.map(empId => ({
       updateOne: {
         filter: { employee: new mongoose.Types.ObjectId(empId) },
@@ -247,7 +248,7 @@ controller.bulkMarkAttendance = async function (req, res) {
       }
     }));
 
-    await db.BulkWrite("attendance", pushOps);
+    await db.BulkWriteDocument("attendance", pushOps);
 
     return res.send({ status: true, message: "Bulk attendance updated successfully" });
   } catch (err) {
@@ -255,6 +256,7 @@ controller.bulkMarkAttendance = async function (req, res) {
     return res.send({ status: false, message: "Error updating bulk attendance" });
   }
 };
+
 
 
 // Mark ALL employees as present for today
