@@ -1,139 +1,173 @@
-// "use strict";
+"use strict";
 module.exports = function () {
-  var db = require("../../controller/adaptor/mongodb.js");
-  var mongoose = require("mongoose");
-  var controller = {};
+  const db = require("../../controller/adaptor/mongodb.js");
+  const mongoose = require("mongoose");
+  const moment = require("moment");
+  const controller = {};
 
   /**
    * @route POST /performance/report
-   * @desc Get performance analysis report
-   * @body { month, year, sortBy, filterBy }
+   * @desc Generate performance analysis report for a given month & year
    */
-  controller.getPerformanceReport = async function (req, res) {
+  controller.performanceReport = async function (req, res) {
     try {
-      const { month, year, sortBy, filterBy } = req.body;
+      const { month, year, search, sortBy, sortOrder = "asc", role } = req.body;
 
-      // Define date range for the selected month
+      if (!month || !year)
+        return res.send({ status: false, message: "Month and Year are required" });
+
       const startDate = new Date(year, month - 1, 1);
-      const endDate = new Date(year, month, 0, 23, 59, 59);
+      const endDate = new Date(year, month, 0);
 
-      // Aggregate attendance + employee info
-      const pipeline = [
-        {
-          $lookup: {
-            from: "employee",
-            localField: "employee",
-            foreignField: "_id",
-            as: "employeeData"
-          }
-        },
-        { $unwind: "$employeeData" },
-        {
-          $project: {
-            employeeId: "$employeeData.employeeId",
-            fullName: "$employeeData.fullName",
-            role: "$employeeData.role",
-            dateOfJoining: "$employeeData.dateOfJoining",
-            records: 1
-          }
-        },
-        {
-          $addFields: {
-            monthlyRecords: {
-              $filter: {
-                input: "$records",
-                as: "rec",
-                cond: {
-                  $and: [
-                    { $gte: ["$$rec.date", startDate] },
-                    { $lte: ["$$rec.date", endDate] }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        {
-          $project: {
-            employeeId: 1,
-            fullName: 1,
-            role: 1,
-            dateOfJoining: 1,
-            totalWorkingDays: { $size: "$monthlyRecords" },
-            presentDays: {
-              $size: {
-                $filter: {
-                  input: "$monthlyRecords",
-                  as: "r",
-                  cond: { $eq: ["$$r.status", "P"] }
-                }
-              }
-            },
-            leaveDays: {
-              $size: {
-                $filter: {
-                  input: "$monthlyRecords",
-                  as: "r",
-                  cond: { $eq: ["$$r.status", "L"] }
-                }
-              }
-            },
-            sickDays: {
-              $size: {
-                $filter: {
-                  input: "$monthlyRecords",
-                  as: "r",
-                  cond: { $eq: ["$$r.status", "S"] }
-                }
-              }
-            },
-            speedViolations: { $sum: "$monthlyRecords.speedViolations" },
-            accidents: { $sum: "$monthlyRecords.accidents" },
-            trafficPenalties: { $sum: "$monthlyRecords.trafficPenalties" },
-            incidents: { $sum: "$monthlyRecords.incidents" }
-          }
-        },
-        {
-          $addFields: {
-            performanceScore: {
-              $cond: [
-                { $eq: ["$totalWorkingDays", 0] },
-                0,
-                {
-                  $multiply: [
-                    { $divide: ["$presentDays", "$totalWorkingDays"] },
-                    100
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        { $sort: { performanceScore: -1 } } // Default sort: high to low
-      ];
+      // Fetch all employees (active ones)
+      const employees = await db.GetDocument(
+        "employee",
+        role ? { status: 1, role } : { status: 1 },
+        {},
+        {}
+      );
 
-      const result = await db.GetAggregation("attendance", pipeline);
+      if (!employees.status || !employees.doc.length)
+        return res.send({ status: false, message: "No employees found" });
 
-      // Optional filters/sorting at API level
-      let filtered = result;
-      if (filterBy === "driver")
-        filtered = filtered.filter(r => r.role === "Driver");
-      if (filterBy === "lowPerformance")
-        filtered = filtered.filter(r => r.performanceScore < 80);
+      const results = [];
+
+      for (const emp of employees.doc) {
+        // Get attendance document for employee
+        const attnDoc = await db.GetOneDocument(
+          "attendance",
+          { employee: emp._id },
+          {},
+          {}
+        );
+
+        let leaveDays = 0,
+          sickDays = 0,
+          presentDays = 0,
+          totalDays = 0;
+
+        if (attnDoc.status && attnDoc.doc && attnDoc.doc.records.length > 0) {
+          const records = attnDoc.doc.records.filter(
+            (r) => r.date >= startDate && r.date <= endDate
+          );
+
+          totalDays = records.length;
+          records.forEach((r) => {
+            if (r.status === "P") presentDays++;
+            if (r.status === "A") leaveDays++;
+            if (r.status === "L" || r.status === "S") sickDays++;
+          });
+        }
+
+        // Compute performance percentage
+        const performancePercent =
+          totalDays > 0 ? ((presentDays / totalDays) * 100).toFixed(2) : 0;
+
+        // Get driver performance data if applicable
+        let drivingBehaviour = null;
+        if (emp.role === "Driver" && attnDoc.status && attnDoc.doc.performance.length > 0) {
+          const perf = attnDoc.doc.performance.find(
+            (p) => p.month === month && p.year === year
+          );
+          if (perf) {
+            drivingBehaviour = {
+              speedViolations: perf.speedViolations,
+              accidents: perf.accidents,
+              trafficPenalties: perf.trafficPenalties,
+              incidents: perf.incidents,
+            };
+          }
+        }
+
+        results.push({
+          employeeId: emp.employeeId,
+          employeeName: emp.fullName,
+          role: emp.role,
+          doj: emp.dateOfJoining,
+          leaveDays,
+          sickDays,
+          performancePercent,
+          drivingBehaviour,
+          remarks: "",
+        });
+      }
+
+      // Sorting
+      if (sortBy) {
+        results.sort((a, b) => {
+          let compare = 0;
+          if (sortBy === "doj") {
+            compare = new Date(a.doj) - new Date(b.doj);
+          } else if (sortBy === "performance") {
+            compare = a.performancePercent - b.performancePercent;
+          }
+          return sortOrder === "asc" ? compare : -compare;
+        });
+      }
+
+      // Search filter
+      let filtered = results;
+      if (search) {
+        filtered = results.filter((r) =>
+          r.employeeName.toLowerCase().includes(search.toLowerCase())
+        );
+      }
 
       return res.send({
         status: true,
         count: filtered.length,
-        data: filtered
+        data: filtered,
       });
     } catch (error) {
-      console.log(error, "ERROR getPerformanceReport");
+      console.log(error, "ERROR performanceReport");
       return res.send({
         status: false,
-        message: "Something went wrong while generating performance report."
+        message: "Error generating performance report",
       });
     }
   };
+
+  controller.updateDrivingBehaviour = async function (req, res) {
+  try {
+    const { employeeId, month, year, speedViolations, accidents, trafficPenalties, incidents } = req.body;
+
+    if (!employeeId || !month || !year)
+      return res.send({ status: false, message: "Employee ID, month, and year are required" });
+
+    const emp = await db.GetOneDocument("employee", { _id: new mongoose.Types.ObjectId(employeeId) }, {}, {});
+    if (!emp.status) return res.send({ status: false, message: "Employee not found" });
+
+    await db.UpdateDocument(
+      "attendance",
+      { employee: emp.doc._id },
+      {
+        $pull: { performance: { month, year } }
+      }
+    );
+
+    await db.UpdateDocument(
+      "attendance",
+      { employee: emp.doc._id },
+      {
+        $push: {
+          performance: {
+            month,
+            year,
+            speedViolations,
+            accidents,
+            trafficPenalties,
+            incidents
+          }
+        }
+      }
+    );
+
+    return res.send({ status: true, message: "Driving behaviour updated successfully" });
+  } catch (err) {
+    console.log(err, "ERROR updateDrivingBehaviour");
+    return res.send({ status: false, message: "Error updating driving behaviour" });
+  }
+};
 
   return controller;
 };
