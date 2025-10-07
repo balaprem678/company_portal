@@ -83,6 +83,8 @@ var contract_schema = require('../schema/contract.schema.js');
 var employee_schema = require('../schema/employee.schema.js');
 var invoice_schema = require('../schema/invoice.schema.js');
 var attendance_schema = require('../schema/attendance.schema.js');
+var sparepart_schema = require('../schema/spareParts.schema.js');
+var payment_schema = require('../schema/coustomerVentorPayment.schema.js');
 
 
 
@@ -170,6 +172,9 @@ var contractSchema = mongoose.Schema(contract_schema.CONTRACT, { timestamps: tru
 var employeeSchema = mongoose.Schema(employee_schema.EMPLOYEE, { timestamps: true, versionKey: false });
 var invoiceSchema = mongoose.Schema(invoice_schema.INVOICE, { timestamps: true, versionKey: false });
 var attendanceSchema = mongoose.Schema(attendance_schema.ATTENDANCE, { timestamps: true, versionKey: false });
+var sparepartSchema = mongoose.Schema(sparepart_schema.SPAREPART, { timestamps: true, versionKey: false });
+var vendorPaymentSchema = mongoose.Schema(payment_schema.VENDOR_PAYMENT, { timestamps: true, versionKey: false });
+var customerPaymentSchema = mongoose.Schema(payment_schema.CUSTOMER_PAYMENT, { timestamps: true, versionKey: false });
 
 // var checkin_schema = mongoose.Schema(checkin_schema.CHECKIN,{timestamps:true,versionkey:false})
 /* 
@@ -570,6 +575,9 @@ var contract = mongoose.model('contract', contractSchema, 'contract');
 var employee = mongoose.model('employee', employeeSchema, 'employee');
 var invoice = mongoose.model('invoice', invoiceSchema, 'invoice');
 var attendance = mongoose.model('attendance', attendanceSchema, 'attendance');
+var sparepart = mongoose.model('sparepart', sparepartSchema, 'sparepart');
+var vendorPayment = mongoose.model('vendorPayment', vendorPaymentSchema, 'vendorPayment');
+var customerPayment = mongoose.model('customerPayment', customerPaymentSchema, 'customerPayment');
 // var checkin = mongoose.model('checkin',checkin_schema,'checkin');
 const tags = mongoose.model('tags', tagsSchema, 'tags');
 const deals = mongoose.model('deals', dealsSchema, 'deals');
@@ -659,6 +667,9 @@ module.exports = {
 	'contract': contract,
 	'employee': employee,
 	'invoice': invoice,
-	'attendance': attendance
+	'attendance': attendance,
+	'sparepart': sparepart
+	,'vendorPayment': vendorPayment
+	,'customerPayment': customerPayment
 	// 'checkin':checkin
 };

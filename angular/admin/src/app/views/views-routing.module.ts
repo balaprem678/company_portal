@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 // import { MapViewComponent } from './map-view/map-view.component';
 import { ViewsComponent } from './views.component';
 import { FaqManagementComponent } from './faq-management/faq-management.component';
+import { title } from 'process';
 const routes: Routes = [
   {
     path: '',
@@ -317,6 +318,13 @@ const routes: Routes = [
         data: {
           title: 'Performance Analysis'
 
+        }
+      },
+      {
+        path:'spare-parts',
+        loadChildren: () => import('./spare-parts/spare-parts.module').then(m => m.SparePartsModule),
+        data: {
+          title:'Spare Parts'
         }
       },
       {

@@ -284,6 +284,26 @@ export const navItems: INavData[] = [
     // ]
   },
   {
+    id: "Spare Parts",
+    name: 'Spare Parts',
+    url: '/app/spare-parts',
+    icon: 'assets/image/category.png',
+    children: [
+      {
+        name: 'Spare Parts List',
+        url: '/app/spare-parts/list',
+        icon: '',
+        id: 'list'
+      },
+      {
+        name: 'Add Spare Parts',
+        url: '/app/spare-parts/add',
+        icon: '',
+        id: "add"
+      },
+    ]
+  },
+  {
     id: "maintenance",
     name: 'Maintenance',
     url: '/app/maintenance/maintenance-list',

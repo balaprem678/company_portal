@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   ) {
     this.metaTagService.addTags([
       { name: 'keywords', content: 'Social Media, Online Debate, Angular' },
-      { name: 'author', content: 'Casperon Technology' },
+      { name: 'author', content: ' Technology' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { charset: 'UTF-8' }
     ]);

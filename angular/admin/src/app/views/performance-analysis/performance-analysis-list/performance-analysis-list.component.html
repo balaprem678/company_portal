@@ -3,25 +3,16 @@
   <div class="d-flex justify-content-between align-items-center my-3">
     <h5 class="mb-0">Performance Analysis Report</h5>
 
-    <div class="d-flex gap-2 align-items-center">
+    <div class="d-flex gap-2 align-items-center flex-wrap">
       <!-- Filter: Month -->
-      <select class="form-select form-select-sm" [(ngModel)]="filterMonth">
+      <select class="form-select form-select-sm" [(ngModel)]="filterMonth" (change)="loadPerformanceList()">
         <option value="">All Months</option>
-        <option value="1">January</option>
-        <option value="2">February</option>
-        <option value="3">March</option>
-        <option value="4">April</option>
-        <option value="5">May</option>
-        <option value="6">June</option>
-        <option value="7">July</option>
-        <option value="8">August</option>
-        <option value="9">September</option>
-        <option value="10">October</option>
-        <option value="11">November</option>
-        <option value="12">December</option>
+        <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">
+          {{ ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m-1] }}
+        </option>
       </select>
 
-      <!-- Filter: Analysis Range -->
+      <!-- Filter: Analysis -->
       <select class="form-select form-select-sm" [(ngModel)]="filterAnalysis">
         <option value="">All Analysis</option>
         <option value="100-90">100 - 90</option>
@@ -29,17 +20,17 @@
         <option value="<80">< 80</option>
       </select>
 
-      <!-- Filter: Driving Behaviour -->
+      <!-- Filter: Behaviour -->
       <select class="form-select form-select-sm" [(ngModel)]="filterBehaviour">
         <option value="">All Behaviours</option>
-        <option value="Speed Violations">Speed Violations</option>
-        <option value="Accidents">Accidents</option>
-        <option value="Traffic Penalties">Traffic Penalties</option>
-        <option value="Incidents">Incidents</option>
+        <option>Speed Violations</option>
+        <option>Accidents</option>
+        <option>Traffic Penalties</option>
+        <option>Incidents</option>
       </select>
 
       <!-- Sort -->
-      <select class="form-select form-select-sm" [(ngModel)]="sortBy">
+      <select class="form-select form-select-sm" [(ngModel)]="sortBy" (change)="loadPerformanceList()">
         <option value="">Sort ⬍</option>
         <option value="dojAsc">D.O.J (Oldest → Newest)</option>
         <option value="dojDesc">D.O.J (Newest → Oldest)</option>
@@ -47,7 +38,8 @@
         <option value="analysisDesc">Analysis (High → Low)</option>
       </select>
 
-      <!-- Download PDF -->
+      <!-- Buttons -->
+      <button class="btn btn-sm btn-success" (click)="openBehaviourModal()">+ Add Driver Behaviour</button>
       <button class="btn btn-sm btn-primary" (click)="downloadPDF()">
         <i class="bi bi-file-earmark-arrow-down"></i> PDF
       </button>
@@ -71,15 +63,64 @@
       <tbody>
         <tr *ngFor="let row of filteredRecords">
           <td>{{ row.name }}</td>
-          <td>{{ row.doj }}</td>
+          <td>{{ row.doj | date: 'dd/MM/yyyy' }}</td>
           <td>{{ row.leaveDays }}</td>
           <td>{{ row.sickDays }}</td>
-          <td>{{ row.analysis }}</td>
-          <td *ngIf="row.role === 'Driver'">{{ row.drivingBehaviour }}</td>
-          <td *ngIf="row.role === 'Employee'">-</td>
+          <td>{{ row.analysis }}%</td>
+          <td *ngIf="row.role === 'Driver'">
+            <div *ngIf="row.drivingBehaviour; else noBehaviour">
+              <small *ngIf="row.drivingBehaviour.speedViolations">Speed Violations: {{ row.drivingBehaviour.speedViolations }}</small><br>
+              <small *ngIf="row.drivingBehaviour.accidents">Accidents: {{ row.drivingBehaviour.accidents }}</small><br>
+              <small *ngIf="row.drivingBehaviour.trafficPenalties">Traffic Penalties: {{ row.drivingBehaviour.trafficPenalties }}</small><br>
+              <small *ngIf="row.drivingBehaviour.incidents">Incidents: {{ row.drivingBehaviour.incidents }}</small>
+            </div>
+            <ng-template #noBehaviour>-</ng-template>
+          </td>
+          <td *ngIf="row.role !== 'Driver'">-</td>
           <td>{{ row.remarks }}</td>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Add Driver Behaviour Modal -->
+  <div class="modal fade show" tabindex="-1" [ngClass]="{'d-block': showBehaviourModal}" *ngIf="showBehaviourModal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Driver Behaviour</h5>
+          <button type="button" class="btn-close" (click)="closeBehaviourModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group mb-2">
+            <label>Driver</label>
+            <select class="form-select" [(ngModel)]="selectedDriverId">
+              <option value="">Select Driver</option>
+              <option *ngFor="let d of drivers" [value]="d._id">{{ d.fullName }}</option>
+            </select>
+          </div>
+          <div class="form-group mb-2">
+            <label>Speed Violations</label>
+            <input type="number" class="form-control" [(ngModel)]="behaviourForm.speedViolations">
+          </div>
+          <div class="form-group mb-2">
+            <label>Accidents</label>
+            <input type="number" class="form-control" [(ngModel)]="behaviourForm.accidents">
+          </div>
+          <div class="form-group mb-2">
+            <label>Traffic Penalties</label>
+            <input type="number" class="form-control" [(ngModel)]="behaviourForm.trafficPenalties">
+          </div>
+          <div class="form-group mb-2">
+            <label>Incidents</label>
+            <input type="number" class="form-control" [(ngModel)]="behaviourForm.incidents">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeBehaviourModal()">Cancel</button>
+          <button class="btn btn-primary" (click)="submitBehaviour()">Save</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -66,7 +66,11 @@ module.exports = function (app, io) {
          var employee = require('../controller/admin/employee.js')(app);
         var vendor = require('../controller/admin/vendor.js')(app);
          var fuel = require('../controller/admin/fuel.js')(app);
-
+        var maintance = require('../controller/admin/maintance.js')(app);
+        var sparepart = require('../controller/admin/sapreParts.js')(app);
+        var attendence = require('../controller/admin/attendence.js')(app);
+        var invoice = require('../controller/admin/invoice.js')(app);
+        var performance = require('../controller/admin/performance.js')(app);
 
 
 
@@ -679,6 +683,37 @@ module.exports = function (app, io) {
     app.post('/admin/fuel/save', ensureAuthorized, fuel.saveFuel);
     app.post('/admin/fuel/view', ensureAuthorized, fuel.viewFuel);
     app.post('/admin/fuel/list', ensureAuthorized, fuel.listFuels);
+
+    //maintenance management
+    app.post('/admin/maintenance/save', ensureAuthorized, maintance.saveMaintenance);
+    app.post('/admin/maintenance/list', ensureAuthorized, maintance.listMaintenance);
+
+    //sapre parts management
+    app.post('/admin/sparepart/save', ensureAuthorized, sparepart.saveSparePart);
+    app.post('/admin/sparepart/list', ensureAuthorized, sparepart.listSpareParts);
+    app.post('/admin/sparepart/view', ensureAuthorized, sparepart.viewSparePart);
+
+    //attenance management
+    app.post('/admin/attendance/save', ensureAuthorized, attendence.saveAttendance);
+    app.post('/admin/attendance/list',ensureAuthorized , attendence.listAttendance)
+    app.post('admin/vendor/payment/save', ensureAuthorized, attendence.saveVendorPayment);
+    app.post ('/admin/customer/payment/save', ensureAuthorized, attendence.saveCustomerPayment);
+    app.post('/admin/vendor/payment/list', ensureAuthorized, attendence.listVendorPayment);
+    app.post('/admin/customer/payment/list', ensureAuthorized, attendence.listCustomerPayment);
+    app.post('/admin/attendance/bulk-mark', ensureAuthorized, attendence.bulkMarkAttendance);
+    app.post('/admin/attendance/mark-all', ensureAuthorized, attendence.markAllPresentToday);
+
+
+    //invoice management
+    app.post('/admin/invoice/add', ensureAuthorized, invoice.saveInvoice);
+    app.post('/admin/invoice/list', ensureAuthorized, invoice.listInvoices);
+    app.post('/admin/invoice/view', ensureAuthorized, invoice.viewInvoice);
+    app.post('/admin/invoice/delete', ensureAuthorized, invoice.deleteInvoice);
+    app.post('/admin/invoice/update-status', ensureAuthorized, invoice.updateInvoiceStatus);
+
+    //performance management
+    app.post('/admin/performance/report', ensureAuthorized, performance.performanceReport);
+    app.post('/admin/performance/update-driver-behaviour',performance.updateDrivingBehaviour)
     } catch (e) {
         console.log('erroe in index.js---------->>>>', e);
     }

@@ -1,129 +1,138 @@
-<!-- <app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit" [tablename]="'Report Templete List'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName" [editUrl]="editUrl" [deleteApis]="deleteApis"
-    (onDeleteChange)="onDeleteChange($event)" [bulk_action]="bulk_action" (onitemsPerPageChange)="onitemsPerPageChange($event)" [card_details]="card_details" (onPageChange)="onPageChange($event)" (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)"
-    [user_list_filter_action]="user_list_filter_action" [inactiveApis]="inactiveApis" (onInactivechange)="onInactivechange($event)">
-</app-common-table> -->
 <div class="container mt-4 report-container">
   <!-- Tabs -->
   <ul class="nav nav-tabs custom-tabs">
     <li class="nav-item">
-      <button
-        class="nav-link"
-        [class.active]="activeTab === 'attendance'"
-        (click)="setTab('attendance')"
-      >
-        Attendance
-      </button>
+      <button class="nav-link" [class.active]="activeTab === 'attendance'" (click)="setTab('attendance')">Attendance</button>
     </li>
     <li class="nav-item">
-      <button
-        class="nav-link"
-        [class.active]="activeTab === 'customers'"
-        (click)="setTab('customers')"
-      >
-        Payments from Customers
-      </button>
+      <button class="nav-link" [class.active]="activeTab === 'customers'" (click)="setTab('customers')">Payments from Customers</button>
     </li>
     <li class="nav-item">
-      <button
-        class="nav-link"
-        [class.active]="activeTab === 'vendors'"
-        (click)="setTab('vendors')"
-      >
-        Payments to Vendors
-      </button>
+      <button class="nav-link" [class.active]="activeTab === 'vendors'" (click)="setTab('vendors')">Payments to Vendors</button>
     </li>
   </ul>
 
   <!-- Header -->
   <div class="d-flex justify-content-between align-items-center my-3">
     <h5 class="mb-0">
-      {{
-        activeTab === "attendance"
-          ? "Attendance Report"
-          : activeTab === "customers"
-          ? "Payments from Customers"
-          : "Payments to Vendors"
-      }}
+      {{ activeTab === "attendance" ? "Attendance Report" : activeTab === "customers" ? "Payments from Customers" : "Payments to Vendors" }}
     </h5>
 
     <div class="d-flex gap-2 align-items-center">
-      <!-- Filter & Sort Controls -->
-      <input
-        type="text"
-        class="form-control form-control-sm"
-        [placeholder]="'🔍 ' + filterOptions.placeholder"
-        [(ngModel)]="searchText"
-      />
+      <input type="text" class="form-control form-control-sm" [placeholder]="'🔍 ' + filterOptions.placeholder" [(ngModel)]="searchText" />
       <select class="form-select form-select-sm" [(ngModel)]="filterStatus">
         <option value="">All Status</option>
-        <option *ngIf="activeTab === 'attendance'" value="Present">
-          Present
-        </option>
-        <option *ngIf="activeTab === 'attendance'" value="Absent">
-          Absent
-        </option>
-        <option *ngIf="activeTab === 'attendance'" value="Leave">Leave</option>
+        <option *ngIf="activeTab === 'attendance'" value="P">Present</option>
+        <option *ngIf="activeTab === 'attendance'" value="A">Absent</option>
+        <option *ngIf="activeTab === 'attendance'" value="L">Leave</option>
         <option *ngIf="activeTab !== 'attendance'" value="Paid">Paid</option>
-        <option *ngIf="activeTab !== 'attendance'" value="Unpaid">
-          Unpaid
-        </option>
-        <option *ngIf="activeTab !== 'attendance'" value="Partial">
-          Partial
-        </option>
+        <option *ngIf="activeTab !== 'attendance'" value="Unpaid">Unpaid</option>
+        <option *ngIf="activeTab !== 'attendance'" value="Partial">Partial</option>
       </select>
-      <input
-        type="date"
-        class="form-control form-control-sm"
-        [(ngModel)]="startDate"
-      />
-      <input
-        type="date"
-        class="form-control form-control-sm"
-        [(ngModel)]="endDate"
-      />
+      <input type="date" class="form-control form-control-sm" [(ngModel)]="startDate" />
+      <input type="date" class="form-control form-control-sm" [(ngModel)]="endDate" />
       <select class="form-select form-select-sm" [(ngModel)]="sortBy">
         <option value="">Sort ⬍</option>
-        <option *ngFor="let opt of sortOptions" [value]="opt.value">
-          {{ opt.label }}
-        </option>
+        <option *ngFor="let opt of sortOptions" [value]="opt.value">{{ opt.label }}</option>
       </select>
-
-      <!-- Download PDF -->
-      <button class="btn btn-sm btn-primary" (click)="downloadPDF()">
-        <i class="bi bi-file-earmark-arrow-down"></i> PDF
-      </button>
+      
+  <!-- Show Mark All button only in attendance tab -->
+  <button *ngIf="activeTab === 'attendance'" class="btn btn-sm btn-success" (click)="markAllPresentToday()">
+    <i class="bi bi-check-all"></i> Mark All Present
+  </button>
+      <button class="btn btn-sm btn-success" (click)="openModal()"><i class="bi bi-plus-lg"></i> Add</button>
+      <button class="btn btn-sm btn-primary" (click)="downloadPDF()"><i class="bi bi-file-earmark-arrow-down"></i> PDF</button>
     </div>
   </div>
 
-  <!-- Table Wrapper for PDF Export -->
+  <!-- Table -->
   <div #tableContent>
     <!-- Attendance -->
-    <div *ngIf="activeTab === 'attendance'">
-      <table class="table table-bordered table-striped custom-table">
-        <thead>
-          <tr>
-            <th>Employee Name</th>
-            <th>Date</th>
-            <th>ID No.</th>
-            <th>Status</th>
-            <th>Last Month Record</th>
-            <th>Remarks</th>
-            <th>Total Days / Actual Days</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let row of filteredAttendance">
-            <td>{{ row.employeeName }}</td>
-            <td>{{ row.date }}</td>
-            <td>{{ row.idNo }}</td>
-            <td>{{ row.status }}</td>
-            <td>{{ row.lastMonthRecord }}</td>
-            <td>{{ row.remarks }}</td>
-            <td>{{ row.totalDays }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div *ngIf="activeTab === 'attendance'">
+  <!-- Bulk Action Toolbar -->
+  <div class="mb-2 d-flex gap-2 align-items-center">
+    <input
+      type="date"
+      class="form-control form-control-sm"
+      [(ngModel)]="selectedDate"
+      (change)="loadAttendanceByDate()"
+    />
+    <button
+      class="btn btn-sm btn-success"
+      (click)="bulkMarkAttendance('P')"
+      [disabled]="selectedEmployees.length === 0"
+    >
+      Mark Present
+    </button>
+    <button
+      class="btn btn-sm btn-danger"
+      (click)="bulkMarkAttendance('A')"
+      [disabled]="selectedEmployees.length === 0"
+    >
+      Mark Absent
+    </button>
+    <button
+      class="btn btn-sm btn-warning"
+      (click)="bulkMarkAttendance('L')"
+      [disabled]="selectedEmployees.length === 0"
+    >
+      Mark Leave
+    </button>
+  </div>
+
+  <table class="table table-bordered table-striped custom-table">
+    <thead>
+      <tr>
+        <th>
+          <input
+            type="checkbox"
+            (change)="toggleSelectAll($event)"
+            [checked]="isAllSelected()"
+          />
+        </th>
+        <th>Employee Name</th>
+        <th>ID No.</th>
+        <th>Status</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr *ngFor="let row of filteredAttendance">
+        <td>
+          <input
+            type="checkbox"
+            [checked]="selectedEmployees.includes(row._id)"
+            (change)="toggleEmployee(row._id, $event)"
+          />
+        </td>
+        <td>{{ row.employeeName }}</td>
+        <td>{{ row.idNo }}</td>
+        <td>
+          <select
+            class="form-select form-select-sm"
+            [(ngModel)]="row.status"
+            (change)="updateAttendance(row)"
+          >
+            <option value="P">Present</option>
+            <option value="A">Absent</option>
+            <option value="L">Leave</option>
+          </select>
+        </td>
+        <td>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            [(ngModel)]="row.remarks"
+            (blur)="updateAttendance(row)"
+            placeholder="Remarks"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
     <!-- Customers -->
     <div *ngIf="activeTab === 'customers'">
@@ -138,6 +147,7 @@
             <th>Status</th>
             <th>Balance</th>
             <th>Remarks</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -145,13 +155,12 @@
             <td>{{ row.name }}</td>
             <td>{{ row.contractId }}</td>
             <td>{{ row.invoiceNo }}</td>
-            <td>{{ row.dueDate }}</td>
-            <td>
-              {{ row.amountPaid | currency : "INR" : "symbol" : "1.0-0" }}
-            </td>
+            <td>{{ row.dueDate | date }}</td>
+            <td>{{ row.amountPaid | currency:"INR" }}</td>
             <td>{{ row.status }}</td>
-            <td>{{ row.balance | currency : "INR" : "symbol" : "1.0-0" }}</td>
+            <td>{{ row.balance | currency:"INR" }}</td>
             <td>{{ row.remarks }}</td>
+            <td><button class="btn btn-sm btn-warning" (click)="openModal(row)">Edit</button></td>
           </tr>
         </tbody>
       </table>
@@ -170,6 +179,7 @@
             <th>Status</th>
             <th>Balance</th>
             <th>Remarks</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -177,16 +187,94 @@
             <td>{{ row.name }}</td>
             <td>{{ row.contractId }}</td>
             <td>{{ row.invoiceNo }}</td>
-            <td>{{ row.dueDate }}</td>
-            <td>
-              {{ row.amountPaid | currency : "INR" : "symbol" : "1.0-0" }}
-            </td>
+            <td>{{ row.dueDate | date }}</td>
+            <td>{{ row.amountPaid | currency:"INR" }}</td>
             <td>{{ row.status }}</td>
-            <td>{{ row.balance | currency : "INR" : "symbol" : "1.0-0" }}</td>
+            <td>{{ row.balance | currency:"INR" }}</td>
             <td>{{ row.remarks }}</td>
+            <td><button class="btn btn-sm btn-warning" (click)="openModal(row)">Edit</button></td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade show" tabindex="-1" [ngClass]="{ 'd-block': showModal }" *ngIf="showModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form (ngSubmit)="saveRecord()">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ editData ? 'Edit' : 'Add' }} {{ activeTab | titlecase }}</h5>
+            <button type="button" class="btn-close" (click)="closeModal()"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Attendance -->
+            <ng-container *ngIf="activeTab === 'attendance'">
+              <label>Employee</label>
+              <input type="text" class="form-control mb-2" [(ngModel)]="form.employee" name="employee" required>
+              <label>Date</label>
+              <input type="date" class="form-control mb-2" [(ngModel)]="form.date" name="date" required>
+              <label>Status</label>
+              <select class="form-select mb-2" [(ngModel)]="form.status" name="status">
+                <option value="P">Present</option>
+                <option value="A">Absent</option>
+                <option value="L">Leave</option>
+              </select>
+              <label>Remarks</label>
+              <textarea class="form-control" [(ngModel)]="form.remarks" name="remarks"></textarea>
+            </ng-container>
+
+            <!-- Customers -->
+            <ng-container *ngIf="activeTab === 'customers'">
+              <label>Client</label>
+              <input type="text" class="form-control mb-2" [(ngModel)]="form.client" name="client" required>
+              <label>Contract ID</label>
+              <input type="text" class="form-control mb-2" [(ngModel)]="form.contractId" name="contractId" required>
+              <label>Invoice No.</label>
+              <input type="text" class="form-control mb-2" [(ngModel)]="form.invoiceNo" name="invoiceNo">
+              <label>Due Date</label>
+              <input type="date" class="form-control mb-2" [(ngModel)]="form.dueDate" name="dueDate">
+              <label>Amount Paid</label>
+              <input type="number" class="form-control mb-2" [(ngModel)]="form.amountPaid" name="amountPaid">
+              <label>Status</label>
+              <select class="form-select mb-2" [(ngModel)]="form.status" name="status">
+                <option value="Paid">Paid</option>
+                <option value="Unpaid">Unpaid</option>
+                <option value="Partial">Partial</option>
+              </select>
+              <label>Remarks</label>
+              <textarea class="form-control" [(ngModel)]="form.remarks" name="remarks"></textarea>
+            </ng-container>
+
+            <!-- Vendors -->
+            <ng-container *ngIf="activeTab === 'vendors'">
+              <label>Vendor</label>
+              <input type="text" class="form-control mb-2" [(ngModel)]="form.vendor" name="vendor" required>
+              <label>Contract ID</label>
+              <input type="text" class="form-control mb-2" [(ngModel)]="form.contractId" name="contractId">
+              <label>Invoice No.</label>
+              <input type="text" class="form-control mb-2" [(ngModel)]="form.invoiceNo" name="invoiceNo">
+              <label>Due Date</label>
+              <input type="date" class="form-control mb-2" [(ngModel)]="form.dueDate" name="dueDate">
+              <label>Amount Paid</label>
+              <input type="number" class="form-control mb-2" [(ngModel)]="form.amountPaid" name="amountPaid">
+              <label>Status</label>
+              <select class="form-select mb-2" [(ngModel)]="form.status" name="status">
+                <option value="Paid">Paid</option>
+                <option value="Unpaid">Unpaid</option>
+                <option value="Partial">Partial</option>
+              </select>
+              <label>Remarks</label>
+              <textarea class="form-control" [(ngModel)]="form.remarks" name="remarks"></textarea>
+            </ng-container>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">{{ editData ? 'Update' : 'Save' }}</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

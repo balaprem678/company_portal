@@ -75,7 +75,7 @@ export const Apiconfig = {
         "method": "post"
     },
 
-    
+
     saveContract:{
         "url": "admin/contract/save",
         "method": "post"
@@ -116,6 +116,95 @@ export const Apiconfig = {
         "url": "admin/employee/view",
         "method": "post"
     },
+    saveSparePart: {
+        "url": "admin/sparepart/save",
+        "method": "post"
+    },
+    listSpareParts: {
+        "url": "admin/sparepart/list",
+        "method": "post"
+    },
+    viewSparePart: {
+        "url": "admin/sparepart/view",
+        "method": "post"
+    },
+
+    maintancelist: {
+        "url": "admin/maintenance/list",
+        "method": "post"
+    },
+    saveMaintenance: {
+        "url": "admin/maintenance/save",
+        "method": "post"
+    },
+
+  saveVendorPayment: {
+        "url": "admin/vendor/payment/save",
+        "method": "post"
+
+    },
+    saveCustomerPayment: {
+        "url": "admin/customer/payment/save",
+        "method": "post"
+    },
+    saveAttendance: {
+        "url": "admin/attendance/save",
+        "method": "post"
+    },
+
+    listVendorPayments: {
+        "url": "admin/vendor/payment/list",
+        "method": "post"
+    },
+    listCustomerPayments: {
+        "url": "admin/customer/payment/list",
+        "method": "post"
+    },
+    listAttendance: {
+        "url": "admin/attendance/list",
+        "method": "post"
+    },
+
+    bulkMarkAttendance: {
+        "url": "admin/attendance/bulk-mark",
+        "method": "post"
+    },
+    markallAttendance: {
+        "url": "admin/attendance/mark-all",
+        "method": "post"
+    },
+
+  addInvoice: {
+        "url": "admin/invoice/add",
+        "method": "post"
+    },
+    listInvoices: {
+        "url": "admin/invoice/list",
+        "method": "post"
+    },
+    viewInvoice: {
+        "url": "admin/invoice/view",
+        "method": "post"
+    },
+    deleteInvoice: {
+        "url": "admin/invoice/delete",
+        "method": "post"
+    },
+    updateInvoiceStatus: {
+        "url": "admin/invoice/update-status",
+        "method": "post"
+    },
+
+    performanceList: {
+        "url": "admin/performance/report",
+        "method": "post"
+    },
+    driverBehaviourUpdate: {
+        "url": "admin/performance/update-driver-behaviour",
+        "method": "post"
+    },
+
+
     subadminEdit: {
         "url": "admins/getusersrole",
         "method": "post"
