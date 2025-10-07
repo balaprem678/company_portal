@@ -129,9 +129,9 @@
         </ng-template>
     </div>
     <div class="animated fadeIn margin_top">
-        <h3 class="full_page_title"><strong>{{tablename}}</strong></h3>
-        <div *ngIf="add_btn && !template" class="adds-heading">
-            <button class="btn subdomain" routerLink="{{addBtnUrl}}">
+        <div class="title_sec">
+            <h1 class="page_title 2">{{tablename}}</h1>
+            <button *ngIf="add_btn && !template" class="adds-heading btn subdomain" routerLink="{{addBtnUrl}}">
                 <i class="fa fa-plus-circle"></i> <strong> {{addBtnName | titlecase }}</strong>
             </button>
         </div>

@@ -94,11 +94,7 @@
   float: right;
 }
 
-.no-data-found {
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-}
+
 
 .apply-btn {
   border: 1px solid #ccc;
@@ -194,9 +190,10 @@ table tr th {
 
 .filter-list {
   margin-bottom: 20px;
+
   .ng-select .ng-has-value .ng-placeholder {
     display: block;
-}
+  }
 }
 
 .filter-btn {
@@ -449,13 +446,7 @@ section.dashboard-structure {
   justify-content: end;
 }
 
-.filter-box.filbox-imports {
-  .full_page_title {
-    justify-content: space-between;
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
+
 
 .filter-spilt .filter-list label {
   width: 100%;
@@ -838,21 +829,10 @@ button.btn.addsub-admin i {
   gap: 6px;
 }
 
-.adds-heading {
-  position: absolute;
-  right: 0px;
-  top: 48px;
-  display: flex;
-  justify-content: end;
-}
-
 
 .product_list_filter {
   width: unset;
   z-index: 1;
-  // position: absolute;
-  // right: 178px;
-  // top: 68px;
 }
 
 .product_list_filter h2 {

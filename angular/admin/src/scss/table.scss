@@ -1,5 +1,5 @@
  ::ng-deep .table_section {
-   min-height: 200px;
+   //  min-height: 200px;
    max-height: 400px;
    overflow-y: auto;
 
@@ -12,7 +12,7 @@
        tr {
          th {
            background-color: #cccccc9e;
-           color: #000;
+           color: #2175c1;
          }
 
          th,
@@ -38,4 +38,11 @@
        background: #888;
      }
    }
+ }
+
+
+ ::ng-deep .no-data-found {
+   text-align: center;
+   font-weight: 700;
+   font-size: 14px;
  }

@@ -1,7 +1,33 @@
+.df {
+  display: flex;
+}
+
+.jcsb {
+  justify-content: space-between;
+}
+
+.aic {
+  align-items: center;
+}
+
+.title_sec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+
+  .page_title {
+    margin: 0;
+  }
+
+ 
+}
+
 .page_title {
-  font-size: 24px;
+  font-size: 20px;
   text-transform: uppercase;
   font-weight: 700;
+  margin-bottom: 15px;
 }
 
 .sec_title {

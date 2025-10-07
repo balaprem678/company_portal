@@ -6,8 +6,8 @@
     {{limit *(currentPage-1)+1+i}}.
   </td>
   <td *ngIf="!row.isInEditing && showActionColumnLeft" class="ng2-smart-actions">
-      <ng2-st-tbody-custom [grid]="grid" (custom)="custom.emit($event)" [row]="row" [source]="source">
-      </ng2-st-tbody-custom>
+    <ng2-st-tbody-custom [grid]="grid" (custom)="custom.emit($event)" [row]="row" [source]="source">
+    </ng2-st-tbody-custom>
 
     <ng2-st-tbody-edit-delete [grid]="grid" [deleteConfirm]="deleteConfirm" [editConfirm]="editConfirm"
       (edit)="edit.emit(row)" (delete)="delete.emit(row)" (editRowSelect)="editRowSelect.emit($event)" [row]="row"
@@ -39,7 +39,7 @@
 </tr>
 
 <tr *ngIf="grid.getRows().length == 0">
-  <td [attr.colspan]="tableColumnsCount" class="no-data-found">
+  <td colspan="12" class="no-data-found">
     {{ noDataMessage }}
   </td>
 </tr>
