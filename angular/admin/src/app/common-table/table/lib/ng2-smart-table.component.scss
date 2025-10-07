@@ -64,3 +64,11 @@ th.ng2-smart-th.email {
 
 
 
+
+
+::ng-deep .ng2-smart-pagination-per-page {
+  select {
+    border: 1px solid #ccc !important;
+    margin-left: 10px;
+  }
+}
