@@ -1,49 +1,36 @@
 <div class="common_page">
 
     <div class="row" *ngIf="user_based_name">
-        <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0 tabls-heading">
-            <h3>{{user_based_name | titlecase }}</h3>
-        </div>
+        <h3>{{user_based_name | titlecase }}</h3>
     </div>
     <div class="animated fadeIn" *ngIf="card_details && card_details.length > 0">
-        <div class="row">
-            <div class="col-lg-12">
-            <section class="dashboard-structure " id="widget1">
-                <div class="listmain-dash" *ngFor="let item of card_details"
-                    [ngClass]="{'header-card': (cardActive && item.click_val && item.click_val == cardActive) ? true: false }"
-                    (click)="headercardfun(item.click_val)">
-                    <div class="histmain-dash {{item.bg_color}}">
-                        <h5>{{item.title}}</h5>
-                        <h4 id="total_users">{{item.value}}</h4>
-                    </div>
+        <section class="dashboard-structure " id="widget1">
+            <div class="listmain-dash" *ngFor="let item of card_details"
+                [ngClass]="{'header-card': (cardActive && item.click_val && item.click_val == cardActive) ? true: false }"
+                (click)="headercardfun(item.click_val)">
+                <div class="histmain-dash {{item.bg_color}}">
+                    <h5>{{item.title}}</h5>
+                    <h4 id="total_users">{{item.value}}</h4>
                 </div>
-            </section>
-        </div>
-        </div>
+            </div>
+        </section>
     </div>
-
     <!-- (click)="isCollapsed = !isCollapsed" -->
     <div class="filter " *ngIf="filter_action">
         <h2 class="product_list_filter"> <span (click)="openModal(template)" [attr.aria-expanded]="!isCollapsed"
                 aria-controls="collapseBasic">
                 <i class="fa fa-filter" aria-hidden="true"></i> Filter <i
                     class="{{!isCollapsed ? 'fa fa-angle-up' : 'fa fa-angle-down'}}"></i></span>
-
-
         </h2>
-
         <div class="btn-group bulk_upload" *ngIf="bulkupload">
             <button (click)="openBulkUploadModal()">Bulk Upload</button>
         </div>
-
         <div class="btn-group export-lists p-0 " dropdown *ngIf="export_btn">
             <button dropdownToggle type="button" class="btn dropdown-toggle">
                 Export <span class="caret"></span>
             </button>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
-                <!-- <li role="menuitem"><a class="dropdown-item" (click)="exportFunction('csv')">CSV</a></li> -->
                 <li role="menuitem"><a class="dropdown-item" (click)="exportFunction('excel')">Download</a></li>
-                <!-- <li role="menuitem"><a class="dropdown-item" (click)="exportFunction('pdf')">PDF</a></li> -->
             </ul>
         </div>
         <ng-template #bulkUploadTemplate>
@@ -54,12 +41,7 @@
                 <button class="btn btn-secondary" (click)="modalRefs?.hide()">Cancel</button>
             </div>
         </ng-template>
-
-
-
         <ng-template #template>
-
-
             <div class="modal-body">
                 <!-- [collapse]="isCollapsed" -->
                 <div class="filter-box filbox-imports" id="collapseBasic">
@@ -86,13 +68,11 @@
                                                 [maxDate]="item.type == 'date' && i === 0 ? maxDate : null"
                                                 [minDate]="item.type == 'date' && i === 1 ? minDate : null">
                                         </div>
-
                                         <div *ngIf="item.tag == 'input'">
                                             <input class="form-control datebg" placeholder="Select {{item.name}}"
                                                 type="text" *ngIf="item.name == 'Order Id'"
                                                 formControlName="field_{{i}}">
                                         </div>
-
                                         <div *ngIf=" item.tag=='select'">
                                             <select name="" class=" form-control" formControlName="field_{{i}}"
                                                 *ngIf="item.name == 'City'" [(ngModel)]="city">
@@ -108,58 +88,32 @@
                                                     {{list.brandname}}
                                                 </option>
                                             </select>
-                                            <!-- <select name="" class="form-control" formControlName="field_{{i}}"
-                                                *ngIf="item.name == 'Status'" [(ngModel)]="status">
-                                                <option value="" disabled selected hidden>Select Status</option>
-                                                <option value="1">Active</option>
-                                                <option value="2">In Active</option>
-                                            </select> -->
-
                                             <ng-select *ngIf="item.name == 'Status'" [items]="statusOptions"
                                                 bindLabel="label" bindValue="value" [(ngModel)]="status" name="status"
                                                 class="form-control custom-ng-select" formControlName="field_{{i}}"
                                                 placeholder="Select Status" [searchable]="false">
                                             </ng-select>
-
                                             <select name="" class="form-control" formControlName="field_{{i}}"
                                                 *ngIf="item.name == 'Recommended'" [(ngModel)]="recommended"
                                                 [searchable]="false">
-                                                <option value="" disabled selected hidden>Select Recommended</option>
+                                                <option value="" disabled selected hidden>Select Recommended
+                                                </option>
                                                 <option value="1">Recommended</option>
                                                 <option value="0">Un Recommended</option>
                                             </select>
-                                            <!-- <select name="" class="form-control" formControlName="field_{{i}}"
-                                                *ngIf="item.name == 'Category'" [(ngModel)]="Category"
-                                                (change)="getsubcategory(Category)">
-                                                <option value="" disabled selected hidden>Select category</option>
-                                                <option *ngFor="let list of categoryList; let i=index" [value]="list._id">
-                                                    {{list.rcatname}}
-                                                </option>
-                                            </select>
-                                            <select name="" class="form-control" formControlName="field_{{i}}"
-                                                *ngIf="item.name == 'Subcategory'" [(ngModel)]="subcategory">
-                                                <option value="" disabled selected>Select Sub Category</option>
-                                                <option *ngFor="let list of subcategoryList; let i=index" [value]="list._id">
-                                                    {{list.scatname}}
-                                                </option>
-                                            </select> -->
                                             <ng-select *ngIf="item.name == 'Category'" [items]="categoryList"
                                                 bindLabel="rcatname" bindValue="_id" [(ngModel)]="Category"
                                                 name="category" class="form-control custom-ng-select"
                                                 formControlName="field_{{i}}" (change)="getsubcategory(Category)"
                                                 [placeholder]="'Select category'" [searchable]="false">
                                             </ng-select>
-
                                             <ng-select *ngIf="item.name == 'Subcategory'" [items]="subcategoryList"
                                                 bindLabel="scatname" bindValue="_id" [(ngModel)]="subcategory"
                                                 name="subcategory" class="form-control custom-ng-select"
                                                 formControlName="field_{{i}}" [placeholder]="'Select Sub Category'"
                                                 [searchable]="false">
-
                                             </ng-select>
-
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="filter-spilt card_footer_btn m-0 mt-4">
@@ -173,220 +127,92 @@
                 </div>
             </div>
         </ng-template>
-
-
-        <!-- <div class="filter-box filbox-imports" id="collapseBasic" [collapse]="isCollapsed">
-            <div class="col-12">
-                <form [formGroup]="filterForm" autocomplete="off" (ngSubmit)="filterSubmite()">
-                    <div class="full_page_title">
-                        <strong>Select Filter</strong>
-                    </div>
-                    <div class="">
-                        <div class="filter-spilt {{filter_action_list.length >= 4 ? '':''}}"
-                            *ngFor="let item of filter_action_list; let i=index">
-                            <div class="filter-list">
-                                <label>{{item.name}} </label>
-                                <div *ngIf="item.tag == 'input'">
-                                    <input class="form-control datebg" readonly placeholder="Select {{item.name}}"
-                                        type="text" *ngIf="item.type == 'date'" bsDatepicker
-                                        formControlName="field_{{i}}" (ngModelChange)="onChangeDate($event,i)"
-                                        [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY',containerClass:'theme-orange',showWeekNumbers: false }"
-                                        [maxDate]="item.type == 'date' && i === 0 ? maxDate : null"
-                                        [minDate]="item.type == 'date' && i === 1 ? minDate : null">
-                                </div>
-
-                                <div *ngIf="item.tag == 'input'">
-                                    <input class="form-control datebg" placeholder="Select {{item.name}}" type="text"
-                                        *ngIf="item.name == 'Order Id'" formControlName="field_{{i}}">
-                                </div>
-
-                                <div *ngIf=" item.tag=='select'">
-                                    <select name="" class=" form-control" formControlName="field_{{i}}"
-                                        *ngIf="item.name == 'City'" [(ngModel)]="city">
-                                        <option value="" disabled selected hidden>Select city</option>
-                                        <option *ngFor="let list of cityList; let i=index" [value]="list._id">
-                                            {{list.cityname}}
-                                        </option>
-                                    </select>
-                                    <select name="" class="form-control" formControlName="field_{{i}}"
-                                        *ngIf="item.name == 'Brands'" [(ngModel)]="brands">
-                                        <option value="" disabled selected hidden>Select Brands</option>
-                                        <option *ngFor="let list of brandsList; let i=index" [value]="list._id">
-                                            {{list.brandname}}
-                                        </option>
-                                    </select>
-
-                                    <ng-select *ngIf="item.name == 'Status'" [items]="statusOptions" bindLabel="label"
-                                        bindValue="value" [(ngModel)]="status" name="status"
-                                        class="form-control custom-ng-select" formControlName="field_{{i}}"
-                                        placeholder="Select Status">
-                                    </ng-select>
-
-                                    <select name="" class="form-control" formControlName="field_{{i}}"
-                                        *ngIf="item.name == 'Recommended'" [(ngModel)]="recommended">
-                                        <option value="" disabled selected hidden>Select Recommended</option>
-                                        <option value="1">Recommended</option>
-                                        <option value="0">Un Recommended</option>
-                                    </select>
-                                    <ng-select *ngIf="item.name == 'Category'" [items]="categoryList"
-                                        bindLabel="rcatname" bindValue="_id" [(ngModel)]="Category" name="category"
-                                        class="form-control custom-ng-select" formControlName="field_{{i}}"
-                                        (change)="getsubcategory(Category)" placeholder="Select category">
-                                    </ng-select>
-
-                                    <ng-select *ngIf="item.name == 'Subcategory'" [items]="subcategoryList"
-                                        bindLabel="scatname" bindValue="_id" [(ngModel)]="subcategory"
-                                        name="subcategory" class="form-control custom-ng-select"
-                                        formControlName="field_{{i}}" placeholder="Select Sub Category">
-
-                                    </ng-select>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="filter-spilt card_footer_btn m-0 mt-4">
-                            <button type="button" (click)="filterForm.reset(); clearformData()" class="btn"
-                                [disabled]='!filterForm.dirty'>Clear</button>
-                            <button type="submit" class="btn" [disabled]="!filterForm.dirty">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div> -->
     </div>
-
     <div class="animated fadeIn margin_top">
-        <div class="row">
-            <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0 tabls-heading ">
-                <h3 class="full_page_title"><strong>{{tablename}}</strong></h3>
-            </div>
-            <div *ngIf="add_btn && !template" class="col-6 col-sm-4 col-md-2 col-xl  mb-xl-0 adds-heading">
-                <button class="btn subdomain" routerLink="{{addBtnUrl}}">
-                    <i class="fa fa-plus-circle"></i> <strong> {{addBtnName | titlecase }}</strong>
-                </button>
-            </div>
+        <h3 class="full_page_title"><strong>{{tablename}}</strong></h3>
+        <div *ngIf="add_btn && !template" class="adds-heading">
+            <button class="btn subdomain" routerLink="{{addBtnUrl}}">
+                <i class="fa fa-plus-circle"></i> <strong> {{addBtnName | titlecase }}</strong>
+            </button>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="row mb-4">
-                        <div class="col-md-3 col-sm-6 col-lg-3 bulk_option" *ngIf="bulk_action && !notification_action">
-                            <!-- <select name="bulk-action" id="bulk-action" class="form-control" [(ngModel)]="bulkactions"
-                                placeholder="Bulk Action">
-                                <option disabled value="bulkaction">Bulk Action</option>
-                                <option value="delete">Delete</option>
-                                <option *ngIf='user_list_filter_action' value="inactive">InActive</option>
-                                <option *ngIf='activeBulkAction' value="active">Active</option>
-                            </select> -->
-                            <ng-select [items]="bulkActionOptions" bindLabel="label" bindValue="value"
-                                [(ngModel)]="bulkactions" id="bulk-action" class="form-control custom-ng-select"
-                                placeholder="Bulk Action" [style.border-radius.px]="dropdownBorderRadius1"
-                                [searchable]='false'>
-                            </ng-select>
-
-                        </div>
-                        <!-- <div *ngIf="add_btn " class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0 adds-heading">
-                            <div class="mr-1 mb-1 table-add-btn1">
-                                <button class="btn subdomain addsub-admin" routerLink="{{addBtnUrl}}">
-                                    <i class="fa fa-plus" aria-hidden="true"></i> {{addBtnName | titlecase }}
-                                </button>
-                            </div>
-                        </div> -->
-                        <div class="col-md-6 col-sm-12 col-lg-6 mar-spaces" *ngIf="!bulk_action && notification_action">
-                            <div class="mr-1 mb-1">
-                                <button class="btn send-inst" style="margin-right: 10px;"
-                                    (click)="sendMailNotify('mail')">
-                                    <i class="fa fa-envelope"></i> Send Mail
-                                </button>
-                                <button class="btn send-noti" (click)="sendMailNotify('push')">
-                                    <i class="fa fa-bell"></i> Send Notification
-                                </button>
-                            </div>
-                        </div>
-
-
-
-
-
-                        <div class="col-md-2 col-sm-2 col-lg-2 p-0" *ngIf="bulk_action && !notification_action">
-                            <div *ngIf="bulk_action">
-                                <button [disabled]="!bulkSelect" type="button" (click)="bulkActionChange()"
-                                    class="btn btn-light apply-btn">Apply</button>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-lg-4 search-input-tag" *ngIf="showSearch">
-                            <form autocomplete="off">
-                                <img src="assets/image/search_icon.png" alt="search_icon">
-                                <input type="search" autocomplete="nope" name="kanavu" id='kanavu-sliks'
-                                    class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Search"
-                                    (input)="onSearchKeyUp($event.target.value)">
-                            </form>
-                        </div>
-
-                        <!-- sendmail -->
-
-                        <div class="col-md-2 col-sm-2 col-lg-2 mar-spaces"
-                            *ngIf="subscribeMail&& !notification_action && this.url ==='/app/users/subscribe'">
-                            <div class="mr-1 mb-1">
-                                <button class="btn send-inst" style="margin-right: 10px;"
-                                    (click)="sendMail1()">
-                                    <i class="fa fa-envelope"></i> Send Mail
-                                </button>
-
-                            </div>
-                        </div>
-
-                        <div class="container-fluid">
-
-                            <div class="add_new_email df" *ngIf="subscribeMail && url === '/app/users/subscribe'">
-                                <button class="btn subdomain addsub-admin" (click)="showInput = !showInput">
-                                    Add New Email
-                                </button>
-
-                                <div *ngIf="showInput" class="enter_mail">
-                                    <label for="emailsub">Enter Email:</label>
-                                    <input name="emailsub" type="text" [(ngModel)]="newEmail" #emailInput="ngModel"
-                                        required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-                                    <button class="btn subdomain addsub-admin" (click)="showInput = !showInput">
-                                        Cancel
-                                    </button>
-                                    <button class="btn subdomain addsub-admin" (click)="addSubscriber()"
-                                        [disabled]="!emailInput.valid">
-                                        Submit
-                                    </button>
-
-                                    <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
-                                        class="error-notification">
-                                        <div class="invalid-feedback" *ngIf="emailInput.errors?.required && sbmitted">
-                                            Email is
-                                            required.
-                                        </div>
-                                        <div class="invalid-feedback" *ngIf="emailInput.errors?.pattern">Please enter a
-                                            valid email address.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
+        <div class="bg_sw">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-lg-3 bulk_option" *ngIf="bulk_action && !notification_action">
+                    <ng-select [items]="bulkActionOptions" bindLabel="label" bindValue="value" [(ngModel)]="bulkactions"
+                        id="bulk-action" class="form-control custom-ng-select" placeholder="Bulk Action"
+                        [style.border-radius.px]="dropdownBorderRadius1" [searchable]='false'>
+                    </ng-select>
+                </div>
+                <div class="col-md-6 col-sm-12 col-lg-6 mar-spaces" *ngIf="!bulk_action && notification_action">
+                    <div class="mr-1 mb-1">
+                        <button class="btn send-inst" style="margin-right: 10px;" (click)="sendMailNotify('mail')">
+                            <i class="fa fa-envelope"></i> Send Mail
+                        </button>
+                        <button class="btn send-noti" (click)="sendMailNotify('push')">
+                            <i class="fa fa-bell"></i> Send Notification
+                        </button>
                     </div>
-
-
-
-                    <div class="card-body">
-                        <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustomAction($event)"
-                            [currentPage]="currentPerPage" [count]="count" (Pagechange)="Pagechange($event)"
-                            [itemsPerPage]="itemsPerPage" (PerPagechange)="PerPagechange($event)"
-                            [isAllSelected]="bulkSelect" (userRowSelect)="onUserRowSelect($event)">
-                        </ng2-smart-table>
+                </div>
+                <div class="col-md-2 col-sm-2 col-lg-2 p-0" *ngIf="bulk_action && !notification_action">
+                    <div *ngIf="bulk_action">
+                        <button [disabled]="!bulkSelect" type="button" (click)="bulkActionChange()"
+                            class="btn btn-light apply-btn">Apply</button>
+                    </div>
+                </div>
+                <form autocomplete="off" class="input_search" *ngIf="showSearch">
+                    <input type="search" autocomplete="nope" name="kanavu" id='kanavu-sliks' class="form-control"
+                        [ngModelOptions]="{standalone: true}" placeholder="Search"
+                        (input)="onSearchKeyUp($event.target.value)">
+                    <i class="fi fi-br-search"></i>
+                </form>
+                <!-- sendmail -->
+                <div class="col-md-2 col-sm-2 col-lg-2 mar-spaces"
+                    *ngIf="subscribeMail&& !notification_action && this.url ==='/app/users/subscribe'">
+                    <div class="mr-1 mb-1">
+                        <button class="btn send-inst" style="margin-right: 10px;" (click)="sendMail1()">
+                            <i class="fa fa-envelope"></i> Send Mail
+                        </button>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="add_new_email df" *ngIf="subscribeMail && url === '/app/users/subscribe'">
+                        <button class="btn subdomain addsub-admin" (click)="showInput = !showInput">
+                            Add New Email
+                        </button>
+                        <div *ngIf="showInput" class="enter_mail">
+                            <label for="emailsub">Enter Email:</label>
+                            <input name="emailsub" type="text" [(ngModel)]="newEmail" #emailInput="ngModel" required
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                            <button class="btn subdomain addsub-admin" (click)="showInput = !showInput">
+                                Cancel
+                            </button>
+                            <button class="btn subdomain addsub-admin" (click)="addSubscriber()"
+                                [disabled]="!emailInput.valid">
+                                Submit
+                            </button>
+                            <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+                                class="error-notification">
+                                <div class="invalid-feedback" *ngIf="emailInput.errors?.required && sbmitted">
+                                    Email is
+                                    required.
+                                </div>
+                                <div class="invalid-feedback" *ngIf="emailInput.errors?.pattern">Please
+                                    enter a
+                                    valid email address.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="common_table">
+                <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustomAction($event)"
+                    [currentPage]="currentPerPage" [count]="count" (Pagechange)="Pagechange($event)"
+                    [itemsPerPage]="itemsPerPage" (PerPagechange)="PerPagechange($event)" [isAllSelected]="bulkSelect"
+                    (userRowSelect)="onUserRowSelect($event)">
+                </ng2-smart-table>
+            </div>
         </div>
     </div>
-
-
     <div bsModal #deleteModal="bs-modal" class="delete_record modal fade" id="exampleModalCenter" tabindex="-1"
         role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -420,14 +246,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="product_details">
-                    <img src="" alt="">
-                    <div>
-                        <h4>qwertyu</h4>
-                        <p>asdfghjk</p>
-                    </div>
-                </div> -->
-
                 <div class="yes_no">
                     <button type="button" class="btn " (click)="deleteModal.hide();username='';password=''">
                         No
@@ -439,7 +257,6 @@
             </div>
         </div>
     </div>
-
     <div bsModal #restoreModal="bs-modal" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

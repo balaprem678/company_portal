@@ -1,3 +1,13 @@
 ::ng-deep .card-footer {
-    margin-bottom: 3pc !important;
+  margin-bottom: 3pc !important;
+}
+
+::ng-deep .administration-admin_list {
+  position: relative;
+
+  .input_search {
+    position: absolute;
+    right: 0;
+    top: -14px;
   }
+}

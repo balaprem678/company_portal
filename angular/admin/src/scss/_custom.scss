@@ -1,4 +1,3 @@
-// Here you can add other styles
 button.btn.btn-sm {
   margin: 2px;
   height: 100%;
@@ -32,7 +31,6 @@ a.ng2-smart-action.ng2-smart-action-custom-custom {
 }
 
 /*------ design --------*/
-
 .tabbing-function ul.nav {
   width: 100%;
   display: flex;
@@ -282,7 +280,6 @@ button.login-lists:hover {
 }
 
 .app-body .main.login-middle {
-  // background-color: #00968800;
   background-image: url(/assets/image/signup-banner.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -292,23 +289,6 @@ table tr th {
   background-color: #f9fafe;
   vertical-align: middle !important;
   padding: 10px 14px;
-  // border: none;
-}
-
-.breadcrumb {
-  background-color: #ffffff;
-}
-
-.breadcrumb li a {
-  color: #67718b;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.breadcrumb li span {
-  color: #fb4a04;
-  font-family: "Mulish";
 }
 
 .list-count {
@@ -398,17 +378,6 @@ select.is-invalid {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-
-// .breadcrumb-item + .breadcrumb-item::before {
-//   color: #a09e99;
-//   content: "\f105" !important;
-//   font-family: "FontAwesome";
-//   font-size: 16px !important;
-//   font-weight: bold;
-//   line-height: 0;
-//   position: relative;
-//   top: 1px;
-// }
 
 .grouping-strains.lab-midle label {
   text-align: center;
@@ -577,12 +546,6 @@ p.custom-font {
   position: relative;
 }
 
-// .btn-group.export-lists > .btn:hover,
-// .btn-group-vertical > .btn:hover {
-//   background-color: #ca3e06;
-//   border: 1px solid #ca3e06;
-// }
-
 .btn-group.export-lists ul.dropdown-menu.show {
   transform: translate(-60px, 6px) !important;
   -webkit-transform: translate(-60px, 6px) !important;
@@ -664,15 +627,6 @@ button:focus {
   padding-right: 10px;
 }
 
-// .card-footer {
-//     float: right;
-// }
-// .sidebar .nav-dropdown.open>.nav-dropdown-items {
-//     background-color: #424242;
-// }
-// .sidebar .nav-dropdown.open>.nav-dropdown-items .nav-link {
-//     padding: .75rem 1.90rem;
-// }
 ::ng-deep span.tox-statusbar__branding {
   display: none !important;
 }
@@ -703,16 +657,11 @@ button.btn.back-btns:hover {
 }
 
 /*----------- Responsive design ------------*/
-
 @media only screen and (max-width: 990px) {
   .app-footer span.ml-auto {
     width: 100%;
     text-align: center;
   }
-}
-
-.breadcrumb li a i.fa.fa-home {
-  margin-right: 5px;
 }
 
 .folspac-lists i {
@@ -731,17 +680,9 @@ button.btn.back-btns:hover {
   box-shadow: 2px 2px 2px #00000014;
 }
 
-.breadcrumb {
-  border-bottom: 1px solid #f5f5f500 !important;
-  position: fixed;
-  z-index: 2;
-  top: 10px;
-}
-
 .app-header {
   border-bottom: 1px solid #f5f5f5 !important;
 }
-
 
 :where(.btn.app-closedd, .btn.app-close) {
   width: 110px;
@@ -885,8 +826,6 @@ a.navbar-brand.mainlogo-sec img {
   object-fit: contain;
 }
 
-
-
 .app-body .sidebar {
   color: #7e7e7e;
 }
@@ -931,8 +870,6 @@ div#dkp-container-main {
 .absolute.center {
   overflow-x: unset !important;
 }
-
-// New Correction - 08.07.24
 
 .sidebar .nav-link.active:hover {
   color: #ffffff !important;
@@ -984,8 +921,6 @@ div#dkp-container-main {
 
 .app-body .sidebar .active.nav-link {
   color: #ffffff !important;
-  // background: #3e97ff !important;
-  // width: 216px;
   font-weight: 500;
   padding: 8px;
   font-size: 14px;
@@ -1008,13 +943,7 @@ div#dkp-container-main {
 
 .card {
   border: 0px;
-  // padding: 15px;
 }
-
-// .app-body .sidebar-nav .nav .nav-item:nth-child(1) .nav-link {
-//   background: transparent !important;
-//   padding: 10px 0;
-// }
 
 .grouping-strains label {
   text-align: left;
@@ -1022,8 +951,6 @@ div#dkp-container-main {
   font-weight: 600;
   color: var(--bs-gray-800);
 }
-
-// Remove
 
 .sidebar .nav-dropdown.open {
   background: #ffffff00 !important;
@@ -1041,14 +968,11 @@ div#dkp-container-main {
   font-size: 18px;
 }
 
-// New Correction 10.06.24
 .card-footer {
   border: 0;
-  // background-color: #fff;
   padding-left: 0;
   padding-right: 0;
 }
-
 
 .full_page_title {
   margin-bottom: 20px;
@@ -1057,13 +981,6 @@ div#dkp-container-main {
 .full_page_title strong {
   font-size: 18px;
   font-weight: 800;
-}
-
-.admin-ratings-reviews {
-  padding: 28px;
-  border-radius: 6px;
-  background-color: #fff;
-  position: relative;
 }
 
 .btn.app-closedd {

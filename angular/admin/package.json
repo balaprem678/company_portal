@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^16.2.12",
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
+    "@flaticon/flaticon-uicons": "^3.3.1",
     "@khazii/ngx-intl-tel-input": "^3.3.4",
     "@kolkov/angular-editor": "^3.0.0-beta.0",
     "@ng-select/ng-select": "^11.2.0",

@@ -1,7 +1,9 @@
-<app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit"
-    [tablename]="'Sub Admin List'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName"
-    [editUrl]="editUrl" [deleteApis]="deleteApis" [restoreApis]="restoreApis" (onDeleteChange)="onDeleteChange($event)"
-    (onitemsPerPageChange)="onitemsPerPageChange($event)" [card_details]="card_details"
-    (onPageChange)="onPageChange($event)" (onheaderCardChange)="onheaderCardChange($event)"
-    (onSearchChange)="onSearchChange($event)">
-</app-common-table>
+<div class="administration-subadmin_list">
+    <app-common-table [settings]="settings" [source]="source" [count]="count" [itemsPerPage]="default_limit"
+        [tablename]="'Sub Admin List'" [add_btn]="add_btn" [addBtnUrl]="addBtnUrl" [addBtnName]="addBtnName"
+        [editUrl]="editUrl" [deleteApis]="deleteApis" [restoreApis]="restoreApis"
+        (onDeleteChange)="onDeleteChange($event)" (onitemsPerPageChange)="onitemsPerPageChange($event)"
+        [card_details]="card_details" (onPageChange)="onPageChange($event)"
+        (onheaderCardChange)="onheaderCardChange($event)" (onSearchChange)="onSearchChange($event)">
+    </app-common-table>
+</div>

@@ -79,47 +79,6 @@ table tr th {
     color: #444;
   }
 
-  .form-control,
-  .form-select {
-    border-radius: 6px;
-    font-size: 0.9rem;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #ced4da;
-
-    &:focus {
-      border-color: #0d6efd;
-      box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.2);
-    }
-  }
-
-  textarea.form-control {
-    resize: vertical;
-    min-height: 80px;
-  }
-
-  /* Spare parts list */
-  .parts-row {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-
-    .form-select,
-    .form-control {
-      flex: 1;
-    }
-
-    button {
-      flex: 0 0 auto;
-      height: 38px;
-      margin-top: auto;
-    }
-  }
-
-  .btn-outline-primary.btn-sm {
-    font-size: 0.8rem;
-    padding: 0.25rem 0.6rem;
-    border-radius: 6px;
-  }
 }
 
 .modal-footer {

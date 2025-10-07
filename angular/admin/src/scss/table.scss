@@ -1,5 +1,6 @@
  ::ng-deep .table_section {
-   max-height: 200px;
+   min-height: 200px;
+   max-height: 400px;
    overflow-y: auto;
 
    table {
@@ -10,16 +11,17 @@
 
        tr {
          th {
-           background-color: #ccc;
+           background-color: #cccccc9e;
            color: #000;
          }
 
-         ::ng-deep th,
-         ::ng-deep td {
+         th,
+         td {
            border: 1px solid #ccc !important;
            border-collapse: collapse;
            padding: 5px 10px;
            white-space: nowrap;
+           font-size: 14px;
          }
        }
      }

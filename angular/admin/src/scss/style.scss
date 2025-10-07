@@ -142,10 +142,6 @@ $theme-color-red-ruby: #900604;
   text-shadow: 0px 0px 0px;
 }
 
-.sidebar .nav-link,
-.sidebar .nav-link .nav-icon {
-  color: #8d98af !important;
-}
 
 .sidebar .nav-dropdown-toggle:hover::before {
   filter: invert(0);
@@ -172,8 +168,8 @@ $theme-color-red-ruby: #900604;
 
 .sidebar .nav-link {
   padding: 0.95rem 0px;
-  margin-left: 18px;
   font-weight: 700;
+  font-size: 14px;
 }
 
 // remove

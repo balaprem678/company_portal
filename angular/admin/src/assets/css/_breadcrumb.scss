@@ -1,17 +1,21 @@
-.breadcrumb {
-  position: relative;
-  @include border-radius($breadcrumb-border-radius);
-  @include borders($breadcrumb-borders);
-}
+cui-breadcrumb {
+    margin-top: 10px;
 
-*[dir="rtl"] {
-  .breadcrumb-item::before {
-    padding-right: 0;
-    padding-left: $breadcrumb-item-padding;
-  }
-  .breadcrumb-item {
-    padding-right: $breadcrumb-item-padding;
-    padding-left: 0;
-  }
-}
+    .breadcrumb {
+        .breadcrumb-item {
+            a {
+                color: #000;
+                font-weight: 600;
+                text-decoration: none;
+            }
 
+            &.active {
+                span {
+                    color: #212529bf;
+                    font-weight: 600;
+                }
+
+            }
+        }
+    }
+}

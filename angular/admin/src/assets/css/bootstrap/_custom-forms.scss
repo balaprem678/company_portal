@@ -532,8 +532,3 @@
   @include transition($custom-forms-transition);
 }
 
-::ng-deep .form-control {
-  input {
-    font-weight: 700 !important;
-  }
-}

@@ -888,10 +888,6 @@ textarea {
 //   position: relative;
 // }
 
-.was-validated .form-control:valid,
-.form-control.is-valid {
-  border-color: none;
-}
 
 ::ng-deep .ng-select .ng-arrow-wrapper .ng-arrow {
   left: 0px;
@@ -946,12 +942,6 @@ textarea {
   }
 }
 
-::ng-deep .form-control:valid,
-::ng-deep .form-control.is-valid {
-  border-color: unset !important;
-  padding-right: unset !important;
-  background-image: unset !important;
-}
 
 .group-control {
   position: relative;

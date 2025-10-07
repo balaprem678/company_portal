@@ -44,33 +44,10 @@
   }
 }
 
-::ng-deep .search-input-tag {
-  input {
-    width: 80%;
-  }
-}
-
-::ng-deep .search-input-tag {
-  form {
-    input {
-      border: 1px solid #e4e7ea !important;
-      position: relative;
-      // left: -40px;
-    }
-    img {
-      // left: -26px !important;
-      z-index: 1;
-    }
-  }
-}
 ::ng-deep .product_list_only .adds-heading {
   right: -15px !important;
   top: 53px !important;
 }
 ::ng-deep .product_list_only .full_page_title {
   margin-bottom: 24px;
-}
-::ng-deep .product_list_only .search-input-tag {
-  position: absolute;
-  right: 80px;
 }

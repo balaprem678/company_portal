@@ -550,32 +550,3 @@ p.image_size_filter {
   margin-top: 34px;
   color: #99a1b7;
 }
-
-::ng-deep
-  .ng-select.ng-select-single
-  .ng-select-container
-  .ng-value-container
-  .ng-value,
-input::placeholder,
-input {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #99a1b7 !important;
-  font-weight: 700 !important;
-}
-
-.user-add_user {
-  .select_product {
-    .form-control {
-      padding: 0 !important;
-    }
-  }
-}
-
-::ng-deep .coupon_add {
-  .form-control,
-  .ng-select {
-    padding: 0 !important;
-  }
-}
