@@ -115,11 +115,11 @@
           <tr>
             <th>EMPLOYEE NAME</th>
             <th>ID NO.</th>
-            <th>DEPARTMENT</th>
+            <th>Designation</th>
             <th>D.O.J</th>
             <th>STATUS</th>
-            <th>EMAIL</th>
-            <th>PHONE</th>
+            <th>nationality</th>
+            <!-- <th>PHONE</th> -->
             <th>ACTIONS</th>
           </tr>
         </thead>
@@ -127,15 +127,15 @@
           <tr *ngFor="let employee of employees; trackBy: trackByEmployeeId">
             <td>{{ employee.fullName || employee.name }}</td>
             <td>{{ employee.employeeId }}</td>
-            <td>{{ employee.department || '-' }}</td>
+            <td>{{ employee.designation || '-' }}</td>
             <td>{{ employee.dateOfJoining | date:'dd/MM/yyyy' }}</td>
             <td>
               <span [ngClass]="getStatusClass(employee.status)">
                 {{ getStatusText(employee.status) }}
               </span>
             </td>
-            <td>{{ employee.email || '-' }}</td>
-            <td>{{ employee.phone || '-' }}</td>
+            <td>{{ employee.nationality || '-' }}</td>
+            <!-- <td>{{ employee.phone || '-' }}</td> -->
             <td>
               <button class="btn btn-sm btn-info mr-1" (click)="viewEmployee(employee)">View</button>
               <button class="btn btn-sm btn-warning" (click)="editEmployee(employee)">Edit</button>
