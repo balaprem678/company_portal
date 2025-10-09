@@ -70,6 +70,7 @@ module.exports = function (app, io) {
         var sparepart = require('../controller/admin/sapreParts.js')(app);
         var attendence = require('../controller/admin/attendence.js')(app);
         var invoice = require('../controller/admin/invoice.js')(app);
+        var performance = require('../controller/admin/performance.js')(app);
 
 
 
@@ -709,6 +710,10 @@ module.exports = function (app, io) {
     app.post('/admin/invoice/view', ensureAuthorized, invoice.viewInvoice);
     app.post('/admin/invoice/delete', ensureAuthorized, invoice.deleteInvoice);
     app.post('/admin/invoice/update-status', ensureAuthorized, invoice.updateInvoiceStatus);
+
+    //performance management
+    app.post('/admin/performance/report', ensureAuthorized, performance.performanceReport);
+    app.post('/admin/performance/update-driver-behaviour',performance.updateDrivingBehaviour)
     } catch (e) {
         console.log('erroe in index.js---------->>>>', e);
     }

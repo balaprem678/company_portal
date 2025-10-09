@@ -195,6 +195,15 @@ export const Apiconfig = {
         "method": "post"
     },
 
+    performanceList: {
+        "url": "admin/performance/report",
+        "method": "post"
+    },
+    driverBehaviourUpdate: {
+        "url": "admin/performance/update-driver-behaviour",
+        "method": "post"
+    },
+
 
     subadminEdit: {
         "url": "admins/getusersrole",
