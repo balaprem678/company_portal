@@ -1,0 +1,48 @@
+ ::ng-deep .table_section {
+   //  min-height: 200px;
+   max-height: 400px;
+   overflow-y: auto;
+
+   table {
+     width: 100%;
+
+     thead,
+     tbody {
+
+       tr {
+         th {
+           background-color: #cccccc9e;
+           color: #2175c1;
+         }
+
+         th,
+         td {
+           border: 1px solid #ccc !important;
+           border-collapse: collapse;
+           padding: 5px 10px;
+           white-space: nowrap;
+           font-size: 14px;
+         }
+       }
+     }
+
+     &::-webkit-scrollbar {
+       width: 5px;
+     }
+
+     &::-webkit-scrollbar-track {
+       background: #f1f1f1;
+     }
+
+     &::-webkit-scrollbar-thumb {
+       background: #888;
+     }
+   }
+ }
+
+
+ ::ng-deep .no-data-found {
+   text-align: center;
+   font-weight: 700;
+   font-size: 14px;
+ }

@@ -1,21 +1,17 @@
-<div class="admin-user-userlist">
-  <div class="admin-ratings-reviews">
-    <div class="customtable-design">
-      <table [id]="tableId" class="table table-responsive-sm">
-        <thead ng2-st-thead *ngIf="!isHideHeader || !isHideSubHeader" [grid]="grid" [isAllSelected]="isAllSelected"
-          [source]="source" [createConfirm]="createConfirm" (create)="create.emit($event)"
-          (selectAllRows)="onSelectAllRows($event)" (sort)="sort($event)" (filter)="filter($event)">
-        </thead>
-        <tbody ng2-st-tbody [grid]="grid" [source]="source" [deleteConfirm]="deleteConfirm" [editConfirm]="editConfirm"
-          [rowClassFunction]="rowClassFunction" (edit)="edit.emit($event)" (delete)="delete.emit($event)"
-          (custom)="custom.emit($event)" (userSelectRow)="onUserSelectRow($event)"
-          (editRowSelect)="editRowSelect($event)" (multipleSelectRow)="multipleSelectRow($event)"
-          (rowHover)="onRowHover($event)" [currentPage]="currentPage" [limit]="itemsPerPage">
-        </tbody>
-      </table>
-    </div>
-    <ng2-smart-table-pager *ngIf="isPagerDisplay" [source]="source" [count]="count" [currentPage]="currentPage"
-      [perPageSelect]="perPageSelect" (changePage)="changePage($event)" (PerPagechange)="PerPagechanges($event)">
-    </ng2-smart-table-pager>
-  </div>
+<div class="table_section">
+  <table [id]="tableId" class="table table-responsive-sm">
+    <thead ng2-st-thead *ngIf="!isHideHeader || !isHideSubHeader" [grid]="grid" [isAllSelected]="isAllSelected"
+      [source]="source" [createConfirm]="createConfirm" (create)="create.emit($event)"
+      (selectAllRows)="onSelectAllRows($event)" (sort)="sort($event)" (filter)="filter($event)">
+    </thead>
+    <tbody ng2-st-tbody [grid]="grid" [source]="source" [deleteConfirm]="deleteConfirm" [editConfirm]="editConfirm"
+      [rowClassFunction]="rowClassFunction" (edit)="edit.emit($event)" (delete)="delete.emit($event)"
+      (custom)="custom.emit($event)" (userSelectRow)="onUserSelectRow($event)" (editRowSelect)="editRowSelect($event)"
+      (multipleSelectRow)="multipleSelectRow($event)" (rowHover)="onRowHover($event)" [currentPage]="currentPage"
+      [limit]="itemsPerPage">
+    </tbody>
+  </table>
 </div>
+<ng2-smart-table-pager *ngIf="isPagerDisplay" [source]="source" [count]="count" [currentPage]="currentPage"
+  [perPageSelect]="perPageSelect" (changePage)="changePage($event)" (PerPagechange)="PerPagechanges($event)">
+</ng2-smart-table-pager>

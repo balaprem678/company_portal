@@ -62,3 +62,13 @@ th.ng2-smart-th.email {
   text-align: center;
 }
 
+
+
+
+
+::ng-deep .ng2-smart-pagination-per-page {
+  select {
+    border: 1px solid #ccc !important;
+    margin-left: 10px;
+  }
+}

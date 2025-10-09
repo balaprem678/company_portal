@@ -22,150 +22,152 @@
   display: none !important;
 }
 
+
+
+
+
+// New SCSS
+
+
+
+
+
 .dashboard_chart {
-  display: flex;
-  align-items: center;
-}
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
 
-:where(.products, .customers, .total_earnings, .order_user) {
-  background-color: #fff;
-  box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
-  padding: 16px;
-  border-radius: 6px;
-  transition: all 0.2s ease-in-out;
-  width: 256px;
-
-  &:hover {
-    transform: scale(1.01);
-  }
-
-  h6 {
-    color: #878a99;
-    font-size: 14px;
-    text-transform: uppercase;
-    margin: 0;
-    font-weight: 600;
-    line-height: 20px;
-  }
-
-  .dash_title {
-    color: #495057;
-    font-size: 22px;
-    font-weight: 600;
-  }
-}
-
-.products {
-  border-bottom: 4px solid #9ad8f0;
-}
-
-.customers {
-  border-bottom: 4px solid #e9bf5a;
-}
-
-.total_earnings {
-  border-bottom: 4px solid #14c56c;
-}
-
-.order_user {
-  border-bottom: 4px solid #5bc7e7;
-}
-
-#widget1 {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  .dash_title_number {
+  .db_card {
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    min-height: 42px;
-  }
-  .progress_data {
-    p {
-      margin: 0;
-      font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    cursor: pointer;
+
+
+
+    // &::after {
+    //   content: "";
+    //   width: 20px;
+    //   height: 20px;
+    //   background-size: contain;
+    //   background-repeat: no-repeat;
+    //   background-position: center;
+    //   position: absolute;
+    //   right: 20px;
+    //   top: 20px;
+    //   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><g><path d='M256 0C114.618 0 0 114.618 0 256s114.618 256 256 256 256-114.618 256-256S397.382 0 256 0zm0 469.333c-117.818 0-213.333-95.515-213.333-213.333S138.182 42.667 256 42.667 469.333 138.182 469.333 256 373.818 469.333 256 469.333z'/><path d='M228.418 134.248c-8.331-8.331-21.839-8.331-30.17 0-8.331 8.331-8.331 21.839 0 30.17L289.83 256l-91.582 91.582c-8.331 8.331-8.331 21.839 0 30.17 8.331 8.331 21.839 8.331 30.17 0l106.667-106.667c8.331-8.331 8.331-21.839 0-30.17L228.418 134.248z' fill='%233ab7fc'/></g></svg>");
+    // }
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .dash_title {
       display: flex;
-      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 24px;
+      font-weight: 700;
 
-      span:nth-child(1) {
-        width: 80px;
-        display: inline-block;
-        text-align: end;
-      }
-
-      span:nth-child(2) {
-        text-align: end;
+      i {
+        background-color: #ffffff;
+        width: 36px;
+        height: 36px;
+        padding: 2px;
+        border-radius: 12px;
+        display: grid;
+        place-content: center;
+        box-shadow: 0 0 10px 0 #ccc;
       }
     }
-  }
 
-  .abs_links {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-
-    a {
-      color: #878a99;
-      font-size: 12px;
-      font-weight: 600;
+    h6 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
+
 
     img {
-      border-radius: 8px;
       width: 40px;
-    }
-  }
-}
-
-.total_earnings .progress_data {
-  visibility: hidden;
-}
-
-.earning_chart_select_opt {
-  background-color: #fff;
-  box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
-  padding: 16px;
-  border-radius: 6px;
-  transition: all 0.2s ease-in-out;
-
-  .earning_e_m_d {
-    display: flex;
-    justify-content: space-between;
-
-    .month_year {
-      width: 355px;
-      display: flex;
-      gap: 20px;
+      height: 40px;
+      object-fit: contain;
     }
 
-    .year_select,
-    .month_select {
-      display: flex;
-      gap: 10px;
-      align-items: center;
+    &:nth-child(1) {
+      border: 2px solid #6b8e23;
+      background-color: #ecf5e0;
 
-      label {
-        margin: 0;
-      }
-
-      select {
-        width: 120px;
-        height: 40px;
-        padding: 0 15px;
-        font-weight: 500;
-        line-height: 1.5;
-        color: #4b5675;
-        border: 1px solid #dbdfe9;
-        border-radius: 0.475rem;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      .dash_title,
+      h6 {
+        color: #6b8e23;
       }
     }
+
+    &:nth-child(2) {
+      border: 2px solid #1d4ed8;
+      background-color: #e8efff;
+
+      .dash_title,
+      h6 {
+        color: #1d4ed8;
+      }
+    }
+
+    &:nth-child(3) {
+      border: 2px solid #9333ea;
+      background-color: #f3e6ff;
+
+      .dash_title,
+      h6 {
+        color: #9333ea;
+      }
+    }
+
+    &:nth-child(4) {
+      border: 2px solid #ea580c;
+      background-color: #fff4e6;
+
+      .dash_title,
+      h6 {
+        color: #ea580c;
+      }
+    }
+
+    &:nth-child(5) {
+      border: 2px solid #dc2626;
+      background-color: #ffe6e6;
+
+      .dash_title,
+      h6 {
+        color: #dc2626;
+      }
+    }
+
+    &:nth-child(6) {
+      border: 2px solid #16a34a;
+      background-color: #eafbe8;
+
+      .dash_title,
+      h6 {
+        color: #16a34a;
+      }
+    }
   }
 
-  #earningCharts {
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
   }
 }
 
-.month_select select {
-  width: 100%;
-}
+

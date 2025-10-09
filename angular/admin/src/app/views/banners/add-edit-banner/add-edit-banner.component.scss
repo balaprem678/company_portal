@@ -90,13 +90,6 @@
   clear: both;
   padding-top: 60px;
 }
-.user-list .table-extension {
-  width: 100%;
-  padding: 15px;
-  background: #fff;
-  border-radius: 2px;
-  font-size: 14px;
-}
 .user-list table {
   width: 100% !important;
   border: none;
@@ -107,16 +100,6 @@
   border: none !important;
   border-bottom: 2px solid #ddd !important;
   color: #616f77;
-}
-.user-list table tbody {
-  width: 100%;
-}
-.user-list .table-extension h4 {
-  font-size: 20px;
-  color: #616f77;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 10px;
-  margin-bottom: 14px;
 }
 .user-list button.send-mail {
   border-width: 1px;
@@ -190,43 +173,6 @@ span.no-record {
   color: #616f77;
   outline: none !important;
   box-shadow: none !important;
-}
-table#user-list tbody {
-  display: table-row-group;
-  vertical-align: middle;
-  border-color: inherit;
-}
-table#user-list tbody td {
-  border-left: 0;
-  border-right: 0;
-  text-align: left;
-}
-table#user-list tbody td p {
-  font-size: 14px;
-  color: #616f77;
-  word-break: break-all;
-}
-table#user-list tbody td button {
-  padding: 0;
-  border: none;
-  margin: 0;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-table#user-list tbody td button a {
-  font-size: 14px;
-  background: #5bc0de;
-  color: #fff;
-  text-decoration: none;
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 4px;
-}
-table#user-list tbody tr {
-  display: table-row;
-}
-table#user-list td.ng-star-inserted {
-  display: table-cell;
 }
 
 // New Correction : 12:07:24

@@ -19,27 +19,13 @@
     display: inline;
   }
 
-  // .page-link-next, .page-link-prev {
-  //   font-size: 10px;
-  // }
 }
 
 :host {
   display: flex;
   justify-content: space-between;
 
-  select {
-    margin: 1rem 0 1rem 1rem;
-  }
-  label {
-    margin: 1rem 0 1rem 1rem;
-    line-height: 2.5rem;
-  }
 }
-
-// :where(.last_page_double_arror, .first_page_double_arror) {
-//   display: none !important;
-// }
 
 .page-link {
   position: relative;
@@ -76,6 +62,7 @@
   color: #fb4a04;
   border: 1px solid #fb4a04;
 }
+
 .page-item .page-link {
   border-radius: 50px;
   text-decoration: none;
@@ -94,7 +81,7 @@
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
 }
+
 .next_page_single_arrow a:hover img {
-  filter: brightness(0) saturate(100%) invert(36%) sepia(42%) saturate(7038%)
-    hue-rotate(2deg) brightness(105%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(36%) sepia(42%) saturate(7038%) hue-rotate(2deg) brightness(105%) contrast(97%);
 }

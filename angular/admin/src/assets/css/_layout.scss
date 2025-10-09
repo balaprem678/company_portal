@@ -218,24 +218,6 @@ html[dir="rtl"] {
   }
 }
 
-//
-// Breadcrumb
-//
-.breadcrumb-fixed {
-  .main {
-    $breadcrumb-height: 2 * $breadcrumb-padding-y + $font-size-base + 1.5 *
-      $spacer;
-    padding-top: $breadcrumb-height;
-  }
-
-  .breadcrumb {
-    position: fixed;
-    top: $navbar-height;
-    right: 0;
-    left: 0;
-    z-index: $zindex-sticky - 3;
-  }
-}
 
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint) {
@@ -273,21 +255,7 @@ html[dir="rtl"] {
               }
             }
           }
-          &.breadcrumb-fixed {
-            .breadcrumb {
-              left: $sidebar-width;
-            }
-            &.sidebar-compact {
-              .breadcrumb {
-                left: $sidebar-compact-width;
-              }
-            }
-            &.sidebar-minimized {
-              .breadcrumb {
-                left: $sidebar-minimized-width;
-              }
-            }
-          }
+     
         }
       }
 
@@ -303,11 +271,7 @@ html[dir="rtl"] {
               margin-right: $aside-menu-width;
             }
           }
-          &.breadcrumb-fixed {
-            .breadcrumb {
-              right: $aside-menu-width;
-            }
-          }
+         
         }
       }
     }
@@ -345,21 +309,7 @@ html[dir="rtl"] {
               }
             }
           }
-          &.breadcrumb-fixed {
-            .breadcrumb {
-              right: $sidebar-width;
-            }
-            &.sidebar-compact {
-              .breadcrumb {
-                right: $sidebar-compact-width;
-              }
-            }
-            &.sidebar-minimized {
-              .breadcrumb {
-                right: $sidebar-minimized-width;
-              }
-            }
-          }
+       
         }
       }
 
@@ -375,11 +325,7 @@ html[dir="rtl"] {
               margin-left: $aside-menu-width;
             }
           }
-          &.breadcrumb-fixed {
-            .breadcrumb {
-              left: $aside-menu-width;
-            }
-          }
+       
         }
       }
     }
@@ -450,14 +396,7 @@ html[dir="rtl"] {
 .sidebar-nav {
   transition: width $layout-transition-speed;
 }
-.breadcrumb {
-  transition: left $layout-transition-speed, right $layout-transition-speed,
-    width $layout-transition-speed;
-}
 
-//
-// Mobile layout
-//
 @include media-breakpoint-down($breakpoint-mobile-down) {
   .app-header {
     position: fixed;

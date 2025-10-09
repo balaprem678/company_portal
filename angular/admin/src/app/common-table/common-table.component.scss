@@ -94,11 +94,7 @@
   float: right;
 }
 
-.no-data-found {
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-}
+
 
 .apply-btn {
   border: 1px solid #ccc;
@@ -108,26 +104,11 @@
   display: inline-flex;
 }
 
-::ng-deep .form-control:focus {
-  //border-color: #fff !important;
-  box-shadow: none !important;
-}
 
 .form-group.row.bulk-delete-form {
   margin-top: 10px;
 }
 
-.table-add-btn {
-  text-align: end;
-}
-
-.table-add-btn1 {
-  text-align: left;
-}
-
-// .search-input-tag {
-//   margin-left: auto;
-// }
 
 input[type="search" i]::-webkit-search-cancel-button {
   cursor: pointer !important;
@@ -209,9 +190,10 @@ table tr th {
 
 .filter-list {
   margin-bottom: 20px;
+
   .ng-select .ng-has-value .ng-placeholder {
     display: block;
-}
+  }
 }
 
 .filter-btn {
@@ -464,13 +446,7 @@ section.dashboard-structure {
   justify-content: end;
 }
 
-.filter-box.filbox-imports {
-  .full_page_title {
-    justify-content: space-between;
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
+
 
 .filter-spilt .filter-list label {
   width: 100%;
@@ -487,13 +463,6 @@ section.dashboard-structure {
   font-size: 16px;
 }
 
-.filter .filter-spilt input.form-control,
-.filter .filter-spilt select.form-control {
-  width: 100%;
-  height: 40px;
-  border: 1px solid transparent;
-  font-size: 14px;
-}
 
 @media only screen and (max-width: 1200px) {
   .adds-heading {
@@ -843,18 +812,6 @@ button.btn.addsub-admin i {
   white-space: nowrap;
 }
 
-input {
-  border: 2px solid #bdbdbd;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-input[readonly] {
-  cursor: text;
-  background-color: #fff;
-}
-
 .subdomain {
   background-color: #1b84ff;
   height: 38px;
@@ -872,43 +829,10 @@ input[readonly] {
   gap: 6px;
 }
 
-.adds-heading {
-  position: absolute;
-  right: 0px;
-  top: 48px;
-  display: flex;
-  justify-content: end;
-}
-
-.search-input-tag img {
-  position: absolute;
-  left: 14px;
-  top: 10px;
-  width: 18px;
-}
-
-.search-input-tag form {
-  position: relative;
-  margin-bottom: 18px;
-}
-
-.search-input-tag form input {
-  padding: 10px 10px 10px 50px;
-  border: 1px solid #0a482f;
-  height: 38px;
-}
-
-.search-input-tag form input::placeholder {
-  color: #99a1b7;
-  font-weight: 700;
-}
 
 .product_list_filter {
   width: unset;
   z-index: 1;
-  // position: absolute;
-  // right: 178px;
-  // top: 68px;
 }
 
 .product_list_filter h2 {

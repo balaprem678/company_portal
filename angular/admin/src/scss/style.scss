@@ -1,8 +1,7 @@
 //import style
 @import "~@ng-select/ng-select/themes/default.theme.css";
-
-// If you want to add something do it here
-@import "custom";
+@import "new_style.scss";
+@import "./table.scss";
 
 $theme-color-1: #67aec5;
 $theme-color-2: #95c7a2;
@@ -50,20 +49,8 @@ $theme-color-red-ruby: #900604;
   width: 144px;
 }
 
-// .sidebar {
-//     background: #aeaeae;
-// }
-
-// .sidebar .nav-link.active {
-//     background-color: #f0f0f0 !important;
-// }
 .sidebar .nav-dropdown-toggle::before {
   transform: rotate(-90deg);
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  // filter: brightness(0) saturate(100%) invert(20%) sepia(14%) saturate(3556%) hue-rotate(112deg) brightness(90%) contrast(92%);
 }
 
 .nav-item.dropdown .nav-link .badge {
@@ -117,22 +104,7 @@ $theme-color-red-ruby: #900604;
   justify-content: flex-end;
 }
 
-// .tabls-heading h3 {
-//   background: #dfdfdf;
-//   padding: 10px;
-// }
 
-// .nav-dropdown-toggle.nav-link {
-//     background-color: #f3f7fa;
-//     color: #4a596a !important;
-// }
-// .sidebar .nav-link .nav-icon{
-//     color: #4a596a !important;
-// }
-
-.sidebar {
-  background: #f3f7fa;
-}
 
 .sidebar .nav-dropdown.open {
   background: transparent;
@@ -147,18 +119,6 @@ $theme-color-red-ruby: #900604;
   height: 100%;
   padding: 5px;
 }
-
-// .sidebar .sidebar-minimizer:hover::before {
-//   filter: invert(1);
-// }
-
-// .sidebar-minimized .sidebar .sidebar-minimizer {
-//   height: 30px;
-// }
-
-// .sidebar-minimized .sidebar .sidebar-minimizer::before {
-//   top: -10px;
-// }
 
 .group-control .restaurant-img-error {
   position: absolute;
@@ -182,10 +142,6 @@ $theme-color-red-ruby: #900604;
   text-shadow: 0px 0px 0px;
 }
 
-.sidebar .nav-link,
-.sidebar .nav-link .nav-icon {
-  color: #8d98af !important;
-}
 
 .sidebar .nav-dropdown-toggle:hover::before {
   filter: invert(0);
@@ -205,19 +161,15 @@ $theme-color-red-ruby: #900604;
   color: #ffffff !important;
 }
 
-.sidebar .nav-dropdown.open > .nav-dropdown-toggle::before {
-  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%)
-    hue-rotate(116deg) brightness(109%) contrast(109%);
-  //-webkit-filter: brightness(0) saturate(100%) invert(20%) sepia(14%) saturate(3556%) hue-rotate(112deg) brightness(90%) contrast(92%);
-  //filter: brightness(0) saturate(100%) invert(20%) sepia(14%) saturate(3556%) hue-rotate(112deg) brightness(90%) contrast(92%);
-  -webkit-filter: brightness(0) saturate(100%) invert(100%) sepia(0%)
-    saturate(7500%) hue-rotate(116deg) brightness(109%) contrast(109%);
+.sidebar .nav-dropdown.open>.nav-dropdown-toggle::before {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(116deg) brightness(109%) contrast(109%);
+  -webkit-filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(116deg) brightness(109%) contrast(109%);
 }
 
 .sidebar .nav-link {
   padding: 0.95rem 0px;
-  margin-left: 18px;
   font-weight: 700;
+  font-size: 14px;
 }
 
 // remove
@@ -230,32 +182,23 @@ $theme-color-red-ruby: #900604;
   background-color: #a7a5a500 !important;
 }
 
-// .sidebar .sidebar-minimizer {
-//   background-color: rgba(0, 0, 0, 0.04) !important;
-// }
 
 .dashboard_sidebar_logo {
   width: fit-content !important;
   background-color: #ffffff !important;
   padding: 16px;
-  // border-bottom: 1px dashed #33446c;
 }
 
 .header-fixed .app-header {
-  // background: #fff1f0;
   z-index: 2 !important;
 }
 
-// a.navbar-brand.mainlogo-sec img {
-//   padding: 20px;
-// }
 body {
   overflow: hidden;
 }
 
 .container {
   max-width: 1220px;
-  // max-width: 1400px;
 }
 
 .margin_top {
@@ -467,7 +410,7 @@ p.image_size_filter {
     .accordion-checkbox {
       display: none;
 
-      &:checked ~ .accordion-content {
+      &:checked~.accordion-content {
         max-height: max-content;
         padding: 10px 10px;
       }
@@ -514,7 +457,7 @@ p.image_size_filter {
       display: block;
     }
 
-    .accordion-checkbox:checked + .accordion-header .icon::before {
+    .accordion-checkbox:checked+.accordion-header .icon::before {
       content: "";
       background-image: url("../assets/image/acc_minus.png");
       background-repeat: no-repeat;
@@ -557,21 +500,9 @@ p.image_size_filter {
 }
 
 ::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container,
-::ng-deep
-  .veg_nonveg
-  .ng-select.ng-select-single
-  .ng-select-container
-  .ng-value-container,
-::ng-deep
-  .ng-select.ng-select-single
-  .ng-select-container
-  .ng-value-container
-  .ng-input,
-::ng-deep
-  .ng-select.ng-select-single
-  .ng-select-container
-  .ng-value-container
-  .ng-value,
+::ng-deep .veg_nonveg .ng-select.ng-select-single .ng-select-container .ng-value-container,
+::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input,
+::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value,
 input,
 select,
 ng-select,
@@ -585,9 +516,7 @@ textarea {
   left: -19px;
 }
 
-::ng-deep
-  .ng-select.ng-select-focused:not(.ng-select-opened)
-  > .ng-select-container {
+::ng-deep .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
   border-color: transparent;
   box-shadow: none;
 }
@@ -621,12 +550,14 @@ textarea {
   padding: 8px 30px;
   font-weight: 700;
 }
+
 ::ng-deep .form-control:valid,
 ::ng-deep .form-control.is-valid {
   border-color: unset !important;
   padding-right: unset !important;
   background-image: unset !important;
 }
+
 ::ng-deep .card-footer {
   margin-bottom: 3pc !important;
 }

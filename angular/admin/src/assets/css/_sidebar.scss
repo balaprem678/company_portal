@@ -35,15 +35,6 @@
     background: $sidebar-header-bg;
   }
 
-  .sidebar-form .form-control {
-    color: $sidebar-form-color;
-    background: $sidebar-form-bg;
-    border: $sidebar-form-border;
-
-    &::placeholder {
-      color: $sidebar-form-placeholder-color;
-    }
-  }
 
   .sidebar-scroll {
     position: relative;
@@ -658,6 +649,3 @@
   filter: invert(100%) !important;
 }
 
-.breadcrumb {
-  padding: 0.35rem 1rem !important;
-}

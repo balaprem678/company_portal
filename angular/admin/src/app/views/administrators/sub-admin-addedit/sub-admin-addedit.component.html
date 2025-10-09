@@ -1,195 +1,191 @@
-<div class="animated fadeIn">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header"><strong>{{pageTitle | titlecase}}</strong></div>
-                <form #adminForm="ngForm" (ngSubmit)="onFormSubmit(adminForm)" autocomplete="off">
-                    <div class="card-body">
-                        <div class="form-group grouping-strains row">
-                            <div class="col-md-4">
-                                <div class="group-control">
-                                    <label for="username">Username <span class="mandatory">*</span> </label>
-                                    <input type="text" id="username" ngModel name="username" [(ngModel)]="usernames" #username="ngModel"
-                                        required class="form-control" placeholder="Enter Username">
-                                    <div *ngIf="adminForm.submitted && !username.valid">
-                                        <div class="invalid-feedback" *ngIf="username.errors.required">Username is
-                                            required.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="group-control">
-                                    <label for="name">Name <span class="mandatory">*</span> </label>
-                                    <input type="text" id="name" ngModel name="name" [(ngModel)]="names" #name="ngModel" required
-                                        class="form-control" placeholder="Enter Name">
-                                    <div *ngIf="adminForm.submitted && !name.valid">
-                                        <div class="invalid-feedback" *ngIf="name.errors.required">Name is required.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="group-control">
-                                    <label for="email">E-Mail <span class="mandatory">*</span></label>
-                                    <input type="text" id="email" ngModel name="email" [(ngModel)]="emails" #email="ngModel"
-                                        class="form-control" placeholder="Enter E-Mail"
-                                        pattern="^[a-z0-9.]+@[a-z0-9.-]+\.[a-z]{2,3}$" required
-                                        [ngClass]="{ 'is-valid': !email.errors && email.valid}">
-                                    <div *ngIf="adminForm.submitted && !email.valid">
-                                        <div class="invalid-feedback" *ngIf="email.errors.required">Email is required.
-                                        </div>
-                                        <div class="invalid-feedback" *ngIf="email.errors.email">Please enter valid
-                                            Email
-                                        </div>
-                                        <div class="invalid-feedback"
-                                            *ngIf="!email.errors.email && email.errors.pattern">
-                                            Please enter valid Email</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="group-control">
-                                    <label for="password">Password <span *ngIf="!adminDetails"
-                                            class="mandatory">*</span></label>
-                                    <input type="password" id="password" ngModel name="password" #password="ngModel"
-                                        required="{{adminDetails ? false : true}}" class="form-control"
-                                        placeholder="Enter Password">
-                                    <div *ngIf="adminForm.submitted && !password.valid">
-                                        <div class="invalid-feedback"
-                                            *ngIf="password.errors && password.errors.required">Password is required.
-                                        </div>
-                                        <div class="invalid-feedback"
-                                            *ngIf="password.errors && password.errors.pattern">patten
-                                        </div>
-                                        <!-- pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,} -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="group-control">
-                                    <label for="confirm_password">Confirm Password <span *ngIf="!adminDetails"
-                                            class="mandatory">*</span></label>
-                                    <input type="password" id="confirm_password" ngModel name="confirmPassword"
-                                        #confirm_password="ngModel" required="{{adminDetails ? false : true}}"
-                                        class="form-control" placeholder="Enter Confirm Password">
-                                    <div *ngIf="adminForm.submitted && !confirm_password.valid">
-                                        <div class="invalid-feedback"
-                                            *ngIf="confirm_password.errors && confirm_password.errors.required">
-                                            Confirm Password is required.
-                                        </div>
-                                    </div>
-                                    <div *ngIf="password.value != confirm_password.value">
-                                        <div class="invalid-feedback">Password And Confirm Password is Mismatch.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group grouping-strains row">
-                            <div class="col-md-12">
-                                <div class="mb-4 custom-checkbox-select-all">
-                                    <div class="custom-control custom-checkbox mb-4">
-                                        <input type="checkbox" class="custom-control-input" [checked]="isChecked"
-                                            id="customCheckThis" (change)="selectall($event.target.checked)">
-                                        <label class="custom-control-label" for="customCheckThis">Select All</label>
-                                    </div>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr class="front bg-greensea">
-                                                <th>Management</th>
-                                                <th>View</th>
-                                                <th>Add</th>
-                                                <th>Edit</th>
-                                                <th>Delete</th>
-                                                <th>Export</th>
-                                                <th>Bulk Uploads</th>
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let menu of privilagesdata; let i = index" class="subadminedit">
-                                                <th>{{menu.name | titlecase }}</th>
-                                                <td>
-                                                    <div *ngIf="menu.status.view==true || menu.status.view==false" class="custom-control custom-checkbox mb-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck-{{i}}-view"
-                                                            (change)="$event.target.checked == true ? menu.status.view = true : menu.status.view = false;checkprivilages()"
-                                                            [checked]="menu.status.view">
-                                                        <label class="custom-control-label"
-                                                            for="customCheck-{{i}}-view"></label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div *ngIf="menu.status.add==true || menu.status.add==false" class="custom-control custom-checkbox mb-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck-{{i}}-add"
-                                                            (change)="$event.target.checked == true ? menu.status.add = true : menu.status.add = false;checkprivilages()"
-                                                            [checked]="menu.status.add">
-                                                        <label class="custom-control-label"
-                                                            for="customCheck-{{i}}-add"></label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div *ngIf="menu.status.edit==true || menu.status.edit==false" class="custom-control custom-checkbox mb-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck-{{i}}-edit"
-                                                            (change)="$event.target.checked == true ? menu.status.edit = true : menu.status.edit = false;checkprivilages()"
-                                                            [checked]="menu.status.edit">
-                                                        <label class="custom-control-label"
-                                                            for="customCheck-{{i}}-edit"></label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div *ngIf="menu.status.delete==true || menu.status.delete==false" class="custom-control custom-checkbox mb-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck-{{i}}-delete"
-                                                            (change)="$event.target.checked == true ? menu.status.delete = true : menu.status.delete = false;checkprivilages()"
-                                                            [checked]="menu.status.delete">
-                                                        <label class="custom-control-label"
-                                                            for="customCheck-{{i}}-delete"></label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div *ngIf="menu.status.export==true || menu.status.export==false" class="custom-control custom-checkbox mb-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck-{{i}}-export"
-                                                            (change)="$event.target.checked == true ? menu.status.export = true : menu.status.export = false;checkprivilages()"
-                                                            [checked]="menu.status.export">
-                                                        <label class="custom-control-label"
-                                                            for="customCheck-{{i}}-export"></label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div *ngIf="menu.status.bulk==true || menu.status.bulk==false" class="custom-control custom-checkbox mb-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck-{{i}}-bulk"
-                                                            (change)="$event.target.checked == true ? menu.status.bulk = true : menu.status.bulk = false;checkprivilages()"
-                                                            [checked]="menu.status.bulk">
-                                                        <label class="custom-control-label"
-                                                            for="customCheck-{{i}}-bulk"></label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+<div class="administration-subadmin_list">
+    <div class="container-fluid">
+        <h1 class="page_title">{{pageTitle | titlecase}}</h1>
+        <form #adminForm="ngForm" (ngSubmit)="onFormSubmit(adminForm)" autocomplete="off">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="`">
+                        <label for="username">Username <span class="astrick">*</span> </label>
+                        <input type="text" id="username" ngModel name="username" [(ngModel)]="usernames"
+                            #username="ngModel" required class="form-control" placeholder="Enter Username">
+                        <div *ngIf="adminForm.submitted && !username.valid">
+                            <div class="invalid-feedback" *ngIf="username.errors.required">Username is
+                                required.
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" *ngIf="!viewpage" class="btn btn-sm btn-success">
-                            Submit
-                        </button>
-                        <button type="button" *ngIf="!viewpage" routerLink="/app/administrator/sub-admin-list"
-                            class="btn btn-sm btn-danger">
-                            Cancel
-                        </button>
+                </div>
+                <div class="col-md-4">
+                    <div class="label_input">
+                        <label for="name">Name <span class="astrick">*</span> </label>
+                        <input type="text" id="name" ngModel name="name" [(ngModel)]="names" #name="ngModel" required
+                            class="form-control" placeholder="Enter Name">
+                        <div *ngIf="adminForm.submitted && !name.valid">
+                            <div class="invalid-feedback" *ngIf="name.errors.required">Name is required.
+                            </div>
+                        </div>
                     </div>
-                </form>
+                </div>
+                <div class="col-md-4">
+                    <div class="label_input">
+                        <label for="email">E-Mail <span class="astrick">*</span></label>
+                        <input type="text" id="email" ngModel name="email" [(ngModel)]="emails" #email="ngModel"
+                            class="form-control" placeholder="Enter E-Mail"
+                            pattern="^[a-z0-9.]+@[a-z0-9.-]+\.[a-z]{2,3}$" required
+                            [ngClass]="{ 'is-valid': !email.errors && email.valid}">
+                        <div *ngIf="adminForm.submitted && !email.valid">
+                            <div class="invalid-feedback" *ngIf="email.errors.required">Email is required.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="email.errors.email">Please enter valid
+                                Email
+                            </div>
+                            <div class="invalid-feedback" *ngIf="!email.errors.email && email.errors.pattern">
+                                Please enter valid Email</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="label_input">
+                        <label for="password">Password <span *ngIf="!adminDetails" class="astrick">*</span></label>
+                        <input type="password" id="password" ngModel name="password" #password="ngModel"
+                            required="{{adminDetails ? false : true}}" class="form-control"
+                            placeholder="Enter Password">
+                        <div *ngIf="adminForm.submitted && !password.valid">
+                            <div class="invalid-feedback" *ngIf="password.errors && password.errors.required">
+                                Password
+                                is
+                                required.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="password.errors && password.errors.pattern">
+                                patten
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="label_input">
+                        <label for="confirm_password">Confirm Password <span *ngIf="!adminDetails"
+                                class="astrick">*</span></label>
+                        <input type="password" id="confirm_password" ngModel name="confirmPassword"
+                            #confirm_password="ngModel" required="{{adminDetails ? false : true}}" class="form-control"
+                            placeholder="Enter Confirm Password">
+                        <div *ngIf="adminForm.submitted && !confirm_password.valid">
+                            <div class="invalid-feedback"
+                                *ngIf="confirm_password.errors && confirm_password.errors.required">
+                                Confirm Password is required.
+                            </div>
+                        </div>
+                        <div *ngIf="password.value != confirm_password.value">
+                            <div class="invalid-feedback">Password And Confirm Password is Mismatch.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="label_input">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" [checked]="isChecked"
+                                id="customCheckThis" (change)="selectall($event.target.checked)">
+                            <label class="custom-control-label" for="customCheckThis">Select All</label>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr class="front bg-greensea">
+                                        <th>Management</th>
+                                        <th>View</th>
+                                        <th>Add</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                        <th>Export</th>
+                                        <th>Bulk Uploads</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let menu of privilagesdata; let i = index" class="subadminedit">
+                                        <th>{{menu.name | titlecase }}</th>
+                                        <td>
+                                            <div *ngIf="menu.status.view==true || menu.status.view==false"
+                                                class="custom-control custom-checkbox mb-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="customCheck-{{i}}-view"
+                                                    (change)="$event.target.checked == true ? menu.status.view = true : menu.status.view = false;checkprivilages()"
+                                                    [checked]="menu.status.view">
+                                                <label class="custom-control-label"
+                                                    for="customCheck-{{i}}-view"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="menu.status.add==true || menu.status.add==false"
+                                                class="custom-control custom-checkbox mb-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="customCheck-{{i}}-add"
+                                                    (change)="$event.target.checked == true ? menu.status.add = true : menu.status.add = false;checkprivilages()"
+                                                    [checked]="menu.status.add">
+                                                <label class="custom-control-label" for="customCheck-{{i}}-add"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="menu.status.edit==true || menu.status.edit==false"
+                                                class="custom-control custom-checkbox mb-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="customCheck-{{i}}-edit"
+                                                    (change)="$event.target.checked == true ? menu.status.edit = true : menu.status.edit = false;checkprivilages()"
+                                                    [checked]="menu.status.edit">
+                                                <label class="custom-control-label"
+                                                    for="customCheck-{{i}}-edit"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="menu.status.delete==true || menu.status.delete==false"
+                                                class="custom-control custom-checkbox mb-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="customCheck-{{i}}-delete"
+                                                    (change)="$event.target.checked == true ? menu.status.delete = true : menu.status.delete = false;checkprivilages()"
+                                                    [checked]="menu.status.delete">
+                                                <label class="custom-control-label"
+                                                    for="customCheck-{{i}}-delete"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="menu.status.export==true || menu.status.export==false"
+                                                class="custom-control custom-checkbox mb-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="customCheck-{{i}}-export"
+                                                    (change)="$event.target.checked == true ? menu.status.export = true : menu.status.export = false;checkprivilages()"
+                                                    [checked]="menu.status.export">
+                                                <label class="custom-control-label"
+                                                    for="customCheck-{{i}}-export"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="menu.status.bulk==true || menu.status.bulk==false"
+                                                class="custom-control custom-checkbox mb-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="customCheck-{{i}}-bulk"
+                                                    (change)="$event.target.checked == true ? menu.status.bulk = true : menu.status.bulk = false;checkprivilages()"
+                                                    [checked]="menu.status.bulk">
+                                                <label class="custom-control-label"
+                                                    for="customCheck-{{i}}-bulk"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="page_footer">
+                    <button type="button" *ngIf="!viewpage" routerLink="/app/administrator/sub-admin-list"
+                        class="close_btn">
+                        Cancel
+                    </button>
+                    <button type="submit" *ngIf="!viewpage" class="bg_green">
+                        Submit
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
